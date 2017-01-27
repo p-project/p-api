@@ -16,9 +16,9 @@ class Video
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="guid")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="UUID")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -36,31 +36,14 @@ class Video
      */
     private $description;
 
+
     /**
-     * @var
+     * @var Video
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Foo", mappedBy="video", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Annotation", mappedBy="annotation", cascade={"persist"})
+     * @ORM\JoinColumn(name="annotation_id", referencedColumnName="id")
      */
-    private $foos;
-
-    /**
-     * @return mixed
-     */
-    public function getFoos()
-    {
-        return $this->foos;
-    }
-
-    /**
-     * @param mixed $foos
-     * @return Video
-     */
-    public function setFoos($foos)
-    {
-        $this->foos = $foos;
-        return $this;
-    }
-
+    private $annotation;
 
     /**
      * Get id
