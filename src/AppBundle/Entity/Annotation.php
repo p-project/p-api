@@ -46,7 +46,7 @@ class Annotation
     /**
      * @var Video
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video", inversedBy="video", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video", inversedBy="annotation", cascade={"persist"})
      * @ORM\JoinColumn(name="video_id", referencedColumnName="id")
      */
     private $video;

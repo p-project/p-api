@@ -40,7 +40,7 @@ class Video
     /**
      * @var Video
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Annotation", mappedBy="annotation", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Annotation", mappedBy="video", cascade={"persist"})
      * @ORM\JoinColumn(name="annotation_id", referencedColumnName="id")
      */
     private $annotation;

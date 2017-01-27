@@ -68,6 +68,29 @@ class Account
     private $channels;
 
     /**
+     * @var ArrayCollection The list of views
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\View", mappedBy="user", cascade={"persist"})
+     */
+    private $views;
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getViews(): ArrayCollection
+    {
+        return $this->views;
+    }
+
+    /**
+     * @param ArrayCollection $views
+     */
+    public function setViews(ArrayCollection $views)
+    {
+        $this->views = $views;
+    }
+
+
+    /**
      * @return ArrayCollection
      */
     public function getChannels() : ArrayCollection

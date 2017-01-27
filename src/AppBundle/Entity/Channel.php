@@ -38,6 +38,13 @@ class Channel
     private $tags;
 
     /**
+     * @var int The ID of owner
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account", inversedBy="channels", cascade={"persist"})
+     */
+    private $account;
+
+    /**
      * @var Video
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video", inversedBy="video", cascade={"persist"})
@@ -50,6 +57,22 @@ class Channel
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Network", mappedBy="network", cascade={"persist"})
      */
     private $network;
+
+    /**
+     * @return int
+     */
+    public function getAccount(): int
+    {
+        return $this->account;
+    }
+
+    /**
+     * @param int $account
+     */
+    public function setAccount(int $account)
+    {
+        $this->account = $account;
+    }
 
     /**
      * @return int
