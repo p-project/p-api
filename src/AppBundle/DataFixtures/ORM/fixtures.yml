@@ -1,0 +1,4 @@
+AppBundle\Entity\Video:
+    video_{1..100}:
+        title: <title()>
+        description: <realText(150)>

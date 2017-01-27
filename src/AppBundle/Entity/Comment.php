@@ -1,7 +1,6 @@
 <?php
 
 namespace AppBundle\Entity;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Comment
@@ -34,12 +33,36 @@ class Comment
      */
     private $dateComment;
 
-    /**
-     * @var
-     *
-     * @ORM\ManyToOne()
-     */
-    private $video;
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
-    private $user;
+    public function setId(int $id): Comment
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getContent(): string
+    {
+        return $this->content;
+    }
+
+    public function setContent(string $content): Comment
+    {
+        $this->content = $content;
+        return $this;
+    }
+
+    public function getDateComment(): \DateTime
+    {
+        return $this->dateComment;
+    }
+
+    public function setDateComment(\DateTime $dateComment): Comment
+    {
+        $this->dateComment = $dateComment;
+        return $this;
+    }
 }

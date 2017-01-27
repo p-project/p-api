@@ -26,9 +26,9 @@ class Video
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=255)
      */
-    private $name;
+    private $title;
 
     /**
      * @var string
@@ -51,13 +51,6 @@ class Video
      */
     private $channels;
 
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="video", cascade={"persist"})
-     */
-    private $comments;
-
     public function __construct()
     {
         $this->channels = new ArrayCollection();
@@ -69,15 +62,16 @@ class Video
         return $this->id;
     }
 
-    public function setName($name)
+    public function setTitle($title)
     {
-        $this->name = $name;
+        $this->title = $title;
+
         return $this;
     }
 
-    public function getName()
+    public function getTitle() : string
     {
-        return $this->name;
+        return $this->title;
     }
 
     public function setDescription(string $description) : Video
