@@ -8,9 +8,7 @@
 
 namespace AppBundle\Entity;
 
-
 use ApiPlatform\Core\Annotation\ApiResource;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -40,5 +38,55 @@ class View
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video", inversedBy="videos", cascade={"persist"})
      */
     private $video;
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUser(): int
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param int $user
+     */
+    public function setUser(int $user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return int
+     */
+    public function getVideo(): int
+    {
+        return $this->video;
+    }
+
+    /**
+     * @param int $video
+     */
+    public function setVideo(int $video)
+    {
+        $this->video = $video;
+    }
+
+
 
 }
