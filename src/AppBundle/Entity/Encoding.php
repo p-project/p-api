@@ -12,7 +12,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Annotation
+ * Encoding
  *
  * @ORM\Entity
  * @ApiResource
@@ -52,90 +52,55 @@ class Encoding
 
     private $video;
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     * @return Encoding
-     */
     public function setId(int $id): Encoding
     {
         $this->id = $id;
         return $this;
     }
 
-    /**
-     * @return int
-     */
     public function getHeight(): int
     {
         return $this->height;
     }
 
-    /**
-     * @param int $height
-     * @return Encoding
-     */
     public function setHeight(int $height): Encoding
     {
         $this->height = $height;
         return $this;
     }
 
-    /**
-     * @return int
-     */
     public function getWidth(): int
     {
         return $this->width;
     }
 
-    /**
-     * @param int $width
-     * @return Encoding
-     */
     public function setWidth(int $width): Encoding
     {
         $this->width = $width;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getFormat(): string
     {
         return $this->format;
     }
 
-    /**
-     * @param string $format
-     * @return Encoding
-     */
     public function setFormat(string $format): Encoding
     {
         $this->format = $format;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getVideo(): Video
     {
         return $this->video;
     }
 
-    /**
-     * @param mixed $video
-     * @return Encoding
-     */
     public function setVideo($video): Encoding
     {
         $this->video = $video;

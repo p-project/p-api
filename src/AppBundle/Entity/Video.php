@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,71 +37,92 @@ class Video
      */
     private $description;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Annotation", mappedBy="video", cascade={"persist"})
+     */
+    private $annotations;
 
     /**
-     * @var Video
+     * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Annotation", mappedBy="annotation", cascade={"persist"})
-     * @ORM\JoinColumn(name="annotation_id", referencedColumnName="id")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Channel", mappedBy="video", cascade={"persist"})
      */
-    private $annotation;
+    private $channels;
 
     /**
-     * Get id
+     * @var ArrayCollection
      *
-     * @return int
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="video", cascade={"persist"})
      */
+    private $comments;
+
+    public function __construct()
+    {
+        $this->channels = new ArrayCollection();
+        $this->annotations = new ArrayCollection();
+    }
+
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Video
-     */
     public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
 
-    /**
-     * Get name
-     *
-     * @return string
-     */
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     * Set description
-     *
-     * @param string $description
-     *
-     * @return Video
-     */
     public function setDescription(string $description) : Video
     {
         $this->description = $description;
-
         return $this;
     }
 
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
+
+    public function getAnnotations()
+    {
+        return $this->annotations;
+    }
+
+    public function setAnnotations($annotations): Video
+    {
+        $this->annotations = $annotations;
+        return $this;
+    }
+
+    public function getChannels()
+    {
+        return $this->channels;
+    }
+
+    public function setChannels($channels): Video
+    {
+        $this->channels = $channels;
+        return $this;
+    }
+
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    public function setComments($comments): Video
+    {
+        $this->comments = $comments;
+        return $this;
+    }
+
 }
 

@@ -3,10 +3,11 @@
 namespace AppBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Annotation
+ * Channel
  *
  * @ORM\Entity
  * @ApiResource
@@ -21,7 +22,6 @@ class Channel
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
 
     /**
      * @var string
@@ -40,108 +40,69 @@ class Channel
     /**
      * @var Video
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video", inversedBy="video", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video", inversedBy="channels", cascade={"persist"})
      */
     private $video;
 
     /**
-     * @var Network
+     * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Network", mappedBy="network", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Network", mappedBy="channel", cascade={"persist"})
      */
-    private $network;
+    private $networks;
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     * @return Channel
-     */
     public function setId(int $id): Channel
     {
         $this->id = $id;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     * @return Channel
-     */
     public function setName(string $name): Channel
     {
         $this->name = $name;
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getTags(): array
     {
         return $this->tags;
     }
 
-    /**
-     * @param array $tags
-     * @return Channel
-     */
     public function setTags(array $tags): Channel
     {
         $this->tags = $tags;
         return $this;
     }
 
-    /**
-     * @return Video
-     */
     public function getVideo(): Video
     {
         return $this->video;
     }
 
-    /**
-     * @param Video $video
-     * @return Channel
-     */
     public function setVideo(Video $video): Channel
     {
         $this->video = $video;
         return $this;
     }
 
-    /**
-     * @return Network
-     */
-    public function getNetwork(): Network
+    public function getNetworks(): ArrayCollection
     {
-        return $this->network;
+        return $this->networks;
     }
 
-    /**
-     * @param Network $network
-     * @return Channel
-     */
-    public function setNetwork(Network $network): Channel
+    public function setNetworks(ArrayCollection $networks): Channel
     {
-        $this->network = $network;
+        $this->networks = $networks;
         return $this;
     }
-
-
-
-
 }
