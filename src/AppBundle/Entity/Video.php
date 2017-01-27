@@ -25,9 +25,9 @@ class Video
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=255)
      */
-    private $name;
+    private $title;
 
     /**
      * @var string
@@ -45,47 +45,23 @@ class Video
      */
     private $annotation;
 
-    /**
-     * Get id
-     *
-     * @return int
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Video
-     */
-    public function setName($name)
+    public function setTitle($title)
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }
 
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
+    public function getTitle() : string
     {
-        return $this->name;
+        return $this->title;
     }
 
-    /**
-     * Set description
-     *
-     * @param string $description
-     *
-     * @return Video
-     */
     public function setDescription(string $description) : Video
     {
         $this->description = $description;
@@ -93,12 +69,7 @@ class Video
         return $this;
     }
 
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription() : string
     {
         return $this->description;
     }
