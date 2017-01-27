@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: micka
- * Date: 27/01/17
- * Time: 19:14
- */
 
 namespace AppBundle\Entity;
 
@@ -18,9 +12,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class View
 {
-
     /**
-     * @var int The id of the view
+     * @var int
+     *
      * @ORM\GeneratedValue
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -28,13 +22,15 @@ class View
     private $id;
 
     /**
-     * @var int The user ID
+     * @var Account
+     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account", inversedBy="views", cascade={"persist"})
      */
-    private $user;
+    private $account;
 
     /**
-     * @var int The video ID
+     * @var Video
+     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video", inversedBy="videos", cascade={"persist"})
      */
     private $video;
@@ -42,51 +38,33 @@ class View
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId() : int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     */
     public function setId(int $id)
     {
         $this->id = $id;
     }
 
-    /**
-     * @return int
-     */
-    public function getUser(): int
+    public function getAccount() : Account
     {
-        return $this->user;
+        return $this->account;
     }
 
-    /**
-     * @param int $user
-     */
-    public function setUser(int $user)
+    public function setAccount(Account $account)
     {
-        $this->user = $user;
+        $this->account = $account;
     }
 
-    /**
-     * @return int
-     */
-    public function getVideo(): int
+    public function getVideo() : Video
     {
         return $this->video;
     }
 
-    /**
-     * @param int $video
-     */
-    public function setVideo(int $video)
+    public function setVideo(Video $video)
     {
         $this->video = $video;
     }
-
-
-
 }

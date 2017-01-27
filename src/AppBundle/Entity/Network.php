@@ -30,14 +30,15 @@ class Network
      */
     private $channel;
 
-    public function getId(): int
+    public function getId() : int
     {
         return $this->id;
     }
 
-    public function setId(int $id): Network
+    public function setId(int $id) : Network
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -49,7 +50,7 @@ class Network
     public function setChannel($channel)
     {
         $this->channel = $channel;
+
         return $this;
     }
-
 }

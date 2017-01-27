@@ -73,6 +73,7 @@ class Video
     {
         $this->title = $title;
 
+
         return $this;
     }
 
@@ -84,10 +85,11 @@ class Video
     public function setDescription(string $description) : Video
     {
         $this->description = $description;
+
         return $this;
     }
 
-    public function getDescription(): string
+    public function getDescription() : string
     {
         return $this->description;
     }
@@ -97,9 +99,10 @@ class Video
         return $this->annotations;
     }
 
-    public function setAnnotations($annotations): Video
+    public function setAnnotations($annotations) : Video
     {
         $this->annotations = $annotations;
+
         return $this;
     }
 
@@ -108,9 +111,10 @@ class Video
         return $this->channels;
     }
 
-    public function setChannels($channels): Video
+    public function setChannels($channels) : Video
     {
         $this->channels = $channels;
+
         return $this;
     }
 
@@ -119,12 +123,11 @@ class Video
         return $this->comments;
     }
 
-    public function setComments($comments): Video
+    public function setComments($comments) : Video
     {
         $this->comments = $comments;
 
+
         return $this;
     }
-
 }
-

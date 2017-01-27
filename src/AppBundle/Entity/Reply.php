@@ -2,8 +2,6 @@
 
 namespace AppBundle\Entity;
 
-
 class Reply
 {
-
 }

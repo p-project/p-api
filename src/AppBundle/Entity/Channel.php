@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Channel
+ * User's channel.
  *
  * @ORM\Entity
  * @ApiResource
@@ -58,7 +58,7 @@ class Channel
      */
     private $networks;
 
-    public function getAccount(): int
+    public function getAccount() : int
     {
         return $this->account;
     }
@@ -68,58 +68,63 @@ class Channel
         $this->account = $account;
     }
 
-    public function getId(): int
+    public function getId() : int
     {
         return $this->id;
     }
 
-    public function setId(int $id): Channel
+    public function setId(int $id) : Channel
     {
         $this->id = $id;
+
         return $this;
     }
 
-    public function getName(): string
+    public function getName() : string
     {
         return $this->name;
     }
 
-    public function setName(string $name): Channel
+    public function setName(string $name) : Channel
     {
         $this->name = $name;
+
         return $this;
     }
 
-    public function getTags(): array
+    public function getTags() : array
     {
         return $this->tags;
     }
 
-    public function setTags(array $tags): Channel
+    public function setTags(array $tags) : Channel
     {
         $this->tags = $tags;
+
         return $this;
     }
 
-    public function getVideo(): Video
+    public function getVideo() : Video
     {
         return $this->video;
     }
 
-    public function setVideo(Video $video): Channel
+    public function setVideo(Video $video) : Channel
     {
         $this->video = $video;
+
         return $this;
     }
 
-    public function getNetworks(): ArrayCollection
+    public function getNetworks() : ArrayCollection
     {
         return $this->networks;
     }
 
-    public function setNetworks(ArrayCollection $networks): Channel
+    public function setNetworks(ArrayCollection $networks) : Channel
     {
         $this->networks = $networks;
+
         return $this;
     }
 }

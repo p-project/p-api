@@ -2,6 +2,6 @@
 
 namespace AppBundle\Entity;
 
-class Review
+class SustainabilityOffer
 {
 }

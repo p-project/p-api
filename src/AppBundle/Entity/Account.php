@@ -8,9 +8,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
-
 /**
+ * User's account.
+ *
  * @ORM\Entity
  * @ApiResource
  */
@@ -76,7 +76,7 @@ class Account
     /**
      * @return ArrayCollection
      */
-    public function getViews(): ArrayCollection
+    public function getViews() : ArrayCollection
     {
         return $this->views;
     }
@@ -189,7 +189,7 @@ class Account
     /**
      * @return array
      */
-    public function getRoles() : string
+    public function getRoles() : array
     {
         return $this->roles;
     }
@@ -201,7 +201,4 @@ class Account
     {
         $this->roles = $roles;
     }
-
-
-
 }

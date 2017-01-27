@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: micka
- * Date: 27/01/17
- * Time: 19:13
- */
 
 namespace AppBundle\Entity;
 
@@ -20,7 +14,7 @@ class Subtitles
 {
 
     /**
-     * @var int The id of the Subtitle
+     * @var int
      *
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -29,19 +23,22 @@ class Subtitles
     private $id;
 
     /**
-     * @var DateTime The begin of the Subtitle
+     * @var \DateTime Time when the subtitle should be displayed
+     *
      * @ORM\Column(type="datetime")
      */
     private $begin;
 
     /**
-     * @var DateTime The end of the Subtitle
+     * @var \DateTime Time when the subtitle should be hidden
+     *
      * @ORM\Column(type="datetime")
      */
     private $end;
 
     /**
      * @var string The path of the Subtitle file
+     *
      * @ORM\Column(type="string")
      */
     private $path;
@@ -49,7 +46,7 @@ class Subtitles
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId() : int
     {
         return $this->id;
     }
@@ -62,52 +59,33 @@ class Subtitles
         $this->id = $id;
     }
 
-    /**
-     * @return DateTime
-     */
-    public function getBegin(): DateTime
+    public function getBegin() : \DateTime
     {
         return $this->begin;
     }
 
-    /**
-     * @param DateTime $begin
-     */
-    public function setBegin(DateTime $begin)
+    public function setBegin(\DateTime $begin)
     {
         $this->begin = $begin;
     }
 
-    /**
-     * @return DateTime
-     */
-    public function getEnd(): DateTime
+    public function getEnd() : \DateTime
     {
         return $this->end;
     }
 
-    /**
-     * @param DateTime $end
-     */
-    public function setEnd(DateTime $end)
+    public function setEnd(\DateTime $end)
     {
         $this->end = $end;
     }
 
-    /**
-     * @return mixed
-     */
     public function getPath()
     {
         return $this->path;
     }
 
-    /**
-     * @param mixed $path
-     */
     public function setPath($path)
     {
         $this->path = $path;
     }
-
 }
