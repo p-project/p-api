@@ -30,6 +30,13 @@ class Comment
     private $content;
 
     /**
+     * @var Video
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video", inversedBy="comments")
+     */
+    private $video;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="date_comment", type="datetime")
@@ -66,6 +73,17 @@ class Comment
     public function setDateComment(\DateTime $dateComment): Comment
     {
         $this->dateComment = $dateComment;
+        return $this;
+    }
+
+    public function getVideo(): Video
+    {
+        return $this->video;
+    }
+
+    public function setVideo(Video $video): Comment
+    {
+        $this->video = $video;
         return $this;
     }
 }

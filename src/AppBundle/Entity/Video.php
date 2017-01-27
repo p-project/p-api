@@ -51,6 +51,13 @@ class Video
      */
     private $channels;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="video", cascade={"persist"})
+     */
+    private $comments;
+
     public function __construct()
     {
         $this->channels = new ArrayCollection();
@@ -115,6 +122,7 @@ class Video
     public function setComments($comments): Video
     {
         $this->comments = $comments;
+
         return $this;
     }
 
