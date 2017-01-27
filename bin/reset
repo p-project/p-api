@@ -1,0 +1,60 @@
+#!/bin/bash
+
+set -e
+
+GREEN_BG='\033[1;37;42m'
+GREY_BG='\033[0;30;47m'
+BLUE_BG='\033[1;37;44m'
+RED_BG='\033[1;37;41m'
+NC='\033[0m'
+
+cd "$(dirname "$0")/../"
+
+export SYMFONY_ENV=${SYMFONY_ENV:-dev}
+
+echo
+echo -e "   ${BLUE_BG} • ${GREY_BG} INITIALIZING PROJECT FOR ${GREEN_BG} ${SYMFONY_ENV} ${GREY_BG} ENVIRONMENT ${NC}"
+echo
+
+echo
+echo -e "   ${BLUE_BG} • ${GREY_BG} INSTALLING DEPENDENCIES ${NC}"
+echo
+
+if ! which composer > /dev/null ; then
+    echo
+    echo -e "   ${RED_BG} ✗ ${GREY_BG} PLEASE INSTALL COMPOSER GLOBALLY ON YOUR SYSTEM ${NC}"
+    echo
+
+    exit 1
+fi
+
+if [ ${SYMFONY_ENV} = "dev" ]; then
+    composer install
+else
+    composer install --no-interaction --optimize-autoloader
+fi
+
+rm -rf var/cache/${SYMFONY_ENV}
+
+echo
+echo -e "   ${BLUE_BG} • ${GREY_BG} CREATING DATABASES ${NC}"
+echo
+
+./bin/console doctrine:database:drop --force || true
+./bin/console doctrine:database:create
+
+echo
+echo -e "   ${BLUE_BG} • ${GREY_BG} CREATING SCHEMA ${NC}"
+echo
+
+./bin/console doctrine:schema:create
+
+echo
+echo -e "   ${BLUE_BG} • ${GREY_BG} LOADING FIXTURES ${NC}"
+echo
+
+./bin/console hautelook:fixtures:load -n
+
+echo
+echo -e "   ${GREEN_BG} ✓ ${GREY_BG} RESET IS DONE ${NC}"
+echo
