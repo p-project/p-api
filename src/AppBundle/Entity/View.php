@@ -31,13 +31,10 @@ class View
     /**
      * @var Video
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video", inversedBy="videos", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video", inversedBy="views", cascade={"persist"})
      */
     private $video;
 
-    /**
-     * @return int
-     */
     public function getId() : int
     {
         return $this->id;

@@ -36,6 +36,14 @@ class Comment
      */
     private $video;
 
+
+    /**
+     * @var commentedBy
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account", inversedBy="comments")
+     */
+    private $commentedBy;
+
     /**
      * @var \DateTime
      *

@@ -12,7 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Subtitles
 {
-
     /**
      * @var int
      *
@@ -25,14 +24,14 @@ class Subtitles
     /**
      * @var \DateTime Time when the subtitle should be displayed
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", name="begin_time")
      */
     private $begin;
 
     /**
      * @var \DateTime Time when the subtitle should be hidden
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", name="end_time")
      */
     private $end;
 
@@ -44,16 +43,17 @@ class Subtitles
     private $path;
 
     /**
-     * @return int
+     * @var Video
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video", inversedBy="subtitles", cascade={"persist"})
      */
+    private $video;
+
     public function getId() : int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     */
     public function setId(int $id)
     {
         $this->id = $id;
@@ -87,5 +87,16 @@ class Subtitles
     public function setPath($path)
     {
         $this->path = $path;
+    }
+
+    public function getVideo(): Video
+    {
+        return $this->video;
+    }
+
+    public function setVideo(Video $video): Subtitles
+    {
+        $this->video = $video;
+        return $this;
     }
 }

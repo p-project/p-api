@@ -24,11 +24,32 @@ class Network
     private $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string")
+     */
+    private $name;
+
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Account", mappedBy="networks", cascade={"persist"})
+     */
+    private $peoples;
+
+    /**
      * @var ArrayCollection
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Channel", inversedBy="networks", cascade={"persist"})
      */
     private $channel;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="network", cascade={"persist"})
+     */
+    private $playlists;
 
     public function getId() : int
     {
@@ -38,7 +59,6 @@ class Network
     public function setId(int $id) : Network
     {
         $this->id = $id;
-
         return $this;
     }
 
@@ -50,7 +70,39 @@ class Network
     public function setChannel($channel)
     {
         $this->channel = $channel;
+        return $this;
+    }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): Network
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function getPeoples()
+    {
+        return $this->peoples;
+    }
+
+    public function setPeoples($peoples): Network
+    {
+        $this->peoples = $peoples;
+        return $this;
+    }
+
+    public function getPlaylists(): ArrayCollection
+    {
+        return $this->playlists;
+    }
+
+    public function setPlaylists(ArrayCollection $playlists): Network
+    {
+        $this->playlists = $playlists;
         return $this;
     }
 }

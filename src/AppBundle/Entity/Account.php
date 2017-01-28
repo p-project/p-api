@@ -69,136 +69,224 @@ class Account
 
     /**
      * @var ArrayCollection The list of views
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\View", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\View", mappedBy="account", cascade={"persist"})
      */
     private $views;
 
     /**
-     * @return ArrayCollection
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="commentedBy", cascade={"persist"})
      */
-    public function getViews() : ArrayCollection
+    private $comments;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Forum", mappedBy="createdBy", cascade={"persist"})
+     */
+    private $forums;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Network", inversedBy="peoples", cascade={"persist"})
+     */
+    private $networks;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="account", cascade={"persist"})
+     */
+    private $playlists;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Reply", mappedBy="repliedBy", cascade={"persist"})
+     */
+    private $replies;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Review", mappedBy="reviewedBy", cascade={"persist"})
+     */
+    private $reviews;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SustainabilityOffer", mappedBy="account", cascade={"persist"})
+     */
+    private $sustainabilityOffers;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Seeder", mappedBy="account", cascade={"persist"})
+     */
+    private $seeders;
+
+    public function getViews()
     {
         return $this->views;
     }
 
-    /**
-     * @param ArrayCollection $views
-     */
-    public function setViews(ArrayCollection $views)
+    public function setViews($views)
     {
         $this->views = $views;
     }
 
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getChannels() : ArrayCollection
+    public function getChannels()
     {
         return $this->channels;
     }
 
-    /**
-     * @param ArrayCollection $channels
-     */
     public function setChannels($channels)
     {
         $this->channels = $channels;
     }
 
-    /**
-     * @return int
-     */
     public function getId() : int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     */
     public function setId($id)
     {
         $this->id = $id;
     }
 
-    /**
-     * @return string
-     */
     public function getUsername() : string
     {
         return $this->username;
     }
 
-    /**
-     * @param string $username
-     */
     public function setUsername($username)
     {
         $this->username = $username;
     }
 
-    /**
-     * @return string
-     */
     public function getEmail() : string
     {
         return $this->email;
     }
 
-    /**
-     * @param string $email
-     */
     public function setEmail($email)
     {
         $this->email = $email;
     }
 
-    /**
-     * @return string
-     */
     public function getFirstName() : string
     {
         return $this->firstName;
     }
 
-    /**
-     * @param string $firstName
-     */
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
     }
 
-    /**
-     * @return string
-     */
     public function getLastName() : string
     {
         return $this->lastName;
     }
 
-    /**
-     * @param string $lastName
-     */
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
     }
 
-    /**
-     * @return array
-     */
     public function getRoles() : array
     {
         return $this->roles;
     }
 
-    /**
-     * @param array $roles
-     */
     public function setRoles($roles)
     {
         $this->roles = $roles;
+    }
+
+    public function getComments(): ArrayCollection
+    {
+        return $this->comments;
+    }
+
+    public function setComments(ArrayCollection $comments): Account
+    {
+        $this->comments = $comments;
+        return $this;
+    }
+
+    public function getForums()
+    {
+        return $this->forums;
+    }
+
+    public function setForums($forums): Account
+    {
+        $this->forums = $forums;
+        return $this;
+    }
+
+    public function getNetworks()
+    {
+        return $this->networks;
+    }
+
+    public function setNetworks($networks): Account
+    {
+        $this->networks = $networks;
+        return $this;
+    }
+
+    public function getPlaylists()
+    {
+        return $this->playlists;
+    }
+
+    public function setPlaylists($playlists): Account
+    {
+        $this->playlists = $playlists;
+        return $this;
+    }
+
+    public function getReplies()
+    {
+        return $this->replies;
+    }
+
+    public function setReplies($replies): Account
+    {
+        $this->replies = $replies;
+        return $this;
+    }
+
+    public function getReviews()
+    {
+        return $this->reviews;
+    }
+
+    public function setReviews($reviews): Account
+    {
+        $this->reviews = $reviews;
+        return $this;
+    }
+
+    public function getSustainabilityOffers()
+    {
+        return $this->sustainabilityOffers;
+    }
+
+    public function setSustainabilityOffers($sustainabilityOffers): Account
+    {
+        $this->sustainabilityOffers = $sustainabilityOffers;
+        return $this;
+    }
+
+    public function getSeeders()
+    {
+        return $this->seeders;
+    }
+
+    public function setSeeders($seeders): Account
+    {
+        $this->seeders = $seeders;
+        return $this;
     }
 }

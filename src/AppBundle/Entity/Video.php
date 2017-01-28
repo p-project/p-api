@@ -58,6 +58,41 @@ class Video
      */
     private $comments;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Forum", mappedBy="video", cascade={"persist"})
+     */
+    private $forums;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\View", mappedBy="video", cascade={"persist"})
+     */
+    private $views;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Review", mappedBy="video", cascade={"persist"})
+     */
+    private $reviews;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Seed", mappedBy="video", cascade={"persist"})
+     */
+    private $seeds;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Subtitles", mappedBy="video", cascade={"persist"})
+     */
+    private $subtitles;
+
     public function __construct()
     {
         $this->channels = new ArrayCollection();
@@ -102,7 +137,6 @@ class Video
     public function setAnnotations($annotations) : Video
     {
         $this->annotations = $annotations;
-
         return $this;
     }
 
@@ -114,7 +148,6 @@ class Video
     public function setChannels($channels) : Video
     {
         $this->channels = $channels;
-
         return $this;
     }
 
@@ -126,8 +159,61 @@ class Video
     public function setComments($comments) : Video
     {
         $this->comments = $comments;
+        return $this;
+    }
 
+    public function getForums(): ArrayCollection
+    {
+        return $this->forums;
+    }
 
+    public function setForums(ArrayCollection $forums): Video
+    {
+        $this->forums = $forums;
+        return $this;
+    }
+
+    public function getViews()
+    {
+        return $this->views;
+    }
+
+    public function setViews($views): Video
+    {
+        $this->views = $views;
+        return $this;
+    }
+
+    public function getReviews()
+    {
+        return $this->reviews;
+    }
+
+    public function setReviews($reviews): Video
+    {
+        $this->reviews = $reviews;
+        return $this;
+    }
+
+    public function getSeeds()
+    {
+        return $this->seeds;
+    }
+
+    public function setSeeds($seeds): Video
+    {
+        $this->seeds = $seeds;
+        return $this;
+    }
+
+    public function getSubtitles(): ArrayCollection
+    {
+        return $this->subtitles;
+    }
+
+    public function setSubtitles(ArrayCollection $subtitles): Video
+    {
+        $this->subtitles = $subtitles;
         return $this;
     }
 }

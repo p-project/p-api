@@ -58,6 +58,20 @@ class Channel
      */
     private $networks;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="channel", cascade={"persist"})
+     */
+    private $playlists;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SustainabilityOffer", mappedBy="channel", cascade={"persist"})
+     */
+    private $sustainabilityOffers;
+
     public function getAccount() : int
     {
         return $this->account;
@@ -124,7 +138,17 @@ class Channel
     public function setNetworks(ArrayCollection $networks) : Channel
     {
         $this->networks = $networks;
+        return $this;
+    }
 
+    public function getPlaylists(): ArrayCollection
+    {
+        return $this->playlists;
+    }
+
+    public function setPlaylists(ArrayCollection $playlists): Channel
+    {
+        $this->playlists = $playlists;
         return $this;
     }
 }
