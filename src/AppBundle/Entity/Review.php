@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -38,7 +39,7 @@ class Review
 
 
     /**
-     * @var commentedBy
+     * @var Account
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account", inversedBy="reviews")
      */
@@ -57,58 +58,63 @@ class Review
      */
     private $replies;
 
-    public function getId(): int
+    public function getId() : int
     {
         return $this->id;
     }
 
-    public function setId(int $id): Review
+    public function setId(int $id) : Review
     {
         $this->id = $id;
+
         return $this;
     }
 
-    public function getContent(): string
+    public function getContent() : string
     {
         return $this->content;
     }
 
-    public function setContent(string $content): Review
+    public function setContent(string $content) : Review
     {
         $this->content = $content;
+
         return $this;
     }
 
-    public function getVideo(): Video
+    public function getVideo() : Video
     {
         return $this->video;
     }
 
-    public function setVideo(Video $video): Review
+    public function setVideo(Video $video) : Review
     {
         $this->video = $video;
+
         return $this;
     }
 
-    public function getReviewedBy(): commentedBy
+    public function getReviewedBy() : commentedBy
     {
         return $this->reviewedBy;
     }
 
-    public function setReviewedBy(commentedBy $reviewedBy): Review
+    public function setReviewedBy(commentedBy $reviewedBy) : Review
     {
         $this->reviewedBy = $reviewedBy;
+
         return $this;
     }
 
-    public function getDateReview(): \DateTime
+    public function getDateReview() : \DateTime
     {
         return $this->dateReview;
     }
 
-    public function setDateReview(\DateTime $dateReview): Review
+    public function setDateReview(\DateTime $dateReview) : Review
     {
         $this->dateReview = $dateReview;
+
         return $this;
     }
 
@@ -117,9 +123,10 @@ class Review
         return $this->replies;
     }
 
-    public function setReplies($replies): Review
+    public function setReplies($replies) : Review
     {
         $this->replies = $replies;
+
         return $this;
     }
 }

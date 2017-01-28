@@ -50,58 +50,63 @@ class SustainabilityOffer
      */
     private $channel;
 
-    public function getId(): int
+    public function getId() : int
     {
         return $this->id;
     }
 
-    public function setId(int $id): SustainabilityOffer
+    public function setId(int $id) : SustainabilityOffer
     {
         $this->id = $id;
+
         return $this;
     }
 
-    public function getName(): string
+    public function getName() : string
     {
         return $this->name;
     }
 
-    public function setName(string $name): SustainabilityOffer
+    public function setName(string $name) : SustainabilityOffer
     {
         $this->name = $name;
+
         return $this;
     }
 
-    public function getDuration(): int
+    public function getDuration() : int
     {
         return $this->duration;
     }
 
-    public function setDuration(int $duration): SustainabilityOffer
+    public function setDuration(int $duration) : SustainabilityOffer
     {
         $this->duration = $duration;
+
         return $this;
     }
 
-    public function getAccount(): Account
+    public function getAccount() : Account
     {
         return $this->account;
     }
 
-    public function setAccount($account): SustainabilityOffer
+    public function setAccount($account) : SustainabilityOffer
     {
         $this->account = $account;
+
         return $this;
     }
 
-    public function getChannel(): Channel
+    public function getChannel() : Channel
     {
         return $this->channel;
     }
 
-    public function setChannel($channel): SustainabilityOffer
+    public function setChannel($channel) : SustainabilityOffer
     {
         $this->channel = $channel;
+
         return $this;
     }
 }

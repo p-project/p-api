@@ -202,14 +202,15 @@ class Account
         $this->roles = $roles;
     }
 
-    public function getComments(): ArrayCollection
+    public function getComments()
     {
         return $this->comments;
     }
 
-    public function setComments(ArrayCollection $comments): Account
+    public function setComments(ArrayCollection $comments) : Account
     {
         $this->comments = $comments;
+
         return $this;
     }
 
@@ -218,9 +219,10 @@ class Account
         return $this->forums;
     }
 
-    public function setForums($forums): Account
+    public function setForums($forums) : Account
     {
         $this->forums = $forums;
+
         return $this;
     }
 
@@ -229,9 +231,10 @@ class Account
         return $this->networks;
     }
 
-    public function setNetworks($networks): Account
+    public function setNetworks($networks) : Account
     {
         $this->networks = $networks;
+
         return $this;
     }
 
@@ -240,9 +243,10 @@ class Account
         return $this->playlists;
     }
 
-    public function setPlaylists($playlists): Account
+    public function setPlaylists($playlists) : Account
     {
         $this->playlists = $playlists;
+
         return $this;
     }
 
@@ -251,9 +255,10 @@ class Account
         return $this->replies;
     }
 
-    public function setReplies($replies): Account
+    public function setReplies($replies) : Account
     {
         $this->replies = $replies;
+
         return $this;
     }
 
@@ -262,9 +267,10 @@ class Account
         return $this->reviews;
     }
 
-    public function setReviews($reviews): Account
+    public function setReviews($reviews) : Account
     {
         $this->reviews = $reviews;
+
         return $this;
     }
 
@@ -273,9 +279,10 @@ class Account
         return $this->sustainabilityOffers;
     }
 
-    public function setSustainabilityOffers($sustainabilityOffers): Account
+    public function setSustainabilityOffers($sustainabilityOffers) : Account
     {
         $this->sustainabilityOffers = $sustainabilityOffers;
+
         return $this;
     }
 
@@ -284,9 +291,10 @@ class Account
         return $this->seeders;
     }
 
-    public function setSeeders($seeders): Account
+    public function setSeeders($seeders) : Account
     {
         $this->seeders = $seeders;
+
         return $this;
     }
 }

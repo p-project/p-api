@@ -59,6 +59,7 @@ class Network
     public function setId(int $id) : Network
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -70,17 +71,19 @@ class Network
     public function setChannel($channel)
     {
         $this->channel = $channel;
+
         return $this;
     }
 
-    public function getName(): string
+    public function getName() : string
     {
         return $this->name;
     }
 
-    public function setName(string $name): Network
+    public function setName(string $name) : Network
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -89,20 +92,22 @@ class Network
         return $this->peoples;
     }
 
-    public function setPeoples($peoples): Network
+    public function setPeoples($peoples) : Network
     {
         $this->peoples = $peoples;
+
         return $this;
     }
 
-    public function getPlaylists(): ArrayCollection
+    public function getPlaylists()
     {
         return $this->playlists;
     }
 
-    public function setPlaylists(ArrayCollection $playlists): Network
+    public function setPlaylists(ArrayCollection $playlists) : Network
     {
         $this->playlists = $playlists;
+
         return $this;
     }
 }

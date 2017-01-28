@@ -60,7 +60,6 @@ class Comment
     {
         $this->id = $id;
 
-
         return $this;
     }
 
@@ -72,7 +71,6 @@ class Comment
     public function setContent(string $content) : Comment
     {
         $this->content = $content;
-
 
         return $this;
     }
@@ -86,7 +84,6 @@ class Comment
     {
         $this->dateComment = $dateComment;
 
-
         return $this;
     }
 
@@ -98,7 +95,6 @@ class Comment
     public function setVideo(Video $video) : Comment
     {
         $this->video = $video;
-
 
         return $this;
     }

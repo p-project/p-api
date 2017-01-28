@@ -109,6 +109,7 @@ class Video
         $this->title = $title;
 
 
+
         return $this;
     }
 
@@ -120,6 +121,7 @@ class Video
     public function setDescription(string $description) : Video
     {
         $this->description = $description;
+
 
         return $this;
     }
@@ -137,6 +139,7 @@ class Video
     public function setAnnotations($annotations) : Video
     {
         $this->annotations = $annotations;
+
         return $this;
     }
 
@@ -148,6 +151,7 @@ class Video
     public function setChannels($channels) : Video
     {
         $this->channels = $channels;
+
         return $this;
     }
 
@@ -159,17 +163,19 @@ class Video
     public function setComments($comments) : Video
     {
         $this->comments = $comments;
+
         return $this;
     }
 
-    public function getForums(): ArrayCollection
+    public function getForums()
     {
         return $this->forums;
     }
 
-    public function setForums(ArrayCollection $forums): Video
+    public function setForums(ArrayCollection $forums) : Video
     {
         $this->forums = $forums;
+
         return $this;
     }
 
@@ -178,9 +184,10 @@ class Video
         return $this->views;
     }
 
-    public function setViews($views): Video
+    public function setViews($views) : Video
     {
         $this->views = $views;
+
         return $this;
     }
 
@@ -189,9 +196,10 @@ class Video
         return $this->reviews;
     }
 
-    public function setReviews($reviews): Video
+    public function setReviews($reviews) : Video
     {
         $this->reviews = $reviews;
+
         return $this;
     }
 
@@ -200,20 +208,22 @@ class Video
         return $this->seeds;
     }
 
-    public function setSeeds($seeds): Video
+    public function setSeeds($seeds) : Video
     {
         $this->seeds = $seeds;
+
         return $this;
     }
 
-    public function getSubtitles(): ArrayCollection
+    public function getSubtitles()
     {
         return $this->subtitles;
     }
 
-    public function setSubtitles(ArrayCollection $subtitles): Video
+    public function setSubtitles(ArrayCollection $subtitles) : Video
     {
         $this->subtitles = $subtitles;
+
         return $this;
     }
 }

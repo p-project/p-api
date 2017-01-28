@@ -36,9 +36,8 @@ class Reply
      */
     private $review;
 
-
     /**
-     * @var commentedBy
+     * @var Account
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account", inversedBy="replies")
      */
@@ -51,58 +50,63 @@ class Reply
      */
     private $dateReply;
 
-    public function getId(): int
+    public function getId() : int
     {
         return $this->id;
     }
 
-    public function setId(int $id): Reply
+    public function setId(int $id) : Reply
     {
         $this->id = $id;
+
         return $this;
     }
 
-    public function getContent(): string
+    public function getContent() : string
     {
         return $this->content;
     }
 
-    public function setContent(string $content): Reply
+    public function setContent(string $content) : Reply
     {
         $this->content = $content;
+
         return $this;
     }
 
-    public function getReview(): Video
+    public function getReview() : Video
     {
         return $this->review;
     }
 
-    public function setReview(Video $review): Reply
+    public function setReview(Video $review) : Reply
     {
         $this->review = $review;
+
         return $this;
     }
 
-    public function getCommentedBy(): commentedBy
+    public function getCommentedBy() : Account
     {
         return $this->commentedBy;
     }
 
-    public function setCommentedBy($repliedBy): Reply
+    public function setCommentedBy($repliedBy) : Reply
     {
         $this->repliedBy = $repliedBy;
+
         return $this;
     }
 
-    public function getDateReply(): \DateTime
+    public function getDateReply() : \DateTime
     {
         return $this->dateReply;
     }
 
-    public function setDateReply(\DateTime $dateReply): Reply
+    public function setDateReply(\DateTime $dateReply) : Reply
     {
         $this->dateReply = $dateReply;
+
         return $this;
     }
 }

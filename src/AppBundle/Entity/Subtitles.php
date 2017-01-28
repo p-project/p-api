@@ -89,14 +89,15 @@ class Subtitles
         $this->path = $path;
     }
 
-    public function getVideo(): Video
+    public function getVideo() : Video
     {
         return $this->video;
     }
 
-    public function setVideo(Video $video): Subtitles
+    public function setVideo(Video $video) : Subtitles
     {
         $this->video = $video;
+
         return $this;
     }
 }

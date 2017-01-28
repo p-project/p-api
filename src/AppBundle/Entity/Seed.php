@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,25 +42,27 @@ class Seed
      */
     private $seeder;
 
-    public function getId(): int
+    public function getId() : int
     {
         return $this->id;
     }
 
-    public function setId(int $id): Seed
+    public function setId(int $id) : Seed
     {
         $this->id = $id;
+
         return $this;
     }
 
-    public function getUrl(): string
+    public function getUrl() : string
     {
         return $this->url;
     }
 
-    public function setUrl(string $url): Seed
+    public function setUrl(string $url) : Seed
     {
         $this->url = $url;
+
         return $this;
     }
 
@@ -68,9 +71,10 @@ class Seed
         return $this->video;
     }
 
-    public function setVideo($video): Seed
+    public function setVideo($video) : Seed
     {
         $this->video = $video;
+
         return $this;
     }
 
@@ -79,9 +83,10 @@ class Seed
         return $this->seeder;
     }
 
-    public function setSeeder($seeder): Seed
+    public function setSeeder($seeder) : Seed
     {
         $this->seeder = $seeder;
+
         return $this;
     }
 }

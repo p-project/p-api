@@ -91,6 +91,7 @@ class Channel
     {
         $this->id = $id;
 
+
         return $this;
     }
 
@@ -115,6 +116,7 @@ class Channel
     {
         $this->tags = $tags;
 
+
         return $this;
     }
 
@@ -130,7 +132,7 @@ class Channel
         return $this;
     }
 
-    public function getNetworks() : ArrayCollection
+    public function getNetworks()
     {
         return $this->networks;
     }
@@ -138,17 +140,19 @@ class Channel
     public function setNetworks(ArrayCollection $networks) : Channel
     {
         $this->networks = $networks;
+
         return $this;
     }
 
-    public function getPlaylists(): ArrayCollection
+    public function getPlaylists()
     {
         return $this->playlists;
     }
 
-    public function setPlaylists(ArrayCollection $playlists): Channel
+    public function setPlaylists(ArrayCollection $playlists) : Channel
     {
         $this->playlists = $playlists;
+
         return $this;
     }
 }
