@@ -47,9 +47,9 @@ class Channel
     /**
      * @var Video
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video", inversedBy="channels", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Video", mappedBy="channel", cascade={"persist"})
      */
-    private $video;
+    private $videos;
 
     /**
      * @var ArrayCollection
@@ -120,14 +120,14 @@ class Channel
         return $this;
     }
 
-    public function getVideo() : Video
+    public function getVideos()
     {
-        return $this->video;
+        return $this->videos;
     }
 
-    public function setVideo(Video $video) : Channel
+    public function setVideos($videos) : Channel
     {
-        $this->video = $video;
+        $this->videos = $videos;
 
         return $this;
     }

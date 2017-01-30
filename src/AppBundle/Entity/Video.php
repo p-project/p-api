@@ -47,9 +47,9 @@ class Video
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Channel", mappedBy="video", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Channel", inversedBy="videos", cascade={"persist"})
      */
-    private $channels;
+    private $channel;
 
     /**
      * @var ArrayCollection
@@ -108,8 +108,6 @@ class Video
     {
         $this->title = $title;
 
-
-
         return $this;
     }
 
@@ -143,14 +141,14 @@ class Video
         return $this;
     }
 
-    public function getChannels()
+    public function getChannel()
     {
-        return $this->channels;
+        return $this->channel;
     }
 
-    public function setChannels($channels) : Video
+    public function setChannel($channel) : Video
     {
-        $this->channels = $channels;
+        $this->channel = $channel;
 
         return $this;
     }
@@ -172,7 +170,7 @@ class Video
         return $this->forums;
     }
 
-    public function setForums(ArrayCollection $forums) : Video
+    public function setForums($forums) : Video
     {
         $this->forums = $forums;
 
@@ -220,7 +218,7 @@ class Video
         return $this->subtitles;
     }
 
-    public function setSubtitles(ArrayCollection $subtitles) : Video
+    public function setSubtitles($subtitles) : Video
     {
         $this->subtitles = $subtitles;
 

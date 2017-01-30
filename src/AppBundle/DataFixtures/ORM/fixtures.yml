@@ -1,4 +1,22 @@
+AppBundle\Entity\Account:
+    account_{1..10}:
+        username: <userName()>
+        email: <email()>
+        firstName: <firstName()>
+        lastName: <lastName()>
+    account_michel:
+        username: michel
+        email: michel@yopmail.fr
+        firstName: Michel
+        lastName: Michel
+
+AppBundle\Entity\Channel:
+    channel_michel:
+        name: <word()>
+        account: '@account_michel'
+
 AppBundle\Entity\Video:
     video_{1..100}:
         title: <sentence(4)>
         description: <realText(150)>
+        channel: '@channel_michel'
