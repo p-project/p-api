@@ -16,6 +16,7 @@ class Playlist
 {
     /**
      * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -24,6 +25,7 @@ class Playlist
 
     /**
      * @var string
+     *
      * @ORM\Column(type="string")
      * @Assert\NotBlank
      */
@@ -31,18 +33,21 @@ class Playlist
 
     /**
      * @var Channel
+     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Channel", inversedBy="playlists", cascade={"persist"})
      */
     private $channel;
 
     /**
-     * @var Channel
+     * @var Network
+     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Network", inversedBy="playlists", cascade={"persist"})
      */
     private $network;
 
     /**
-     * @var Channel
+     * @var Account
+     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account", inversedBy="playlists", cascade={"persist"})
      */
     private $account;

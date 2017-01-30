@@ -45,7 +45,7 @@ class Review
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account", inversedBy="reviews")
      */
-    private $reviewedBy;
+    private $author;
 
     /**
      * @var \DateTime
@@ -97,18 +97,6 @@ class Review
         return $this;
     }
 
-    public function getReviewedBy(): commentedBy
-    {
-        return $this->reviewedBy;
-    }
-
-    public function setReviewedBy(commentedBy $reviewedBy): Review
-    {
-        $this->reviewedBy = $reviewedBy;
-
-        return $this;
-    }
-
     public function getDateReview(): \DateTime
     {
         return $this->dateReview;
@@ -129,6 +117,18 @@ class Review
     public function setReplies($replies): Review
     {
         $this->replies = $replies;
+
+        return $this;
+    }
+
+    public function getAuthor(): Account
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(Account $author): Review
+    {
+        $this->author = $author;
 
         return $this;
     }

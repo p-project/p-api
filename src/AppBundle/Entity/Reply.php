@@ -44,7 +44,7 @@ class Reply
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account", inversedBy="replies")
      */
-    private $repliedBy;
+    private $author;
 
     /**
      * @var \DateTime
@@ -90,14 +90,14 @@ class Reply
         return $this;
     }
 
-    public function getCommentedBy(): Account
+    public function getAuthor(): Account
     {
-        return $this->commentedBy;
+        return $this->author;
     }
 
-    public function setCommentedBy($repliedBy): Reply
+    public function setAuthor($author): Reply
     {
-        $this->repliedBy = $repliedBy;
+        $this->author = $author;
 
         return $this;
     }

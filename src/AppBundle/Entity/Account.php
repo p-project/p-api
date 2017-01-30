@@ -45,7 +45,7 @@ class Account
     private $email;
 
     /**
-     * @var string The firstname of user
+     * @var string The first name of user
      *
      * @ORM\Column(type="string")
      *
@@ -54,7 +54,7 @@ class Account
     private $firstName;
 
     /**
-     * @var string The lastname of user
+     * @var string The last name of user
      *
      * @ORM\Column(type="string")
      *

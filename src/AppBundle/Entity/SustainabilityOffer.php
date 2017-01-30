@@ -40,14 +40,14 @@ class SustainabilityOffer
     private $duration;
 
     /**
-     * @var Video
+     * @var Account
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account", inversedBy="sustainabilityOffers", cascade={"persist"})
      */
     private $account;
 
     /**
-     * @var Video
+     * @var Channel
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Channel", inversedBy="sustainabilityOffers", cascade={"persist"})
      */
