@@ -79,13 +79,6 @@ class Account
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="commentedBy", cascade={"persist"})
-     */
-    private $comments;
-
-    /**
-     * @var ArrayCollection
-     *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Forum", mappedBy="createdBy", cascade={"persist"})
      */
     private $forums;
@@ -152,7 +145,7 @@ class Account
         $this->channels = $channels;
     }
 
-    public function getId() : int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -162,7 +155,7 @@ class Account
         $this->id = $id;
     }
 
-    public function getUsername() : string
+    public function getUsername(): string
     {
         return $this->username;
     }
@@ -172,7 +165,7 @@ class Account
         $this->username = $username;
     }
 
-    public function getEmail() : string
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -182,7 +175,7 @@ class Account
         $this->email = $email;
     }
 
-    public function getFirstName() : string
+    public function getFirstName(): string
     {
         return $this->firstName;
     }
@@ -192,7 +185,7 @@ class Account
         $this->firstName = $firstName;
     }
 
-    public function getLastName() : string
+    public function getLastName(): string
     {
         return $this->lastName;
     }
@@ -202,24 +195,12 @@ class Account
         $this->lastName = $lastName;
     }
 
-    public function getComments()
-    {
-        return $this->comments;
-    }
-
-    public function setComments(ArrayCollection $comments) : Account
-    {
-        $this->comments = $comments;
-
-        return $this;
-    }
-
     public function getForums()
     {
         return $this->forums;
     }
 
-    public function setForums($forums) : Account
+    public function setForums($forums): Account
     {
         $this->forums = $forums;
 
@@ -231,7 +212,7 @@ class Account
         return $this->networks;
     }
 
-    public function setNetworks($networks) : Account
+    public function setNetworks($networks): Account
     {
         $this->networks = $networks;
 
@@ -243,7 +224,7 @@ class Account
         return $this->playlists;
     }
 
-    public function setPlaylists($playlists) : Account
+    public function setPlaylists($playlists): Account
     {
         $this->playlists = $playlists;
 
@@ -255,7 +236,7 @@ class Account
         return $this->replies;
     }
 
-    public function setReplies($replies) : Account
+    public function setReplies($replies): Account
     {
         $this->replies = $replies;
 
@@ -267,7 +248,7 @@ class Account
         return $this->reviews;
     }
 
-    public function setReviews($reviews) : Account
+    public function setReviews($reviews): Account
     {
         $this->reviews = $reviews;
 
@@ -279,7 +260,7 @@ class Account
         return $this->sustainabilityOffers;
     }
 
-    public function setSustainabilityOffers($sustainabilityOffers) : Account
+    public function setSustainabilityOffers($sustainabilityOffers): Account
     {
         $this->sustainabilityOffers = $sustainabilityOffers;
 
@@ -291,7 +272,7 @@ class Account
         return $this->seeders;
     }
 
-    public function setSeeders($seeders) : Account
+    public function setSeeders($seeders): Account
     {
         $this->seeders = $seeders;
 
