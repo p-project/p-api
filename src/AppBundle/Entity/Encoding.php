@@ -48,7 +48,12 @@ class Encoding
     private $format;
 
 
-
+    /**
+     * @var Video
+     *
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Video")
+     * @ORM\JoinColumn(name="video_id", referencedColumnName="id")
+     */
     private $video;
 
     public function getId() : int
