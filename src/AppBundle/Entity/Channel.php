@@ -38,7 +38,7 @@ class Channel
     private $tags;
 
     /**
-     * @var int The ID of owner
+     * @var Account The owner's account
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account", inversedBy="channels", cascade={"persist"})
      */
@@ -72,12 +72,12 @@ class Channel
      */
     private $sustainabilityOffers;
 
-    public function getAccount() : int
+    public function getAccount() : Account
     {
         return $this->account;
     }
 
-    public function setAccount(int $account)
+    public function setAccount(Account $account)
     {
         $this->account = $account;
     }
@@ -137,7 +137,7 @@ class Channel
         return $this->networks;
     }
 
-    public function setNetworks(ArrayCollection $networks) : Channel
+    public function setNetworks($networks) : Channel
     {
         $this->networks = $networks;
 
@@ -149,10 +149,22 @@ class Channel
         return $this->playlists;
     }
 
-    public function setPlaylists(ArrayCollection $playlists) : Channel
+    public function setPlaylists($playlists) : Channel
     {
         $this->playlists = $playlists;
 
+        return $this;
+    }
+
+    public function getSustainabilityOffers()
+    {
+        return $this->sustainabilityOffers;
+    }
+
+    public function setSustainabilityOffers($sustainabilityOffers): Channel
+    {
+        $this->sustainabilityOffers = $sustainabilityOffers;
+     
         return $this;
     }
 }

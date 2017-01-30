@@ -16,9 +16,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Account
 {
-
     /**
      * @var int The Id of the user
+     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -27,15 +27,18 @@ class Account
 
     /**
      * @var string The username of the user
+     *
      * @ORM\Column(type="string", unique=true)
+     *
      * @Assert\NotBlank
      */
     private $username;
 
-
     /**
      * @var string The email of the user
+     *
      * @ORM\Column(type="string", unique=true)
+     *
      * @Assert\NotBlank
      * @Assert\Email
      */
@@ -43,44 +46,46 @@ class Account
 
     /**
      * @var string The firstname of user
+     *
      * @ORM\Column(type="string")
+     *
      * @Assert\NotBlank
      */
     private $firstName;
 
     /**
      * @var string The lastname of user
+     *
      * @ORM\Column(type="string")
+     *
      * @Assert\NotBlank
      */
     private $lastName;
 
     /**
-     * @var array The roles of the user
-     * @ORM\Column(type="array")
-     */
-    private $roles;
-
-    /**
      * @var ArrayCollection The list of the channels
+     *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Channel", mappedBy="account", cascade={"persist"})
      */
     private $channels;
 
     /**
      * @var ArrayCollection The list of views
+     *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\View", mappedBy="account", cascade={"persist"})
      */
     private $views;
 
     /**
      * @var ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="commentedBy", cascade={"persist"})
      */
     private $comments;
 
     /**
      * @var ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Forum", mappedBy="createdBy", cascade={"persist"})
      */
     private $forums;
@@ -94,30 +99,35 @@ class Account
 
     /**
      * @var ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="account", cascade={"persist"})
      */
     private $playlists;
 
     /**
      * @var ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Reply", mappedBy="repliedBy", cascade={"persist"})
      */
     private $replies;
 
     /**
      * @var ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Review", mappedBy="reviewedBy", cascade={"persist"})
      */
     private $reviews;
 
     /**
      * @var ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\SustainabilityOffer", mappedBy="account", cascade={"persist"})
      */
     private $sustainabilityOffers;
 
     /**
      * @var ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Seeder", mappedBy="account", cascade={"persist"})
      */
     private $seeders;
@@ -190,16 +200,6 @@ class Account
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
-    }
-
-    public function getRoles() : array
-    {
-        return $this->roles;
-    }
-
-    public function setRoles($roles)
-    {
-        $this->roles = $roles;
     }
 
     public function getComments()
