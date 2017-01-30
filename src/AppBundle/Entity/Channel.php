@@ -80,7 +80,7 @@ class Channel
         $this->tags = [];
     }
 
-    public function getAccount() : Account
+    public function getAccount(): Account
     {
         return $this->account;
     }
@@ -90,36 +90,36 @@ class Channel
         $this->account = $account;
     }
 
-    public function getId() : int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function setId(int $id) : Channel
+    public function setId(int $id): Channel
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function getName() : string
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function setName(string $name) : Channel
+    public function setName(string $name): Channel
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getTags() : array
+    public function getTags(): array
     {
         return $this->tags;
     }
 
-    public function setTags(array $tags) : Channel
+    public function setTags(array $tags): Channel
     {
         $this->tags = $tags;
 
@@ -131,7 +131,7 @@ class Channel
         return $this->videos;
     }
 
-    public function setVideos($videos) : Channel
+    public function setVideos($videos): Channel
     {
         $this->videos = $videos;
 
@@ -143,7 +143,7 @@ class Channel
         return $this->networks;
     }
 
-    public function setNetworks($networks) : Channel
+    public function setNetworks($networks): Channel
     {
         $this->networks = $networks;
 
@@ -155,7 +155,7 @@ class Channel
         return $this->playlists;
     }
 
-    public function setPlaylists($playlists) : Channel
+    public function setPlaylists($playlists): Channel
     {
         $this->playlists = $playlists;
 

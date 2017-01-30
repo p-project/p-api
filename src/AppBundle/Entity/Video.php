@@ -113,12 +113,12 @@ class Video
         return $this;
     }
 
-    public function getTitle() : string
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    public function setDescription(string $description) : Video
+    public function setDescription(string $description): Video
     {
         $this->description = $description;
 
@@ -126,7 +126,7 @@ class Video
         return $this;
     }
 
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -136,7 +136,7 @@ class Video
         return $this->annotations;
     }
 
-    public function setAnnotations($annotations) : Video
+    public function setAnnotations($annotations): Video
     {
         $this->annotations = $annotations;
 
@@ -148,7 +148,7 @@ class Video
         return $this->channel;
     }
 
-    public function setChannel($channel) : Video
+    public function setChannel($channel): Video
     {
         $this->channel = $channel;
 
@@ -160,7 +160,7 @@ class Video
         return $this->comments;
     }
 
-    public function setComments($comments) : Video
+    public function setComments($comments): Video
     {
         $this->comments = $comments;
 
@@ -172,7 +172,7 @@ class Video
         return $this->forums;
     }
 
-    public function setForums($forums) : Video
+    public function setForums($forums): Video
     {
         $this->forums = $forums;
 
@@ -184,7 +184,7 @@ class Video
         return $this->views;
     }
 
-    public function setViews($views) : Video
+    public function setViews($views): Video
     {
         $this->views = $views;
 
@@ -196,7 +196,7 @@ class Video
         return $this->reviews;
     }
 
-    public function setReviews($reviews) : Video
+    public function setReviews($reviews): Video
     {
         $this->reviews = $reviews;
 
@@ -208,7 +208,7 @@ class Video
         return $this->seeds;
     }
 
-    public function setSeeds($seeds) : Video
+    public function setSeeds($seeds): Video
     {
         $this->seeds = $seeds;
 
@@ -220,7 +220,7 @@ class Video
         return $this->subtitles;
     }
 
-    public function setSubtitles($subtitles) : Video
+    public function setSubtitles($subtitles): Video
     {
         $this->subtitles = $subtitles;
 

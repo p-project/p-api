@@ -55,43 +55,43 @@ class Annotation
      */
     private $video;
 
-    public function getId() : int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function setId(int $id) : Annotation
+    public function setId(int $id): Annotation
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function getBegin() : \DateTime
+    public function getBegin(): \DateTime
     {
         return $this->begin;
     }
 
-    public function setBegin(\DateTime $begin) : Annotation
+    public function setBegin(\DateTime $begin): Annotation
     {
         $this->begin = $begin;
 
         return $this;
     }
 
-    public function getEnd() : \DateTime
+    public function getEnd(): \DateTime
     {
         return $this->end;
     }
 
-    public function setEnd(\DateTime $end) : Annotation
+    public function setEnd(\DateTime $end): Annotation
     {
         $this->end = $end;
 
         return $this;
     }
 
-    public function getAnnotationText() : string
+    public function getAnnotationText(): string
     {
         return $this->annotationText;
     }
@@ -103,12 +103,12 @@ class Annotation
         return $this;
     }
 
-    public function getVideo() : Video
+    public function getVideo(): Video
     {
         return $this->video;
     }
 
-    public function setVideo($video) : Annotation
+    public function setVideo($video): Annotation
     {
         $this->video = $video;
 

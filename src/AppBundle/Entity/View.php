@@ -35,7 +35,7 @@ class View
      */
     private $video;
 
-    public function getId() : int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -45,7 +45,7 @@ class View
         $this->id = $id;
     }
 
-    public function getAccount() : Account
+    public function getAccount(): Account
     {
         return $this->account;
     }
@@ -55,7 +55,7 @@ class View
         $this->account = $account;
     }
 
-    public function getVideo() : Video
+    public function getVideo(): Video
     {
         return $this->video;
     }

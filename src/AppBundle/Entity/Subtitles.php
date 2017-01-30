@@ -52,7 +52,7 @@ class Subtitles
      */
     private $video;
 
-    public function getId() : int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -62,7 +62,7 @@ class Subtitles
         $this->id = $id;
     }
 
-    public function getBegin() : \DateTime
+    public function getBegin(): \DateTime
     {
         return $this->begin;
     }
@@ -72,7 +72,7 @@ class Subtitles
         $this->begin = $begin;
     }
 
-    public function getEnd() : \DateTime
+    public function getEnd(): \DateTime
     {
         return $this->end;
     }
@@ -92,12 +92,12 @@ class Subtitles
         $this->path = $path;
     }
 
-    public function getVideo() : Video
+    public function getVideo(): Video
     {
         return $this->video;
     }
 
-    public function setVideo(Video $video) : Subtitles
+    public function setVideo(Video $video): Subtitles
     {
         $this->video = $video;
 

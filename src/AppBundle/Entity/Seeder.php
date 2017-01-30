@@ -44,24 +44,24 @@ class Seeder
      */
     private $account;
 
-    public function getId() : int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function setId(int $id) : Seeder
+    public function setId(int $id): Seeder
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function getPlatform() : string
+    public function getPlatform(): string
     {
         return $this->platform;
     }
 
-    public function setPlatform(string $platform) : Seeder
+    public function setPlatform(string $platform): Seeder
     {
         $this->platform = $platform;
 
@@ -73,7 +73,7 @@ class Seeder
         return $this->account;
     }
 
-    public function setAccount(ArrayCollection $account) : Seeder
+    public function setAccount(ArrayCollection $account): Seeder
     {
         $this->account = $account;
 
@@ -85,7 +85,7 @@ class Seeder
         return $this->seeds;
     }
 
-    public function setSeeds($seeds) : Seeder
+    public function setSeeds($seeds): Seeder
     {
         $this->seeds = $seeds;
 

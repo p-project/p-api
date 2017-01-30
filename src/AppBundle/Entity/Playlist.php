@@ -47,60 +47,60 @@ class Playlist
      */
     private $account;
 
-    public function getId() : int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function setId(int $id) : Playlist
+    public function setId(int $id): Playlist
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function getName() : string
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function setName(string $name) : Playlist
+    public function setName(string $name): Playlist
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getChannel() : Channel
+    public function getChannel(): Channel
     {
         return $this->channel;
     }
 
-    public function setChannel(Channel $channel) : Playlist
+    public function setChannel(Channel $channel): Playlist
     {
         $this->channel = $channel;
 
         return $this;
     }
 
-    public function getNetwork() : Network
+    public function getNetwork(): Network
     {
         return $this->network;
     }
 
-    public function setNetwork(Network $network) : Playlist
+    public function setNetwork(Network $network): Playlist
     {
         $this->network = $network;
 
         return $this;
     }
 
-    public function getAccount() : Account
+    public function getAccount(): Account
     {
         return $this->account;
     }
 
-    public function setCreatedBy(Account $account) : Playlist
+    public function setCreatedBy(Account $account): Playlist
     {
         $this->account = $account;
 

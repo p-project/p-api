@@ -53,12 +53,12 @@ class Network
      */
     private $playlists;
 
-    public function getId() : int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function setId(int $id) : Network
+    public function setId(int $id): Network
     {
         $this->id = $id;
 
@@ -77,12 +77,12 @@ class Network
         return $this;
     }
 
-    public function getName() : string
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function setName(string $name) : Network
+    public function setName(string $name): Network
     {
         $this->name = $name;
 
@@ -94,7 +94,7 @@ class Network
         return $this->peoples;
     }
 
-    public function setPeoples($peoples) : Network
+    public function setPeoples($peoples): Network
     {
         $this->peoples = $peoples;
 
@@ -106,7 +106,7 @@ class Network
         return $this->playlists;
     }
 
-    public function setPlaylists(ArrayCollection $playlists) : Network
+    public function setPlaylists(ArrayCollection $playlists): Network
     {
         $this->playlists = $playlists;
 
