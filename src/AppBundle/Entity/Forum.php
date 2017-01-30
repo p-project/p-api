@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Forum
@@ -26,6 +27,7 @@ class Forum
      * @var string
      *
      * @ORM\Column(name="name", type="string")
+     * @Assert\NotBlank
      */
     private $name;
 

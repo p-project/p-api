@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Reply
@@ -26,6 +27,8 @@ class Reply
      * @var string
      *
      * @ORM\Column(name="contents", type="string")
+     * @Assert\NotBlank
+     *
      */
     private $content;
 
@@ -47,6 +50,7 @@ class Reply
      * @var \DateTime
      *
      * @ORM\Column(name="date_comment", type="datetime")
+     * @Assert\NotBlank
      */
     private $dateReply;
 

@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User's channel.
@@ -26,7 +27,9 @@ class Channel
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string")
+     * @ORM\Column(name="name", type="string", unique=true)
+     * @Assert\NotBlank
+     *
      */
     private $name;
 

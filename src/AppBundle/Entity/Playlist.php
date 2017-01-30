@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Playlist
@@ -24,6 +25,7 @@ class Playlist
     /**
      * @var string
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
      */
     private $name;
 
