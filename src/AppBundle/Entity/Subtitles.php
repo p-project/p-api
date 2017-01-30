@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
  * @ORM\Entity
  * @ApiResource
@@ -32,6 +33,7 @@ class Subtitles
      * @var \DateTime Time when the subtitle should be hidden
      *
      * @ORM\Column(type="datetime", name="end_time")
+     * @Assert\NotBlank
      */
     private $end;
 
@@ -39,6 +41,7 @@ class Subtitles
      * @var string The path of the Subtitle file
      *
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
      */
     private $path;
 

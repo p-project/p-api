@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Video's annotation.
@@ -26,6 +28,7 @@ class Annotation
      * @var \DateTime
      *
      * @ORM\Column(name="begin_time", type="datetime")
+     * @Assert\NotBlank
      */
     private $begin;
 
@@ -33,6 +36,7 @@ class Annotation
      * @var \DateTime
      *
      * @ORM\Column(name="end_time", type="datetime")
+     * @Assert\NotBlank
      */
     private $end;
 

@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Review
@@ -27,6 +28,7 @@ class Review
      * @var string
      *
      * @ORM\Column(name="name", type="string")
+     * @Assert\NotBlank
      */
     private $content;
 
@@ -49,6 +51,7 @@ class Review
      * @var \DateTime
      *
      * @ORM\Column(name="date_comment", type="datetime")
+     * @Assert\NotBlank
      */
     private $dateReview;
 

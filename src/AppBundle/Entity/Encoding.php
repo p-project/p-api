@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Encoding
@@ -26,6 +27,7 @@ class Encoding
      * @var int
      *
      * @ORM\Column(name="height", type="integer")
+     * @Assert\NotBlank
      */
     private $height;
 
@@ -33,6 +35,7 @@ class Encoding
      * @var int
      *
      * @ORM\Column(name="width", type="integer")
+     * @Assert\NotBlank
      */
     private $width;
 
@@ -40,8 +43,10 @@ class Encoding
      * @var string
      *
      * @ORM\Column(name="format", type="string")
+     * @Assert\NotBlank
      */
     private $format;
+
 
 
     private $video;
