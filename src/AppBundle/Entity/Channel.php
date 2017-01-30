@@ -75,6 +75,11 @@ class Channel
      */
     private $sustainabilityOffers;
 
+    public function __construct()
+    {
+        $this->tags = [];
+    }
+
     public function getAccount() : Account
     {
         return $this->account;
@@ -93,7 +98,6 @@ class Channel
     public function setId(int $id) : Channel
     {
         $this->id = $id;
-
 
         return $this;
     }
@@ -118,7 +122,6 @@ class Channel
     public function setTags(array $tags) : Channel
     {
         $this->tags = $tags;
-
 
         return $this;
     }
