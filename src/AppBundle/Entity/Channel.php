@@ -27,8 +27,9 @@ class Channel
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string")
+     * @ORM\Column(name="name", type="string", unique=true)
      * @Assert\NotBlank
+     *
      */
     private $name;
 
