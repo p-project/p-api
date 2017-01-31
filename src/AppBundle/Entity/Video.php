@@ -102,11 +102,19 @@ class Video
      */
     private $subtitles;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Category", inversedBy="videos", cascade={"persist"})
+     */
+    private $categories;
+
     public function __construct()
     {
         $this->channels = new ArrayCollection();
         $this->annotations = new ArrayCollection();
         $this->uploadDate = new \DateTime('now');
+        $this->categories = new ArrayCollection();
     }
 
     public function getId()
@@ -242,6 +250,18 @@ class Video
     public function setSubtitles($subtitles): Video
     {
         $this->subtitles = $subtitles;
+
+        return $this;
+    }
+
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    public function setCategories($categories): Video
+    {
+        $this->categories = $categories;
 
         return $this;
     }
