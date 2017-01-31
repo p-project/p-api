@@ -20,3 +20,4 @@ AppBundle\Entity\Video:
         title: <sentence(4)>
         description: <realText(150)>
         channel: '@channel_michel'
+        uploadDate: <date()>

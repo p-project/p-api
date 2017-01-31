@@ -40,6 +40,13 @@ class Video
     private $description;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime")
+     */
+    private $uploadDate;
+
+    /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Annotation", mappedBy="video", cascade={"persist"})
@@ -99,6 +106,7 @@ class Video
     {
         $this->channels = new ArrayCollection();
         $this->annotations = new ArrayCollection();
+        $this->uploadDate = new \DateTime('now');
     }
 
     public function getId()
@@ -122,13 +130,24 @@ class Video
     {
         $this->description = $description;
 
-
         return $this;
     }
 
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    public function setUploadDate(\DateTime $uploadDate): Video
+    {
+        $this->uploadDate = $uploadDate;
+
+        return $this;
+    }
+
+    public function getUploadDate(): \DateTime
+    {
+        return $this->uploadDate;
     }
 
     public function getAnnotations()
