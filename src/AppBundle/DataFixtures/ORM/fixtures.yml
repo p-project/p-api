@@ -15,8 +15,12 @@ AppBundle\Entity\Channel:
         name: <word()>
         account: '@account_michel'
 
-AppBundle\Entity\Video:
-    video_{1..100}:
-        title: <sentence(4)>
-        description: <realText(150)>
-        channel: '@channel_michel'
+# AppBundle\Entity\Video:
+#    video_michel:
+#        title: 'video_michel'
+#        description: 'This is the video michel'
+#        channel: '@channel_michel'
+#    video_{1..100}:
+#        title: <sentence(4)>
+#        description: <realText(150)>
+#        channel: '@channel_michel'

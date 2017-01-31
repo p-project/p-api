@@ -1,12 +1,12 @@
 # features/books.feature
-Feature: Manage users
-  In order to manage user
+Feature: Manage annotations
+  In order to manage annotations
   As a client software developer
   I need to be able to retrieve, create, update and delete them trough the API.
 
   # the "@createSchema" annotation provided by API Platform creates a temporary SQLite database for testing the API
   @createSchema
-  Scenario: Create a user
+  Scenario: Create a annotation
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
     And I send a "POST" request to "/user" with body:
