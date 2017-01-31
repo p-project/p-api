@@ -41,7 +41,7 @@ class Comment
     /**
      * @var Account Author of the comment
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account")
      */
     private $author;
 

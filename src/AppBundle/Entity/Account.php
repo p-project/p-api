@@ -100,14 +100,14 @@ class Account
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Reply", mappedBy="repliedBy", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Reply", mappedBy="author", cascade={"persist"})
      */
     private $replies;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Review", mappedBy="reviewedBy", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Review", mappedBy="author", cascade={"persist"})
      */
     private $reviews;
 
