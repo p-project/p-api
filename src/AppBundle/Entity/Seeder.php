@@ -38,11 +38,16 @@ class Seeder
     private $seeds;
 
     /**
-     * @var ArrayCollection
+     * @var Account
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account", inversedBy="seeders", cascade={"persist"})
      */
     private $account;
+
+    public function __construct()
+    {
+        $this->seeds = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -68,12 +73,12 @@ class Seeder
         return $this;
     }
 
-    public function getAccount()
+    public function getAccount(): Account
     {
         return $this->account;
     }
 
-    public function setAccount(ArrayCollection $account): Seeder
+    public function setAccount(Account $account): Seeder
     {
         $this->account = $account;
 

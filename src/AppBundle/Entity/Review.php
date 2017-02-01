@@ -61,6 +61,11 @@ class Review
      */
     private $replies;
 
+    public function __construct()
+    {
+        $this->replies = new ArrayCollection();
+    }
+
     public function getId(): int
     {
         return $this->id;

@@ -105,7 +105,7 @@ class Playlist
         return $this->account;
     }
 
-    public function setCreatedBy(Account $account): Playlist
+    public function setAccount(Account $account): Playlist
     {
         $this->account = $account;
 

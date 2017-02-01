@@ -86,7 +86,8 @@ class Account
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Network", inversedBy="peoples", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Network", mappedBy="peoples", cascade={"persist"})
+     * @ORM\JoinTable(name="accounts_networks")
      */
     private $networks;
 

@@ -36,7 +36,7 @@ class Network
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Account", mappedBy="networks", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Account", inversedBy="networks", cascade={"persist"})
      */
     private $peoples;
 
@@ -52,6 +52,13 @@ class Network
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="network", cascade={"persist"})
      */
     private $playlists;
+
+    public function __construct()
+    {
+        $this->peoples = new ArrayCollection();
+        $this->channel = new ArrayCollection();
+        $this->playlists = new ArrayCollection();
+    }
 
     public function getId(): int
     {

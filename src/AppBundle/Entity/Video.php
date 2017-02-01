@@ -111,10 +111,15 @@ class Video
 
     public function __construct()
     {
-        $this->channels = new ArrayCollection();
         $this->annotations = new ArrayCollection();
         $this->uploadDate = new \DateTime('now');
         $this->categories = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->forums = new ArrayCollection();
+        $this->views = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
+        $this->seeds = new ArrayCollection();
+        $this->subtitles = new ArrayCollection();
     }
 
     public function getId()

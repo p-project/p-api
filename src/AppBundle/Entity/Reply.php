@@ -33,7 +33,7 @@ class Reply
     private $content;
 
     /**
-     * @var Video
+     * @var Review
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Review", inversedBy="replies")
      */
@@ -78,12 +78,12 @@ class Reply
         return $this;
     }
 
-    public function getReview(): Video
+    public function getReview(): Review
     {
         return $this->review;
     }
 
-    public function setReview(Video $review): Reply
+    public function setReview(Review $review): Reply
     {
         $this->review = $review;
 
