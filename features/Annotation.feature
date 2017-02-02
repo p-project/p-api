@@ -71,10 +71,10 @@ Feature: Manage annotation
       "tags": [
         "string"
       ],
-      "videos": null,
-      "networks": null,
-      "playlists": null,
-      "sustainabilityOffers": null
+      "videos": [],
+      "networks": [],
+      "playlists": [],
+      "sustainabilityOffers": []
     }
     """
 

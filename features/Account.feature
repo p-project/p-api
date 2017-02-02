@@ -211,10 +211,10 @@ Feature: Manage account
       "tags": [
         "string"
       ],
-      "videos": null,
-      "networks": null,
-      "playlists": null,
-      "sustainabilityOffers": null
+      "videos": [],
+      "networks": [],
+      "playlists": [],
+      "sustainabilityOffers": []
     }
     """
 
