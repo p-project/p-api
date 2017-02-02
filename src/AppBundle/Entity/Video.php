@@ -35,7 +35,7 @@ class Video
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
     private $description;
 
@@ -43,6 +43,7 @@ class Video
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime")
+     * @Assert\NotBlank
      */
     private $uploadDate;
 
