@@ -78,6 +78,10 @@ class Channel
     public function __construct()
     {
         $this->tags = [];
+        $this->videos = new ArrayCollection();
+        $this->networks = new ArrayCollection();
+        $this->playlists =  new ArrayCollection();
+        $this->sustainabilityOffers = new ArrayCollection();
     }
 
     public function getAccount(): Account
