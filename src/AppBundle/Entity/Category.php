@@ -11,6 +11,7 @@ namespace AppBundle\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Video's category.
@@ -33,6 +34,7 @@ class Category
      * @var string
      *
      * @ORM\Column(name="name", type="string")
+     * @Assert\NotBlank
      */
     private $name;
 
@@ -47,48 +49,57 @@ class Category
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Video", mappedBy="categories", cascade={"persist"})
+     * @ORM\JoinTable(name="videos_category")
      */
     private $videos;
 
-    public function getId() : int
+    public function __construct()
+    {
+        $this->videos = new ArrayCollection();
+    }
+
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function setId(int $id) : Category
+    public function setId(int $id): Category
     {
         $this->id = $id;
+
         return $this;
     }
 
-    public function getName() : string
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function setName(string $name) : Category
+    public function setName(string $name): Category
     {
         $this->name = $name;
+
         return $this;
     }
 
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    public function setDescription(string $description) : Category
+    public function setDescription(string $description): Category
     {
         $this->description = $description;
+
         return $this;
     }
 
-    public function getVideos() : ArrayCollection
+    public function getVideos()
     {
         return $this->videos;
     }
 
-    public function setVideos($videos) : Category
+    public function setVideos($videos): Category
     {
         $this->videos = $videos;
 
