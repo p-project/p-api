@@ -7,12 +7,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Encoding
+ * Metadata
  *
  * @ORM\Entity
  * @ApiResource
  */
-class Encoding
+class Metadata
 {
     /**
      * @var int
@@ -61,7 +61,7 @@ class Encoding
         return $this->id;
     }
 
-    public function setId(int $id): Encoding
+    public function setId(int $id): Metadata
     {
         $this->id = $id;
 
@@ -73,7 +73,7 @@ class Encoding
         return $this->height;
     }
 
-    public function setHeight(int $height): Encoding
+    public function setHeight(int $height): Metadata
     {
         $this->height = $height;
 
@@ -85,7 +85,7 @@ class Encoding
         return $this->width;
     }
 
-    public function setWidth(int $width): Encoding
+    public function setWidth(int $width): Metadata
     {
         $this->width = $width;
 
@@ -97,7 +97,7 @@ class Encoding
         return $this->format;
     }
 
-    public function setFormat(string $format): Encoding
+    public function setFormat(string $format): Metadata
     {
         $this->format = $format;
 
@@ -109,7 +109,7 @@ class Encoding
         return $this->video;
     }
 
-    public function setVideo($video): Encoding
+    public function setVideo($video): Metadata
     {
         $this->video = $video;
 
