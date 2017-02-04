@@ -1,5 +1,5 @@
 # features/Annotation.feature
-Feature: Manage metadata
+Feature: Manage comment
   In order to manage account
   As a client software developer
   I need to be able to retrieve, create, update and delete them trough the API.
@@ -78,15 +78,15 @@ Feature: Manage metadata
     }
     """
 
-  Scenario: Create video
+  Scenario: Create SustainabilityOffer
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/videos" with body:
+    And I send a "POST" request to "/sustainability_offers" with body:
     """
     {
-      "title": "string",
-      "description": "string",
-      "uploadDate": "2017-02-01T18:30:52.055Z",
+      "name": "string",
+      "duration": 0,
+      "account": "/accounts/1",
       "channel": "/channels/1"
     }
     """
@@ -96,57 +96,21 @@ Feature: Manage metadata
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Video",
-      "@id": "/videos/1",
-      "@type": "Video",
+      "@context": "/contexts/SustainabilityOffer",
+      "@id": "/sustainability_offers/1",
+      "@type": "SustainabilityOffer",
       "id": 1,
-      "title": "string",
-      "description": "string",
-      "uploadDate": "2017-02-01T18:30:52+00:00",
-      "annotations": [],
-      "channel": "/channels/1",
-      "comments": [],
-      "forums": [],
-      "views": [],
-      "reviews": [],
-      "subtitles": [],
-      "categories": []
-    }
-    """
-
-  Scenario: Create a metadata
-    When I add "Content-Type" header equal to "application/ld+json"
-    And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/metadatas" with body:
-    """
-    {
-      "height": 0,
-      "width": 0,
-      "format": "string",
-      "video": "/videos/1"
-    }
-    """
-    Then the response status code should be 201
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-      "@context": "/contexts/Metadata",
-      "@id": "/metadatas/1",
-      "@type": "Metadata",
-      "id": 1,
-      "height": 0,
-      "width": 0,
-      "format": "string",
-      "video": "/videos/1"
+      "name": "string",
+      "duration": 0,
+      "account": "/accounts/1",
+      "channel": "/channels/1"
     }
     """
 
   Scenario: Throw errors when there is only bad properties
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/metadatas" with body:
+    And I send a "POST" request to "/sustainability_offers" with body:
     """
     {
 
@@ -161,58 +125,54 @@ Feature: Manage metadata
       "@context": "/contexts/ConstraintViolationList",
       "@type": "ConstraintViolationList",
       "hydra:title": "An error occurred",
-      "hydra:description": "height: This value should not be blank.\nwidth: This value should not be blank.\nformat: This value should not be blank.",
+      "hydra:description": "name: This value should not be blank.\nduration: This value should not be blank.",
       "violations": [
         {
-          "propertyPath": "height",
+          "propertyPath": "name",
           "message": "This value should not be blank."
         },
         {
-          "propertyPath": "width",
-          "message": "This value should not be blank."
-        },
-        {
-          "propertyPath": "format",
+          "propertyPath": "duration",
           "message": "This value should not be blank."
         }
       ]
     }
     """
 
-  Scenario: Retrieve the metadata list
+  Scenario: Retrieve the SustainabilityOffers list
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/metadatas"
+    And I send a "GET" request to "/sustainability_offers"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Metadata",
-      "@id": "/metadatas",
+      "@context": "/contexts/SustainabilityOffer",
+      "@id": "/sustainability_offers",
       "@type": "hydra:Collection",
       "hydra:member": [
         {
-          "@id": "/metadatas/1",
-          "@type": "Metadata",
+          "@id": "/sustainability_offers/1",
+          "@type": "SustainabilityOffer",
           "id": 1,
-          "height": 0,
-          "width": 0,
-          "format": "string",
-          "video": "/videos/1"
+          "name": "string",
+          "duration": 0,
+          "account": "/accounts/1",
+          "channel": "/channels/1"
         }
       ],
       "hydra:totalItems": 1
     }
     """
 
-  Scenario: Update metadata
+  Scenario: Update SustainabilityOffers
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "PUT" request to "/metadatas/1" with body:
+    And I send a "PUT" request to "/sustainability_offers/1" with body:
     """
     {
-      "format": "stringUpdated"
+      "name": "stringUpdated"
     }
     """
     Then the response status code should be 200
@@ -221,26 +181,26 @@ Feature: Manage metadata
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Metadata",
-      "@id": "/metadatas/1",
-      "@type": "Metadata",
+      "@context": "/contexts/SustainabilityOffer",
+      "@id": "/sustainability_offers/1",
+      "@type": "SustainabilityOffer",
       "id": 1,
-      "height": 0,
-      "width": 0,
-      "format": "stringUpdated",
-      "video": "/videos/1"
+      "name": "stringUpdated",
+      "duration": 0,
+      "account": "/accounts/1",
+      "channel": "/channels/1"
     }
     """
 
-  Scenario: Delete a metadata
+  Scenario: Delete a SustainabilityOffers
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "DELETE" request to "/metadatas/1"
+    And I send a "DELETE" request to "/sustainability_offers/1"
     Then the response status code should be 204
 
   @dropSchema
-  Scenario: Delete a metadata which not exists
+  Scenario: Delete a SustainabilityOffers which not exists
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "DELETE" request to "/metadatas/1"
+    And I send a "DELETE" request to "/sustainability_offers/1"
     Then the response status code should be 404

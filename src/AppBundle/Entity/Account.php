@@ -126,6 +126,19 @@ class Account
      */
     private $seeders;
 
+    public function __construct()
+    {
+        $this->channels = new ArrayCollection();
+        $this->views = new ArrayCollection();
+        $this->forums = new ArrayCollection();
+        $this->networks = new ArrayCollection();
+        $this->playlists = new ArrayCollection();
+        $this->replies = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
+        $this->sustainabilityOffers = new ArrayCollection();
+        $this->seeders = new ArrayCollection();
+    }
+
     public function getViews()
     {
         return $this->views;

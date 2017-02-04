@@ -26,20 +26,20 @@ Feature: Manage category
       "@context": "/contexts/Account",
       "@id": "/accounts/1",
       "@type": "Account",
-      "views": null,
-      "channels": null,
+      "views": [],
+      "channels": [],
       "id": 1,
       "username": "string",
       "email": "string@string.fr",
       "firstName": "string",
       "lastName": "string",
-      "forums": null,
-      "networks": null,
-      "playlists": null,
-      "replies": null,
-      "reviews": null,
-      "sustainabilityOffers": null,
-      "seeders": null
+      "forums": [],
+      "networks": [],
+      "playlists": [],
+      "replies": [],
+      "reviews": [],
+      "sustainabilityOffers": [],
+      "seeders": []
     }
     """
 
@@ -138,7 +138,6 @@ Feature: Manage category
       "forums": [],
       "views": [],
       "reviews": [],
-      "seeds": [],
       "subtitles": [],
       "categories": [
           "/categories/1"

@@ -1,5 +1,5 @@
 # features/Annotation.feature
-Feature: Manage metadata
+Feature: Manage seed
   In order to manage account
   As a client software developer
   I need to be able to retrieve, create, update and delete them trough the API.
@@ -114,16 +114,14 @@ Feature: Manage metadata
     }
     """
 
-  Scenario: Create a metadata
+  Scenario: Create a seeder
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/metadatas" with body:
+    And I send a "POST" request to "/seeders" with body:
     """
     {
-      "height": 0,
-      "width": 0,
-      "format": "string",
-      "video": "/videos/1"
+      "platform": "string",
+      "account": "/accounts/1"
     }
     """
     Then the response status code should be 201
@@ -132,21 +130,47 @@ Feature: Manage metadata
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Metadata",
-      "@id": "/metadatas/1",
-      "@type": "Metadata",
+      "@context": "/contexts/Seeder",
+      "@id": "/seeders/1",
+      "@type": "Seeder",
       "id": 1,
-      "height": 0,
-      "width": 0,
-      "format": "string",
-      "video": "/videos/1"
+      "platform": "string",
+      "account": "/accounts/1",
+      "seeds": []
+    }
+    """
+
+  Scenario: Create a seed
+    When I add "Content-Type" header equal to "application/ld+json"
+    And I add "Accept" header equal to "application/ld+json"
+    And I send a "POST" request to "/seeds" with body:
+    """
+    {
+      "url": "string",
+      "video": "/videos/1",
+      "seeder": "/seeders/1"
+    }
+    """
+    Then the response status code should be 201
+    And the response should be in JSON
+    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
+    And the JSON should be equal to:
+    """
+    {
+      "@context": "/contexts/Seed",
+      "@id": "/seeds/1",
+      "@type": "Seed",
+      "id": 1,
+      "url": "string",
+      "video": "/videos/1",
+      "seeder": "/seeders/1"
     }
     """
 
   Scenario: Throw errors when there is only bad properties
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/metadatas" with body:
+    And I send a "POST" request to "/seeds" with body:
     """
     {
 
@@ -161,58 +185,49 @@ Feature: Manage metadata
       "@context": "/contexts/ConstraintViolationList",
       "@type": "ConstraintViolationList",
       "hydra:title": "An error occurred",
-      "hydra:description": "height: This value should not be blank.\nwidth: This value should not be blank.\nformat: This value should not be blank.",
+      "hydra:description": "url: This value should not be blank.",
       "violations": [
         {
-          "propertyPath": "height",
-          "message": "This value should not be blank."
-        },
-        {
-          "propertyPath": "width",
-          "message": "This value should not be blank."
-        },
-        {
-          "propertyPath": "format",
+          "propertyPath": "url",
           "message": "This value should not be blank."
         }
       ]
     }
     """
 
-  Scenario: Retrieve the metadata list
+  Scenario: Retrieve the seeds list
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/metadatas"
+    And I send a "GET" request to "/seeds"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Metadata",
-      "@id": "/metadatas",
+      "@context": "/contexts/Seed",
+      "@id": "/seeds",
       "@type": "hydra:Collection",
       "hydra:member": [
         {
-          "@id": "/metadatas/1",
-          "@type": "Metadata",
+          "@id": "/seeds/1",
+          "@type": "Seed",
           "id": 1,
-          "height": 0,
-          "width": 0,
-          "format": "string",
-          "video": "/videos/1"
+          "url": "string",
+          "video": "/videos/1",
+          "seeder": "/seeders/1"
         }
       ],
       "hydra:totalItems": 1
     }
     """
 
-  Scenario: Update metadata
+  Scenario: Update seed
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "PUT" request to "/metadatas/1" with body:
+    And I send a "PUT" request to "/seeds/1" with body:
     """
     {
-      "format": "stringUpdated"
+      "url": "stringUpdated"
     }
     """
     Then the response status code should be 200
@@ -221,26 +236,25 @@ Feature: Manage metadata
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Metadata",
-      "@id": "/metadatas/1",
-      "@type": "Metadata",
+      "@context": "/contexts/Seed",
+      "@id": "/seeds/1",
+      "@type": "Seed",
       "id": 1,
-      "height": 0,
-      "width": 0,
-      "format": "stringUpdated",
-      "video": "/videos/1"
+      "url": "stringUpdated",
+      "video": "/videos/1",
+      "seeder": "/seeders/1"
     }
     """
 
-  Scenario: Delete a metadata
+  Scenario: Delete a seed
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "DELETE" request to "/metadatas/1"
+    And I send a "DELETE" request to "/seeds/1"
     Then the response status code should be 204
 
   @dropSchema
-  Scenario: Delete a metadata which not exists
+  Scenario: Delete a seed which not exists
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "DELETE" request to "/metadatas/1"
+    And I send a "DELETE" request to "/seeds/1"
     Then the response status code should be 404

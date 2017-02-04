@@ -33,7 +33,7 @@ class Seed
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video", inversedBy="seeds", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Video")
      */
     private $video;
 

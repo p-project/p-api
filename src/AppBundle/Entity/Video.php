@@ -92,13 +92,6 @@ class Video
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Seed", mappedBy="video", cascade={"persist"})
-     */
-    private $seeds;
-
-    /**
-     * @var ArrayCollection
-     *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Subtitles", mappedBy="video", cascade={"persist"})
      */
     private $subtitles;
@@ -232,18 +225,6 @@ class Video
     public function setReviews($reviews): Video
     {
         $this->reviews = $reviews;
-
-        return $this;
-    }
-
-    public function getSeeds()
-    {
-        return $this->seeds;
-    }
-
-    public function setSeeds($seeds): Video
-    {
-        $this->seeds = $seeds;
 
         return $this;
     }
