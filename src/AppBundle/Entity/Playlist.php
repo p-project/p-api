@@ -36,21 +36,21 @@ class Playlist
     /**
      * @var Channel
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Channel", inversedBy="playlists", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Channel", inversedBy="playlists", cascade={"persist"})
      */
     private $channel;
 
     /**
      * @var Network
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Network", inversedBy="playlists", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Network", inversedBy="playlists", cascade={"persist"})
      */
     private $network;
 
     /**
      * @var Account
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account", inversedBy="playlists", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Account", inversedBy="playlists", cascade={"persist"})
      */
     private $account;
 

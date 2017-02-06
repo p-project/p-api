@@ -59,14 +59,14 @@ class Channel
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Network", mappedBy="channel", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Network", mappedBy="channels", cascade={"persist"})
      */
     private $networks;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="channel", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="channel", cascade={"persist"})
      */
     private $playlists;
 

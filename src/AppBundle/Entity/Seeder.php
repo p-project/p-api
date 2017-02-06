@@ -29,15 +29,17 @@ class Seeder
      * @ORM\Column(name="platform", type="string")
      * @Assert\NotBlank
      * @Assert\Type("string")
-     * */
+     */
     private $platform;
 
     /**
-     * @var ArrayCollection
+     * @var string
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Seed", mappedBy="seeder", cascade={"persist"})
+     * @ORM\Column(name="ip", type="string")
+     * @Assert\NotBlank
+     * @Assert\Type("string")
      */
-    private $seeds;
+    private $ip;
 
     /**
      * @var Account
@@ -46,10 +48,12 @@ class Seeder
      */
     private $account;
 
-    public function __construct()
-    {
-        $this->seeds = new ArrayCollection();
-    }
+    /**
+     * @var Video
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video", inversedBy="seeders", cascade={"persist"})
+     */
+    private $video;
 
     public function getId(): int
     {
@@ -87,14 +91,26 @@ class Seeder
         return $this;
     }
 
-    public function getSeeds()
+    public function getIp(): string
     {
-        return $this->seeds;
+        return $this->ip;
     }
 
-    public function setSeeds($seeds): Seeder
+    public function setIp(string $ip): Seeder
     {
-        $this->seeds = $seeds;
+        $this->ip = $ip;
+
+        return $this;
+    }
+
+    public function getVideo(): Video
+    {
+        return $this->video;
+    }
+
+    public function setVideo($video): Seeder
+    {
+        $this->video = $video;
 
         return $this;
     }

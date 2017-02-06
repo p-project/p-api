@@ -56,6 +56,15 @@ class Metadata
      */
     private $format;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="hash", type="string")
+     * @Assert\NotBlank
+     * @Groups({"video"})
+     * @Assert\Type("string")
+     */
+    private $hash;
 
     /**
      * @var Video
@@ -121,6 +130,18 @@ class Metadata
     public function setVideo($video): Metadata
     {
         $this->video = $video;
+
+        return $this;
+    }
+
+    public function getHash(): string
+    {
+        return $this->hash;
+    }
+
+    public function setHash(string $hash): Metadata
+    {
+        $this->hash = $hash;
 
         return $this;
     }

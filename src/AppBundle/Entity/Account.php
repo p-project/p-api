@@ -98,7 +98,7 @@ class Account
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="account", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="account", cascade={"persist"})
      */
     private $playlists;
 

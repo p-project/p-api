@@ -58,6 +58,15 @@ class Video
     private $uploadDate;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="number_view", type="integer")
+     * @Groups({"video"})
+     * @Assert\Type("integer")
+     */
+    private $numberView;
+
+    /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Annotation", mappedBy="video", cascade={"persist"})
@@ -130,6 +139,14 @@ class Video
      */
     private $metadata;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Seeder", mappedBy="video", cascade={"persist"})
+     * @Groups({"video"})
+     */
+    private $seeders;
+
     public function __construct()
     {
         $this->annotations = new ArrayCollection();
@@ -140,6 +157,7 @@ class Video
         $this->views = new ArrayCollection();
         $this->reviews = new ArrayCollection();
         $this->subtitles = new ArrayCollection();
+        $this->seeders = new ArrayCollection();
     }
 
     public function getId()
@@ -287,6 +305,30 @@ class Video
     public function setMetadata($metadata): Video
     {
         $this->metadata = $metadata;
+
+        return $this;
+    }
+
+    public function getNumberView(): int
+    {
+        return $this->numberView;
+    }
+
+    public function setNumberView(int $numberView): Video
+    {
+        $this->numberView = $numberView;
+
+        return $this;
+    }
+
+    public function getSeeders()
+    {
+        return $this->seeders;
+    }
+
+    public function setSeeders($seeders): Video
+    {
+        $this->seeders = $seeders;
 
         return $this;
     }

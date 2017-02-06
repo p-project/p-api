@@ -45,13 +45,13 @@ class Network
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Channel", inversedBy="networks", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Channel", inversedBy="networks", cascade={"persist"})
      */
-    private $channel;
+    private $channels;
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="network", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="network", cascade={"persist"})
      */
     private $playlists;
 
@@ -74,14 +74,14 @@ class Network
         return $this;
     }
 
-    public function getChannel()
+    public function getChannels()
     {
-        return $this->channel;
+        return $this->channels;
     }
 
-    public function setChannel($channel)
+    public function setChannels($channels)
     {
-        $this->channel = $channel;
+        $this->channels = $channels;
 
         return $this;
     }
