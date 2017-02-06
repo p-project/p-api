@@ -20,6 +20,7 @@ class Playlist
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Assert\Type("integer")
      */
     private $id;
 
@@ -28,6 +29,7 @@ class Playlist
      *
      * @ORM\Column(type="string")
      * @Assert\NotBlank
+     * @Assert\Type("string")
      */
     private $name;
 

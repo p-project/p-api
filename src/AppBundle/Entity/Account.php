@@ -22,6 +22,7 @@ class Account
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Assert\Type("integer")
      */
     private $id;
 
@@ -31,6 +32,7 @@ class Account
      * @ORM\Column(type="string", unique=true)
      *
      * @Assert\NotBlank
+     * @Assert\Type("string")
      */
     private $username;
 
@@ -50,6 +52,7 @@ class Account
      * @ORM\Column(type="string")
      *
      * @Assert\NotBlank
+     * @Assert\Type("string")
      */
     private $firstName;
 
@@ -59,6 +62,7 @@ class Account
      * @ORM\Column(type="string")
      *
      * @Assert\NotBlank
+     * @Assert\Type("string")
      */
     private $lastName;
 

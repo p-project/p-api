@@ -20,6 +20,7 @@ class Forum
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Assert\Type("integer")
      */
     private $id;
 
@@ -28,6 +29,7 @@ class Forum
      *
      * @ORM\Column(name="name", type="string")
      * @Assert\NotBlank
+     * @Assert\Type("string")
      */
     private $name;
 

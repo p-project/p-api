@@ -20,6 +20,7 @@ class SustainabilityOffer
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Assert\Type("integer")
      */
     private $id;
 
@@ -28,6 +29,7 @@ class SustainabilityOffer
      *
      * @ORM\Column(name="name", type="string")
      * @Assert\NotBlank
+     * @Assert\Type("string")
      */
     private $name;
 
@@ -36,6 +38,7 @@ class SustainabilityOffer
      *
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
+     * @Assert\Type("integer")
      */
     private $duration;
 

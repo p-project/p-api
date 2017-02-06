@@ -18,6 +18,7 @@ class View
      * @ORM\GeneratedValue
      * @ORM\Id
      * @ORM\Column(type="integer")
+     * @Assert\Type("integer")
      */
     private $id;
 

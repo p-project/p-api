@@ -19,6 +19,7 @@ class Subtitles
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Assert\Type("integer")
      */
     private $id;
 
@@ -26,6 +27,7 @@ class Subtitles
      * @var \DateTime Time when the subtitle should be displayed
      *
      * @ORM\Column(type="datetime", name="begin_time")
+     * @Assert\Type("datetime")
      */
     private $begin;
 
@@ -34,6 +36,7 @@ class Subtitles
      *
      * @ORM\Column(type="datetime", name="end_time")
      * @Assert\NotBlank
+     * @Assert\Type("datetime")
      */
     private $end;
 
@@ -42,6 +45,7 @@ class Subtitles
      *
      * @ORM\Column(type="string")
      * @Assert\NotBlank
+     * @Assert\Type("string")
      */
     private $path;
 
