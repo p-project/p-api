@@ -21,6 +21,7 @@ class Annotation
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Assert\Type("integer")
      */
     private $id;
 
@@ -29,6 +30,7 @@ class Annotation
      *
      * @ORM\Column(name="begin_time", type="datetime")
      * @Assert\NotBlank
+     * @Assert\Type("datetime")
      */
     private $begin;
 
@@ -37,6 +39,7 @@ class Annotation
      *
      * @ORM\Column(name="end_time", type="datetime")
      * @Assert\NotBlank
+     * @Assert\Type("datetime")
      */
     private $end;
 
@@ -44,6 +47,7 @@ class Annotation
      * @var string
      *
      * @ORM\Column(name="annotation_text", type="string", length=255)
+     * @Assert\Type("string")
      */
     private $annotationText;
 

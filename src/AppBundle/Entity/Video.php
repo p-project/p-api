@@ -24,6 +24,7 @@ class Video
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Groups({"video"})
+     * @Assert\Type("integer")
      */
     private $id;
 
@@ -33,6 +34,7 @@ class Video
      * @ORM\Column(name="title", type="string", length=255)
      * @Assert\NotBlank
      * @Groups({"video"})
+     * @Assert\Type("string")
      */
     private $title;
 
@@ -41,6 +43,7 @@ class Video
      *
      * @ORM\Column(name="description", type="string", length=255, nullable=true)
      * @Groups({"video"})
+     * @Assert\Type("string")
      */
     private $description;
 
@@ -50,6 +53,7 @@ class Video
      * @ORM\Column(name="date", type="datetime")
      * @Assert\NotBlank
      * @Groups({"video"})
+     * @Assert\Type("datetime")
      */
     private $uploadDate;
 

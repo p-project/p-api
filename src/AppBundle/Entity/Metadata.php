@@ -22,6 +22,7 @@ class Metadata
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Groups({"video"})
+     * @Assert\Type("integer")
      */
     private $id;
 
@@ -31,6 +32,7 @@ class Metadata
      * @ORM\Column(name="height", type="integer")
      * @Assert\NotBlank
      * @Groups({"video"})
+     * @Assert\Type("integer")
      */
     private $height;
 
@@ -40,6 +42,7 @@ class Metadata
      * @ORM\Column(name="width", type="integer")
      * @Assert\NotBlank
      * @Groups({"video"})
+     * @Assert\Type("integer")
      */
     private $width;
 
@@ -49,6 +52,7 @@ class Metadata
      * @ORM\Column(name="format", type="string")
      * @Assert\NotBlank
      * @Groups({"video"})
+     * @Assert\Type("string")
      */
     private $format;
 
