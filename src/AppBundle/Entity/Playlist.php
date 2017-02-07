@@ -36,21 +36,24 @@ class Playlist
     /**
      * @var Channel
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Channel", inversedBy="playlists", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Channel", inversedBy="playlist", cascade={"persist"})
+     * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=true)
      */
     private $channel;
 
     /**
      * @var Network
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Network", inversedBy="playlists", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Network", inversedBy="playlist", cascade={"persist"})
+     * @ORM\JoinColumn(name="network_id", referencedColumnName="id", nullable=true)
      */
     private $network;
 
     /**
      * @var Account
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Account", inversedBy="playlists", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account", inversedBy="playlist", cascade={"persist"})
+     * @ORM\JoinColumn(name="account_id", referencedColumnName="id", nullable=true)
      */
     private $account;
 
@@ -78,7 +81,7 @@ class Playlist
         return $this;
     }
 
-    public function getChannel(): Channel
+    public function getChannel()
     {
         return $this->channel;
     }
@@ -90,7 +93,7 @@ class Playlist
         return $this;
     }
 
-    public function getNetwork(): Network
+    public function getNetwork()
     {
         return $this->network;
     }
@@ -102,7 +105,7 @@ class Playlist
         return $this;
     }
 
-    public function getAccount(): Account
+    public function getAccount()
     {
         return $this->account;
     }

@@ -66,9 +66,10 @@ class Channel
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="channel", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="channel", cascade={"persist"})
+     * @ORM\JoinColumn(name="playlist_id", referencedColumnName="id", nullable=true)
      */
-    private $playlists;
+    private $playlist;
 
     /**
      * @var ArrayCollection
@@ -156,14 +157,14 @@ class Channel
         return $this;
     }
 
-    public function getPlaylists()
+    public function getPlaylist()
     {
-        return $this->playlists;
+        return $this->playlist;
     }
 
-    public function setPlaylists($playlists): Channel
+    public function setPlaylist($playlist): Channel
     {
-        $this->playlists = $playlists;
+        $this->playlist = $playlist;
 
         return $this;
     }
