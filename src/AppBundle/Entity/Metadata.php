@@ -65,15 +65,14 @@ class Metadata
      * @Assert\Type("string")
      */
     private $hash;
-
+/*
     /**
      * @var Video
      *
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Video", inversedBy="metadata", cascade={"persist"})
      * @ORM\JoinColumn(name="video_id", referencedColumnName="id")
-     */
-    private $video;
-
+     *
+    private $video;*/
     public function getId(): int
     {
         return $this->id;
@@ -122,7 +121,7 @@ class Metadata
         return $this;
     }
 
-    public function getVideo(): Video
+    /*public function getVideo(): Video
     {
         return $this->video;
     }
@@ -132,7 +131,7 @@ class Metadata
         $this->video = $video;
 
         return $this;
-    }
+    }*/
 
     public function getHash(): string
     {

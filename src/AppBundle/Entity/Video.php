@@ -134,7 +134,7 @@ class Video
     /**
      * @var Metadata
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Metadata", mappedBy="video", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Metadata", cascade={"persist"})
      * @Groups({"video"})
      */
     private $metadata;

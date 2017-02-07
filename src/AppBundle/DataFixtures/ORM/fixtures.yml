@@ -1,118 +1,129 @@
 AppBundle\Entity\Account:
-    account_{1..10}:
-        username: <userName()>
-        email: <email()>
-        firstName: <firstName()>
-        lastName: <lastName()>
-    account_michel:
-        username: michel
-        email: michel@yopmail.fr
-        firstName: Michel
-        lastName: Michel
+  account_{1..10}:
+    username: <userName()>
+    email: <email()>
+    firstName: <firstName()>
+    lastName: <lastName()>
+  account_michel:
+    username: michel
+    email: michel@yopmail.fr
+    firstName: Michel
+    lastName: Michel
 
 AppBundle\Entity\Channel:
-    channel_michel:
-        name: <word()>
-        account: '@account_michel'
+  channel_michel:
+    name: <word()>
+    account: '@account_michel'
 
 AppBundle\Entity\Category:
-    category_michel:
-        name: <word()>
-        description: <realText(150)>
+  category_michel:
+    name: <word()>
+    description: <realText(150)>
 
-#AppBundle\Entity\Video:
-#    video_{1..100}:
-#        title: <sentence(4)>
-#        description: <realText(150)>
-#        channel: '@channel_michel'
-#        uploadDate: <date()>
-#        categories: [ '@category_michel' ]
-#
-#    video_michel:
-#        title: <sentence(4)>
-#        description: <realText(150)>
-#        channel: '@channel_michel'
-#        uploadDate: <date()>
-#        categories: [ '@category_michel' ]
-#
-#AppBundle\Entity\Annotation:
-#    annotation_{1..5}:
-#      begin: <date()>
-#      end: <date()>
-#      annotationText: <realText(150)>
-#      video: '@video_michel'
-#    annotation_{6..10}:
-#      begin: <date()>
-#      end: <date()>
-#      annotationText: <realText(150)>
-#      video: '@video_1'
-#
-#AppBundle\Entity\Comment:
-#    comment_{1..5}:
-#      content: <realText(150)>
-#      dateComment: <date()>
-#      video: '@video_michel'
-#      author: '@account_michel'
-#
-#AppBundle\Entity\Forum:
-#    forum_{1..5}:
-#      name: <word()>
-#      video: '@video_michel'
-#      createdBy: '@account_michel'
-#
-#AppBundle\Entity\Metadata:
-#    metadata_1:
-#      height: 100
-#      width: 100
-#      format: 'mp3'
-#      video: '@video_michel'
-#
-#AppBundle\Entity\Network:
-#    network_1:
-#      name: <word()>
-#      peoples: [ '@account_michel' ]
-#      channel: '@channel_michel'
-#
-#AppBundle\Entity\Review:
-#    review_{1..5}:
-#      content: <realText(150)>
-#      dateReview: <date()>
-#      video: '@video_michel'
-#      author: '@account_michel'
-#
-#AppBundle\Entity\Reply:
-#    reply_{1..5}:
-#      content: <realText(150)>
-#      dateReply: <date()>
-#      author: '@account_michel'
-#      review: '@review_1'
-#
-#AppBundle\Entity\Seeder:
-#    seeder_{1..5}:
-#      platform: <realText(150)>
-#      account: '@account_michel'
-#
-#AppBundle\Entity\Seed:
-#    seed_1:
-#      url: <sentence(4)>
-#      video: '@video_michel'
-#      seeder: '@seeder_1'
-#
-#AppBundle\Entity\Subtitles:
-#    subtitles_{1..5}:
-#      begin: <date()>
-#      end: <date()>
-#      path: <realText(150)>
-#      video: '@video_michel'
-#
-#AppBundle\Entity\SustainabilityOffer:
-#    sustainability_offer_{1..5}:
-#      name: <word()>
-#      duration: 0
-#      account: '@account_michel'
-#      channel: '@channel_michel'
-#
-#AppBundle\Entity\View:
-#    view_{1..5}:
-#      account: '@account_michel'
-#      video: '@video_michel'
+AppBundle\Entity\Metadata:
+  metadata_michel:
+    format: <word()>
+    height: <numberBetween(100, 99999)>
+    width: <numberBetween(100, 99999)>
+    hash: <word()>
+
+  metadata_{1..100}:
+    format: <word()>
+    height: <numberBetween(100, 99999)>
+    width: <numberBetween(100, 99999)>
+    hash: <word()>
+
+AppBundle\Entity\Video:
+  video_{1..100}:
+    title: <sentence(4)>
+    description: <realText(150)>
+    channel: '@channel_michel'
+    uploadDate: <date()>
+    number_view: <numberBetween(100, 99999)>
+    categories: [ '@category_michel' ]
+    metadata: '@metadata_<current()>'
+
+  video_michel:
+    title: <sentence(4)>
+    description: <realText(150)>
+    channel: '@channel_michel'
+    uploadDate: <date()>
+    categories: [ '@category_michel' ]
+    number_view: <numberBetween(100, 99999)>
+    metadata: '@metadata_michel'
+
+AppBundle\Entity\Annotation:
+  annotation_{1..5}:
+    begin: <date()>
+    end: <date()>
+    annotationText: <realText(150)>
+    video: '@video_michel'
+  annotation_{6..10}:
+    begin: <date()>
+    end: <date()>
+    annotationText: <realText(150)>
+    video: '@video_1'
+
+AppBundle\Entity\Comment:
+  comment_{1..5}:
+    content: <realText(150)>
+    dateComment: <date()>
+    video: '@video_michel'
+    author: '@account_michel'
+
+AppBundle\Entity\Forum:
+  forum_{1..5}:
+    name: <word()>
+    video: '@video_michel'
+    createdBy: '@account_michel'
+
+AppBundle\Entity\Network:
+  network_1:
+    name: <word()>
+    peoples: [ '@account_michel' ]
+    channel: '@channel_michel'
+
+AppBundle\Entity\Review:
+  review_{1..5}:
+    content: <realText(150)>
+    dateReview: <date()>
+    video: '@video_michel'
+    author: '@account_michel'
+
+AppBundle\Entity\Reply:
+  reply_{1..5}:
+    content: <realText(150)>
+    dateReply: <date()>
+    author: '@account_michel'
+    review: '@review_1'
+
+AppBundle\Entity\Seeder:
+  seeder_{1..5}:
+    platform: <realText(150)>
+    ip: <realText(150)>
+    account: '@account_michel'
+    video: '@video_michel'
+
+AppBundle\Entity\Subtitles:
+  subtitles_{1..5}:
+    begin: <date()>
+    end: <date()>
+    path: <realText(150)>
+    video: '@video_michel'
+
+AppBundle\Entity\SustainabilityOffer:
+  sustainability_offer_{1..5}:
+    name: <word()>
+    duration: 0
+    account: '@account_michel'
+    channel: '@channel_michel'
+
+AppBundle\Entity\View:
+  view_{1..5}:
+    account: '@account_michel'
+    video: '@video_michel'
+
+AppBundle\Entity\Playlist:
+  playlist_{1..5}:
+    name: <word()>
+    account: '@account_michel'
