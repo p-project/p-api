@@ -36,7 +36,7 @@ class Playlist
     /**
      * @var Channel
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Channel", inversedBy="playlist", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Channel", inversedBy="playlists", cascade={"persist"})
      * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=true)
      */
     private $channel;
@@ -44,7 +44,7 @@ class Playlist
     /**
      * @var Network
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Network", inversedBy="playlist", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Network", inversedBy="playlists", cascade={"persist"})
      * @ORM\JoinColumn(name="network_id", referencedColumnName="id", nullable=true)
      */
     private $network;
@@ -52,7 +52,7 @@ class Playlist
     /**
      * @var Account
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account", inversedBy="playlist", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account", inversedBy="playlists", cascade={"persist"})
      * @ORM\JoinColumn(name="account_id", referencedColumnName="id", nullable=true)
      */
     private $account;

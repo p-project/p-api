@@ -69,7 +69,7 @@ class Channel
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="channel", cascade={"persist"})
      * @ORM\JoinColumn(name="playlist_id", referencedColumnName="id", nullable=true)
      */
-    private $playlist;
+    private $playlists;
 
     /**
      * @var ArrayCollection
@@ -157,14 +157,14 @@ class Channel
         return $this;
     }
 
-    public function getPlaylist()
+    public function getPlaylists()
     {
-        return $this->playlist;
+        return $this->playlists;
     }
 
-    public function setPlaylist($playlist): Channel
+    public function setPlaylists($playlists): Channel
     {
-        $this->playlist = $playlist;
+        $this->playlists = $playlists;
 
         return $this;
     }

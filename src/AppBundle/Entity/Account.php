@@ -100,7 +100,7 @@ class Account
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="account", cascade={"persist"})
      */
-    private $playlist;
+    private $playlists;
 
     /**
      * @var ArrayCollection
@@ -237,14 +237,14 @@ class Account
         return $this;
     }
 
-    public function getPlaylist()
+    public function getPlaylists()
     {
-        return $this->playlist;
+        return $this->playlists;
     }
 
-    public function setPlaylist($playlist): Account
+    public function setPlaylist($playlists): Account
     {
-        $this->playlist = $playlist;
+        $this->playlists = $playlists;
 
         return $this;
     }

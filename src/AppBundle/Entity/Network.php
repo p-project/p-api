@@ -53,12 +53,12 @@ class Network
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="network", cascade={"persist"})
      */
-    private $playlist;
+    private $playlists;
 
     public function __construct()
     {
         $this->peoples = new ArrayCollection();
-        $this->channel = new ArrayCollection();
+        $this->channels = new ArrayCollection();
         $this->playlists = new ArrayCollection();
     }
 
@@ -110,14 +110,14 @@ class Network
         return $this;
     }
 
-    public function getPlaylist()
+    public function getPlaylists()
     {
-        return $this->playlist;
+        return $this->playlists;
     }
 
-    public function setPlaylist($playlist): Network
+    public function setPlaylists($playlists): Network
     {
-        $this->playlist = $playlist;
+        $this->playlists = $playlists;
 
         return $this;
     }
