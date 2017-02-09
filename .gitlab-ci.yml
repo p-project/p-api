@@ -6,7 +6,7 @@ cache:
 
 before_script:
     - apt-get -qq update
-    - apt-get -qq install wget > /dev/null
+    - apt-get -qq install wget git unzip > /dev/null
     - wget -N https://getcomposer.org/composer.phar
     - chmod u+x composer.phar
     - ./composer.phar install
