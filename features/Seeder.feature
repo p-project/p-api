@@ -87,7 +87,15 @@ Feature: Manage seeder
       "title": "string",
       "description": "string",
       "uploadDate": "2017-02-01T18:30:52.055Z",
-      "channel": "/channels/1"
+      "numberView": 120,
+      "channel": "/channels/1",
+      "metadata":
+      {
+        "height": 100,
+        "width": 100,
+        "format": "mp3",
+        "hash": "Abdsbfs"
+      }
     }
     """
     Then the response status code should be 201
@@ -96,21 +104,32 @@ Feature: Manage seeder
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Video",
-      "@id": "/videos/1",
+      "@context": "\/contexts\/Video",
+      "@id": "\/videos\/1",
       "@type": "Video",
       "id": 1,
       "title": "string",
       "description": "string",
       "uploadDate": "2017-02-01T18:30:52+00:00",
+      "numberView": 120,
       "annotations": [],
-      "channel": "/channels/1",
+      "channel": "\/channels\/1",
       "comments": [],
       "forums": [],
       "views": [],
       "reviews": [],
       "subtitles": [],
-      "categories": []
+      "categories": [],
+      "metadata": {
+          "@id": "\/metadatas\/1",
+          "@type": "Metadata",
+          "id": 1,
+          "height": 100,
+          "width": 100,
+          "format": "mp3",
+          "hash": "Abdsbfs"
+      },
+      "seeders": []
     }
     """
 
@@ -121,7 +140,9 @@ Feature: Manage seeder
     """
     {
       "platform": "string",
-      "account": "/accounts/1"
+      "account": "/accounts/1",
+      "video": "/videos/1",
+      "ip": "127.0.0.1"
     }
     """
     Then the response status code should be 201
@@ -136,55 +157,8 @@ Feature: Manage seeder
       "id": 1,
       "platform": "string",
       "account": "/accounts/1",
-      "seeds": []
-    }
-    """
-
-  Scenario: Create a seed
-    When I add "Content-Type" header equal to "application/ld+json"
-    And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/seeds" with body:
-    """
-    {
-      "url": "string",
-      "video": "/videos/1",
-      "seeder": "/seeders/1"
-    }
-    """
-    Then the response status code should be 201
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-      "@context": "/contexts/Seed",
-      "@id": "/seeds/1",
-      "@type": "Seed",
-      "id": 1,
-      "url": "string",
-      "video": "/videos/1",
-      "seeder": "/seeders/1"
-    }
-    """
-
-  Scenario: See seeds in seeder
-    When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/seeders/1"
-    Then the response status code should be 200
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-      "@context": "/contexts/Seeder",
-      "@id": "/seeders/1",
-      "@type": "Seeder",
-      "id": 1,
-      "platform": "string",
-      "account": "/accounts/1",
-      "seeds": [
-        "/seeds/1"
-      ]
+      "ip": "127.0.0.1",
+      "video": "/videos/1"
     }
     """
 
@@ -206,10 +180,14 @@ Feature: Manage seeder
       "@context": "/contexts/ConstraintViolationList",
       "@type": "ConstraintViolationList",
       "hydra:title": "An error occurred",
-      "hydra:description": "platform: This value should not be blank.",
+      "hydra:description": "platform: This value should not be blank.\nip: This value should not be blank.",
       "violations": [
         {
           "propertyPath": "platform",
+          "message": "This value should not be blank."
+        },
+        {
+          "propertyPath": "ip",
           "message": "This value should not be blank."
         }
       ]
@@ -235,9 +213,8 @@ Feature: Manage seeder
           "id": 1,
           "platform": "string",
           "account": "/accounts/1",
-          "seeds": [
-            "/seeds/1"
-          ]
+          "ip": "127.0.0.1",
+          "video": "/videos/1"
         }
       ],
       "hydra:totalItems": 1
@@ -265,9 +242,8 @@ Feature: Manage seeder
       "id": 1,
       "platform": "stringUpdated",
       "account": "/accounts/1",
-      "seeds": [
-        "/seeds/1"
-      ]
+      "ip": "127.0.0.1",
+      "video": "/videos/1"
     }
     """
 

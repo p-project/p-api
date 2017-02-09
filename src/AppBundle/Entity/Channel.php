@@ -21,6 +21,7 @@ class Channel
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Assert\Type("integer")
      */
     private $id;
 
@@ -29,13 +30,15 @@ class Channel
      *
      * @ORM\Column(name="name", type="string", unique=true)
      * @Assert\NotBlank
+     * @Assert\Type("string")
      */
     private $name;
 
     /**
      * @var array
      *
-     * @ORM\Column(name="tags", type="array")
+     * @ORM\Column(name="tags", type="array", nullable=true)
+     * @Assert\Type("array")
      */
     private $tags;
 
@@ -56,7 +59,7 @@ class Channel
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Network", mappedBy="channel", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Network", mappedBy="channels", cascade={"persist"})
      */
     private $networks;
 
@@ -64,6 +67,7 @@ class Channel
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="channel", cascade={"persist"})
+     * @ORM\JoinColumn(name="playlist_id", referencedColumnName="id", nullable=true)
      */
     private $playlists;
 

@@ -21,6 +21,7 @@ class Network
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Assert\Type("integer")
      */
     private $id;
 
@@ -29,6 +30,7 @@ class Network
      *
      * @ORM\Column(name="name", type="string")
      * @Assert\NotBlank
+     * @Assert\Type("string")
      */
     private $name;
 
@@ -43,9 +45,9 @@ class Network
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Channel", inversedBy="networks", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Channel", inversedBy="networks", cascade={"persist"})
      */
-    private $channel;
+    private $channels;
 
     /**
      * @var ArrayCollection
@@ -56,7 +58,7 @@ class Network
     public function __construct()
     {
         $this->peoples = new ArrayCollection();
-        $this->channel = new ArrayCollection();
+        $this->channels = new ArrayCollection();
         $this->playlists = new ArrayCollection();
     }
 
@@ -72,14 +74,14 @@ class Network
         return $this;
     }
 
-    public function getChannel()
+    public function getChannels()
     {
-        return $this->channel;
+        return $this->channels;
     }
 
-    public function setChannel($channel)
+    public function setChannels($channels)
     {
-        $this->channel = $channel;
+        $this->channels = $channels;
 
         return $this;
     }
@@ -113,7 +115,7 @@ class Network
         return $this->playlists;
     }
 
-    public function setPlaylists(ArrayCollection $playlists): Network
+    public function setPlaylists($playlists): Network
     {
         $this->playlists = $playlists;
 

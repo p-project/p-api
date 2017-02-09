@@ -6,12 +6,14 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Video
  *
  * @ORM\Entity
- * @ApiResource
+ * @ApiResource(attributes={"normalization_context"={"groups"={"video"}},
+ *                          "denormalization_context"={"groups"={"video"}}})
  */
 class Video
 {
@@ -21,6 +23,8 @@ class Video
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"video"})
+     * @Assert\Type("integer")
      */
     private $id;
 
@@ -29,6 +33,8 @@ class Video
      *
      * @ORM\Column(name="title", type="string", length=255)
      * @Assert\NotBlank
+     * @Groups({"video"})
+     * @Assert\Type("string")
      */
     private $title;
 
@@ -36,6 +42,8 @@ class Video
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     * @Groups({"video"})
+     * @Assert\Type("string")
      */
     private $description;
 
@@ -44,13 +52,24 @@ class Video
      *
      * @ORM\Column(name="date", type="datetime")
      * @Assert\NotBlank
+     * @Groups({"video"})
+     * @Assert\Type("datetime")
      */
     private $uploadDate;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="number_view", type="integer", nullable=true)
+     * @Groups({"video"})
+     */
+    private $numberView = 0;
 
     /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Annotation", mappedBy="video", cascade={"persist"})
+     * @Groups({"video"})
      */
     private $annotations;
 
@@ -58,6 +77,7 @@ class Video
      * @var ArrayCollection
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Channel", inversedBy="videos", cascade={"persist"})
+     * @Groups({"video"})
      */
     private $channel;
 
@@ -65,6 +85,7 @@ class Video
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="video", cascade={"persist"})
+     * @Groups({"video"})
      */
     private $comments;
 
@@ -72,6 +93,7 @@ class Video
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Forum", mappedBy="video", cascade={"persist"})
+     * @Groups({"video"})
      */
     private $forums;
 
@@ -79,6 +101,7 @@ class Video
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\View", mappedBy="video", cascade={"persist"})
+     * @Groups({"video"})
      */
     private $views;
 
@@ -86,6 +109,7 @@ class Video
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Review", mappedBy="video", cascade={"persist"})
+     * @Groups({"video"})
      */
     private $reviews;
 
@@ -93,6 +117,7 @@ class Video
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Subtitles", mappedBy="video", cascade={"persist"})
+     * @Groups({"video"})
      */
     private $subtitles;
 
@@ -100,8 +125,26 @@ class Video
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Category", inversedBy="videos", cascade={"persist"})
+     * @Groups({"video"})
      */
     private $categories;
+
+
+    /**
+     * @var Metadata
+     *
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Metadata", cascade={"persist"})
+     * @Groups({"video"})
+     */
+    private $metadata;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Seeder", mappedBy="video", cascade={"persist"})
+     * @Groups({"video"})
+     */
+    private $seeders;
 
     public function __construct()
     {
@@ -112,8 +155,8 @@ class Video
         $this->forums = new ArrayCollection();
         $this->views = new ArrayCollection();
         $this->reviews = new ArrayCollection();
-        $this->seeds = new ArrayCollection();
         $this->subtitles = new ArrayCollection();
+        $this->seeders = new ArrayCollection();
     }
 
     public function getId()
@@ -249,6 +292,42 @@ class Video
     public function setCategories($categories): Video
     {
         $this->categories = $categories;
+
+        return $this;
+    }
+
+    public function getMetadata()
+    {
+        return $this->metadata;
+    }
+
+    public function setMetadata($metadata): Video
+    {
+        $this->metadata = $metadata;
+
+        return $this;
+    }
+
+    public function getNumberView(): int
+    {
+        return $this->numberView;
+    }
+
+    public function setNumberView(int $numberView): Video
+    {
+        $this->numberView = $numberView;
+
+        return $this;
+    }
+
+    public function getSeeders()
+    {
+        return $this->seeders;
+    }
+
+    public function setSeeders($seeders): Video
+    {
+        $this->seeders = $seeders;
 
         return $this;
     }

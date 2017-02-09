@@ -258,7 +258,15 @@ Feature: Manage account
       "title": "string",
       "description": "string",
       "uploadDate": "2017-02-01T18:30:52.055Z",
-      "channel": "/channels/1"
+      "numberView": 120,
+      "channel": "/channels/1",
+      "metadata":
+      {
+        "height": 100,
+        "width": 100,
+        "format": "mp3",
+        "hash": "Abdsbfs"
+      }
     }
     """
     Then the response status code should be 201
@@ -267,21 +275,32 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Video",
-      "@id": "/videos/1",
+      "@context": "\/contexts\/Video",
+      "@id": "\/videos\/1",
       "@type": "Video",
       "id": 1,
       "title": "string",
       "description": "string",
       "uploadDate": "2017-02-01T18:30:52+00:00",
+      "numberView": 120,
       "annotations": [],
-      "channel": "/channels/1",
+      "channel": "\/channels\/1",
       "comments": [],
       "forums": [],
       "views": [],
       "reviews": [],
       "subtitles": [],
-      "categories": []
+      "categories": [],
+      "metadata": {
+          "@id": "\/metadatas\/1",
+          "@type": "Metadata",
+          "id": 1,
+          "height": 100,
+          "width": 100,
+          "format": "mp3",
+          "hash": "Abdsbfs"
+      },
+      "seeders": []
     }
     """
 
@@ -411,7 +430,7 @@ Feature: Manage account
     And I send a "POST" request to "/networks" with body:
     """
     {
-      "channel": "/channels/1",
+      "channels": ["/channels/1"],
       "name": "string",
       "peoples": [
         "/accounts/1"
@@ -428,7 +447,9 @@ Feature: Manage account
       "@id": "/networks/1",
       "@type": "Network",
       "id": 1,
-      "channel": "/channels/1",
+      "channels": [
+         "/channels/1"
+      ],
       "name": "string",
       "peoples": [
         "/accounts/1"
@@ -672,7 +693,7 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-       "@context": "/contexts/SustainabilityOffer",
+      "@context": "/contexts/SustainabilityOffer",
       "@id": "/sustainability_offers/1",
       "@type": "SustainabilityOffer",
       "id": 1,
@@ -734,7 +755,9 @@ Feature: Manage account
     {
       "id": 0,
       "platform": "string",
-      "account": "/accounts/1"
+      "ip": "127.0.0.1",
+      "account": "/accounts/1",
+      "video": "/videos/1"
     }
     """
     Then the response status code should be 201
@@ -749,7 +772,8 @@ Feature: Manage account
       "id": 1,
       "platform": "string",
       "account": "/accounts/1",
-      "seeds": []
+      "ip": "127.0.0.1",
+      "video": "/videos/1"
     }
     """
 
@@ -783,6 +807,80 @@ Feature: Manage account
           "/networks/1"
       ],
       "playlists": [],
+      "replies": [
+          "/replies/1"
+      ],
+      "reviews": [
+          "/reviews/1"
+      ],
+      "sustainabilityOffers": [
+          "/sustainability_offers/1"
+      ],
+      "seeders": [
+          "/seeders/1"
+      ]
+    }
+    """
+
+  Scenario: Create playlist in account
+    When I add "Content-Type" header equal to "application/ld+json"
+    And I add "Accept" header equal to "application/ld+json"
+    And I send a "POST" request to "/playlists" with body:
+    """
+    {
+      "name": "string",
+      "account": "/accounts/1"
+    }
+    """
+    Then the response status code should be 201
+    And the response should be in JSON
+    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
+    And the JSON should be equal to:
+    """
+    {
+      "@context": "/contexts/Playlist",
+      "@id": "/playlists/1",
+      "@type": "Playlist",
+      "id": 1,
+      "name": "string",
+      "channel": null,
+      "network": null,
+      "account": "/accounts/1"
+    }
+    """
+
+  Scenario: See playlist in account
+    When I add "Accept" header equal to "application/ld+json"
+    And I send a "GET" request to "/accounts/1"
+    Then the response status code should be 200
+    And the response should be in JSON
+    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
+    And the JSON should be equal to:
+    """
+    {
+      "@context": "/contexts/Account",
+      "@id": "/accounts/1",
+      "@type": "Account",
+      "views": [
+          "/views/1"
+      ],
+      "channels": [
+         "/channels/1"
+      ],
+      "id": 1,
+      "username": "stringUpdated",
+      "email": "string@string.fr",
+      "firstName": "string",
+      "lastName": "string",
+      "forums": [
+          "/forums/1"
+      ],
+      "networks": [
+          "/networks/1"
+      ],
+      "playlists": [
+          "/playlists/1"
+      ],
       "replies": [
           "/replies/1"
       ],

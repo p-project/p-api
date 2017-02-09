@@ -12,7 +12,7 @@ Feature: Manage channel
     """
     {
       "username": "string",
-      "email": "string@string.fr",
+      "email": "string@string.fr",  
       "firstName": "string",
       "lastName": "string"
     }
@@ -117,7 +117,15 @@ Feature: Manage channel
       "title": "string",
       "description": "string",
       "uploadDate": "2017-02-01T18:30:52.055Z",
-      "channel": "/channels/1"
+      "numberView": 120,
+      "channel": "/channels/1",
+      "metadata":
+      {
+        "height": 100,
+        "width": 100,
+        "format": "mp3",
+        "hash": "Abdsbfs"
+      }
     }
     """
     Then the response status code should be 201
@@ -126,21 +134,32 @@ Feature: Manage channel
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Video",
-      "@id": "/videos/1",
+      "@context": "\/contexts\/Video",
+      "@id": "\/videos\/1",
       "@type": "Video",
       "id": 1,
       "title": "string",
       "description": "string",
       "uploadDate": "2017-02-01T18:30:52+00:00",
+      "numberView": 120,
       "annotations": [],
-      "channel": "/channels/1",
+      "channel": "\/channels\/1",
       "comments": [],
       "forums": [],
       "views": [],
       "reviews": [],
       "subtitles": [],
-      "categories": []
+      "categories": [],
+      "metadata": {
+          "@id": "\/metadatas\/1",
+          "@type": "Metadata",
+          "id": 1,
+          "height": 100,
+          "width": 100,
+          "format": "mp3",
+          "hash": "Abdsbfs"
+      },
+      "seeders": []
     }
     """
 
@@ -177,7 +196,9 @@ Feature: Manage channel
     And I send a "POST" request to "/networks" with body:
     """
     {
-      "channel": "/channels/1",
+      "channels": [
+        "/channels/1"
+      ],
       "name": "string",
       "peoples": [
         "/accounts/1"
@@ -194,7 +215,9 @@ Feature: Manage channel
       "@id": "/networks/1",
       "@type": "Network",
       "id": 1,
-      "channel": "/channels/1",
+      "channels": [
+        "/channels/1"
+      ],
       "name": "string",
       "peoples": [
         "/accounts/1"
@@ -361,6 +384,66 @@ Feature: Manage channel
           "/networks/1"
       ],
       "playlists": [],
+      "sustainabilityOffers": [
+          "/sustainability_offers/1"
+      ]
+    }
+    """
+
+  Scenario: Create playlist in channel
+    When I add "Content-Type" header equal to "application/ld+json"
+    And I add "Accept" header equal to "application/ld+json"
+    And I send a "POST" request to "/playlists" with body:
+    """
+    {
+      "name": "string",
+      "channel": "/channels/1"
+    }
+    """
+    Then the response status code should be 201
+    And the response should be in JSON
+    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
+    And the JSON should be equal to:
+    """
+    {
+      "@context": "/contexts/Playlist",
+      "@id": "/playlists/1",
+      "@type": "Playlist",
+      "id": 1,
+      "name": "string",
+      "channel": "/channels/1",
+      "network": null,
+      "account": null
+    }
+    """
+
+  Scenario: See playlist in channel
+    When I add "Accept" header equal to "application/ld+json"
+    And I send a "GET" request to "/channels/1"
+    Then the response status code should be 200
+    And the response should be in JSON
+    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
+    And the JSON should be equal to:
+    """
+    {
+      "@context": "/contexts/Channel",
+      "@id": "/channels/1",
+      "@type": "Channel",
+      "account": "/accounts/1",
+      "id": 1,
+      "name": "stringUpdated",
+      "tags": [
+        "string"
+      ],
+      "videos": [
+          "/videos/1"
+      ],
+      "networks": [
+          "/networks/1"
+      ],
+      "playlists": [
+          "/playlists/1"
+      ],
       "sustainabilityOffers": [
           "/sustainability_offers/1"
       ]

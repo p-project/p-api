@@ -21,6 +21,7 @@ class Review
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Assert\Type("integer")
      */
     private $id;
 
@@ -29,6 +30,7 @@ class Review
      *
      * @ORM\Column(name="name", type="string")
      * @Assert\NotBlank
+     * @Assert\Type("string")
      */
     private $content;
 
@@ -36,6 +38,7 @@ class Review
      * @var Video
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video", inversedBy="reviews")
+     *
      */
     private $video;
 
@@ -52,6 +55,7 @@ class Review
      *
      * @ORM\Column(name="date_comment", type="datetime")
      * @Assert\NotBlank
+     * @Assert\Type("datetime")
      */
     private $dateReview;
 

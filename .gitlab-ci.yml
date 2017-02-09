@@ -1,0 +1,32 @@
+image: php:7.0
+
+stages:
+  - test
+  - quality
+
+cache:
+  paths:
+    - vendor/
+
+before_script:
+  - apt-get -qq update
+  - apt-get -qq install wget git unzip > /dev/null
+  - wget -N https://getcomposer.org/composer.phar
+  - chmod u+x composer.phar
+
+behat:
+  stage: test
+  script:
+    - ./composer.phar install --no-interaction
+    - echo "date.timezone = Europe/Paris" > /usr/local/etc/php/php.ini
+    - ./vendor/bin/behat --init
+    - ./vendor/bin/behat --colors
+
+php_cs_fixer:
+  stage: quality
+  script:
+    - mkdir tools && mv composer.phar tools/ && cd tools
+    - ./composer.phar require friendsofphp/php-cs-fixer --update-no-dev
+    - cd ../
+    - ./tools/vendor/bin/php-cs-fixer fix --no-interaction --dry-run --diff -v src/
+    - ./tools/vendor/bin/php-cs-fixer fix --no-interaction --dry-run --diff -v tests/

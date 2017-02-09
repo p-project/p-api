@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Metadata
@@ -20,6 +21,8 @@ class Metadata
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"video"})
+     * @Assert\Type("integer")
      */
     private $id;
 
@@ -28,6 +31,8 @@ class Metadata
      *
      * @ORM\Column(name="height", type="integer")
      * @Assert\NotBlank
+     * @Groups({"video"})
+     * @Assert\Type("integer")
      */
     private $height;
 
@@ -36,6 +41,8 @@ class Metadata
      *
      * @ORM\Column(name="width", type="integer")
      * @Assert\NotBlank
+     * @Groups({"video"})
+     * @Assert\Type("integer")
      */
     private $width;
 
@@ -44,18 +51,28 @@ class Metadata
      *
      * @ORM\Column(name="format", type="string")
      * @Assert\NotBlank
+     * @Groups({"video"})
+     * @Assert\Type("string")
      */
     private $format;
 
-
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="hash", type="string")
+     * @Assert\NotBlank
+     * @Groups({"video"})
+     * @Assert\Type("string")
+     */
+    private $hash;
+/*
     /**
      * @var Video
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Video")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Video", inversedBy="metadata", cascade={"persist"})
      * @ORM\JoinColumn(name="video_id", referencedColumnName="id")
-     */
-    private $video;
-
+     *
+    private $video;*/
     public function getId(): int
     {
         return $this->id;
@@ -104,7 +121,7 @@ class Metadata
         return $this;
     }
 
-    public function getVideo(): Video
+    /*public function getVideo(): Video
     {
         return $this->video;
     }
@@ -112,6 +129,18 @@ class Metadata
     public function setVideo($video): Metadata
     {
         $this->video = $video;
+
+        return $this;
+    }*/
+
+    public function getHash(): string
+    {
+        return $this->hash;
+    }
+
+    public function setHash(string $hash): Metadata
+    {
+        $this->hash = $hash;
 
         return $this;
     }
