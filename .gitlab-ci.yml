@@ -8,6 +8,8 @@ before_script:
     - apt-get -qq update
     - apt-get -qq install git unzip > /dev/null
     - cd /usr/local/bin && curl -sS https://getcomposer.org/installer | php -- --filename=composer
+    - cd $HOME
+    - ls
     - php composer install --no-interaction --optimize-autoloader
     
 behat:
