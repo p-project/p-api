@@ -6,14 +6,12 @@ cache:
 
 before_script:
     - apt-get -qq update
-    - apt-get -qq install git unzip > /dev/null
-    - cd /usr/local/bin && curl -sS https://getcomposer.org/installer | php -- --filename=composer
-    - cd $HOME
-    - ls
-    - php composer install --no-interaction --optimize-autoloader
+    - wget -N https://getcomposer.org/composer.phar
+    - chmod u+x composer.phar
+    - ./composer.phar install
     
 behat:
   stage: test
   script:
-        - vendor/bin/behat --init
-        - vendor/bin/behat --colors
+        - ./vendor/bin/behat --init
+        - ./vendor/bin/behat --colors
