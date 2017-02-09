@@ -24,10 +24,9 @@ behat:
 
 php_cs_fixer:
   stage: quality
-  before_script:
+   script:
     - mkdir tools && mv composer.phar tools/ && cd tools
     - ./composer.phar require friendsofphp/php-cs-fixer --update-no-dev
     - cd ../
-  script:
     - ./tools/vendor/bin/php-cs-fixer fix --no-interaction --dry-run --diff -v src/
     - ./tools/vendor/bin/php-cs-fixer fix --no-interaction --dry-run --diff -v tests/
