@@ -9,7 +9,7 @@ before_script:
     - apt-get -qq install git unzip > /dev/null
     - cd /usr/local/bin && curl -sS https://getcomposer.org/installer | php -- --filename=composer
     - chmod +x composer
-    - composer -q install
+    - php composer -q install
     
 test:
   stage: behat
