@@ -113,10 +113,18 @@ Feature: Manage category
       "title": "string",
       "description": "string",
       "uploadDate": "2017-02-01T18:30:52.055Z",
+      "numberView": 120,
       "channel": "/channels/1",
       "categories": [
-          "/categories/1"
-      ]
+        "/categories/1"
+      ],
+      "metadata":
+      {
+        "height": 100,
+        "width": 100,
+        "format": "mp3",
+        "hash": "Abdsbfs"
+      }
     }
     """
     Then the response status code should be 201
@@ -125,23 +133,34 @@ Feature: Manage category
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Video",
-      "@id": "/videos/1",
+      "@context": "\/contexts\/Video",
+      "@id": "\/videos\/1",
       "@type": "Video",
       "id": 1,
       "title": "string",
       "description": "string",
       "uploadDate": "2017-02-01T18:30:52+00:00",
+      "numberView": 120,
       "annotations": [],
-      "channel": "/channels/1",
+      "channel": "\/channels\/1",
       "comments": [],
       "forums": [],
       "views": [],
       "reviews": [],
       "subtitles": [],
       "categories": [
-          "/categories/1"
-      ]
+        "/categories/1"
+      ],
+      "metadata": {
+          "@id": "\/metadatas\/1",
+          "@type": "Metadata",
+          "id": 1,
+          "height": 100,
+          "width": 100,
+          "format": "mp3",
+          "hash": "Abdsbfs"
+      },
+      "seeders": []
     }
     """
 

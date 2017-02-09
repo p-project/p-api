@@ -84,7 +84,7 @@ Feature: Manage network
     And I send a "POST" request to "/networks" with body:
     """
     {
-        "channel": "/channels/1",
+        "channels": [ "/channels/1" ],
         "name": "string"
     }
     """
@@ -98,7 +98,7 @@ Feature: Manage network
       "@id": "/networks/1",
       "@type": "Network",
       "id": 1,
-      "channel": "/channels/1",
+      "channels": [ "/channels/1" ],
       "name": "string",
       "peoples": [],
       "playlists": []
@@ -166,7 +166,7 @@ Feature: Manage network
       "@id": "/networks/1",
       "@type": "Network",
       "id": 1,
-      "channel": "/channels/1",
+      "channels": [ "/channels/1" ],
       "name": "string",
       "peoples": [
         "/accounts/1",
@@ -193,7 +193,7 @@ Feature: Manage network
           "@id": "/networks/1",
           "@type": "Network",
           "id": 1,
-          "channel": "/channels/1",
+          "channels": [ "/channels/1" ],
           "name": "string",
           "peoples": [
               "/accounts/1",
