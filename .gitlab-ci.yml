@@ -11,7 +11,6 @@ before_script:
     - chmod u+x composer.phar
     - ./composer.phar install
     - echo "date.timezone = Europe/Paris" > /usr/local/etc/php/php.ini
-    - export TZ=CET
     
 behat:
   stage: test
