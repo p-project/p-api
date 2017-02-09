@@ -8,26 +8,25 @@ cache:
   paths:
     - vendor/
 
+before_script:
+  - apt-get -qq update
+  - apt-get -qq install wget git unzip > /dev/null
+  - wget -N https://getcomposer.org/composer.phar
+  - chmod u+x composer.phar
+
 behat:
   stage: test
-  before_script:
-    - apt-get -qq install wget git unzip > /dev/null
-    - wget -N https://getcomposer.org/composer.phar
-    - chmod u+x composer.phar
     - ./composer.phar install
     - echo "date.timezone = Europe/Paris" > /usr/local/etc/php/php.ini
   stage: test
   script:
-        - ./vendor/bin/behat --init
-        - ./vendor/bin/behat --colors
+    - ./vendor/bin/behat --init
+    - ./vendor/bin/behat --colors
 
 php_cs_fixer:
   stage: quality
   before_script:
-    - apt-get -qq install wget git unzip > /dev/null
-    - mkdir tools && cd tools
-    - wget -N https://getcomposer.org/composer.phar
-    - chmod u+x composer.phar
+    - mkdir tools && mv composer.phar tools/ && cd tools
     - composer.phar require friendsofphp/php-cs-fixer --update-no-dev
     - cd ../
   script:
