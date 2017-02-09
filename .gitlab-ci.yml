@@ -1,0 +1,17 @@
+image: php:7.0
+
+cache:
+  paths:
+  - vendor/
+
+before_script:
+    - apt-get -qq update
+    - apt-get -qq install git unzip > /dev/null
+    - cd /usr/local/bin && curl -sS https://getcomposer.org/installer | php -- --filename=composer
+    - chmod +x composer
+    - composer -q install
+    
+test:behat:
+  script:
+        - vendor/bin/behat --init
+        - vendor/bin/behat --colors
