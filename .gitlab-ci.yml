@@ -11,8 +11,8 @@ before_script:
     - chmod +x composer
     - php composer -q install
     
-test:
-  stage: behat
+behat:
+  stage: test
   script:
         - vendor/bin/behat --init
         - vendor/bin/behat --colors
