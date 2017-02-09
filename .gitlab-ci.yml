@@ -16,10 +16,9 @@ before_script:
 
 behat:
   stage: test
-    - ./composer.phar install
-    - echo "date.timezone = Europe/Paris" > /usr/local/etc/php/php.ini
-  stage: test
   script:
+    - ./composer.phar install --no-interaction
+    - echo "date.timezone = Europe/Paris" > /usr/local/etc/php/php.ini
     - ./vendor/bin/behat --init
     - ./vendor/bin/behat --colors
 
