@@ -12,4 +12,4 @@ parameters:
 
     secret:            ThisTokenIsNotSoSecretChangeIt
 
-    cors_allow_origin: http://localhost:8080
+    cors_allow_origin: http://localhost:3000
