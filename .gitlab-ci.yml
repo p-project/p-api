@@ -10,8 +10,7 @@ before_script:
     - wget -N https://getcomposer.org/composer.phar
     - chmod u+x composer.phar
     - ./composer.phar install
-    - mv /etc/localtime /etc/localtime.old
-    - ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
+    - export TZ=CET
     
 behat:
   stage: test
