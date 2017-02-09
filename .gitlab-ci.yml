@@ -24,7 +24,7 @@ behat:
 
 php_cs_fixer:
   stage: quality
-   script:
+   script :
     - mkdir tools && mv composer.phar tools/ && cd tools
     - ./composer.phar require friendsofphp/php-cs-fixer --update-no-dev
     - cd ../
