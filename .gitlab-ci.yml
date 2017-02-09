@@ -10,7 +10,7 @@ before_script:
     - wget -N https://getcomposer.org/composer.phar
     - chmod u+x composer.phar
     - ./composer.phar install
-    - echo "date.timezone = Europe/Paris" > /usr/local/etc/php/conf.d/test.ini
+    - echo "date.timezone = Europe/Paris" > /usr/local/etc/php/php.ini
     - export TZ=CET
     
 behat:
