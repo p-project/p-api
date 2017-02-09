@@ -693,7 +693,7 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-       "@context": "/contexts/SustainabilityOffer",
+      "@context": "/contexts/SustainabilityOffer",
       "@id": "/sustainability_offers/1",
       "@type": "SustainabilityOffer",
       "id": 1,
@@ -807,6 +807,80 @@ Feature: Manage account
           "/networks/1"
       ],
       "playlists": [],
+      "replies": [
+          "/replies/1"
+      ],
+      "reviews": [
+          "/reviews/1"
+      ],
+      "sustainabilityOffers": [
+          "/sustainability_offers/1"
+      ],
+      "seeders": [
+          "/seeders/1"
+      ]
+    }
+    """
+
+  Scenario: Create playlist in account
+    When I add "Content-Type" header equal to "application/ld+json"
+    And I add "Accept" header equal to "application/ld+json"
+    And I send a "POST" request to "/playlists" with body:
+    """
+    {
+      "name": "string",
+      "account": "/accounts/1"
+    }
+    """
+    Then the response status code should be 201
+    And the response should be in JSON
+    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
+    And the JSON should be equal to:
+    """
+    {
+      "@context": "/contexts/Playlist",
+      "@id": "/playlists/1",
+      "@type": "Playlist",
+      "id": 1,
+      "name": "string",
+      "channel": null,
+      "network": null,
+      "account": "/accounts/1"
+    }
+    """
+
+  Scenario: See playlist in account
+    When I add "Accept" header equal to "application/ld+json"
+    And I send a "GET" request to "/accounts/1"
+    Then the response status code should be 200
+    And the response should be in JSON
+    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
+    And the JSON should be equal to:
+    """
+    {
+      "@context": "/contexts/Account",
+      "@id": "/accounts/1",
+      "@type": "Account",
+      "views": [
+          "/views/1"
+      ],
+      "channels": [
+         "/channels/1"
+      ],
+      "id": 1,
+      "username": "stringUpdated",
+      "email": "string@string.fr",
+      "firstName": "string",
+      "lastName": "string",
+      "forums": [
+          "/forums/1"
+      ],
+      "networks": [
+          "/networks/1"
+      ],
+      "playlists": [
+          "/playlists/1"
+      ],
       "replies": [
           "/replies/1"
       ],
