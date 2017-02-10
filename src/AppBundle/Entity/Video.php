@@ -60,11 +60,10 @@ class Video
     /**
      * @var int
      *
-     * @ORM\Column(name="number_view", type="integer")
+     * @ORM\Column(name="number_view", type="integer", nullable=true)
      * @Groups({"video"})
-     * @Assert\Type("integer")
      */
-    private $numberView;
+    private $numberView = 0;
 
     /**
      * @var ArrayCollection
