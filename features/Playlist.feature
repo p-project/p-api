@@ -184,7 +184,7 @@ Feature: Manage network
     }
     """
 
-  Scenario: Scenario: Create a network
+  Scenario: Create a network
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
     And I send a "POST" request to "/networks" with body:
@@ -235,6 +235,39 @@ Feature: Manage network
       "channel": null,
       "network": "/networks/1",
       "account": null
+    }
+    """
+
+  Scenario: Throw errors when there is only bad properties
+    When I add "Content-Type" header equal to "application/ld+json"
+    And I add "Accept" header equal to "application/ld+json"
+    And I send a "POST" request to "/playlists" with body:
+    """
+    {
+      "channel": "/channels/1",
+      "account": "/accounts/1"
+    }
+    """
+    Then the response status code should be 400
+    And the response should be in JSON
+    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
+    And the JSON should be equal to:
+    """
+    {
+      "@context": "/contexts/ConstraintViolationList",
+      "@type": "ConstraintViolationList",
+      "hydra:title": "An error occurred",
+      "hydra:description": "Playlist: There is at least two value of playlist association which are not null\nname: This value should not be blank.",
+      "violations": [
+        {
+          "propertyPath": "Playlist",
+          "message": "There is at least two value of playlist association which are not null"
+        },
+        {
+          "propertyPath": "name",
+          "message": "This value should not be blank."
+        }
+      ]
     }
     """
 
