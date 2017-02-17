@@ -17,6 +17,10 @@ class AccessListener
 
     public function onKernelRequest(GetResponseEvent $event)
     {
+        if (!$event->isMasterRequest()) {
+            return;
+        }
+
         $ip = $event->getRequest()->getClientIp();
         $ipRequest = new IpRequest($ip);
         $this->entityManager->persist($ipRequest);
