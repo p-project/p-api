@@ -7,3 +7,18 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+    video.search_filter:
+        parent:    'api_platform.doctrine.orm.search_filter'
+        arguments: [ { id: 'exact', title: 'partial', channel: 'partial' } ]
+        tags:      [ { name: 'api_platform.filter', id: 'video.search' } ]
+
+    account.search_filter:
+        parent:    'api_platform.doctrine.orm.search_filter'
+        arguments: [ { id: 'exact', username: 'partial', email: 'partial', firstName: 'partial' } ]
+        tags:      [ { name: 'api_platform.filter', id: 'account.search' } ]
+
+    channel.search_filter:
+        parent:    'api_platform.doctrine.orm.search_filter'
+        arguments: [ { id: 'exact', name: 'partial', account: 'partial' } ]
+        tags:      [ { name: 'api_platform.filter', id: 'channel.search' } ]

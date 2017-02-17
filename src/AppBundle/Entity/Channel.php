@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * User's channel.
  *
  * @ORM\Entity
- * @ApiResource
+ * @ApiResource(attributes={"filters"={"channel.search"}})
  */
 class Channel
 {

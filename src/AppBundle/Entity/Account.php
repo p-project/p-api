@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * User's account.
  *
  * @ORM\Entity
- * @ApiResource
+ * @ApiResource(attributes={"filters"={"account.search"}})
  */
 class Account
 {
