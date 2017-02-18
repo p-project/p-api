@@ -324,33 +324,70 @@ Feature: Manage channel
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Channel",
-      "@id": "/channels",
-      "@type": "hydra:Collection",
-      "hydra:member": [
-        {
-          "@id": "/channels/1",
-          "@type": "Channel",
-          "account": "/accounts/1",
-          "id": 1,
-          "name": "string",
-          "tags": [
-            "string"
+          "@context": "\/contexts\/Channel",
+          "@id": "\/channels",
+          "@type": "hydra:Collection",
+          "hydra:member": [
+              {
+                  "@id": "\/channels\/1",
+                  "@type": "Channel",
+                  "account": "\/accounts\/1",
+                  "id": 1,
+                  "name": "string",
+                  "tags": [
+                      "string"
+                  ],
+                  "videos": [
+                      "\/videos\/1"
+                  ],
+                  "networks": [
+                      "\/networks\/1"
+                  ],
+                  "playlists": [],
+                  "sustainabilityOffers": [
+                      "\/sustainability_offers\/1"
+                  ]
+              }
           ],
-          "videos": [
-              "/videos/1"
-          ],
-          "networks": [
-              "/networks/1"
-          ],
-          "playlists": [],
-          "sustainabilityOffers": [
-              "/sustainability_offers/1"
-          ]
-        }
-      ],
-      "hydra:totalItems": 1
-    }
+          "hydra:totalItems": 1,
+          "hydra:search": {
+              "@type": "hydra:IriTemplate",
+              "hydra:template": "\/channels{?id,id[],name,account,account[]}",
+              "hydra:variableRepresentation": "BasicRepresentation",
+              "hydra:mapping": [
+                  {
+                      "@type": "IriTemplateMapping",
+                      "variable": "id",
+                      "property": "id",
+                      "required": false
+                  },
+                  {
+                      "@type": "IriTemplateMapping",
+                      "variable": "id[]",
+                      "property": "id",
+                      "required": false
+                  },
+                  {
+                      "@type": "IriTemplateMapping",
+                      "variable": "name",
+                      "property": "name",
+                      "required": false
+                  },
+                  {
+                      "@type": "IriTemplateMapping",
+                      "variable": "account",
+                      "property": "account",
+                      "required": false
+                  },
+                  {
+                      "@type": "IriTemplateMapping",
+                      "variable": "account[]",
+                      "property": "account",
+                      "required": false
+                  }
+              ]
+          }
+      }
     """
 
   Scenario: Update a channel

@@ -52,31 +52,68 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts",
-      "@type": "hydra:Collection",
-      "hydra:member": [
-        {
-          "@id": "/accounts/1",
-          "@type": "Account",
-          "views": [],
-          "channels": [],
-          "id": 1,
-          "username": "string",
-          "email": "string@string.fr",
-          "firstName": "string",
-          "lastName": "string",
-          "forums": [],
-          "networks": [],
-          "playlists": [],
-          "replies": [],
-          "reviews": [],
-          "sustainabilityOffers": [],
-          "seeders": []
-        }
-      ],
-      "hydra:totalItems": 1
-    }
+          "@context": "\/contexts\/Account",
+          "@id": "\/accounts",
+          "@type": "hydra:Collection",
+          "hydra:member": [
+              {
+                  "@id": "\/accounts\/1",
+                  "@type": "Account",
+                  "views": [],
+                  "channels": [],
+                  "id": 1,
+                  "username": "string",
+                  "email": "string@string.fr",
+                  "firstName": "string",
+                  "lastName": "string",
+                  "forums": [],
+                  "networks": [],
+                  "playlists": [],
+                  "replies": [],
+                  "reviews": [],
+                  "sustainabilityOffers": [],
+                  "seeders": []
+              }
+          ],
+          "hydra:totalItems": 1,
+          "hydra:search": {
+              "@type": "hydra:IriTemplate",
+              "hydra:template": "\/accounts{?id,id[],username,email,firstName}",
+              "hydra:variableRepresentation": "BasicRepresentation",
+              "hydra:mapping": [
+                  {
+                      "@type": "IriTemplateMapping",
+                      "variable": "id",
+                      "property": "id",
+                      "required": false
+                  },
+                  {
+                      "@type": "IriTemplateMapping",
+                      "variable": "id[]",
+                      "property": "id",
+                      "required": false
+                  },
+                  {
+                      "@type": "IriTemplateMapping",
+                      "variable": "username",
+                      "property": "username",
+                      "required": false
+                  },
+                  {
+                      "@type": "IriTemplateMapping",
+                      "variable": "email",
+                      "property": "email",
+                      "required": false
+                  },
+                  {
+                      "@type": "IriTemplateMapping",
+                      "variable": "firstName",
+                      "property": "firstName",
+                      "required": false
+                  }
+              ]
+          }
+      }
     """
 
   Scenario: Throw errors when there is only bad properties
