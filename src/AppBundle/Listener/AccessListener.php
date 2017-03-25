@@ -28,7 +28,7 @@ class AccessListener
 
         $ipRequest = $this->entityManager->getRepository("AppBundle:IpRequest")->findBy(array('ip' => $ip));
 
-        if ($ipRequest == NULL) {
+        if ($ipRequest == null) {
             $this->createNewIpRequest($ip);
         } else {
             $this->ipIsAlreadyInDb($ipRequest, $ip, $event);
@@ -43,23 +43,17 @@ class AccessListener
         $time = (new DateTime("now"))->diff($ipRequest->getDateRequest());
 
         if ($time->s > 5 || $time->i > 0) {
-
             $this->createNewIpRequest($ip);
-
         } else {
-
             if ($ipRequest->getCount() > 15) {
-               $response = new Response();
-               $response->setStatusCode(Response::HTTP_BAD_REQUEST)
+                $response = new Response();
+                $response->setStatusCode(Response::HTTP_BAD_REQUEST)
                     ->setContent("Too Many Request")->send();
             } else {
-
                 $ipRequest->setCount($ipRequest->getCount() + 1);
                 $this->persistIpRequest($ipRequest);
-
             }
         }
-
     }
 
     private function createNewIpRequest($ip)

@@ -102,5 +102,4 @@ class IpRequest
 
         return $this;
     }
-
 }
