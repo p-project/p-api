@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new ApiPlatform\Core\Bridge\Symfony\Bundle\ApiPlatformBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+            new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
             new AppBundle\AppBundle(),
         ];
 
