@@ -47,7 +47,7 @@ echo
 echo -e "   ${BLUE_BG} • ${GREY_BG} CREATING SCHEMA ${NC}"
 echo
 
-./bin/console doctrine:schema:create
+./bin/console doctrine:migrations:migrate -n
 
 echo
 echo -e "   ${BLUE_BG} • ${GREY_BG} LOADING FIXTURES ${NC}"
