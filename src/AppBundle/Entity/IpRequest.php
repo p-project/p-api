@@ -48,10 +48,10 @@ class IpRequest
      */
     private $count;
 
-    public function __construct($ip, $dateRequest, $count = 1)
+    public function __construct($ip, $dateRequest = null, $count = 1)
     {
         $this->ip = $ip;
-        $this->dateRequest = $dateRequest;
+        $this->dateRequest = $dateRequest ?? new \DateTime("now");
         $this->count = $count;
     }
 

@@ -39,19 +39,13 @@ class AccessListener
     private function ipIsAlreadyInDb($ipRequest, $ip)
     {
         if ($ipRequest->getDateRequest()->add(new \DateInterval('PT' . self::TIMER . 'S')) < new \DateTime("now")) {
-
             $this->createNewIpRequest($ip);
-
         } else {
-
             if ($ipRequest->getCount() > self::NUMBER_REQUEST) {
-
                 $response = new Response();
                 $response->setStatusCode(Response::HTTP_TOO_MANY_REQUESTS)->setContent("Too Many Request");
                 $response->send();
-
             } else {
-
                 $ipRequest->setCount($ipRequest->getCount() + 1);
                 $this->persistIpRequest($ipRequest);
             }
