@@ -9,6 +9,7 @@ AppBundle\Entity\Account:
     email: michel@yopmail.fr
     firstName: Michel
     lastName: Michel
+    password: $2y$13$NQlZ0/Hg7DTU/04FPTfwWOaRE2aU/dnPNVi3KfWTP38JYtWx4icvq
 
 AppBundle\Entity\Channel:
   channel_michel:

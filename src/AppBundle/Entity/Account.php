@@ -7,14 +7,16 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User's account.
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\AccountRepository")
  * @ApiResource
+ *
  */
-class Account
+class Account implements UserInterface
 {
     /**
      * @var int The Id of the user
@@ -130,6 +132,26 @@ class Account
      */
     private $seeders;
 
+    /**
+     * @var string The salt of  the user
+     *
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank
+     * @Assert\Type("string")
+     */
+    private $salt;
+
+    /**
+     * @var string password of  the user
+     *
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank
+     * @Assert\Type("string")
+     */
+    private $password;
+
     public function __construct()
     {
         $this->channels = new ArrayCollection();
@@ -141,6 +163,9 @@ class Account
         $this->reviews = new ArrayCollection();
         $this->sustainabilityOffers = new ArrayCollection();
         $this->seeders = new ArrayCollection();
+        $this->roles = array();
+        $this->salt = "";
+        $this->password = "";
     }
 
     public function getViews()
@@ -151,6 +176,8 @@ class Account
     public function setViews($views)
     {
         $this->views = $views;
+
+        return this;
     }
 
     public function getChannels()
@@ -161,6 +188,8 @@ class Account
     public function setChannels($channels)
     {
         $this->channels = $channels;
+
+        return $this;
     }
 
     public function getId(): int
@@ -171,6 +200,8 @@ class Account
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
     }
 
     public function getUsername(): string
@@ -181,6 +212,8 @@ class Account
     public function setUsername($username)
     {
         $this->username = $username;
+
+        return $this;
     }
 
     public function getEmail(): string
@@ -191,6 +224,8 @@ class Account
     public function setEmail($email)
     {
         $this->email = $email;
+
+        return $this;
     }
 
     public function getFirstName(): string
@@ -201,6 +236,8 @@ class Account
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
+
+        return $this;
     }
 
     public function getLastName(): string
@@ -211,6 +248,8 @@ class Account
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
+
+        return $this;
     }
 
     public function getForums()
@@ -293,6 +332,39 @@ class Account
     public function setSeeders($seeders): Account
     {
         $this->seeders = $seeders;
+
+        return $this;
+    }
+
+    public function getSalt(): string
+    {
+        return $this->salt;
+    }
+
+    public function setSalt(string $salt): Account
+    {
+        $this->salt = $salt;
+
+        return $this;
+    }
+
+    public function getRoles(): string
+    {
+        return array('ROLE_USER');
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): Account
+    {
+        $this->password = $password;
 
         return $this;
     }

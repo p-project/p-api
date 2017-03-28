@@ -14,7 +14,7 @@ class IpRequestRepository extends EntityRepository
             ->getQuery()
             ->getSingleScalarResult();
 
-        if ($max == null) {
+        if ($max === null) {
             return null;
         }
 

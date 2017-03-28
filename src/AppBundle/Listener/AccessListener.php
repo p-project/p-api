@@ -11,8 +11,8 @@ class AccessListener
 {
     private $entityManager;
 
-    const TIMER = 5;
-    const NUMBER_REQUEST = 15;
+    const AGGREGATION_DELAY = 5;
+    const NUMBER_REQUESTS = 15;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -29,7 +29,7 @@ class AccessListener
 
         $ipRequest = $this->entityManager->getRepository("AppBundle:IpRequest")->findLastIpRequest($ip);
 
-        if ($ipRequest == null) {
+        if ($ipRequest === null) {
             $this->createNewIpRequest($ip);
         } else {
             $this->ipIsAlreadyInDb($ipRequest, $ip);
@@ -38,10 +38,10 @@ class AccessListener
 
     private function ipIsAlreadyInDb($ipRequest, $ip)
     {
-        if ($ipRequest->getDateRequest()->add(new \DateInterval('PT' . self::TIMER . 'S')) < new \DateTime("now")) {
+        if ($ipRequest->getDateRequest()->modify('+' . static::AGGREGATION_DELAY . ' second') < new \DateTime()) {
             $this->createNewIpRequest($ip);
         } else {
-            if ($ipRequest->getCount() > self::NUMBER_REQUEST) {
+            if ($ipRequest->getCount() > static::NUMBER_REQUESTS) {
                 $response = new Response();
                 $response->setStatusCode(Response::HTTP_TOO_MANY_REQUESTS)->setContent("Too Many Request");
                 $response->send();
@@ -54,7 +54,7 @@ class AccessListener
 
     private function createNewIpRequest(string $ip)
     {
-        $ipRequest = new IpRequest($ip, new \DateTime("now"), 1);
+        $ipRequest = new IpRequest($ip, new \DateTime(), 1);
         $this->persistIpRequest($ipRequest);
     }
 
