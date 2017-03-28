@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class IpRequest
  * @package AppBundle\Entity
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\IpRequestRepository")
  */
 class IpRequest
 {
@@ -33,7 +33,7 @@ class IpRequest
     private $ip;
 
     /**
-     * @var datetime
+     * @var \DateTime
      *
      * @ORM\Column(name="date_request", type="datetime")
      * @Assert\NotBlank
@@ -48,7 +48,7 @@ class IpRequest
      */
     private $count;
 
-    public function __construct($ip, $dateRequest, $count)
+    public function __construct($ip, $dateRequest, $count = 1)
     {
         $this->ip = $ip;
         $this->dateRequest = $dateRequest;
@@ -67,36 +67,36 @@ class IpRequest
         return $this;
     }
 
-    public function getIp()
+    public function getIp(): string
     {
         return $this->ip;
     }
 
-    public function setIp($ip): IPRequest
+    public function setIp(string $ip): IPRequest
     {
         $this->ip = $ip;
 
         return $this;
     }
 
-    public function getDateRequest()
+    public function getDateRequest(): \DateTime
     {
         return $this->dateRequest;
     }
 
-    public function setDateRequest($dateRequest): IpRequest
+    public function setDateRequest(\DateTime $dateRequest): IpRequest
     {
         $this->dateRequest = $dateRequest;
 
         return $this;
     }
 
-    public function getCount()
+    public function getCount(): int
     {
         return $this->count;
     }
 
-    public function setCount($count): IpRequest
+    public function setCount(int $count): IpRequest
     {
         $this->count = $count;
 
