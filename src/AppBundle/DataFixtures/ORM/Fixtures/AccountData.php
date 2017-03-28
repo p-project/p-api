@@ -8,9 +8,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
 class AccountData extends ContainerAwareFixture implements OrderedFixtureInterface
-
 {
-
     public function load(ObjectManager $manager)
     {
         $account = new Account();
@@ -24,7 +22,6 @@ class AccountData extends ContainerAwareFixture implements OrderedFixtureInterfa
         ;
         $manager->persist($account);
         $manager->flush();
-
     }
 
     public function getOrder()
