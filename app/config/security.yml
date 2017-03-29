@@ -25,5 +25,5 @@ security:
             fos_oauth: true
             stateless: true
     access_control:
-        - { path: ^/videos, roles: [ IS_AUTHENTICATED_ANONYMOUSLY ] }
-        - { path: ^/, roles: [ IS_AUTHENTICATED_FULLY ] }
+        - { path: "^/videos", roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "^/", roles: IS_AUTHENTICATED_FULLY }
