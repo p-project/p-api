@@ -51,7 +51,7 @@ class IpRequest
     public function __construct($ip, $dateRequest = null, $count = 1)
     {
         $this->ip = $ip;
-        $this->dateRequest = $dateRequest ?? new \DateTime("now");
+        $this->dateRequest = $dateRequest ?? new \DateTime();
         $this->count = $count;
     }
 

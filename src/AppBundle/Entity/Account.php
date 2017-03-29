@@ -163,9 +163,6 @@ class Account implements UserInterface
         $this->reviews = new ArrayCollection();
         $this->sustainabilityOffers = new ArrayCollection();
         $this->seeders = new ArrayCollection();
-        $this->roles = array();
-        $this->salt = "";
-        $this->password = "";
     }
 
     public function getViews()
