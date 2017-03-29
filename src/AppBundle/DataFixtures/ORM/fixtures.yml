@@ -4,12 +4,15 @@ AppBundle\Entity\Account:
     email: <email()>
     firstName: <firstName()>
     lastName: <lastName()>
+    password: /ZPeKADSrd8e3wUM7f6DpK/0ukgbztjkSkasUz0Znugln//yx4zXtZTCUckmi/MsRkCCGaZQsTcSX2MTuXfwmw==
+    salt: 12xiixme87nk4cs4sgws400ko
   account_michel:
     username: michel
     email: michel@yopmail.fr
     firstName: Michel
     lastName: Michel
-    password: $2y$13$NQlZ0/Hg7DTU/04FPTfwWOaRE2aU/dnPNVi3KfWTP38JYtWx4icvq
+    password: /ZPeKADSrd8e3wUM7f6DpK/0ukgbztjkSkasUz0Znugln//yx4zXtZTCUckmi/MsRkCCGaZQsTcSX2MTuXfwmw==
+    salt: 12xiixme87nk4cs4sgws400ko
 
 AppBundle\Entity\Channel:
   channel_michel:

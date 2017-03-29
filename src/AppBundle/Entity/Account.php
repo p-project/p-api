@@ -345,7 +345,7 @@ class Account implements UserInterface
         return $this;
     }
 
-    public function getRoles(): string
+    public function getRoles(): array
     {
         return array('ROLE_USER');
     }

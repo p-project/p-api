@@ -54,7 +54,9 @@ echo -e "   ${BLUE_BG} • ${GREY_BG} LOADING FIXTURES ${NC}"
 echo
 
 ./bin/console hautelook:fixtures:load -n
+./bin/console doctrine:fixtures:load --append
 
 echo
 echo -e "   ${GREEN_BG} ✓ ${GREY_BG} RESET IS DONE ${NC}"
 echo
+

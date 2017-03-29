@@ -6,24 +6,13 @@ use Doctrine\ORM\EntityRepository;
 
 class IpRequestRepository extends EntityRepository
 {
-    public function findLastIpRequest(string $ip)
+    public function findLastIpRequest(string $ip, \DateTime $date)
     {
-        $qb = $this->createQueryBuilder('ipr');
-
-        $max = $qb->select($qb->expr()->max('ipr.id'))
-            ->getQuery()
-            ->getSingleScalarResult();
-
-        if ($max === null) {
-            return null;
-        }
-
-        return $qb
-            ->select('ipr')
+        return $this->createQueryBuilder('ipr')
             ->where('ipr.ip = :ip')
-            ->groupBy('ipr.id')
-            ->having($qb->expr()->eq('ipr.id', $max))
+            ->andWhere('ipr.dateRequest > :date_request')
             ->setParameter('ip', $ip)
+            ->setParameter('date_request', $date)
             ->getQuery()
             ->getOneOrNullResult()
         ;

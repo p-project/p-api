@@ -27,7 +27,8 @@ class AccessListener
 
         $ip = $event->getRequest()->getClientIp();
 
-        $ipRequest = $this->entityManager->getRepository("AppBundle:IpRequest")->findLastIpRequest($ip);
+        $ipRequest = $this->entityManager->getRepository('AppBundle:IpRequest')
+            ->findLastIpRequest($ip, (new \DateTime())->modify('-' . static::AGGREGATION_DELAY . ' second'));
 
         if ($ipRequest === null) {
             $this->createNewIpRequest($ip);
