@@ -5,6 +5,10 @@ Feature: Manage network
   I need to be able to retrieve, create, update and delete them trough the API.
 
   @createSchema
+  @fixtures
+  Scenario: I am connected as Denis with passwowrd: password
+    Given I am connected as "denis" with password "password"
+
   Scenario: Create an account
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
@@ -14,7 +18,9 @@ Feature: Manage network
       "username": "string",
       "email": "string@string.fr",
       "firstName": "string",
-      "lastName": "string"
+      "lastName": "string",
+      "password": "password",
+      "salt": "salt"
     }
     """
     Then the response status code should be 201
@@ -23,12 +29,12 @@ Feature: Manage network
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
+      "@context": "\/contexts\/Account",
+      "@id": "\/accounts\/2",
       "@type": "Account",
       "views": [],
       "channels": [],
-      "id": 1,
+      "id": 2,
       "username": "string",
       "email": "string@string.fr",
       "firstName": "string",
@@ -39,7 +45,12 @@ Feature: Manage network
       "replies": [],
       "reviews": [],
       "sustainabilityOffers": [],
-      "seeders": []
+      "seeders": [],
+      "salt": "salt",
+      "roles": [
+          "ROLE_USER"
+      ],
+      "password": "password"
     }
     """
 
@@ -115,7 +126,9 @@ Feature: Manage network
       "email": "string@string2.fr",
       "firstName": "string",
       "lastName": "string",
-      "networks": []
+      "networks": [],
+      "password": "password",
+      "salt": "salt"
     }
     """
     Then the response status code should be 201
@@ -124,12 +137,12 @@ Feature: Manage network
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/2",
+      "@context": "\/contexts\/Account",
+      "@id": "\/accounts\/3",
       "@type": "Account",
       "views": [],
       "channels": [],
-      "id": 2,
+      "id": 3,
       "username": "string2",
       "email": "string@string2.fr",
       "firstName": "string",
@@ -140,7 +153,12 @@ Feature: Manage network
       "replies": [],
       "reviews": [],
       "sustainabilityOffers": [],
-      "seeders": []
+      "seeders": [],
+      "salt": "salt",
+      "roles": [
+        "ROLE_USER"
+      ],
+      "password": "password"
     }
     """
 

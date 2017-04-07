@@ -1,7 +1,7 @@
 services:
     app.access_listener:
         class: AppBundle\Listener\AccessListener
-        arguments: [ "@doctrine.orm.entity_manager" ]
+        arguments: [ "@doctrine.orm.entity_manager", "@kernel" ]
         tags:
             - { name: kernel.event_listener, event: kernel.request }
 

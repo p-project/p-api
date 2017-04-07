@@ -5,6 +5,10 @@ Feature: Manage account
   I need to be able to retrieve, create, update and delete them trough the API.
 
   @createSchema
+  @fixtures
+  Scenario: I am connected as Denis with passwowrd: password
+    Given I am connected as "denis" with password "password"
+
   Scenario: Create an account
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
@@ -14,7 +18,9 @@ Feature: Manage account
       "username": "string",
       "email": "string@string.fr",
       "firstName": "string",
-      "lastName": "string"
+      "lastName": "string",
+      "password": "password",
+      "salt": "salt"
     }
     """
     Then the response status code should be 201
@@ -23,12 +29,12 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
+      "@context": "\/contexts\/Account",
+      "@id": "\/accounts\/2",
       "@type": "Account",
       "views": [],
       "channels": [],
-      "id": 1,
+      "id": 2,
       "username": "string",
       "email": "string@string.fr",
       "firstName": "string",
@@ -39,7 +45,12 @@ Feature: Manage account
       "replies": [],
       "reviews": [],
       "sustainabilityOffers": [],
-      "seeders": []
+      "seeders": [],
+      "salt": "salt",
+      "roles": [
+          "ROLE_USER"
+      ],
+      "password": "password"
     }
     """
 
@@ -52,16 +63,39 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts",
+      "@context": "\/contexts\/Account",
+      "@id": "\/accounts",
       "@type": "hydra:Collection",
       "hydra:member": [
         {
-          "@id": "/accounts/1",
+          "@id": "\/accounts\/1",
           "@type": "Account",
           "views": [],
           "channels": [],
           "id": 1,
+          "username": "denis",
+          "email": "denis@denis.fr",
+          "firstName": "denis",
+          "lastName": "denis",
+          "forums": [],
+          "networks": [],
+          "playlists": [],
+          "replies": [],
+          "reviews": [],
+          "sustainabilityOffers": [],
+          "seeders": [],
+          "salt": "12xiixme87y8wgk4c0k0gwko0",
+          "roles": [
+              "ROLE_USER"
+          ],
+          "password": "6x5r9+XhV5fQXQe5Vl311LJOiTBsQXk1+PTw4WBH4QvQGjo\/qDnLsF5O5bPRvd8R0eGDVXeDx2IBWX1qmP58Mg=="
+        },
+        {
+          "@id": "\/accounts\/2",
+          "@type": "Account",
+          "views": [],
+          "channels": [],
+          "id": 2,
           "username": "string",
           "email": "string@string.fr",
           "firstName": "string",
@@ -72,10 +106,15 @@ Feature: Manage account
           "replies": [],
           "reviews": [],
           "sustainabilityOffers": [],
-          "seeders": []
+          "seeders": [],
+          "salt": "salt",
+          "roles": [
+              "ROLE_USER"
+          ],
+          "password": "password"
         }
       ],
-      "hydra:totalItems": 1
+      "hydra:totalItems": 2
     }
     """
 
@@ -94,10 +133,10 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/ConstraintViolationList",
+      "@context": "\/contexts\/ConstraintViolationList",
       "@type": "ConstraintViolationList",
       "hydra:title": "An error occurred",
-      "hydra:description": "username: This value should not be blank.\nemail: This value is not a valid email address.\nfirstName: This value should not be blank.\nlastName: This value should not be blank.",
+      "hydra:description": "username: This value should not be blank.\nemail: This value is not a valid email address.\nfirstName: This value should not be blank.\nlastName: This value should not be blank.\nsalt: This value should not be blank.\npassword: This value should not be blank.",
       "violations": [
         {
           "propertyPath": "username",
@@ -113,6 +152,14 @@ Feature: Manage account
         },
         {
           "propertyPath": "lastName",
+          "message": "This value should not be blank."
+        },
+        {
+          "propertyPath": "salt",
+          "message": "This value should not be blank."
+        },
+        {
+          "propertyPath": "password",
           "message": "This value should not be blank."
         }
       ]
@@ -134,23 +181,28 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
+      "@context": "\/contexts\/Account",
+      "@id": "\/accounts\/1",
       "@type": "Account",
       "views": [],
       "channels": [],
       "id": 1,
       "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
+      "email": "denis@denis.fr",
+      "firstName": "denis",
+      "lastName": "denis",
       "forums": [],
       "networks": [],
       "playlists": [],
       "replies": [],
       "reviews": [],
       "sustainabilityOffers": [],
-      "seeders": []
+      "seeders": [],
+      "salt": "12xiixme87y8wgk4c0k0gwko0",
+      "roles": [
+        "ROLE_USER"
+      ],
+      "password": "6x5r9+XhV5fQXQe5Vl311LJOiTBsQXk1+PTw4WBH4QvQGjo\/qDnLsF5O5bPRvd8R0eGDVXeDx2IBWX1qmP58Mg=="
     }
     """
 
@@ -163,23 +215,28 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
+      "@context": "\/contexts\/Account",
+      "@id": "\/accounts\/1",
       "@type": "Account",
       "views": [],
       "channels": [],
       "id": 1,
       "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
+      "email": "denis@denis.fr",
+      "firstName": "denis",
+      "lastName": "denis",
       "forums": [],
       "networks": [],
       "playlists": [],
       "replies": [],
       "reviews": [],
       "sustainabilityOffers": [],
-      "seeders": []
+      "seeders": [],
+      "salt": "12xiixme87y8wgk4c0k0gwko0",
+      "roles": [
+        "ROLE_USER"
+      ],
+      "password": "6x5r9+XhV5fQXQe5Vl311LJOiTBsQXk1+PTw4WBH4QvQGjo\/qDnLsF5O5bPRvd8R0eGDVXeDx2IBWX1qmP58Mg=="
     }
     """
 
@@ -227,25 +284,30 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
+      "@context": "\/contexts\/Account",
+      "@id": "\/accounts\/1",
       "@type": "Account",
       "views": [],
       "channels": [
-         "/channels/1"
+        "\/channels\/1"
       ],
       "id": 1,
       "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
+      "email": "denis@denis.fr",
+      "firstName": "denis",
+      "lastName": "denis",
       "forums": [],
       "networks": [],
       "playlists": [],
       "replies": [],
       "reviews": [],
       "sustainabilityOffers": [],
-      "seeders": []
+      "seeders": [],
+      "salt": "12xiixme87y8wgk4c0k0gwko0",
+      "roles": [
+        "ROLE_USER"
+      ],
+      "password": "6x5r9+XhV5fQXQe5Vl311LJOiTBsQXk1+PTw4WBH4QvQGjo\/qDnLsF5O5bPRvd8R0eGDVXeDx2IBWX1qmP58Mg=="
     }
     """
 
@@ -338,27 +400,32 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
+      "@context": "\/contexts\/Account",
+      "@id": "\/accounts\/1",
       "@type": "Account",
       "views": [
-          "/views/1"
+        "\/views\/1"
       ],
       "channels": [
-         "/channels/1"
+        "\/channels\/1"
       ],
       "id": 1,
       "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
+      "email": "denis@denis.fr",
+      "firstName": "denis",
+      "lastName": "denis",
       "forums": [],
       "networks": [],
       "playlists": [],
       "replies": [],
       "reviews": [],
       "sustainabilityOffers": [],
-      "seeders": []
+      "seeders": [],
+      "salt": "12xiixme87y8wgk4c0k0gwko0",
+      "roles": [
+        "ROLE_USER"
+      ],
+      "password": "6x5r9+XhV5fQXQe5Vl311LJOiTBsQXk1+PTw4WBH4QvQGjo\/qDnLsF5O5bPRvd8R0eGDVXeDx2IBWX1qmP58Mg=="
     }
     """
 
@@ -398,29 +465,34 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
+      "@context": "\/contexts\/Account",
+      "@id": "\/accounts\/1",
       "@type": "Account",
       "views": [
-          "/views/1"
+        "\/views\/1"
       ],
       "channels": [
-         "/channels/1"
+        "\/channels\/1"
       ],
       "id": 1,
       "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
+      "email": "denis@denis.fr",
+      "firstName": "denis",
+      "lastName": "denis",
       "forums": [
-          "/forums/1"
+        "\/forums\/1"
       ],
       "networks": [],
       "playlists": [],
       "replies": [],
       "reviews": [],
       "sustainabilityOffers": [],
-      "seeders": []
+      "seeders": [],
+      "salt": "12xiixme87y8wgk4c0k0gwko0",
+      "roles": [
+        "ROLE_USER"
+      ],
+      "password": "6x5r9+XhV5fQXQe5Vl311LJOiTBsQXk1+PTw4WBH4QvQGjo\/qDnLsF5O5bPRvd8R0eGDVXeDx2IBWX1qmP58Mg=="
     }
     """
 
@@ -467,31 +539,36 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
+      "@context": "\/contexts\/Account",
+      "@id": "\/accounts\/1",
       "@type": "Account",
       "views": [
-          "/views/1"
+        "\/views\/1"
       ],
       "channels": [
-         "/channels/1"
+        "\/channels\/1"
       ],
       "id": 1,
       "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
+      "email": "denis@denis.fr",
+      "firstName": "denis",
+      "lastName": "denis",
       "forums": [
-          "/forums/1"
+        "\/forums\/1"
       ],
       "networks": [
-          "/networks/1"
+        "\/networks\/1"
       ],
       "playlists": [],
       "replies": [],
       "reviews": [],
       "sustainabilityOffers": [],
-      "seeders": []
+      "seeders": [],
+      "salt": "12xiixme87y8wgk4c0k0gwko0",
+      "roles": [
+        "ROLE_USER"
+      ],
+      "password": "6x5r9+XhV5fQXQe5Vl311LJOiTBsQXk1+PTw4WBH4QvQGjo\/qDnLsF5O5bPRvd8R0eGDVXeDx2IBWX1qmP58Mg=="
     }
     """
 
@@ -534,33 +611,38 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
+      "@context": "\/contexts\/Account",
+      "@id": "\/accounts\/1",
       "@type": "Account",
       "views": [
-          "/views/1"
+        "\/views\/1"
       ],
       "channels": [
-         "/channels/1"
+        "\/channels\/1"
       ],
       "id": 1,
       "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
+      "email": "denis@denis.fr",
+      "firstName": "denis",
+      "lastName": "denis",
       "forums": [
-          "/forums/1"
+        "\/forums\/1"
       ],
       "networks": [
-          "/networks/1"
+        "\/networks\/1"
       ],
       "playlists": [],
       "replies": [],
       "reviews": [
-          "/reviews/1"
+        "\/reviews\/1"
       ],
       "sustainabilityOffers": [],
-      "seeders": []
+      "seeders": [],
+      "salt": "12xiixme87y8wgk4c0k0gwko0",
+      "roles": [
+        "ROLE_USER"
+      ],
+      "password": "6x5r9+XhV5fQXQe5Vl311LJOiTBsQXk1+PTw4WBH4QvQGjo\/qDnLsF5O5bPRvd8R0eGDVXeDx2IBWX1qmP58Mg=="
     }
     """
 
@@ -602,35 +684,40 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
+      "@context": "\/contexts\/Account",
+      "@id": "\/accounts\/1",
       "@type": "Account",
       "views": [
-          "/views/1"
+        "\/views\/1"
       ],
       "channels": [
-         "/channels/1"
+        "\/channels\/1"
       ],
       "id": 1,
       "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
+      "email": "denis@denis.fr",
+      "firstName": "denis",
+      "lastName": "denis",
       "forums": [
-          "/forums/1"
+        "\/forums\/1"
       ],
       "networks": [
-          "/networks/1"
+        "\/networks\/1"
       ],
       "playlists": [],
       "replies": [
-          "/replies/1"
+        "\/replies\/1"
       ],
       "reviews": [
-          "/reviews/1"
+        "\/reviews\/1"
       ],
       "sustainabilityOffers": [],
-      "seeders": []
+      "seeders": [],
+      "salt": "12xiixme87y8wgk4c0k0gwko0",
+      "roles": [
+        "ROLE_USER"
+      ],
+      "password": "6x5r9+XhV5fQXQe5Vl311LJOiTBsQXk1+PTw4WBH4QvQGjo\/qDnLsF5O5bPRvd8R0eGDVXeDx2IBWX1qmP58Mg=="
     }
     """
 
@@ -643,35 +730,40 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
+      "@context": "\/contexts\/Account",
+      "@id": "\/accounts\/1",
       "@type": "Account",
       "views": [
-          "/views/1"
+        "\/views\/1"
       ],
       "channels": [
-         "/channels/1"
+        "\/channels\/1"
       ],
       "id": 1,
       "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
+      "email": "denis@denis.fr",
+      "firstName": "denis",
+      "lastName": "denis",
       "forums": [
-          "/forums/1"
+        "\/forums\/1"
       ],
       "networks": [
-          "/networks/1"
+        "\/networks\/1"
       ],
       "playlists": [],
       "replies": [
-          "/replies/1"
+        "\/replies\/1"
       ],
       "reviews": [
-          "/reviews/1"
+        "\/reviews\/1"
       ],
       "sustainabilityOffers": [],
-      "seeders": []
+      "seeders": [],
+      "salt": "12xiixme87y8wgk4c0k0gwko0",
+      "roles": [
+        "ROLE_USER"
+      ],
+      "password": "6x5r9+XhV5fQXQe5Vl311LJOiTBsQXk1+PTw4WBH4QvQGjo\/qDnLsF5O5bPRvd8R0eGDVXeDx2IBWX1qmP58Mg=="
     }
     """
 
@@ -713,37 +805,42 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
+      "@context": "\/contexts\/Account",
+      "@id": "\/accounts\/1",
       "@type": "Account",
       "views": [
-          "/views/1"
+        "\/views\/1"
       ],
       "channels": [
-         "/channels/1"
+        "\/channels\/1"
       ],
       "id": 1,
       "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
+      "email": "denis@denis.fr",
+      "firstName": "denis",
+      "lastName": "denis",
       "forums": [
-          "/forums/1"
+        "\/forums\/1"
       ],
       "networks": [
-          "/networks/1"
+        "\/networks\/1"
       ],
       "playlists": [],
       "replies": [
-          "/replies/1"
+        "\/replies\/1"
       ],
       "reviews": [
-          "/reviews/1"
+        "\/reviews\/1"
       ],
       "sustainabilityOffers": [
-          "/sustainability_offers/1"
+        "\/sustainability_offers\/1"
       ],
-      "seeders": []
+      "seeders": [],
+      "salt": "12xiixme87y8wgk4c0k0gwko0",
+      "roles": [
+        "ROLE_USER"
+      ],
+      "password": "6x5r9+XhV5fQXQe5Vl311LJOiTBsQXk1+PTw4WBH4QvQGjo\/qDnLsF5O5bPRvd8R0eGDVXeDx2IBWX1qmP58Mg=="
     }
     """
 
@@ -786,39 +883,44 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
+      "@context": "\/contexts\/Account",
+      "@id": "\/accounts\/1",
       "@type": "Account",
       "views": [
-          "/views/1"
+        "\/views\/1"
       ],
       "channels": [
-         "/channels/1"
+        "\/channels\/1"
       ],
       "id": 1,
       "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
+      "email": "denis@denis.fr",
+      "firstName": "denis",
+      "lastName": "denis",
       "forums": [
-          "/forums/1"
+        "\/forums\/1"
       ],
       "networks": [
-          "/networks/1"
+        "\/networks\/1"
       ],
       "playlists": [],
       "replies": [
-          "/replies/1"
+        "\/replies\/1"
       ],
       "reviews": [
-          "/reviews/1"
+        "\/reviews\/1"
       ],
       "sustainabilityOffers": [
-          "/sustainability_offers/1"
+        "\/sustainability_offers\/1"
       ],
       "seeders": [
-          "/seeders/1"
-      ]
+        "\/seeders\/1"
+      ],
+      "salt": "12xiixme87y8wgk4c0k0gwko0",
+      "roles": [
+        "ROLE_USER"
+      ],
+      "password": "6x5r9+XhV5fQXQe5Vl311LJOiTBsQXk1+PTw4WBH4QvQGjo\/qDnLsF5O5bPRvd8R0eGDVXeDx2IBWX1qmP58Mg=="
     }
     """
 
@@ -858,53 +960,58 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
+      "@context": "\/contexts\/Account",
+      "@id": "\/accounts\/1",
       "@type": "Account",
       "views": [
-          "/views/1"
+        "\/views\/1"
       ],
       "channels": [
-         "/channels/1"
+        "\/channels\/1"
       ],
       "id": 1,
       "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
+      "email": "denis@denis.fr",
+      "firstName": "denis",
+      "lastName": "denis",
       "forums": [
-          "/forums/1"
+        "\/forums\/1"
       ],
       "networks": [
-          "/networks/1"
+        "\/networks\/1"
       ],
       "playlists": [
-          "/playlists/1"
+        "\/playlists\/1"
       ],
       "replies": [
-          "/replies/1"
+        "\/replies\/1"
       ],
       "reviews": [
-          "/reviews/1"
+        "\/reviews\/1"
       ],
       "sustainabilityOffers": [
-          "/sustainability_offers/1"
+        "\/sustainability_offers\/1"
       ],
       "seeders": [
-          "/seeders/1"
-      ]
+        "\/seeders\/1"
+      ],
+      "salt": "12xiixme87y8wgk4c0k0gwko0",
+      "roles": [
+        "ROLE_USER"
+      ],
+      "password": "6x5r9+XhV5fQXQe5Vl311LJOiTBsQXk1+PTw4WBH4QvQGjo\/qDnLsF5O5bPRvd8R0eGDVXeDx2IBWX1qmP58Mg=="
     }
     """
 
   Scenario: Delete an account
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "DELETE" request to "/accounts/1"
+    And I send a "DELETE" request to "/accounts/2"
     Then the response status code should be 204
 
   @dropSchema
-  Scenario: Delete an account which not exists
+  Scenario: Delete an account
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "DELETE" request to "/accounts/1"
+    And I send a "DELETE" request to "/accounts/2"
     Then the response status code should be 404

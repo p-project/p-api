@@ -6,6 +6,7 @@ use AppBundle\Entity\IpRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Kernel;
 
 class AccessListener
 {
@@ -14,14 +15,15 @@ class AccessListener
     const AGGREGATION_DELAY = 5;
     const NUMBER_REQUESTS = 15;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, Kernel $kernel)
     {
         $this->entityManager = $entityManager;
+        $this->kernel = $kernel;
     }
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        if (!$event->isMasterRequest()) {
+        if (!$event->isMasterRequest() || $this->kernel->getEnvironment() == "test") {
             return;
         }
 
