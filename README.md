@@ -9,7 +9,6 @@ Installation
 ### PHP
 
 The project requires PHP 7.1. To install the project:
-
 Run the following command to check if your system meets the requirements:
 
 ```sh
@@ -91,3 +90,20 @@ In detached mode :
 ```sh
 sudo docker-compose -d up
 ```
+
+### Made a request to API with OAuth
+
+The first thing you should do is to made a request on 
+
+/oauth/v2/token?client_id=1_client_id&client_secret=client_secret&grant_type=password&redirect_uri=127.0.0.1&username=michel&password=password
+
+Actually, you can't sign in so you should use this url.
+This will return a json with different value. You should get the attribute `access_token`
+
+When you have this attribute. You should put it in the header of your next requests. 
+You should add the attribute "Authorization" with the value "Bearer " concatenate with the access_token. 
+
+You should now be able to make requests on your api.
+
+
+
