@@ -1,10 +1,8 @@
-P-API
-=====
+# P-API
 
 Welcome to the P-Platform API made with [API-Platform](https://api-platform.com/).
 
-Installation
-------------
+## Installation
 
 ### PHP
 
@@ -44,10 +42,9 @@ folder:
 
 `./bin/reset`
 
-Run the API
------------
+## Run the API
 
-## In development mode
+### In development mode
 
 Start the API using the Symfony PHP build-in server:
 
@@ -55,7 +52,7 @@ Start the API using the Symfony PHP build-in server:
 ./bin/console server:run
 ```
 
-## In production mode using Docker
+### In production mode using Docker
 
 Fill in the `app/config/parameters.yml` with the following values:
 
@@ -74,7 +71,6 @@ parameters:
     cors_allow_origin:
         - 'http://localhost:3000'
         - 'http://localhost:9080'
-
 ```
 
 Build the image:
@@ -89,8 +85,7 @@ Run the docker-compose:
 docker-compose -d up
 ```
 
-Using the API
--------------
+## Using the API
 
 ### Authentication
 
@@ -99,7 +94,9 @@ server.
 
 To do so in `development mode`, you must authenticate using the following url:
 
+```
 /oauth/v2/token?client_id=1_client_id&client_secret=client_secret&grant_type=password&redirect_uri=127.0.0.1&username=michel&password=password
+```
 
 You will be authenticated as `michel` (ask the API if you need more information
 about this user).
@@ -110,4 +107,7 @@ with the value `Bearer` followed with the `access_token`.
 
 For example :
 
-`Bearer OWQ3ZGYzZmVhZDcxNTRmNDAwZGE3YjhjZWI1MmIwOWY1YzIzY2FmYjA0MmYxMGUwZDY5N2RiZTQ5NWM1NDA2Mw`
+```
+Bearer OWQ3ZGYzZmVhZDcxNTRmNDAwZGE3YjhjZWI1MmIwOWY1YzIzY2FmYjA0MmYxMGUwZDY5N2RiZTQ5NWM1NDA2Mw
+```
+
