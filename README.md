@@ -48,3 +48,46 @@ Start the API using the Symfony build-in server:
 ```sh
 ./bin/console server:run
 ```
+
+
+## In production with docker
+
+Fill the parameter.yml with default value :
+```yaml
+# This file is auto-generated during the composer install
+parameters:
+    database_host: db
+    database_port: 5432
+    database_name: p-api
+    database_user: postgres
+    database_password: postgres
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: ThisTokenIsNotSoSecretChangeIt
+    cors_allow_origin:
+        - 'http://localhost:3000'
+        - 'http://localhost:9080'
+
+```
+
+You can't adapt this file, but you need to modify your docker-compose in consequence.
+
+Build the image :
+
+```sh
+sudo docker-compose build
+```
+
+Run the docker compose :
+
+```sh
+sudo docker-compose up
+```
+
+In detached mode :
+
+```sh
+sudo docker-compose -d up
+```

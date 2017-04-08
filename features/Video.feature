@@ -652,54 +652,91 @@ Feature: Manage video
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Video",
-      "@id": "/videos",
-      "@type": "hydra:Collection",
-      "hydra:member": [
-        {
-          "@id": "/videos/1",
-          "@type": "Video",
-          "id": 1,
-          "title": "string",
-          "description": "string",
-          "uploadDate": "2017-02-01T18:30:52+01:00",
-          "numberView": 120,
-          "annotations": [
-            "/annotations/1"
+          "@context": "\/contexts\/Video",
+          "@id": "\/videos",
+          "@type": "hydra:Collection",
+          "hydra:member": [
+              {
+                  "@id": "\/videos\/1",
+                  "@type": "Video",
+                  "id": 1,
+                  "title": "string",
+                  "description": "string",
+                  "uploadDate": "2017-02-01T18:30:52+01:00",
+                  "numberView": 120,
+                  "annotations": [
+                      "\/annotations\/1"
+                  ],
+                  "channel": "\/channels\/1",
+                  "comments": [
+                      "\/comments\/1"
+                  ],
+                  "forums": [
+                      "\/forums\/1"
+                  ],
+                  "views": [
+                      "\/views\/1"
+                  ],
+                  "reviews": [
+                      "\/reviews\/1"
+                  ],
+                  "subtitles": [
+                      "\/subtitles\/1"
+                  ],
+                  "categories": [
+                      "\/categories\/1"
+                  ],
+                  "metadata": {
+                      "@id": "\/metadatas\/1",
+                      "@type": "Metadata",
+                      "id": 1,
+                      "height": 100,
+                      "width": 100,
+                      "format": "mp3",
+                      "hash": "Abdsbfs"
+                  },
+                  "seeders": []
+              }
           ],
-          "channel": "/channels/1",
-          "comments": [
-            "/comments/1"
-          ],
-          "forums": [
-            "/forums/1"
-          ],
-          "views": [
-            "/views/1"
-          ],
-          "reviews": [
-            "/reviews/1"
-          ],
-          "subtitles": [
-            "/subtitles/1"
-          ],
-          "categories": [
-            "/categories/1"
-          ],
-          "metadata": {
-              "@id": "\/metadatas\/1",
-              "@type": "Metadata",
-              "id": 1,
-              "height": 100,
-              "width": 100,
-              "format": "mp3",
-              "hash": "Abdsbfs"
-          },
-          "seeders": []
-        }
-      ],
-      "hydra:totalItems": 1
-    }
+          "hydra:totalItems": 1,
+          "hydra:search": {
+              "@type": "hydra:IriTemplate",
+              "hydra:template": "\/videos{?id,id[],title,channel,channel[]}",
+              "hydra:variableRepresentation": "BasicRepresentation",
+              "hydra:mapping": [
+                  {
+                      "@type": "IriTemplateMapping",
+                      "variable": "id",
+                      "property": "id",
+                      "required": false
+                  },
+                  {
+                      "@type": "IriTemplateMapping",
+                      "variable": "id[]",
+                      "property": "id",
+                      "required": false
+                  },
+                  {
+                      "@type": "IriTemplateMapping",
+                      "variable": "title",
+                      "property": "title",
+                      "required": false
+                  },
+                  {
+                      "@type": "IriTemplateMapping",
+                      "variable": "channel",
+                      "property": "channel",
+                      "required": false
+                  },
+                  {
+                      "@type": "IriTemplateMapping",
+                      "variable": "channel[]",
+                      "property": "channel",
+                      "required": false
+                  }
+              ]
+          }
+      }
     """
 
   Scenario: Update subtitle
