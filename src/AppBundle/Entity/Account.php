@@ -13,8 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * User's account.
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AccountRepository")
- * @ApiResource
- *
+ * @ApiResource(attributes={"filters"={"account.search"}})
  */
 class Account implements UserInterface
 {

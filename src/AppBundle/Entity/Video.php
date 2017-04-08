@@ -13,7 +13,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @ORM\Entity
  * @ApiResource(attributes={"normalization_context"={"groups"={"video"}},
- *                          "denormalization_context"={"groups"={"video"}}})
+ *                          "denormalization_context"={"groups"={"video"}},
+ *                          "filters"={"video.search"}}
+ *                          )
  */
 class Video
 {
@@ -63,7 +65,7 @@ class Video
      * @ORM\Column(name="number_view", type="integer", nullable=true)
      * @Groups({"video"})
      */
-    private $numberView = 0;
+    private $numberView;
 
     /**
      * @var ArrayCollection
@@ -157,6 +159,7 @@ class Video
         $this->reviews = new ArrayCollection();
         $this->subtitles = new ArrayCollection();
         $this->seeders = new ArrayCollection();
+        $this->numberView = 0;
     }
 
     public function getId()
