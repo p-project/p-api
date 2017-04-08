@@ -1,5 +1,5 @@
 services:
-    app.access_listener:
+    app.listener.access_listener:
         class: AppBundle\Listener\AccessListener
         arguments: [ "@doctrine.orm.entity_manager", "@kernel" ]
         tags:

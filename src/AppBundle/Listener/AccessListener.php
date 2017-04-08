@@ -23,7 +23,7 @@ class AccessListener
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        if (!$event->isMasterRequest() || $this->kernel->getEnvironment() == "test") {
+        if (!$event->isMasterRequest() || $this->kernel->getEnvironment() == 'test') {
             return;
         }
 
@@ -35,11 +35,11 @@ class AccessListener
         if ($ipRequest === null) {
             $this->createNewIpRequest($ip);
         } else {
-            $this->ipIsAlreadyInDb($ipRequest, $ip);
+            $this->updateAttempts($ipRequest, $ip);
         }
     }
 
-    private function ipIsAlreadyInDb($ipRequest, $ip)
+    private function updateAttempts($ipRequest, string $ip)
     {
         if ($ipRequest->getDateRequest()->modify('+' . static::AGGREGATION_DELAY . ' second') < new \DateTime()) {
             $this->createNewIpRequest($ip);

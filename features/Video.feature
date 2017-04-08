@@ -29,28 +29,23 @@ Feature: Manage video
     And the JSON should be equal to:
     """
     {
-      "@context": "\/contexts\/Account",
-      "@id": "\/accounts\/2",
+      "@context": "/contexts/Account",
+      "@id": "/accounts/2",
       "@type": "Account",
-      "views": [],
-      "channels": [],
       "id": 2,
       "username": "string",
       "email": "string@string.fr",
       "firstName": "string",
       "lastName": "string",
+      "channels": [],
+      "views": [],
       "forums": [],
       "networks": [],
       "playlists": [],
       "replies": [],
       "reviews": [],
       "sustainabilityOffers": [],
-      "seeders": [],
-      "salt": "salt",
-      "roles": [
-          "ROLE_USER"
-      ],
-      "password": "password"
+      "seeders": []
     }
     """
 
@@ -129,12 +124,13 @@ Feature: Manage video
       "categories": [
         "/categories/1"
       ],
+      "hash": "Abdsbfs",
+      "magnet": "ssdf",
       "metadata":
       {
         "height": 100,
         "width": 100,
-        "format": "mp3",
-        "hash": "Abdsbfs"
+        "format": "mp3"
       }
     }
     """
@@ -144,8 +140,8 @@ Feature: Manage video
     And the JSON should be equal to:
     """
     {
-      "@context": "\/contexts\/Video",
-      "@id": "\/videos\/1",
+      "@context": "/contexts/Video",
+      "@id": "/videos/1",
       "@type": "Video",
       "id": 1,
       "title": "string",
@@ -153,7 +149,7 @@ Feature: Manage video
       "uploadDate": "2017-02-01T18:30:52+00:00",
       "numberView": 120,
       "annotations": [],
-      "channel": "\/channels\/1",
+      "channel": "/channels/1",
       "comments": [],
       "forums": [],
       "views": [],
@@ -163,15 +159,16 @@ Feature: Manage video
         "/categories/1"
       ],
       "metadata": {
-          "@id": "\/metadatas\/1",
-          "@type": "Metadata",
-          "id": 1,
-          "height": 100,
-          "width": 100,
-          "format": "mp3",
-          "hash": "Abdsbfs"
+        "@id": "/metadatas/1",
+        "@type": "Metadata",
+        "id": 1,
+        "height": 100,
+        "width": 100,
+        "format": "mp3"
       },
-      "seeders": []
+      "seeders": [],
+      "hash": "Abdsbfs",
+      "magnet": "ssdf"
     }
     """
 
@@ -213,8 +210,8 @@ Feature: Manage video
     And the JSON should be equal to:
     """
     {
-      "@context": "\/contexts\/Video",
-      "@id": "\/videos\/1",
+      "@context": "/contexts/Video",
+      "@id": "/videos/1",
       "@type": "Video",
       "id": 1,
       "title": "string",
@@ -222,7 +219,7 @@ Feature: Manage video
       "uploadDate": "2017-02-01T18:30:52+01:00",
       "numberView": 120,
       "annotations": [],
-      "channel": "\/channels\/1",
+      "channel": "/channels/1",
       "comments": [],
       "forums": [],
       "views": [],
@@ -234,15 +231,16 @@ Feature: Manage video
         "/categories/1"
       ],
       "metadata": {
-          "@id": "\/metadatas\/1",
-          "@type": "Metadata",
-          "id": 1,
-          "height": 100,
-          "width": 100,
-          "format": "mp3",
-          "hash": "Abdsbfs"
+        "@id": "/metadatas/1",
+        "@type": "Metadata",
+        "id": 1,
+        "height": 100,
+        "width": 100,
+        "format": "mp3"
       },
-      "seeders": []
+      "seeders": [],
+      "hash": "Abdsbfs",
+      "magnet": "ssdf"
     }
     """
 
@@ -264,15 +262,15 @@ Feature: Manage video
     And the JSON should be equal to:
     """
     {
-        "@context": "/contexts/Review",
-        "@id": "/reviews/1",
-        "@type": "Review",
-        "id": 1,
-        "content": "string",
-        "video": "/videos/1",
-        "dateReview": "2017-02-04T09:36:08+00:00",
-        "replies": [],
-        "author": "/accounts/1"
+      "@context": "/contexts/Review",
+      "@id": "/reviews/1",
+      "@type": "Review",
+      "id": 1,
+      "content": "string",
+      "video": "/videos/1",
+      "dateReview": "2017-02-04T09:36:08+00:00",
+      "replies": [],
+      "author": "/accounts/1"
     }
     """
 
@@ -285,8 +283,8 @@ Feature: Manage video
     And the JSON should be equal to:
     """
     {
-      "@context": "\/contexts\/Video",
-      "@id": "\/videos\/1",
+      "@context": "/contexts/Video",
+      "@id": "/videos/1",
       "@type": "Video",
       "id": 1,
       "title": "string",
@@ -294,7 +292,7 @@ Feature: Manage video
       "uploadDate": "2017-02-01T18:30:52+01:00",
       "numberView": 120,
       "annotations": [],
-      "channel": "\/channels\/1",
+      "channel": "/channels/1",
       "comments": [],
       "forums": [],
       "views": [],
@@ -308,15 +306,16 @@ Feature: Manage video
         "/categories/1"
       ],
       "metadata": {
-          "@id": "\/metadatas\/1",
-          "@type": "Metadata",
-          "id": 1,
-          "height": 100,
-          "width": 100,
-          "format": "mp3",
-          "hash": "Abdsbfs"
+        "@id": "/metadatas/1",
+        "@type": "Metadata",
+        "id": 1,
+        "height": 100,
+        "width": 100,
+        "format": "mp3"
       },
-      "seeders": []
+      "seeders": [],
+      "hash": "Abdsbfs",
+      "magnet": "ssdf"
     }
     """
 
@@ -354,8 +353,8 @@ Feature: Manage video
     And the JSON should be equal to:
     """
     {
-      "@context": "\/contexts\/Video",
-      "@id": "\/videos\/1",
+      "@context": "/contexts/Video",
+      "@id": "/videos/1",
       "@type": "Video",
       "id": 1,
       "title": "string",
@@ -363,7 +362,7 @@ Feature: Manage video
       "uploadDate": "2017-02-01T18:30:52+01:00",
       "numberView": 120,
       "annotations": [],
-      "channel": "\/channels\/1",
+      "channel": "/channels/1",
       "comments": [],
       "forums": [],
       "views": [
@@ -379,15 +378,16 @@ Feature: Manage video
         "/categories/1"
       ],
       "metadata": {
-          "@id": "\/metadatas\/1",
-          "@type": "Metadata",
-          "id": 1,
-          "height": 100,
-          "width": 100,
-          "format": "mp3",
-          "hash": "Abdsbfs"
+        "@id": "/metadatas/1",
+        "@type": "Metadata",
+        "id": 1,
+        "height": 100,
+        "width": 100,
+        "format": "mp3"
       },
-      "seeders": []
+      "seeders": [],
+      "hash": "Abdsbfs",
+      "magnet": "ssdf"
     }
     """
 
@@ -427,8 +427,8 @@ Feature: Manage video
     And the JSON should be equal to:
     """
     {
-      "@context": "\/contexts\/Video",
-      "@id": "\/videos\/1",
+      "@context": "/contexts/Video",
+      "@id": "/videos/1",
       "@type": "Video",
       "id": 1,
       "title": "string",
@@ -436,7 +436,7 @@ Feature: Manage video
       "uploadDate": "2017-02-01T18:30:52+01:00",
       "numberView": 120,
       "annotations": [],
-      "channel": "\/channels\/1",
+      "channel": "/channels/1",
       "comments": [],
       "forums": [
         "/forums/1"
@@ -454,15 +454,16 @@ Feature: Manage video
         "/categories/1"
       ],
       "metadata": {
-          "@id": "\/metadatas\/1",
-          "@type": "Metadata",
-          "id": 1,
-          "height": 100,
-          "width": 100,
-          "format": "mp3",
-          "hash": "Abdsbfs"
+        "@id": "/metadatas/1",
+        "@type": "Metadata",
+        "id": 1,
+        "height": 100,
+        "width": 100,
+        "format": "mp3"
       },
-      "seeders": []
+      "seeders": [],
+      "hash": "Abdsbfs",
+      "magnet": "ssdf"
     }
     """
 
@@ -504,8 +505,8 @@ Feature: Manage video
     And the JSON should be equal to:
     """
     {
-      "@context": "\/contexts\/Video",
-      "@id": "\/videos\/1",
+      "@context": "/contexts/Video",
+      "@id": "/videos/1",
       "@type": "Video",
       "id": 1,
       "title": "string",
@@ -515,7 +516,7 @@ Feature: Manage video
       "annotations": [
         "/annotations/1"
       ],
-      "channel": "\/channels\/1",
+      "channel": "/channels/1",
       "comments": [],
       "forums": [
         "/forums/1"
@@ -533,15 +534,16 @@ Feature: Manage video
         "/categories/1"
       ],
       "metadata": {
-          "@id": "\/metadatas\/1",
-          "@type": "Metadata",
-          "id": 1,
-          "height": 100,
-          "width": 100,
-          "format": "mp3",
-          "hash": "Abdsbfs"
+        "@id": "/metadatas/1",
+        "@type": "Metadata",
+        "id": 1,
+        "height": 100,
+        "width": 100,
+        "format": "mp3"
       },
-      "seeders": []
+      "seeders": [],
+      "hash": "Abdsbfs",
+      "magnet": "ssdf"
     }
     """
 
@@ -583,8 +585,8 @@ Feature: Manage video
     And the JSON should be equal to:
     """
     {
-      "@context": "\/contexts\/Video",
-      "@id": "\/videos\/1",
+      "@context": "/contexts/Video",
+      "@id": "/videos/1",
       "@type": "Video",
       "id": 1,
       "title": "string",
@@ -594,7 +596,7 @@ Feature: Manage video
       "annotations": [
         "/annotations/1"
       ],
-      "channel": "\/channels\/1",
+      "channel": "/channels/1",
       "comments": [
         "/comments/1"
       ],
@@ -614,15 +616,16 @@ Feature: Manage video
         "/categories/1"
       ],
       "metadata": {
-          "@id": "\/metadatas\/1",
-          "@type": "Metadata",
-          "id": 1,
-          "height": 100,
-          "width": 100,
-          "format": "mp3",
-          "hash": "Abdsbfs"
+        "@id": "/metadatas/1",
+        "@type": "Metadata",
+        "id": 1,
+        "height": 100,
+        "width": 100,
+        "format": "mp3"
       },
-      "seeders": []
+      "seeders": [],
+      "hash": "Abdsbfs",
+      "magnet": "ssdf"
     }
     """
 
@@ -644,10 +647,18 @@ Feature: Manage video
       "@context": "/contexts/ConstraintViolationList",
       "@type": "ConstraintViolationList",
       "hydra:title": "An error occurred",
-      "hydra:description": "title: This value should not be blank.",
+      "hydra:description": "title: This value should not be blank.\nhash: This value should not be blank.\nmagnet: This value should not be blank.",
       "violations": [
         {
           "propertyPath": "title",
+          "message": "This value should not be blank."
+        },
+        {
+          "propertyPath": "hash",
+          "message": "This value should not be blank."
+        },
+        {
+          "propertyPath": "magnet",
           "message": "This value should not be blank."
         }
       ]
@@ -663,91 +674,92 @@ Feature: Manage video
     And the JSON should be equal to:
     """
     {
-          "@context": "\/contexts\/Video",
-          "@id": "\/videos",
-          "@type": "hydra:Collection",
-          "hydra:member": [
-              {
-                  "@id": "\/videos\/1",
-                  "@type": "Video",
-                  "id": 1,
-                  "title": "string",
-                  "description": "string",
-                  "uploadDate": "2017-02-01T18:30:52+01:00",
-                  "numberView": 120,
-                  "annotations": [
-                      "\/annotations\/1"
-                  ],
-                  "channel": "\/channels\/1",
-                  "comments": [
-                      "\/comments\/1"
-                  ],
-                  "forums": [
-                      "\/forums\/1"
-                  ],
-                  "views": [
-                      "\/views\/1"
-                  ],
-                  "reviews": [
-                      "\/reviews\/1"
-                  ],
-                  "subtitles": [
-                      "\/subtitles\/1"
-                  ],
-                  "categories": [
-                      "\/categories\/1"
-                  ],
-                  "metadata": {
-                      "@id": "\/metadatas\/1",
-                      "@type": "Metadata",
-                      "id": 1,
-                      "height": 100,
-                      "width": 100,
-                      "format": "mp3",
-                      "hash": "Abdsbfs"
-                  },
-                  "seeders": []
-              }
+      "@context": "/contexts/Video",
+      "@id": "/videos",
+      "@type": "hydra:Collection",
+      "hydra:member": [
+        {
+          "@id": "/videos/1",
+          "@type": "Video",
+          "id": 1,
+          "title": "string",
+          "description": "string",
+          "uploadDate": "2017-02-01T18:30:52+01:00",
+          "numberView": 120,
+          "annotations": [
+            "/annotations/1"
           ],
-          "hydra:totalItems": 1,
-          "hydra:search": {
-              "@type": "hydra:IriTemplate",
-              "hydra:template": "\/videos{?id,id[],title,channel,channel[]}",
-              "hydra:variableRepresentation": "BasicRepresentation",
-              "hydra:mapping": [
-                  {
-                      "@type": "IriTemplateMapping",
-                      "variable": "id",
-                      "property": "id",
-                      "required": false
-                  },
-                  {
-                      "@type": "IriTemplateMapping",
-                      "variable": "id[]",
-                      "property": "id",
-                      "required": false
-                  },
-                  {
-                      "@type": "IriTemplateMapping",
-                      "variable": "title",
-                      "property": "title",
-                      "required": false
-                  },
-                  {
-                      "@type": "IriTemplateMapping",
-                      "variable": "channel",
-                      "property": "channel",
-                      "required": false
-                  },
-                  {
-                      "@type": "IriTemplateMapping",
-                      "variable": "channel[]",
-                      "property": "channel",
-                      "required": false
-                  }
-              ]
+          "channel": "/channels/1",
+          "comments": [
+            "/comments/1"
+          ],
+          "forums": [
+            "/forums/1"
+          ],
+          "views": [
+            "/views/1"
+          ],
+          "reviews": [
+            "/reviews/1"
+          ],
+          "subtitles": [
+            "/subtitles/1"
+          ],
+          "categories": [
+            "/categories/1"
+          ],
+          "metadata": {
+            "@id": "/metadatas/1",
+            "@type": "Metadata",
+            "id": 1,
+            "height": 100,
+            "width": 100,
+            "format": "mp3"
+          },
+          "seeders": [],
+          "hash": "Abdsbfs",
+          "magnet": "ssdf"
+        }
+      ],
+      "hydra:totalItems": 1,
+      "hydra:search": {
+        "@type": "hydra:IriTemplate",
+        "hydra:template": "/videos{?id,id[],title,channel,channel[]}",
+        "hydra:variableRepresentation": "BasicRepresentation",
+        "hydra:mapping": [
+          {
+            "@type": "IriTemplateMapping",
+            "variable": "id",
+            "property": "id",
+            "required": false
+          },
+          {
+            "@type": "IriTemplateMapping",
+            "variable": "id[]",
+            "property": "id",
+            "required": false
+          },
+          {
+            "@type": "IriTemplateMapping",
+            "variable": "title",
+            "property": "title",
+            "required": false
+          },
+          {
+            "@type": "IriTemplateMapping",
+            "variable": "channel",
+            "property": "channel",
+            "required": false
+          },
+          {
+            "@type": "IriTemplateMapping",
+            "variable": "channel[]",
+            "property": "channel",
+            "required": false
           }
+        ]
       }
+    }
     """
 
   Scenario: Update subtitle
@@ -765,8 +777,8 @@ Feature: Manage video
     And the JSON should be equal to:
     """
     {
-      "@context": "\/contexts\/Video",
-      "@id": "\/videos\/1",
+      "@context": "/contexts/Video",
+      "@id": "/videos/1",
       "@type": "Video",
       "id": 1,
       "title": "stringUpdated",
@@ -776,7 +788,7 @@ Feature: Manage video
       "annotations": [
         "/annotations/1"
       ],
-      "channel": "\/channels\/1",
+      "channel": "/channels/1",
       "comments": [
         "/comments/1"
       ],
@@ -796,15 +808,16 @@ Feature: Manage video
         "/categories/1"
       ],
       "metadata": {
-          "@id": "\/metadatas\/1",
-          "@type": "Metadata",
-          "id": 1,
-          "height": 100,
-          "width": 100,
-          "format": "mp3",
-          "hash": "Abdsbfs"
+        "@id": "/metadatas/1",
+        "@type": "Metadata",
+        "id": 1,
+        "height": 100,
+        "width": 100,
+        "format": "mp3"
       },
-      "seeders": []
+      "seeders": [],
+      "hash": "Abdsbfs",
+      "magnet": "ssdf"
     }
     """
 
@@ -847,8 +860,8 @@ Feature: Manage video
     And the JSON should be equal to:
     """
     {
-      "@context": "\/contexts\/Video",
-      "@id": "\/videos\/1",
+      "@context": "/contexts/Video",
+      "@id": "/videos/1",
       "@type": "Video",
       "id": 1,
       "title": "stringUpdated",
@@ -858,7 +871,7 @@ Feature: Manage video
       "annotations": [
         "/annotations/1"
       ],
-      "channel": "\/channels\/1",
+      "channel": "/channels/1",
       "comments": [
         "/comments/1"
       ],
@@ -878,17 +891,18 @@ Feature: Manage video
         "/categories/1"
       ],
       "metadata": {
-          "@id": "\/metadatas\/1",
-          "@type": "Metadata",
-          "id": 1,
-          "height": 100,
-          "width": 100,
-          "format": "mp3",
-          "hash": "Abdsbfs"
+        "@id": "/metadatas/1",
+        "@type": "Metadata",
+        "id": 1,
+        "height": 100,
+        "width": 100,
+        "format": "mp3"
       },
       "seeders": [
         "/seeders/1"
-      ]
+      ],
+      "hash": "Abdsbfs",
+      "magnet": "ssdf"
     }
     """
 

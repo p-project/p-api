@@ -28,28 +28,23 @@ Feature: Manage network
     And the JSON should be equal to:
     """
     {
-      "@context": "\/contexts\/Account",
-      "@id": "\/accounts\/2",
-      "@type": "Account",
-      "views": [],
-      "channels": [],
-      "id": 2,
-      "username": "string",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
-      "forums": [],
-      "networks": [],
-      "playlists": [],
-      "replies": [],
-      "reviews": [],
-      "sustainabilityOffers": [],
-      "seeders": [],
-      "salt": "salt",
-      "roles": [
-          "ROLE_USER"
-      ],
-      "password": "password"
+        "@context": "/contexts/Account",
+        "@id": "/accounts/2",
+        "@type": "Account",
+        "id": 2,
+        "username": "string",
+        "email": "string@string.fr",
+        "firstName": "string",
+        "lastName": "string",
+        "channels": [],
+        "views": [],
+        "forums": [],
+        "networks": [],
+        "playlists": [],
+        "replies": [],
+        "reviews": [],
+        "sustainabilityOffers": [],
+        "seeders": []
     }
     """
 

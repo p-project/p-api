@@ -25,6 +25,6 @@ class AccountRepository extends EntityRepository
             ->setParameter('username', $username)
             ->getQuery()
             ->getOneOrNullResult()
-            ;
+        ;
     }
 }

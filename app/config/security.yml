@@ -1,9 +1,9 @@
 security:
     encoders:
         AppBundle\Entity\Account:
-              algorithm: sha512
-              encode_as_base64: true
-              iterations: 5000
+            algorithm: sha512
+            encode_as_base64: true
+            iterations: 5000
 
     providers:
         account_provider:
@@ -12,18 +12,16 @@ security:
 
     firewalls:
         dev:
-            pattern: ^/((profiler|wdt)|css|images|js)/
+            pattern: ^/((_profiler|wdt)|css|images|js)/
             security: false
         oauth_token:
             pattern: ^/oauth/v2/token
-            security: false
-        api_doc:
-            pattern: ^/api/doc
             security: false
         main:
             pattern: ^/
             fos_oauth: true
             stateless: true
+
     access_control:
         - { path: "^/videos", roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: "^/", roles: IS_AUTHENTICATED_FULLY }

@@ -148,6 +148,26 @@ class Video
      */
     private $seeders;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="hash", type="string")
+     * @Assert\NotBlank
+     * @Groups({"video"})
+     * @Assert\Type("string")
+     */
+    private $hash;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="magnet", type="string")
+     * @Assert\NotBlank
+     * @Groups({"video"})
+     * @Assert\Type("string")
+     */
+    private $magnet;
+
     public function __construct()
     {
         $this->annotations = new ArrayCollection();
@@ -334,4 +354,30 @@ class Video
 
         return $this;
     }
+
+    public function getHash(): string
+    {
+        return $this->hash;
+    }
+
+    public function setHash(string $hash): Video
+    {
+        $this->hash = $hash;
+
+        return $this;
+    }
+
+    public function getMagnet(): string
+    {
+        return $this->magnet;
+    }
+
+    public function setMagnet(string $magnet): Video
+    {
+        $this->magnet = $magnet;
+
+        return $this;
+    }
+
+
 }

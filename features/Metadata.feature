@@ -29,28 +29,23 @@ Feature: Manage metadata
     And the JSON should be equal to:
     """
     {
-      "@context": "\/contexts\/Account",
-      "@id": "\/accounts\/2",
-      "@type": "Account",
-      "views": [],
-      "channels": [],
-      "id": 2,
-      "username": "string",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
-      "forums": [],
-      "networks": [],
-      "playlists": [],
-      "replies": [],
-      "reviews": [],
-      "sustainabilityOffers": [],
-      "seeders": [],
-      "salt": "salt",
-      "roles": [
-          "ROLE_USER"
-      ],
-      "password": "password"
+        "@context": "/contexts/Account",
+        "@id": "/accounts/2",
+        "@type": "Account",
+        "id": 2,
+        "username": "string",
+        "email": "string@string.fr",
+        "firstName": "string",
+        "lastName": "string",
+        "channels": [],
+        "views": [],
+        "forums": [],
+        "networks": [],
+        "playlists": [],
+        "replies": [],
+        "reviews": [],
+        "sustainabilityOffers": [],
+        "seeders": []
     }
     """
 
@@ -97,8 +92,7 @@ Feature: Manage metadata
     {
       "height": 0,
       "width": 0,
-      "format": "string",
-      "hash": "string"
+      "format": "string"
     }
     """
     Then the response status code should be 201
@@ -113,8 +107,7 @@ Feature: Manage metadata
       "id": 1,
       "height": 0,
       "width": 0,
-      "format": "string",
-      "hash": "string"
+      "format": "string"
     }
     """
 
@@ -129,7 +122,9 @@ Feature: Manage metadata
       "uploadDate": "2017-02-01T18:30:52.055Z",
       "numberView": 120,
       "channel": "/channels/1",
-      "metadata": "/metadatas/1"
+      "metadata": "/metadatas/1",
+      "hash": "string",
+      "magnet": "string"
     }
     """
     Then the response status code should be 201
@@ -138,8 +133,8 @@ Feature: Manage metadata
     And the JSON should be equal to:
     """
     {
-      "@context": "\/contexts\/Video",
-      "@id": "\/videos\/1",
+      "@context": "/contexts/Video",
+      "@id": "/videos/1",
       "@type": "Video",
       "id": 1,
       "title": "string",
@@ -147,7 +142,7 @@ Feature: Manage metadata
       "uploadDate": "2017-02-01T18:30:52+00:00",
       "numberView": 120,
       "annotations": [],
-      "channel": "\/channels\/1",
+      "channel": "/channels/1",
       "comments": [],
       "forums": [],
       "views": [],
@@ -155,15 +150,16 @@ Feature: Manage metadata
       "subtitles": [],
       "categories": [],
       "metadata": {
-          "@id": "\/metadatas\/1",
+          "@id": "/metadatas/1",
           "@type": "Metadata",
           "id": 1,
           "height": 0,
           "width": 0,
-          "format": "string",
-          "hash": "string"
+          "format": "string"
       },
-      "seeders": []
+      "seeders": [],
+      "hash": "string",
+      "magnet": "string"
     }
     """
 
@@ -182,10 +178,10 @@ Feature: Manage metadata
     And the JSON should be equal to:
     """
     {
-      "@context": "\/contexts\/ConstraintViolationList",
+      "@context": "/contexts/ConstraintViolationList",
       "@type": "ConstraintViolationList",
       "hydra:title": "An error occurred",
-      "hydra:description": "height: This value should not be blank.\nwidth: This value should not be blank.\nformat: This value should not be blank.\nhash: This value should not be blank.",
+      "hydra:description": "height: This value should not be blank.\nwidth: This value should not be blank.\nformat: This value should not be blank.",
       "violations": [
         {
           "propertyPath": "height",
@@ -197,10 +193,6 @@ Feature: Manage metadata
         },
         {
           "propertyPath": "format",
-          "message": "This value should not be blank."
-        },
-        {
-          "propertyPath": "hash",
           "message": "This value should not be blank."
         }
       ]
@@ -226,8 +218,7 @@ Feature: Manage metadata
           "id": 1,
           "height": 0,
           "width": 0,
-          "format": "string",
-          "hash": "string"
+          "format": "string"
         }
       ],
       "hydra:totalItems": 1
@@ -255,8 +246,7 @@ Feature: Manage metadata
       "id": 1,
       "height": 0,
       "width": 0,
-      "format": "stringUpdated",
-      "hash": "string"
+      "format": "stringUpdated"
     }
     """
 

@@ -29,28 +29,23 @@ Feature: Manage comment
     And the JSON should be equal to:
     """
     {
-      "@context": "\/contexts\/Account",
-      "@id": "\/accounts\/2",
-      "@type": "Account",
-      "views": [],
-      "channels": [],
-      "id": 2,
-      "username": "string",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
-      "forums": [],
-      "networks": [],
-      "playlists": [],
-      "replies": [],
-      "reviews": [],
-      "sustainabilityOffers": [],
-      "seeders": [],
-      "salt": "salt",
-      "roles": [
-          "ROLE_USER"
-      ],
-      "password": "password"
+        "@context": "/contexts/Account",
+        "@id": "/accounts/2",
+        "@type": "Account",
+        "id": 2,
+        "username": "string",
+        "email": "string@string.fr",
+        "firstName": "string",
+        "lastName": "string",
+        "channels": [],
+        "views": [],
+        "forums": [],
+        "networks": [],
+        "playlists": [],
+        "replies": [],
+        "reviews": [],
+        "sustainabilityOffers": [],
+        "seeders": []
     }
     """
 
@@ -100,12 +95,13 @@ Feature: Manage comment
       "uploadDate": "2017-02-01T18:30:52.055Z",
       "numberView": 120,
       "channel": "/channels/1",
+      "hash": "Abdsbfs",
+      "magnet": "string",
       "metadata":
       {
         "height": 100,
         "width": 100,
-        "format": "mp3",
-        "hash": "Abdsbfs"
+        "format": "mp3"
       }
     }
     """
@@ -115,8 +111,8 @@ Feature: Manage comment
     And the JSON should be equal to:
     """
     {
-      "@context": "\/contexts\/Video",
-      "@id": "\/videos\/1",
+      "@context": "/contexts/Video",
+      "@id": "/videos/1",
       "@type": "Video",
       "id": 1,
       "title": "string",
@@ -124,7 +120,7 @@ Feature: Manage comment
       "uploadDate": "2017-02-01T18:30:52+00:00",
       "numberView": 120,
       "annotations": [],
-      "channel": "\/channels\/1",
+      "channel": "/channels/1",
       "comments": [],
       "forums": [],
       "views": [],
@@ -132,15 +128,16 @@ Feature: Manage comment
       "subtitles": [],
       "categories": [],
       "metadata": {
-          "@id": "\/metadatas\/1",
+          "@id": "/metadatas/1",
           "@type": "Metadata",
           "id": 1,
           "height": 100,
           "width": 100,
-          "format": "mp3",
-          "hash": "Abdsbfs"
+          "format": "mp3"
       },
-      "seeders": []
+      "seeders": [],
+      "hash": "Abdsbfs",
+      "magnet": "string"
     }
     """
 
@@ -188,7 +185,7 @@ Feature: Manage comment
     And the JSON should be equal to:
     """
     {
-        "@context": "\/contexts\/ConstraintViolationList",
+        "@context": "/contexts/ConstraintViolationList",
         "@type": "ConstraintViolationList",
         "hydra:title": "An error occurred",
         "hydra:description": "content: This value should not be blank.\ndateComment: This value should not be blank.",

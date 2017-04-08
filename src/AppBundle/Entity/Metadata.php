@@ -56,23 +56,6 @@ class Metadata
      */
     private $format;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="hash", type="string")
-     * @Assert\NotBlank
-     * @Groups({"video"})
-     * @Assert\Type("string")
-     */
-    private $hash;
-/*
-    /**
-     * @var Video
-     *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Video", inversedBy="metadata", cascade={"persist"})
-     * @ORM\JoinColumn(name="video_id", referencedColumnName="id")
-     *
-    private $video;*/
     public function getId(): int
     {
         return $this->id;
@@ -117,30 +100,6 @@ class Metadata
     public function setFormat(string $format): Metadata
     {
         $this->format = $format;
-
-        return $this;
-    }
-
-    /*public function getVideo(): Video
-    {
-        return $this->video;
-    }
-
-    public function setVideo($video): Metadata
-    {
-        $this->video = $video;
-
-        return $this;
-    }*/
-
-    public function getHash(): string
-    {
-        return $this->hash;
-    }
-
-    public function setHash(string $hash): Metadata
-    {
-        $this->hash = $hash;
 
         return $this;
     }

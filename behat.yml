@@ -4,9 +4,8 @@ default:
   suites:
     default:
       contexts:
-        - FeatureContext: { doctrine: "@doctrine", kernel: "@kernel" }
+        - FeatureContext: { request: "@request_stack", doctrine: "@doctrine", kernel: "@kernel" }
         - Behat\MinkExtension\Context\MinkContext
-        - Sanpi\Behatch\Context\RestContext
         - Sanpi\Behatch\Context\JsonContext
   extensions:
     Behat\Symfony2Extension:

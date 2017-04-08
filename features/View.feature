@@ -29,28 +29,23 @@ Feature: Manage view
     And the JSON should be equal to:
     """
     {
-      "@context": "\/contexts\/Account",
-      "@id": "\/accounts\/2",
+      "@context": "/contexts/Account",
+      "@id": "/accounts/2",
       "@type": "Account",
-      "views": [],
-      "channels": [],
       "id": 2,
       "username": "string",
       "email": "string@string.fr",
       "firstName": "string",
       "lastName": "string",
+      "channels": [],
+      "views": [],
       "forums": [],
       "networks": [],
       "playlists": [],
       "replies": [],
       "reviews": [],
       "sustainabilityOffers": [],
-      "seeders": [],
-      "salt": "salt",
-      "roles": [
-          "ROLE_USER"
-      ],
-      "password": "password"
+      "seeders": []
     }
     """
 
@@ -60,7 +55,7 @@ Feature: Manage view
     And I send a "POST" request to "/channels" with body:
     """
     {
-      "account": "/accounts/1",
+      "account": "/accounts/2",
       "name": "string",
       "tags": [
          "string"
@@ -76,7 +71,7 @@ Feature: Manage view
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "account": "/accounts/1",
+      "account": "/accounts/2",
       "id": 1,
       "name": "string",
       "tags": [
@@ -100,12 +95,13 @@ Feature: Manage view
       "uploadDate": "2017-02-01T18:30:52.055Z",
       "numberView": 120,
       "channel": "/channels/1",
+      "hash": "Abdsbfs",
+      "magnet": "ssdf",
       "metadata":
       {
         "height": 100,
         "width": 100,
-        "format": "mp3",
-        "hash": "Abdsbfs"
+        "format": "mp3"
       }
     }
     """
@@ -115,8 +111,8 @@ Feature: Manage view
     And the JSON should be equal to:
     """
     {
-      "@context": "\/contexts\/Video",
-      "@id": "\/videos\/1",
+      "@context": "/contexts/Video",
+      "@id": "/videos/1",
       "@type": "Video",
       "id": 1,
       "title": "string",
@@ -124,7 +120,7 @@ Feature: Manage view
       "uploadDate": "2017-02-01T18:30:52+00:00",
       "numberView": 120,
       "annotations": [],
-      "channel": "\/channels\/1",
+      "channel": "/channels/1",
       "comments": [],
       "forums": [],
       "views": [],
@@ -132,15 +128,16 @@ Feature: Manage view
       "subtitles": [],
       "categories": [],
       "metadata": {
-          "@id": "\/metadatas\/1",
-          "@type": "Metadata",
-          "id": 1,
-          "height": 100,
-          "width": 100,
-          "format": "mp3",
-          "hash": "Abdsbfs"
+        "@id": "/metadatas/1",
+        "@type": "Metadata",
+        "id": 1,
+        "height": 100,
+        "width": 100,
+        "format": "mp3"
       },
-      "seeders": []
+      "seeders": [],
+      "hash": "Abdsbfs",
+      "magnet": "ssdf"
     }
     """
 
@@ -150,7 +147,7 @@ Feature: Manage view
     And I send a "POST" request to "/views" with body:
     """
     {
-      "account": "/accounts/1",
+      "account": "/accounts/2",
       "video": "/videos/1"
     }
     """
@@ -164,7 +161,7 @@ Feature: Manage view
       "@id": "/views/1",
       "@type": "View",
       "id": 1,
-      "account": "/accounts/1",
+      "account": "/accounts/2",
       "video": "/videos/1"
     }
     """
@@ -186,7 +183,7 @@ Feature: Manage view
           "@id": "/views/1",
           "@type": "View",
           "id": 1,
-          "account": "/accounts/1",
+          "account": "/accounts/2",
           "video": "/videos/1"
         }
       ],

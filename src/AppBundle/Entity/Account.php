@@ -8,12 +8,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * User's account.
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AccountRepository")
- * @ApiResource(attributes={"filters"={"account.search"}})
+ * @ApiResource(attributes={"filters"={"account.search"}, "normalization_context"={"groups"={"account"}}})
  */
 class Account implements UserInterface
 {
@@ -23,6 +24,7 @@ class Account implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"account"})
      * @Assert\Type("integer")
      */
     private $id;
@@ -32,6 +34,7 @@ class Account implements UserInterface
      *
      * @ORM\Column(type="string", unique=true)
      *
+     * @Groups({"account"})
      * @Assert\NotBlank
      * @Assert\Type("string")
      */
@@ -42,6 +45,7 @@ class Account implements UserInterface
      *
      * @ORM\Column(type="string", unique=true)
      *
+     * @Groups({"account"})
      * @Assert\NotBlank
      * @Assert\Email
      */
@@ -52,6 +56,7 @@ class Account implements UserInterface
      *
      * @ORM\Column(type="string")
      *
+     * @Groups({"account"})
      * @Assert\NotBlank
      * @Assert\Type("string")
      */
@@ -62,6 +67,7 @@ class Account implements UserInterface
      *
      * @ORM\Column(type="string")
      *
+     * @Groups({"account"})
      * @Assert\NotBlank
      * @Assert\Type("string")
      */
@@ -71,12 +77,14 @@ class Account implements UserInterface
      * @var ArrayCollection The list of the channels
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Channel", mappedBy="account", cascade={"persist"})
+     * @Groups({"account"})
      */
     private $channels;
 
     /**
      * @var ArrayCollection The list of views
      *
+     * @Groups({"account"})
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\View", mappedBy="account", cascade={"persist"})
      */
     private $views;
@@ -85,6 +93,7 @@ class Account implements UserInterface
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Forum", mappedBy="createdBy", cascade={"persist"})
+     * @Groups({"account"})
      */
     private $forums;
 
@@ -92,6 +101,7 @@ class Account implements UserInterface
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Network", mappedBy="peoples", cascade={"persist"})
+     * @Groups({"account"})
      * @ORM\JoinTable(name="accounts_networks")
      */
     private $networks;
@@ -100,6 +110,7 @@ class Account implements UserInterface
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="account", cascade={"persist"})
+     * @Groups({"account"})
      */
     private $playlists;
 
@@ -107,6 +118,7 @@ class Account implements UserInterface
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Reply", mappedBy="author", cascade={"persist"})
+     * @Groups({"account"})
      */
     private $replies;
 
@@ -114,6 +126,7 @@ class Account implements UserInterface
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Review", mappedBy="author", cascade={"persist"})
+     * @Groups({"account"})
      */
     private $reviews;
 
@@ -121,6 +134,7 @@ class Account implements UserInterface
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\SustainabilityOffer", mappedBy="account", cascade={"persist"})
+     * @Groups({"account"})
      */
     private $sustainabilityOffers;
 
@@ -128,6 +142,7 @@ class Account implements UserInterface
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Seeder", mappedBy="account", cascade={"persist"})
+     * @Groups({"account"})
      */
     private $seeders;
 
