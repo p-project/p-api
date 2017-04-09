@@ -13,6 +13,7 @@ before_script:
   - apt-get -qq install wget git unzip > /dev/null
   - wget -N https://getcomposer.org/composer.phar
   - chmod u+x composer.phar
+  - export SYMFONY_ENV=test
 
 behat:
   stage: test
