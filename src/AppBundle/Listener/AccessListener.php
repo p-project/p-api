@@ -10,60 +10,65 @@ use Symfony\Component\HttpKernel\Kernel;
 
 class AccessListener
 {
-    private $entityManager;
+    private $em;
 
     const AGGREGATION_DELAY = 5;
-    const NUMBER_REQUESTS = 15;
+    const MAX_ATTEMPTS = 15;
 
     public function __construct(EntityManagerInterface $entityManager, Kernel $kernel)
     {
-        $this->entityManager = $entityManager;
+        $this->em = $entityManager;
         $this->kernel = $kernel;
     }
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        if (!$event->isMasterRequest() || $this->kernel->getEnvironment() == 'test') {
+        if (!$event->isMasterRequest() || $this->kernel->getEnvironment() === 'test') {
             return;
         }
 
         $ip = $event->getRequest()->getClientIp();
 
-        $ipRequest = $this->entityManager->getRepository('AppBundle:IpRequest')
-            ->findLastIpRequest($ip, (new \DateTime())->modify('-' . static::AGGREGATION_DELAY . ' second'));
+        $ipRequest = $this->searchOldIpRequest($ip) ?? $this->getNewIpRequest($ip);
+        $ipRequest = $this->updateAttempts($ipRequest);
 
-        if ($ipRequest === null) {
-            $this->createNewIpRequest($ip);
-        } else {
-            $this->updateAttempts($ipRequest, $ip);
+        $this->vote($ipRequest, $event);
+    }
+
+    private function searchOldIpRequest(string $ip)
+    {
+        $startingAt = (new \DateTime())->modify('-' . static::AGGREGATION_DELAY . ' second');
+
+        return $this->em->getRepository('AppBundle:IpRequest')->findLastIpRequest($ip, $startingAt);
+    }
+
+    private function getNewIpRequest(string $ip)
+    {
+        return new IpRequest($ip);
+    }
+
+    private function updateAttempts(IpRequest $ipRequest)
+    {
+        $delay = $ipRequest->getDateRequest()->modify('+' . static::AGGREGATION_DELAY . ' second');
+
+        if ($delay < new \DateTime()) {
+            return $this->getNewIpRequest($ipRequest->getIp());
         }
+
+        $ipRequest->addAttempt();
+
+        return $ipRequest;
     }
 
-    private function updateAttempts($ipRequest, string $ip)
+    private function vote(IpRequest $ipRequest, GetResponseEvent $event)
     {
-        if ($ipRequest->getDateRequest()->modify('+' . static::AGGREGATION_DELAY . ' second') < new \DateTime()) {
-            $this->createNewIpRequest($ip);
+        if ($ipRequest->countAttempts() > static::MAX_ATTEMPTS) {
+            $event->setResponse(
+                (new Response())->setStatusCode(Response::HTTP_TOO_MANY_REQUESTS)->setContent('Too Many Request')
+            );
         } else {
-            if ($ipRequest->getCount() > static::NUMBER_REQUESTS) {
-                $response = new Response();
-                $response->setStatusCode(Response::HTTP_TOO_MANY_REQUESTS)->setContent("Too Many Request");
-                $response->send();
-            } else {
-                $ipRequest->setCount($ipRequest->getCount() + 1);
-                $this->persistIpRequest($ipRequest);
-            }
+            $this->em->persist($ipRequest);
+            $this->em->flush();
         }
-    }
-
-    private function createNewIpRequest(string $ip)
-    {
-        $ipRequest = new IpRequest($ip, new \DateTime(), 1);
-        $this->persistIpRequest($ipRequest);
-    }
-
-    private function persistIpRequest(IpRequest $ipRequest)
-    {
-        $this->entityManager->persist($ipRequest);
-        $this->entityManager->flush();
     }
 }

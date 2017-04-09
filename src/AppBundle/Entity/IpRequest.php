@@ -42,17 +42,18 @@ class IpRequest
     private $dateRequest;
 
     /**
-     * @var
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="attempts", type="integer")
      * @Assert\Type("integer")
      */
-    private $count;
+    private $attempts;
 
-    public function __construct($ip, $dateRequest = null, $count = 1)
+    public function __construct(string $ip)
     {
         $this->ip = $ip;
-        $this->dateRequest = $dateRequest ?? new \DateTime();
-        $this->count = $count;
+        $this->dateRequest = new \DateTime();
+        $this->attempts = 0;
     }
 
     public function getId(): int
@@ -72,33 +73,19 @@ class IpRequest
         return $this->ip;
     }
 
-    public function setIp(string $ip): IPRequest
-    {
-        $this->ip = $ip;
-
-        return $this;
-    }
-
     public function getDateRequest(): \DateTime
     {
         return $this->dateRequest;
     }
 
-    public function setDateRequest(\DateTime $dateRequest): IpRequest
+    public function countAttempts(): int
     {
-        $this->dateRequest = $dateRequest;
-
-        return $this;
+        return $this->attempts;
     }
 
-    public function getCount(): int
+    public function addAttempt(): IpRequest
     {
-        return $this->count;
-    }
-
-    public function setCount(int $count): IpRequest
-    {
-        $this->count = $count;
+        ++$this->attempts;
 
         return $this;
     }
