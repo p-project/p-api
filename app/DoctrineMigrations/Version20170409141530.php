@@ -8,7 +8,7 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20170409101559 extends AbstractMigration
+class Version20170409141530 extends AbstractMigration
 {
     /**
      * @param Schema $schema
@@ -18,7 +18,7 @@ class Version20170409101559 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
-        $this->addSql('ALTER TABLE ip_request RENAME COLUMN count TO attempts');
+        $this->addSql('ALTER TABLE ip_request RENAME COLUMN count TO accesses');
     }
 
     /**
@@ -30,6 +30,6 @@ class Version20170409101559 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
         $this->addSql('CREATE SCHEMA public');
-        $this->addSql('ALTER TABLE ip_request RENAME COLUMN attempts TO count');
+        $this->addSql('ALTER TABLE ip_request RENAME COLUMN accesses TO count');
     }
 }

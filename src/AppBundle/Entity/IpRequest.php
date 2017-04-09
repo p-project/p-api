@@ -44,16 +44,16 @@ class IpRequest
     /**
      * @var int
      *
-     * @ORM\Column(name="attempts", type="integer")
+     * @ORM\Column(name="accesses", type="integer")
      * @Assert\Type("integer")
      */
-    private $attempts;
+    private $accesses;
 
     public function __construct(string $ip)
     {
         $this->ip = $ip;
         $this->dateRequest = new \DateTime();
-        $this->attempts = 0;
+        $this->accesses = 0;
     }
 
     public function getId(): int
@@ -78,14 +78,14 @@ class IpRequest
         return $this->dateRequest;
     }
 
-    public function countAttempts(): int
+    public function countAccesses(): int
     {
-        return $this->attempts;
+        return $this->accesses;
     }
 
-    public function addAttempt(): IpRequest
+    public function recordAccess(): IpRequest
     {
-        ++$this->attempts;
+        ++$this->accesses;
 
         return $this;
     }

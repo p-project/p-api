@@ -53,15 +53,15 @@ class AccessListener
         $delay = $ipRequest->getDateRequest()->modify('+' . static::AGGREGATION_DELAY . ' second');
 
         if ($delay < new \DateTime()) {
-            return $this->getNewIpRequest($ipRequest->getIp())->addAttempt();
+            $ipRequest = $this->getNewIpRequest($ipRequest->getIp());
         }
 
-        return $ipRequest->addAttempt();
+        return $ipRequest->recordAccess();
     }
 
     private function vote(IpRequest $ipRequest, GetResponseEvent $event)
     {
-        if ($ipRequest->countAttempts() > static::MAX_ATTEMPTS) {
+        if ($ipRequest->countAccesses() > static::MAX_ATTEMPTS) {
             $event->setResponse(
                 (new Response())->setStatusCode(Response::HTTP_TOO_MANY_REQUESTS)->setContent('Too Many Request')
             );
