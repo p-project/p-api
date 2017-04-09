@@ -1,0 +1,15 @@
+services:
+    video.search_filter:
+        parent:    'api_platform.doctrine.orm.search_filter'
+        arguments: [ { id: 'exact', title: 'ipartial', channel: 'ipartial' } ]
+        tags:      [ { name: 'api_platform.filter', id: 'video.search' } ]
+
+    account.search_filter:
+        parent:    'api_platform.doctrine.orm.search_filter'
+        arguments: [ { id: 'exact', username: 'ipartial', email: 'ipartial', firstName: 'ipartial' } ]
+        tags:      [ { name: 'api_platform.filter', id: 'account.search' } ]
+
+    channel.search_filter:
+        parent:    'api_platform.doctrine.orm.search_filter'
+        arguments: [ { id: 'exact', name: 'ipartial', account: 'ipartial' } ]
+        tags:      [ { name: 'api_platform.filter', id: 'channel.search' } ]
