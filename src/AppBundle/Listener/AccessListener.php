@@ -11,6 +11,7 @@ use Symfony\Component\HttpKernel\Kernel;
 class AccessListener
 {
     private $em;
+    private $kernel;
 
     const AGGREGATION_DELAY = 5;
     const MAX_ATTEMPTS = 15;
@@ -52,12 +53,10 @@ class AccessListener
         $delay = $ipRequest->getDateRequest()->modify('+' . static::AGGREGATION_DELAY . ' second');
 
         if ($delay < new \DateTime()) {
-            return $this->getNewIpRequest($ipRequest->getIp());
+            return $this->getNewIpRequest($ipRequest->getIp())->addAttempt();
         }
 
-        $ipRequest->addAttempt();
-
-        return $ipRequest;
+        return $ipRequest->addAttempt();
     }
 
     private function vote(IpRequest $ipRequest, GetResponseEvent $event)
