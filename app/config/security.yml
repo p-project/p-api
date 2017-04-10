@@ -12,7 +12,7 @@ security:
 
     firewalls:
         dev:
-            pattern: ^/((_profiler|wdt)|css|images|js)/
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         oauth_token:
             pattern: ^/oauth/v2/token
@@ -21,7 +21,9 @@ security:
             pattern: ^/
             fos_oauth: true
             stateless: true
+            anonymous: true
 
     access_control:
+        - { path: "^/$", roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: "^/videos", roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: "^/", roles: IS_AUTHENTICATED_FULLY }
