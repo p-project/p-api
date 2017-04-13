@@ -4,6 +4,10 @@ Feature: Manage network
   I need to be able to retrieve, create, update and delete them trough the API.
 
   @createSchema
+  @fixtures
+  Scenario: I am connected as Denis with passwowrd: password
+    Given I am connected as "denis" with password "password"
+
   Scenario: Create an account
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
@@ -13,7 +17,9 @@ Feature: Manage network
       "username": "string",
       "email": "string@string.fr",
       "firstName": "string",
-      "lastName": "string"
+      "lastName": "string",
+      "password": "password",
+      "salt": "salt"
     }
     """
     Then the response status code should be 201
@@ -22,23 +28,23 @@ Feature: Manage network
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
-      "@type": "Account",
-      "views": [],
-      "channels": [],
-      "id": 1,
-      "username": "string",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
-      "forums": [],
-      "networks": [],
-      "playlists": [],
-      "replies": [],
-      "reviews": [],
-      "sustainabilityOffers": [],
-      "seeders": []
+        "@context": "/contexts/Account",
+        "@id": "/accounts/2",
+        "@type": "Account",
+        "id": 2,
+        "username": "string",
+        "email": "string@string.fr",
+        "firstName": "string",
+        "lastName": "string",
+        "channels": [],
+        "views": [],
+        "forums": [],
+        "networks": [],
+        "playlists": [],
+        "replies": [],
+        "reviews": [],
+        "sustainabilityOffers": [],
+        "seeders": []
     }
     """
 

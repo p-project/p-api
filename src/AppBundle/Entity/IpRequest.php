@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -10,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class IpRequest
  * @package AppBundle\Entity
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\IpRequestRepository")
  */
 class IpRequest
 {
@@ -33,9 +32,28 @@ class IpRequest
      */
     private $ip;
 
-    public function __construct($ip)
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_request", type="datetime")
+     * @Assert\NotBlank
+     * @Assert\Type("datetime")
+     */
+    private $dateRequest;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="accesses", type="integer")
+     * @Assert\Type("integer")
+     */
+    private $accesses;
+
+    public function __construct(string $ip)
     {
         $this->ip = $ip;
+        $this->dateRequest = new \DateTime();
+        $this->accesses = 0;
     }
 
     public function getId(): int
@@ -55,9 +73,19 @@ class IpRequest
         return $this->ip;
     }
 
-    public function setIp(string $ip): IPRequest
+    public function getDateRequest(): \DateTime
     {
-        $this->ip = $ip;
+        return $this->dateRequest;
+    }
+
+    public function countAccesses(): int
+    {
+        return $this->accesses;
+    }
+
+    public function recordAccess(): IpRequest
+    {
+        ++$this->accesses;
 
         return $this;
     }

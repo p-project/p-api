@@ -4,11 +4,15 @@ AppBundle\Entity\Account:
     email: <email()>
     firstName: <firstName()>
     lastName: <lastName()>
+    password: /ZPeKADSrd8e3wUM7f6DpK/0ukgbztjkSkasUz0Znugln//yx4zXtZTCUckmi/MsRkCCGaZQsTcSX2MTuXfwmw==
+    salt: 12xiixme87nk4cs4sgws400ko
   account_michel:
     username: michel
     email: michel@yopmail.fr
     firstName: Michel
     lastName: Michel
+    password: /ZPeKADSrd8e3wUM7f6DpK/0ukgbztjkSkasUz0Znugln//yx4zXtZTCUckmi/MsRkCCGaZQsTcSX2MTuXfwmw==
+    salt: 12xiixme87nk4cs4sgws400ko
 
 AppBundle\Entity\Channel:
   channel_michel:
@@ -25,13 +29,11 @@ AppBundle\Entity\Metadata:
     format: <word()>
     height: <numberBetween(100, 99999)>
     width: <numberBetween(100, 99999)>
-    hash: <word()>
 
   metadata_{1..100}:
     format: <word()>
     height: <numberBetween(100, 99999)>
     width: <numberBetween(100, 99999)>
-    hash: <word()>
 
 AppBundle\Entity\Video:
   video_{1..100}:
@@ -41,6 +43,8 @@ AppBundle\Entity\Video:
     uploadDate: <date()>
     number_view: <numberBetween(100, 99999)>
     categories: [ '@category_michel' ]
+    hash: <word()>
+    magnet: <word()>
     metadata: '@metadata_<current()>'
 
   video_michel:
@@ -50,6 +54,8 @@ AppBundle\Entity\Video:
     uploadDate: <date()>
     categories: [ '@category_michel' ]
     number_view: <numberBetween(100, 99999)>
+    hash: <word()>
+    magnet: <word()>
     metadata: '@metadata_michel'
 
 AppBundle\Entity\Annotation:

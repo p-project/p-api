@@ -5,6 +5,10 @@ Feature: Manage comment
   I need to be able to retrieve, create, update and delete them trough the API.
 
   @createSchema
+  @fixtures
+  Scenario: I am connected as Denis with passwowrd: password
+    Given I am connected as "denis" with password "password"
+
   Scenario: Create an account
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
@@ -14,7 +18,9 @@ Feature: Manage comment
       "username": "string",
       "email": "string@string.fr",
       "firstName": "string",
-      "lastName": "string"
+      "lastName": "string",
+      "password": "password",
+      "salt": "salt"
     }
     """
     Then the response status code should be 201
@@ -24,15 +30,15 @@ Feature: Manage comment
     """
     {
       "@context": "/contexts/Account",
-      "@id": "/accounts/1",
+      "@id": "/accounts/2",
       "@type": "Account",
-      "views": [],
-      "channels": [],
-      "id": 1,
+      "id": 2,
       "username": "string",
       "email": "string@string.fr",
       "firstName": "string",
       "lastName": "string",
+      "channels": [],
+      "views": [],
       "forums": [],
       "networks": [],
       "playlists": [],
@@ -40,7 +46,7 @@ Feature: Manage comment
       "reviews": [],
       "sustainabilityOffers": [],
       "seeders": []
-    }
+    } 
     """
 
   Scenario: Create a channel

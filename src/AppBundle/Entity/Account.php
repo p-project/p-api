@@ -7,14 +7,16 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * User's account.
  *
- * @ORM\Entity
- * @ApiResource(attributes={"filters"={"account.search"}})
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\AccountRepository")
+ * @ApiResource(attributes={"filters"={"account.search"}, "normalization_context"={"groups"={"account"}}})
  */
-class Account
+class Account implements UserInterface
 {
     /**
      * @var int The Id of the user
@@ -22,6 +24,7 @@ class Account
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"account"})
      * @Assert\Type("integer")
      */
     private $id;
@@ -31,6 +34,7 @@ class Account
      *
      * @ORM\Column(type="string", unique=true)
      *
+     * @Groups({"account"})
      * @Assert\NotBlank
      * @Assert\Type("string")
      */
@@ -41,6 +45,7 @@ class Account
      *
      * @ORM\Column(type="string", unique=true)
      *
+     * @Groups({"account"})
      * @Assert\NotBlank
      * @Assert\Email
      */
@@ -51,6 +56,7 @@ class Account
      *
      * @ORM\Column(type="string")
      *
+     * @Groups({"account"})
      * @Assert\NotBlank
      * @Assert\Type("string")
      */
@@ -61,6 +67,7 @@ class Account
      *
      * @ORM\Column(type="string")
      *
+     * @Groups({"account"})
      * @Assert\NotBlank
      * @Assert\Type("string")
      */
@@ -70,12 +77,14 @@ class Account
      * @var ArrayCollection The list of the channels
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Channel", mappedBy="account", cascade={"persist"})
+     * @Groups({"account"})
      */
     private $channels;
 
     /**
      * @var ArrayCollection The list of views
      *
+     * @Groups({"account"})
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\View", mappedBy="account", cascade={"persist"})
      */
     private $views;
@@ -84,6 +93,7 @@ class Account
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Forum", mappedBy="createdBy", cascade={"persist"})
+     * @Groups({"account"})
      */
     private $forums;
 
@@ -91,6 +101,7 @@ class Account
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Network", mappedBy="peoples", cascade={"persist"})
+     * @Groups({"account"})
      * @ORM\JoinTable(name="accounts_networks")
      */
     private $networks;
@@ -99,6 +110,7 @@ class Account
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="account", cascade={"persist"})
+     * @Groups({"account"})
      */
     private $playlists;
 
@@ -106,6 +118,7 @@ class Account
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Reply", mappedBy="author", cascade={"persist"})
+     * @Groups({"account"})
      */
     private $replies;
 
@@ -113,6 +126,7 @@ class Account
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Review", mappedBy="author", cascade={"persist"})
+     * @Groups({"account"})
      */
     private $reviews;
 
@@ -120,6 +134,7 @@ class Account
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\SustainabilityOffer", mappedBy="account", cascade={"persist"})
+     * @Groups({"account"})
      */
     private $sustainabilityOffers;
 
@@ -127,8 +142,29 @@ class Account
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Seeder", mappedBy="account", cascade={"persist"})
+     * @Groups({"account"})
      */
     private $seeders;
+
+    /**
+     * @var string The salt of  the user
+     *
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank
+     * @Assert\Type("string")
+     */
+    private $salt;
+
+    /**
+     * @var string password of  the user
+     *
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank
+     * @Assert\Type("string")
+     */
+    private $password;
 
     public function __construct()
     {
@@ -151,6 +187,8 @@ class Account
     public function setViews($views)
     {
         $this->views = $views;
+
+        return this;
     }
 
     public function getChannels()
@@ -161,6 +199,8 @@ class Account
     public function setChannels($channels)
     {
         $this->channels = $channels;
+
+        return $this;
     }
 
     public function getId(): int
@@ -171,6 +211,8 @@ class Account
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
     }
 
     public function getUsername(): string
@@ -181,6 +223,8 @@ class Account
     public function setUsername($username)
     {
         $this->username = $username;
+
+        return $this;
     }
 
     public function getEmail(): string
@@ -191,6 +235,8 @@ class Account
     public function setEmail($email)
     {
         $this->email = $email;
+
+        return $this;
     }
 
     public function getFirstName(): string
@@ -201,6 +247,8 @@ class Account
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
+
+        return $this;
     }
 
     public function getLastName(): string
@@ -211,6 +259,8 @@ class Account
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
+
+        return $this;
     }
 
     public function getForums()
@@ -293,6 +343,39 @@ class Account
     public function setSeeders($seeders): Account
     {
         $this->seeders = $seeders;
+
+        return $this;
+    }
+
+    public function getSalt(): string
+    {
+        return $this->salt;
+    }
+
+    public function setSalt(string $salt): Account
+    {
+        $this->salt = $salt;
+
+        return $this;
+    }
+
+    public function getRoles(): array
+    {
+        return array('ROLE_USER');
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): Account
+    {
+        $this->password = $password;
 
         return $this;
     }

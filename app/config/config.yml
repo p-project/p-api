@@ -59,10 +59,25 @@ swiftmailer:
 
 nelmio_cors:
     defaults:
-        allow_origin:   %cors_allow_origin%
+        allow_origin:   "%cors_allow_origin%"
         allow_methods:  ["POST", "PUT", "GET", "DELETE", "OPTIONS"]
         allow_headers:  ["content-type", "authorization"]
         expose_headers: ["link"]
         max_age:        3600
     paths:
         '^/': ~
+
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/DoctrineMigrations"
+    namespace: Application\Migrations
+    table_name: migration_versions
+    name: Application Migrations
+
+fos_oauth_server:
+    db_driver: orm
+    client_class:        AppBundle\Entity\OAuth\Client
+    access_token_class:  AppBundle\Entity\OAuth\AccessToken
+    refresh_token_class: AppBundle\Entity\OAuth\RefreshToken
+    auth_code_class:     AppBundle\Entity\OAuth\AuthCode
+    service:
+        user_provider: app.security.account_provider

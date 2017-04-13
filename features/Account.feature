@@ -5,6 +5,10 @@ Feature: Manage account
   I need to be able to retrieve, create, update and delete them trough the API.
 
   @createSchema
+  @fixtures
+  Scenario: I am connected as Denis with passwowrd: password
+    Given I am connected as "denis" with password "password"
+
   Scenario: Create an account
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
@@ -14,7 +18,9 @@ Feature: Manage account
       "username": "string",
       "email": "string@string.fr",
       "firstName": "string",
-      "lastName": "string"
+      "lastName": "string",
+      "password": "password",
+      "salt": "salt"
     }
     """
     Then the response status code should be 201
@@ -23,23 +29,23 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
-      "@type": "Account",
-      "views": [],
-      "channels": [],
-      "id": 1,
-      "username": "string",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
-      "forums": [],
-      "networks": [],
-      "playlists": [],
-      "replies": [],
-      "reviews": [],
-      "sustainabilityOffers": [],
-      "seeders": []
+        "@context": "/contexts/Account",
+        "@id": "/accounts/2",
+        "@type": "Account",
+        "id": 2,
+        "username": "string",
+        "email": "string@string.fr",
+        "firstName": "string",
+        "lastName": "string",
+        "channels": [],
+        "views": [],
+        "forums": [],
+        "networks": [],
+        "playlists": [],
+        "replies": [],
+        "reviews": [],
+        "sustainabilityOffers": [],
+        "seeders": []
     }
     """
 
@@ -52,68 +58,86 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-          "@context": "\/contexts\/Account",
-          "@id": "\/accounts",
-          "@type": "hydra:Collection",
-          "hydra:member": [
-              {
-                  "@id": "\/accounts\/1",
-                  "@type": "Account",
-                  "views": [],
-                  "channels": [],
-                  "id": 1,
-                  "username": "string",
-                  "email": "string@string.fr",
-                  "firstName": "string",
-                  "lastName": "string",
-                  "forums": [],
-                  "networks": [],
-                  "playlists": [],
-                  "replies": [],
-                  "reviews": [],
-                  "sustainabilityOffers": [],
-                  "seeders": []
-              }
-          ],
-          "hydra:totalItems": 1,
-          "hydra:search": {
-              "@type": "hydra:IriTemplate",
-              "hydra:template": "\/accounts{?id,id[],username,email,firstName}",
-              "hydra:variableRepresentation": "BasicRepresentation",
-              "hydra:mapping": [
-                  {
-                      "@type": "IriTemplateMapping",
-                      "variable": "id",
-                      "property": "id",
-                      "required": false
-                  },
-                  {
-                      "@type": "IriTemplateMapping",
-                      "variable": "id[]",
-                      "property": "id",
-                      "required": false
-                  },
-                  {
-                      "@type": "IriTemplateMapping",
-                      "variable": "username",
-                      "property": "username",
-                      "required": false
-                  },
-                  {
-                      "@type": "IriTemplateMapping",
-                      "variable": "email",
-                      "property": "email",
-                      "required": false
-                  },
-                  {
-                      "@type": "IriTemplateMapping",
-                      "variable": "firstName",
-                      "property": "firstName",
-                      "required": false
-                  }
-              ]
-          }
-      }
+        "@context": "/contexts/Account",
+        "@id": "/accounts",
+        "@type": "hydra:Collection",
+        "hydra:member": [
+            {
+                "@id": "/accounts/1",
+                "@type": "Account",
+                "id": 1,
+                "username": "denis",
+                "email": "denis@denis.fr",
+                "firstName": "denis",
+                "lastName": "denis",
+                "channels": [],
+                "views": [],
+                "forums": [],
+                "networks": [],
+                "playlists": [],
+                "replies": [],
+                "reviews": [],
+                "sustainabilityOffers": [],
+                "seeders": []
+            },
+            {
+                "@id": "/accounts/2",
+                "@type": "Account",
+                "id": 2,
+                "username": "string",
+                "email": "string@string.fr",
+                "firstName": "string",
+                "lastName": "string",
+                "channels": [],
+                "views": [],
+                "forums": [],
+                "networks": [],
+                "playlists": [],
+                "replies": [],
+                "reviews": [],
+                "sustainabilityOffers": [],
+                "seeders": []
+            }
+        ],
+        "hydra:totalItems": 2,
+        "hydra:search": {
+            "@type": "hydra:IriTemplate",
+            "hydra:template": "/accounts{?id,id[],username,email,firstName}",
+            "hydra:variableRepresentation": "BasicRepresentation",
+            "hydra:mapping": [
+                {
+                    "@type": "IriTemplateMapping",
+                    "variable": "id",
+                    "property": "id",
+                    "required": false
+                },
+                {
+                    "@type": "IriTemplateMapping",
+                    "variable": "id[]",
+                    "property": "id",
+                    "required": false
+                },
+                {
+                    "@type": "IriTemplateMapping",
+                    "variable": "username",
+                    "property": "username",
+                    "required": false
+                },
+                {
+                    "@type": "IriTemplateMapping",
+                    "variable": "email",
+                    "property": "email",
+                    "required": false
+                },
+                {
+                    "@type": "IriTemplateMapping",
+                    "variable": "firstName",
+                    "property": "firstName",
+                    "required": false
+                }
+            ]
+        }
+    }
     """
 
   Scenario: Throw errors when there is only bad properties
@@ -134,7 +158,7 @@ Feature: Manage account
       "@context": "/contexts/ConstraintViolationList",
       "@type": "ConstraintViolationList",
       "hydra:title": "An error occurred",
-      "hydra:description": "username: This value should not be blank.\nemail: This value is not a valid email address.\nfirstName: This value should not be blank.\nlastName: This value should not be blank.",
+      "hydra:description": "username: This value should not be blank.\nemail: This value is not a valid email address.\nfirstName: This value should not be blank.\nlastName: This value should not be blank.\nsalt: This value should not be blank.\npassword: This value should not be blank.",
       "violations": [
         {
           "propertyPath": "username",
@@ -151,6 +175,14 @@ Feature: Manage account
         {
           "propertyPath": "lastName",
           "message": "This value should not be blank."
+        },
+        {
+          "propertyPath": "salt",
+          "message": "This value should not be blank."
+        },
+        {
+          "propertyPath": "password",
+          "message": "This value should not be blank."
         }
       ]
     }
@@ -159,7 +191,7 @@ Feature: Manage account
   Scenario: Update an account
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "PUT" request to "/accounts/1" with body:
+    And I send a "PUT" request to "/accounts/2" with body:
     """
     {
       "username": "stringUpdated"
@@ -171,52 +203,52 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
-      "@type": "Account",
-      "views": [],
-      "channels": [],
-      "id": 1,
-      "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
-      "forums": [],
-      "networks": [],
-      "playlists": [],
-      "replies": [],
-      "reviews": [],
-      "sustainabilityOffers": [],
-      "seeders": []
+        "@context": "/contexts/Account",
+        "@id": "/accounts/2",
+        "@type": "Account",
+        "id": 2,
+        "username": "stringUpdated",
+        "email": "string@string.fr",
+        "firstName": "string",
+        "lastName": "string",
+        "channels": [],
+        "views": [],
+        "forums": [],
+        "networks": [],
+        "playlists": [],
+        "replies": [],
+        "reviews": [],
+        "sustainabilityOffers": [],
+        "seeders": []
     }
     """
 
   Scenario: Get a specific account
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/accounts/1"
+    And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
-      "@type": "Account",
-      "views": [],
-      "channels": [],
-      "id": 1,
-      "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
-      "forums": [],
-      "networks": [],
-      "playlists": [],
-      "replies": [],
-      "reviews": [],
-      "sustainabilityOffers": [],
-      "seeders": []
+        "@context": "/contexts/Account",
+        "@id": "/accounts/2",
+        "@type": "Account",
+        "id": 2,
+        "username": "stringUpdated",
+        "email": "string@string.fr",
+        "firstName": "string",
+        "lastName": "string",
+        "channels": [],
+        "views": [],
+        "forums": [],
+        "networks": [],
+        "playlists": [],
+        "replies": [],
+        "reviews": [],
+        "sustainabilityOffers": [],
+        "seeders": []
     }
     """
 
@@ -226,7 +258,7 @@ Feature: Manage account
     And I send a "POST" request to "/channels" with body:
     """
     {
-      "account": "/accounts/1",
+      "account": "/accounts/2",
       "name": "string",
       "tags": [
          "string"
@@ -242,7 +274,7 @@ Feature: Manage account
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "account": "/accounts/1",
+      "account": "/accounts/2",
       "id": 1,
       "name": "string",
       "tags": [
@@ -257,32 +289,32 @@ Feature: Manage account
 
   Scenario: See channel in account
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/accounts/1"
+    And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
-      "@type": "Account",
-      "views": [],
-      "channels": [
-         "/channels/1"
-      ],
-      "id": 1,
-      "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
-      "forums": [],
-      "networks": [],
-      "playlists": [],
-      "replies": [],
-      "reviews": [],
-      "sustainabilityOffers": [],
-      "seeders": []
+        "@context": "/contexts/Account",
+        "@id": "/accounts/2",
+        "@type": "Account",
+        "id": 2,
+        "username": "stringUpdated",
+        "email": "string@string.fr",
+        "firstName": "string",
+        "lastName": "string",
+        "channels": [
+            "/channels/1"
+        ],
+        "views": [],
+        "forums": [],
+        "networks": [],
+        "playlists": [],
+        "replies": [],
+        "reviews": [],
+        "sustainabilityOffers": [],
+        "seeders": []
     }
     """
 
@@ -297,12 +329,13 @@ Feature: Manage account
       "uploadDate": "2017-02-01T18:30:52.055Z",
       "numberView": 120,
       "channel": "/channels/1",
+      "hash": "Abdsbfs",
+      "magnet": "ssdf",
       "metadata":
       {
         "height": 100,
         "width": 100,
-        "format": "mp3",
-        "hash": "Abdsbfs"
+        "format": "mp3"
       }
     }
     """
@@ -312,8 +345,8 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-      "@context": "\/contexts\/Video",
-      "@id": "\/videos\/1",
+      "@context": "/contexts/Video",
+      "@id": "/videos/1",
       "@type": "Video",
       "id": 1,
       "title": "string",
@@ -321,7 +354,7 @@ Feature: Manage account
       "uploadDate": "2017-02-01T18:30:52+00:00",
       "numberView": 120,
       "annotations": [],
-      "channel": "\/channels\/1",
+      "channel": "/channels/1",
       "comments": [],
       "forums": [],
       "views": [],
@@ -329,15 +362,16 @@ Feature: Manage account
       "subtitles": [],
       "categories": [],
       "metadata": {
-          "@id": "\/metadatas\/1",
+          "@id": "/metadatas/1",
           "@type": "Metadata",
           "id": 1,
           "height": 100,
           "width": 100,
-          "format": "mp3",
-          "hash": "Abdsbfs"
+          "format": "mp3"
       },
-      "seeders": []
+      "seeders": [],
+      "hash": "Abdsbfs",
+      "magnet": "ssdf"
     }
     """
 
@@ -347,7 +381,7 @@ Feature: Manage account
     And I send a "POST" request to "/views" with body:
     """
     {
-      "account": "/accounts/1",
+      "account": "/accounts/2",
       "video": "/videos/1"
     }
     """
@@ -361,41 +395,41 @@ Feature: Manage account
       "@id": "/views/1",
       "@type": "View",
       "id": 1,
-      "account": "/accounts/1",
+      "account": "/accounts/2",
       "video": "/videos/1"
     }
     """
 
   Scenario: See view in account
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/accounts/1"
+    And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
-      "@type": "Account",
-      "views": [
-          "/views/1"
-      ],
-      "channels": [
-         "/channels/1"
-      ],
-      "id": 1,
-      "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
-      "forums": [],
-      "networks": [],
-      "playlists": [],
-      "replies": [],
-      "reviews": [],
-      "sustainabilityOffers": [],
-      "seeders": []
+        "@context": "/contexts/Account",
+        "@id": "/accounts/2",
+        "@type": "Account",
+        "id": 2,
+        "username": "stringUpdated",
+        "email": "string@string.fr",
+        "firstName": "string",
+        "lastName": "string",
+        "channels": [
+            "/channels/1"
+        ],
+        "views": [
+            "/views/1"
+        ],
+        "forums": [],
+        "networks": [],
+        "playlists": [],
+        "replies": [],
+        "reviews": [],
+        "sustainabilityOffers": [],
+        "seeders": []
     }
     """
 
@@ -428,36 +462,34 @@ Feature: Manage account
 
   Scenario: See forum in account
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/accounts/1"
+    And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
-      "@type": "Account",
-      "views": [
-          "/views/1"
-      ],
-      "channels": [
-         "/channels/1"
-      ],
-      "id": 1,
-      "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
-      "forums": [
-          "/forums/1"
-      ],
-      "networks": [],
-      "playlists": [],
-      "replies": [],
-      "reviews": [],
-      "sustainabilityOffers": [],
-      "seeders": []
+        "@context": "/contexts/Account",
+        "@id": "/accounts/2",
+        "@type": "Account",
+        "id": 2,
+        "username": "stringUpdated",
+        "email": "string@string.fr",
+        "firstName": "string",
+        "lastName": "string",
+        "channels": [
+            "/channels/1"
+        ],
+        "views": [
+            "/views/1"
+        ],
+        "forums": [],
+        "networks": [],
+        "playlists": [],
+        "replies": [],
+        "reviews": [],
+        "sustainabilityOffers": [],
+        "seeders": []
     }
     """
 
@@ -497,38 +529,34 @@ Feature: Manage account
 
   Scenario: See network in account
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/accounts/1"
+    And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
-      "@type": "Account",
-      "views": [
-          "/views/1"
-      ],
-      "channels": [
-         "/channels/1"
-      ],
-      "id": 1,
-      "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
-      "forums": [
-          "/forums/1"
-      ],
-      "networks": [
-          "/networks/1"
-      ],
-      "playlists": [],
-      "replies": [],
-      "reviews": [],
-      "sustainabilityOffers": [],
-      "seeders": []
+        "@context": "/contexts/Account",
+        "@id": "/accounts/2",
+        "@type": "Account",
+        "id": 2,
+        "username": "stringUpdated",
+        "email": "string@string.fr",
+        "firstName": "string",
+        "lastName": "string",
+        "channels": [
+            "/channels/1"
+        ],
+        "views": [
+            "/views/1"
+        ],
+        "forums": [],
+        "networks": [],
+        "playlists": [],
+        "replies": [],
+        "reviews": [],
+        "sustainabilityOffers": [],
+        "seeders": []
     }
     """
 
@@ -541,7 +569,7 @@ Feature: Manage account
       "content": "string",
       "video": "/videos/1",
       "dateReview": "2017-02-01T19:43:22.729Z",
-      "author": "/accounts/1"
+      "author": "/accounts/2"
     }
     """
     Then the response status code should be 201
@@ -558,46 +586,42 @@ Feature: Manage account
       "video": "/videos/1",
       "dateReview": "2017-02-01T19:43:22+00:00",
       "replies": [],
-      "author": "/accounts/1"
+      "author": "/accounts/2"
     }
     """
 
   Scenario: See review in account
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/accounts/1"
+    And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
-      "@type": "Account",
-      "views": [
-          "/views/1"
-      ],
-      "channels": [
-         "/channels/1"
-      ],
-      "id": 1,
-      "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
-      "forums": [
-          "/forums/1"
-      ],
-      "networks": [
-          "/networks/1"
-      ],
-      "playlists": [],
-      "replies": [],
-      "reviews": [
-          "/reviews/1"
-      ],
-      "sustainabilityOffers": [],
-      "seeders": []
+        "@context": "/contexts/Account",
+        "@id": "/accounts/2",
+        "@type": "Account",
+        "id": 2,
+        "username": "stringUpdated",
+        "email": "string@string.fr",
+        "firstName": "string",
+        "lastName": "string",
+        "channels": [
+            "/channels/1"
+        ],
+        "views": [
+            "/views/1"
+        ],
+        "forums": [],
+        "networks": [],
+        "playlists": [],
+        "replies": [],
+        "reviews": [
+            "/reviews/1"
+        ],
+        "sustainabilityOffers": [],
+        "seeders": []
     }
     """
 
@@ -609,7 +633,7 @@ Feature: Manage account
     {
       "content": "string",
       "review": "/reviews/1",
-      "author": "/accounts/1",
+      "author": "/accounts/2",
       "dateReply": "2017-02-01T19:43:22.700Z"
     }
     """
@@ -625,90 +649,82 @@ Feature: Manage account
       "id": 1,
       "content": "string",
       "review": "/reviews/1",
-      "author": "/accounts/1",
+      "author": "/accounts/2",
       "dateReply": "2017-02-01T19:43:22+00:00"
     }
     """
 
   Scenario: See review in account
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/accounts/1"
+    And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
-      "@type": "Account",
-      "views": [
-          "/views/1"
-      ],
-      "channels": [
-         "/channels/1"
-      ],
-      "id": 1,
-      "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
-      "forums": [
-          "/forums/1"
-      ],
-      "networks": [
-          "/networks/1"
-      ],
-      "playlists": [],
-      "replies": [
-          "/replies/1"
-      ],
-      "reviews": [
-          "/reviews/1"
-      ],
-      "sustainabilityOffers": [],
-      "seeders": []
+        "@context": "/contexts/Account",
+        "@id": "/accounts/2",
+        "@type": "Account",
+        "id": 2,
+        "username": "stringUpdated",
+        "email": "string@string.fr",
+        "firstName": "string",
+        "lastName": "string",
+        "channels": [
+            "/channels/1"
+        ],
+        "views": [
+            "/views/1"
+        ],
+        "forums": [],
+        "networks": [],
+        "playlists": [],
+        "replies": [
+            "/replies/1"
+        ],
+        "reviews": [
+            "/reviews/1"
+        ],
+        "sustainabilityOffers": [],
+        "seeders": []
     }
     """
 
   Scenario: See reply in account
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/accounts/1"
+    And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
-      "@type": "Account",
-      "views": [
-          "/views/1"
-      ],
-      "channels": [
-         "/channels/1"
-      ],
-      "id": 1,
-      "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
-      "forums": [
-          "/forums/1"
-      ],
-      "networks": [
-          "/networks/1"
-      ],
-      "playlists": [],
-      "replies": [
-          "/replies/1"
-      ],
-      "reviews": [
-          "/reviews/1"
-      ],
-      "sustainabilityOffers": [],
-      "seeders": []
+        "@context": "/contexts/Account",
+        "@id": "/accounts/2",
+        "@type": "Account",
+        "id": 2,
+        "username": "stringUpdated",
+        "email": "string@string.fr",
+        "firstName": "string",
+        "lastName": "string",
+        "channels": [
+            "/channels/1"
+        ],
+        "views": [
+            "/views/1"
+        ],
+        "forums": [],
+        "networks": [],
+        "playlists": [],
+        "replies": [
+            "/replies/1"
+        ],
+        "reviews": [
+            "/reviews/1"
+        ],
+        "sustainabilityOffers": [],
+        "seeders": []
     }
     """
 
@@ -720,7 +736,7 @@ Feature: Manage account
     {
         "name": "string",
         "duration": 0,
-        "account": "/accounts/1",
+        "account": "/accounts/2",
         "channel": "/channels/1"
     }
     """
@@ -736,51 +752,47 @@ Feature: Manage account
       "id": 1,
       "name": "string",
       "duration": 0,
-      "account": "/accounts/1",
+      "account": "/accounts/2",
       "channel": "/channels/1"
     }
     """
 
   Scenario: See Sustainability Offers in account
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/accounts/1"
+    And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
-      "@type": "Account",
-      "views": [
-          "/views/1"
-      ],
-      "channels": [
-         "/channels/1"
-      ],
-      "id": 1,
-      "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
-      "forums": [
-          "/forums/1"
-      ],
-      "networks": [
-          "/networks/1"
-      ],
-      "playlists": [],
-      "replies": [
-          "/replies/1"
-      ],
-      "reviews": [
-          "/reviews/1"
-      ],
-      "sustainabilityOffers": [
-          "/sustainability_offers/1"
-      ],
-      "seeders": []
+        "@context": "/contexts/Account",
+        "@id": "/accounts/2",
+        "@type": "Account",
+        "id": 2,
+        "username": "stringUpdated",
+        "email": "string@string.fr",
+        "firstName": "string",
+        "lastName": "string",
+        "channels": [
+            "/channels/1"
+        ],
+        "views": [
+            "/views/1"
+        ],
+        "forums": [],
+        "networks": [],
+        "playlists": [],
+        "replies": [
+            "/replies/1"
+        ],
+        "reviews": [
+            "/reviews/1"
+        ],
+        "sustainabilityOffers": [
+            "/sustainability_offers/1"
+        ],
+        "seeders": []
     }
     """
 
@@ -793,7 +805,7 @@ Feature: Manage account
       "id": 0,
       "platform": "string",
       "ip": "127.0.0.1",
-      "account": "/accounts/1",
+      "account": "/accounts/2",
       "video": "/videos/1"
     }
     """
@@ -808,7 +820,7 @@ Feature: Manage account
       "@type": "Seeder",
       "id": 1,
       "platform": "string",
-      "account": "/accounts/1",
+      "account": "/accounts/2",
       "ip": "127.0.0.1",
       "video": "/videos/1"
     }
@@ -816,46 +828,42 @@ Feature: Manage account
 
   Scenario: See seeder in account
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/accounts/1"
+    And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
-      "@type": "Account",
-      "views": [
-          "/views/1"
-      ],
-      "channels": [
-         "/channels/1"
-      ],
-      "id": 1,
-      "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
-      "forums": [
-          "/forums/1"
-      ],
-      "networks": [
-          "/networks/1"
-      ],
-      "playlists": [],
-      "replies": [
-          "/replies/1"
-      ],
-      "reviews": [
-          "/reviews/1"
-      ],
-      "sustainabilityOffers": [
-          "/sustainability_offers/1"
-      ],
-      "seeders": [
-          "/seeders/1"
-      ]
+        "@context": "/contexts/Account",
+        "@id": "/accounts/2",
+        "@type": "Account",
+        "id": 2,
+        "username": "stringUpdated",
+        "email": "string@string.fr",
+        "firstName": "string",
+        "lastName": "string",
+        "channels": [
+            "/channels/1"
+        ],
+        "views": [
+            "/views/1"
+        ],
+        "forums": [],
+        "networks": [],
+        "playlists": [],
+        "replies": [
+            "/replies/1"
+        ],
+        "reviews": [
+            "/reviews/1"
+        ],
+        "sustainabilityOffers": [
+            "/sustainability_offers/1"
+        ],
+        "seeders": [
+            "/seeders/1"
+        ]
     }
     """
 
@@ -866,7 +874,7 @@ Feature: Manage account
     """
     {
       "name": "string",
-      "account": "/accounts/1"
+      "account": "/accounts/2"
     }
     """
     Then the response status code should be 201
@@ -882,66 +890,62 @@ Feature: Manage account
       "name": "string",
       "channel": null,
       "network": null,
-      "account": "/accounts/1"
+      "account": "/accounts/2"
     }
     """
 
   Scenario: See playlist in account
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/accounts/1"
+    And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
-      "@type": "Account",
-      "views": [
-          "/views/1"
-      ],
-      "channels": [
-         "/channels/1"
-      ],
-      "id": 1,
-      "username": "stringUpdated",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
-      "forums": [
-          "/forums/1"
-      ],
-      "networks": [
-          "/networks/1"
-      ],
-      "playlists": [
-          "/playlists/1"
-      ],
-      "replies": [
-          "/replies/1"
-      ],
-      "reviews": [
-          "/reviews/1"
-      ],
-      "sustainabilityOffers": [
-          "/sustainability_offers/1"
-      ],
-      "seeders": [
-          "/seeders/1"
-      ]
+        "@context": "/contexts/Account",
+        "@id": "/accounts/2",
+        "@type": "Account",
+        "id": 2,
+        "username": "stringUpdated",
+        "email": "string@string.fr",
+        "firstName": "string",
+        "lastName": "string",
+        "channels": [
+            "/channels/1"
+        ],
+        "views": [
+            "/views/1"
+        ],
+        "forums": [],
+        "networks": [],
+        "playlists": [
+            "/playlists/1"
+        ],
+        "replies": [
+            "/replies/1"
+        ],
+        "reviews": [
+            "/reviews/1"
+        ],
+        "sustainabilityOffers": [
+            "/sustainability_offers/1"
+        ],
+        "seeders": [
+            "/seeders/1"
+        ]
     }
     """
 
   Scenario: Delete an account
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "DELETE" request to "/accounts/1"
+    And I send a "DELETE" request to "/accounts/2"
     Then the response status code should be 204
 
   @dropSchema
-  Scenario: Delete an account which not exists
+  Scenario: Delete an account
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "DELETE" request to "/accounts/1"
+    And I send a "DELETE" request to "/accounts/2"
     Then the response status code should be 404

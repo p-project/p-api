@@ -4,9 +4,8 @@ default:
   suites:
     default:
       contexts:
-        - FeatureContext: { doctrine: "@doctrine" }
+        - FeatureContext: { request: "@request_stack", doctrine: "@doctrine", kernel: "@kernel" }
         - Behat\MinkExtension\Context\MinkContext
-        - Sanpi\Behatch\Context\RestContext
         - Sanpi\Behatch\Context\JsonContext
   extensions:
     Behat\Symfony2Extension:
@@ -14,7 +13,7 @@ default:
         env: "test"
         debug: "true"
     Behat\MinkExtension:
-      base_url: "http://example.com/"
+      base_url: "http://localhost/"
       sessions:
         default:
           symfony2: ~

@@ -1,6 +1,11 @@
 services:
-    app.access_listener:
+    app.listener.access_listener:
         class: AppBundle\Listener\AccessListener
-        arguments: [ "@doctrine.orm.entity_manager" ]
+        arguments: [ "@doctrine.orm.entity_manager", "@kernel" ]
         tags:
             - { name: kernel.event_listener, event: kernel.request }
+
+    app.security.account_provider:
+        class: AppBundle\Security\AccountProvider
+        arguments: [ "@doctrine.orm.entity_manager" ]
+        public: false

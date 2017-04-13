@@ -5,6 +5,10 @@ Feature: Manage channel
   I need to be able to retrieve, create, update and delete them trough the API.
 
   @createSchema
+  @fixtures
+  Scenario: I am connected as Denis with passwowrd: password
+    Given I am connected as "denis" with password "password"
+
   Scenario: Create an account
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
@@ -12,9 +16,11 @@ Feature: Manage channel
     """
     {
       "username": "string",
-      "email": "string@string.fr",  
+      "email": "string@string.fr",
       "firstName": "string",
-      "lastName": "string"
+      "lastName": "string",
+      "password": "password",
+      "salt": "salt"
     }
     """
     Then the response status code should be 201
@@ -23,24 +29,24 @@ Feature: Manage channel
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
-      "@type": "Account",
-      "views": [],
-      "channels": [],
-      "id": 1,
-      "username": "string",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
-      "forums": [],
-      "networks": [],
-      "playlists": [],
-      "replies": [],
-      "reviews": [],
-      "sustainabilityOffers": [],
-      "seeders": []
-    }
+        "@context": "/contexts/Account",
+        "@id": "/accounts/2",
+        "@type": "Account",
+        "id": 2,
+        "username": "string",
+        "email": "string@string.fr",
+        "firstName": "string",
+        "lastName": "string",
+        "channels": [],
+        "views": [],
+        "forums": [],
+        "networks": [],
+        "playlists": [],
+        "replies": [],
+        "reviews": [],
+        "sustainabilityOffers": [],
+        "seeders": []
+    } 
     """
 
   Scenario: Create a channel
@@ -119,12 +125,13 @@ Feature: Manage channel
       "uploadDate": "2017-02-01T18:30:52.055Z",
       "numberView": 120,
       "channel": "/channels/1",
+      "hash": "Abdsbfs",
+      "magnet": "string",
       "metadata":
       {
         "height": 100,
         "width": 100,
-        "format": "mp3",
-        "hash": "Abdsbfs"
+        "format": "mp3"
       }
     }
     """
@@ -134,8 +141,8 @@ Feature: Manage channel
     And the JSON should be equal to:
     """
     {
-      "@context": "\/contexts\/Video",
-      "@id": "\/videos\/1",
+      "@context": "/contexts/Video",
+      "@id": "/videos/1",
       "@type": "Video",
       "id": 1,
       "title": "string",
@@ -143,7 +150,7 @@ Feature: Manage channel
       "uploadDate": "2017-02-01T18:30:52+00:00",
       "numberView": 120,
       "annotations": [],
-      "channel": "\/channels\/1",
+      "channel": "/channels/1",
       "comments": [],
       "forums": [],
       "views": [],
@@ -151,15 +158,16 @@ Feature: Manage channel
       "subtitles": [],
       "categories": [],
       "metadata": {
-          "@id": "\/metadatas\/1",
+          "@id": "/metadatas/1",
           "@type": "Metadata",
           "id": 1,
           "height": 100,
           "width": 100,
-          "format": "mp3",
-          "hash": "Abdsbfs"
+          "format": "mp3"
       },
-      "seeders": []
+      "seeders": [],
+      "hash": "Abdsbfs",
+      "magnet": "string"
     }
     """
 
@@ -324,35 +332,35 @@ Feature: Manage channel
     And the JSON should be equal to:
     """
     {
-          "@context": "\/contexts\/Channel",
-          "@id": "\/channels",
+          "@context": "/contexts/Channel",
+          "@id": "/channels",
           "@type": "hydra:Collection",
           "hydra:member": [
               {
-                  "@id": "\/channels\/1",
+                  "@id": "/channels/1",
                   "@type": "Channel",
-                  "account": "\/accounts\/1",
+                  "account": "/accounts/1",
                   "id": 1,
                   "name": "string",
                   "tags": [
                       "string"
                   ],
                   "videos": [
-                      "\/videos\/1"
+                      "/videos/1"
                   ],
                   "networks": [
-                      "\/networks\/1"
+                      "/networks/1"
                   ],
                   "playlists": [],
                   "sustainabilityOffers": [
-                      "\/sustainability_offers\/1"
+                      "/sustainability_offers/1"
                   ]
               }
           ],
           "hydra:totalItems": 1,
           "hydra:search": {
               "@type": "hydra:IriTemplate",
-              "hydra:template": "\/channels{?id,id[],name,account,account[]}",
+              "hydra:template": "/channels{?id,id[],name,account,account[]}",
               "hydra:variableRepresentation": "BasicRepresentation",
               "hydra:mapping": [
                   {

@@ -1,27 +1,28 @@
-P-API
-=====
+# P-API
 
-Welcome to the P-Platform API made with API-Platform.
+Welcome to the P-Platform API made with [API-Platform](https://api-platform.com/).
 
-Installation
-------------
+## Installation
 
 ### PHP
 
-The project requires PHP 7.1. To install the project:
-
-Run the following command to check if your system meets the requirements:
+The project requires PHP 7.0. To install the project, run the following command
+to check if your system meets the default requirements:
 
 ```sh
 ./bin/symfony_requirements
 ```
 
-Install composer by following the instructions here: https://getcomposer.org.
+Install [Composer](https://getcomposer.org) globally on your system.
 
-### Postgresql
-Download and install it https://www.postgresql.org/download/
+### PostgreSQL
 
-If want to use P-API default settings
+Download and install [PostgreSQL](https://www.postgresql.org/download/) on your
+system.
+
+If you want to use P-API default settings, you can create a `postgres` user
+with a `postgres` password:
+
 ```
 sudo su - postgres
 psql template1
@@ -34,27 +35,28 @@ template1=# GRANT ALL PRIVILEGES ON DATABASE "api" to postgres;
 template1=# \q
 ```
 
-Run the API
------------
+### Dependencies
 
-Run the reset script to create the database and load the fixtures:
+Install the project and initialize the database by running at the root project
+folder:
 
-```sh
-./bin/reset
-```
+`./bin/reset`
 
-Start the API using the Symfony build-in server:
+## Run the API
+
+### In development mode
+
+Start the API using the Symfony PHP build-in server:
 
 ```sh
 ./bin/console server:run
 ```
 
+### In production mode using Docker
 
-## In production with docker
+Fill in the `app/config/parameters.yml` with the following values:
 
-Fill the parameter.yml with default value :
 ```yaml
-# This file is auto-generated during the composer install
 parameters:
     database_host: db
     database_port: 5432
@@ -69,25 +71,43 @@ parameters:
     cors_allow_origin:
         - 'http://localhost:3000'
         - 'http://localhost:9080'
-
 ```
 
-You can't adapt this file, but you need to modify your docker-compose in consequence.
-
-Build the image :
+Build the image:
 
 ```sh
-sudo docker-compose build
+docker-compose build
 ```
 
-Run the docker compose :
+Run the docker-compose:
 
 ```sh
-sudo docker-compose up
+docker-compose -d up
 ```
 
-In detached mode :
+## Using the API
 
-```sh
-sudo docker-compose -d up
+### Authentication
+
+Before being able to request the API, you must authenticate through the oAuth
+server.
+
+To do so in `development mode`, you must authenticate using the following url:
+
 ```
+/oauth/v2/token?client_id=1_client_id&client_secret=client_secret&grant_type=password&redirect_uri=127.0.0.1&username=michel&password=password
+```
+
+You will be authenticated as `michel` (ask the API if you need more information
+about this user).
+
+In the Json response, you should get and use the attribute `access_token`. Put
+it in the header of your next requests by adding an attribute `Authorization`
+with the value `Bearer` followed with the `access_token`.
+
+For example :
+
+```
+Bearer OWQ3ZGYzZmVhZDcxNTRmNDAwZGE3YjhjZWI1MmIwOWY1YzIzY2FmYjA0MmYxMGUwZDY5N2RiZTQ5NWM1NDA2Mw
+```
+
