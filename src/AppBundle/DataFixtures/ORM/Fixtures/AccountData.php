@@ -3,9 +3,9 @@
 namespace AppBundle\DataFixtures\ORM\Fixtures;
 
 use AppBundle\Entity\Account;
-use Symfony\Bridge\Doctrine\Tests\Fixtures\ContainerAwareFixture;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Bridge\Doctrine\Tests\Fixtures\ContainerAwareFixture;
 
 class AccountData extends ContainerAwareFixture implements OrderedFixtureInterface
 {

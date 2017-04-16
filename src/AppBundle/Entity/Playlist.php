@@ -3,12 +3,12 @@
 namespace AppBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use AppBundle\Validator\Constraints as AcmeAssert;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use AppBundle\Validator\Constraints as AcmeAssert;
 
 /**
- * Playlist
+ * Playlist.
  *
  * @ORM\Entity
  * @AcmeAssert\PlaylistClass

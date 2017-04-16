@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Review
+ * Review.
  *
  * @ORM\Entity
  * @ApiResource
@@ -38,10 +38,8 @@ class Review
      * @var Video
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video", inversedBy="reviews")
-     *
      */
     private $video;
-
 
     /**
      * @var Account

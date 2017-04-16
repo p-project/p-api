@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * SustainabilityOffer
+ * SustainabilityOffer.
  *
  * @ORM\Entity
  * @ApiResource

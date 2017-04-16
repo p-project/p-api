@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Network
+ * Network.
  *
  * @ORM\Entity
  * @ApiResource
@@ -33,7 +33,6 @@ class Network
      * @Assert\Type("string")
      */
     private $name;
-
 
     /**
      * @var ArrayCollection

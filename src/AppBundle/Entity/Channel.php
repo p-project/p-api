@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * User's channel.
  *
  * @ORM\Entity
- * @ApiResource(attributes={"filters"={"channel.search"}})
+ * @ApiResource(attributes={"filters" = {"channel.search"}})
  */
 class Channel
 {
@@ -83,7 +83,7 @@ class Channel
         $this->tags = [];
         $this->videos = new ArrayCollection();
         $this->networks = new ArrayCollection();
-        $this->playlists =  new ArrayCollection();
+        $this->playlists = new ArrayCollection();
         $this->sustainabilityOffers = new ArrayCollection();
     }
 
@@ -177,7 +177,7 @@ class Channel
     public function setSustainabilityOffers($sustainabilityOffers): Channel
     {
         $this->sustainabilityOffers = $sustainabilityOffers;
-     
+
         return $this;
     }
 }
