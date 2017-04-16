@@ -9,16 +9,16 @@ cache:
         - vendor
         - $HOME/.composer/cache
 
+install:
+    - wget http://cs.sensiolabs.org/download/php-cs-fixer-v2.phar
+    - mv php-cs-fixer-v2.phar php-cs-fixer.phar
+    - chmod +x php-cs-fixer.phar
+
 before_script:
     - export SYMFONY_ENV=test
     - composer self-update --no-progress
 
 script:
     - composer install --no-interaction --no-progress
-    - echo "date.timezone = Europe/Paris" > /usr/local/etc/php/php.ini
-    - ./vendor/bin/behat --init
-    - ./vendor/bin/behat --colors
-    - wget http://cs.sensiolabs.org/download/php-cs-fixer-v2.phar
-    - mv php-cs-fixer-v2.phar php-cs-fixer.phar
-    - chmod +x php-cs-fixer.phar
+    - ./vendor/bin/behat
     - ./php-cs-fixer.phar fix --no-interaction --dry-run --diff -v
