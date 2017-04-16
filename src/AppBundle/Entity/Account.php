@@ -1,20 +1,19 @@
 <?php
 
-
 namespace AppBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User's account.
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AccountRepository")
- * @ApiResource(attributes={"filters"={"account.search"}, "normalization_context"={"groups"={"account"}}})
+ * @ApiResource(attributes={"filters" = {"account.search"}, "normalization_context" = {"groups" = {"account"}}})
  */
 class Account implements UserInterface
 {
@@ -361,7 +360,7 @@ class Account implements UserInterface
 
     public function getRoles(): array
     {
-        return array('ROLE_USER');
+        return ['ROLE_USER'];
     }
 
     public function eraseCredentials()

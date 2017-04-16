@@ -12,10 +12,10 @@ class ClientData extends ContainerAwareFixture implements OrderedFixtureInterfac
     {
         $clientManager = $this->container->get('fos_oauth_server.client_manager');
         $client = $clientManager->createClient();
-        $client->setAllowedGrantTypes(array('password'));
+        $client->setAllowedGrantTypes(['password']);
         $client->setRandomId('client_id');
         $client->setSecret('client_secret');
-        $client->setRedirectUris(array('127.0.0.1'));
+        $client->setRedirectUris(['127.0.0.1']);
         $clientManager->updateClient($client);
     }
 

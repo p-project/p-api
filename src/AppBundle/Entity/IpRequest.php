@@ -6,8 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class IpRequest
- * @package AppBundle\Entity
+ * Class IpRequest.
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\IpRequestRepository")
  */

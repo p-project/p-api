@@ -4,8 +4,8 @@ namespace AppBundle\Listener;
 
 use AppBundle\Entity\IpRequest;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Kernel;
 
 class AccessListener
@@ -38,7 +38,7 @@ class AccessListener
 
     private function searchOldIpRequest(string $ip)
     {
-        $startingAt = (new \DateTime())->modify('-' . static::AGGREGATION_DELAY . ' second');
+        $startingAt = (new \DateTime())->modify('-'.static::AGGREGATION_DELAY.' second');
 
         return $this->em->getRepository('AppBundle:IpRequest')->findLastIpRequest($ip, $startingAt);
     }
@@ -50,7 +50,7 @@ class AccessListener
 
     private function updateAttempts(IpRequest $ipRequest)
     {
-        $delay = $ipRequest->getDateRequest()->modify('+' . static::AGGREGATION_DELAY . ' second');
+        $delay = $ipRequest->getDateRequest()->modify('+'.static::AGGREGATION_DELAY.' second');
 
         if ($delay < new \DateTime()) {
             $ipRequest = $this->getNewIpRequest($ipRequest->getIp());

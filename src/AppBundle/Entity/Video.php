@@ -5,17 +5,18 @@ namespace AppBundle\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Video
+ * Video.
  *
  * @ORM\Entity
- * @ApiResource(attributes={"normalization_context"={"groups"={"video"}},
- *                          "denormalization_context"={"groups"={"video"}},
- *                          "filters"={"video.search"}}
- *                          )
+ * @ApiResource(attributes={
+ *     "normalization_context" = {"groups" = {"video"}},
+ *     "denormalization_context" = {"groups" = {"video"}},
+ *     "filters" = {"video.search"}
+ * })
  */
 class Video
 {
@@ -130,7 +131,6 @@ class Video
      * @Groups({"video"})
      */
     private $categories;
-
 
     /**
      * @var Metadata
