@@ -1,9 +1,24 @@
-sudo: required
+language: php
 
-services:
-    - docker
+php:
+    - 7.0
+
+cache:
+    apt: true
+    directories:
+        - vendor
+        - $HOME/.composer/cache
+
+before_script:
+    - export SYMFONY_ENV=test
+    - composer self-update --no-progress
 
 script:
-    - docker-compose build
-    - docker-compose run --rm web composer install -o -n
-    - docker-compose run --rm web bin/console security:check
+    - composer install --no-interaction --no-progress
+    - echo "date.timezone = Europe/Paris" > /usr/local/etc/php/php.ini
+    - ./vendor/bin/behat --init
+    - ./vendor/bin/behat --colors
+    - wget http://cs.sensiolabs.org/download/php-cs-fixer-v2.phar
+    - mv php-cs-fixer-v2.phar php-cs-fixer.phar
+    - chmod +x php-cs-fixer.phar
+    - ./php-cs-fixer.phar fix --no-interaction --dry-run --diff -v
