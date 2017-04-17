@@ -16,10 +16,10 @@ install:
 
 before_script:
     - export SYMFONY_ENV=test
+    - echo 'date.timezone = "Europe/Paris"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
     - composer self-update --no-progress
 
 script:
     - composer install --no-interaction --no-progress
-    - echo "date.timezone = Europe/Paris" >  ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini 
     - ./vendor/bin/behat
     - ./php-cs-fixer.phar fix --no-interaction --dry-run --diff -v
