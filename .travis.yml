@@ -20,5 +20,6 @@ before_script:
 
 script:
     - composer install --no-interaction --no-progress
+    - echo "date.timezone = Europe/Paris" >  ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini 
     - ./vendor/bin/behat
     - ./php-cs-fixer.phar fix --no-interaction --dry-run --diff -v
