@@ -4,6 +4,8 @@ use Behatch\HttpCall\Request;
 
 class AccountHelper extends ResourceHelper
 {
+    private static $numberAccount = 0;
+
     public function __construct(Request $request)
     {
         parent::__construct($request);
@@ -11,10 +13,12 @@ class AccountHelper extends ResourceHelper
 
     public function createResource()
     {
+        $username = 'string' .  self::$numberAccount;
+        $email = 'string' . self::$numberAccount . '@string.fr';
         $body =<<<EOF
     {
-      "username": "string",
-      "email": "string@string.fr",
+      "username": "$username",
+      "email": "$email",
       "firstName": "string",
       "lastName": "string",
       "password": "password",
@@ -22,14 +26,16 @@ class AccountHelper extends ResourceHelper
     }
 EOF;
 
-        $response = $this->request->send(
-            'POST',
-            '/accounts',
-            [],
-            [],
-            $body
-        );
-        $responseData = json_decode($response->getContent(), true);
-        return $responseData['@id'];
+        dump($body);
+        dump("toto");
+
+        ++self::$numberAccount;
+
+        return $this->returnId('/accounts', $body);
+    }
+
+    public function createRelationWith(string $id1, string $resource2, string $id2)
+    {
+
     }
 }

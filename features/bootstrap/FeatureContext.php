@@ -42,29 +42,14 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
     private $classes;
 
     /**
-     * @var String
+     * @var string
      */
     private static $token;
 
     /**
-     * @var VideoHelper
+     * @var array
      */
-    private $videosHelper;
-
-    /**
-     * @var ChannelHelper
-     */
-    private $channelsHelper;
-
-    /**
-     * @var AccountHelper
-     */
-    private $accountsHelper;
-
-    /**
-     * @var CategoryHelper
-     */
-    private $categoriesHelper;
+    private $helpers;
 
     /**
      * Initializes context.
@@ -81,10 +66,10 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
         $this->manager = $doctrine->getManager();
         $this->schemaTool = new SchemaTool($this->manager);
         $this->classes = $this->manager->getMetadataFactory()->getAllMetadata();
-        $this->accountsHelper = new AccountHelper($request);
-        $this->channelsHelper = new ChannelHelper($request, $this->accountsHelper);
-        $this->videosHelper = new VideoHelper($request, $this->channelsHelper);
-        $this->categoriesHelper = new CategoryHelper($request);
+        $this->helpers['accounts'] = new AccountHelper($request);
+        $this->helpers['channels'] = new ChannelHelper($request, $this->helpers['accounts']);
+        $this->helpers['videos'] = new VideoHelper($request, $this->helpers['channels']);
+        $this->helpers['categories'] = new CategoryHelper($request);
     }
 
     /**
@@ -112,7 +97,7 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
     }
 
     /**
-     * @BeforeScenario @requiresOauth
+     * @BeforeScenario @requiresOAuth
      */
     public function loadFixtures()
     {
@@ -169,7 +154,7 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
      * Create resource if there are not created
      * @Given Resource :resource :id exists
      */
-    private function exists($resource, $id)
+    private function exists(string $resource, string $id)
     {
         if (!strpos($id, $resource)) {
             return false;
@@ -189,40 +174,52 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
     /**
      * @Given There are :resource :id
      */
-    public function thereAreResource($resource, $id)
+    public function thereAreResource($resource, $ids)
     {
-        $id = explode(',', $id);
+        $id = explode(',', $ids);
 
         foreach ($id as $eachId) {
             if (!$this->exists($resource, $eachId)) {
-                $helper = $resource . 'Helper';
-                $this->{$helper}->createResource();
+                $this->helpers[$resource]->createResource();
             }
         }
     }
 
-    private function relationExists(string $eachId1, string $resource2, string $id2)
+    private function relationExists(string $id1, string $resource2, string $id2)
     {
-        // TODO check if relation exists
+        $response = $this->request->send(
+            'GET',
+            $id1,
+            [],
+            [],
+            null
+        );
+        $responseData = json_decode($response->getContent(), true);
+        return in_array($id2, $responseData[$resource2]);
     }
 
     /**
      * @Given There are :resource :id which have :resource2 :id2
      */
-    public function thereAreResourceWhichHaveResource($resource, $id, $resource2, $id2)
+    public function thereAreResourceWhichHaveResource($resource, $ids, $resource2, $ids2)
     {
-        $this->thereAreResource($resource, $id);
-        $this->thereAreResource($resource2, $id2);
+        $this->thereAreResource($resource, $ids);
+        $this->thereAreResource($resource2, $ids2);
 
-
-        $id = explode(',', $id);
-        $id2 = explode(',', $id2);
+        $id = explode(',', $ids);
+        $id2 = explode(',', $ids2);
 
         foreach ($id as $eachId1) {
-            if (!$this->relationsExists($eachId1, $resource2, $id2)) {
-                $helper = $resource . 'Helper';
-                $this->{$helper}->createRelationWith($eachId1, $resource2, $id2);
+            foreach ($id2 as $eachId2) {
+                if (!$this->relationExists($eachId1, $resource2, $eachId2)) {
+                    $this->helpers[$resource]->createRelationWith($eachId1, $resource2, $eachId2);
+                }
             }
         }
+    }
+
+    public static function getToken()
+    {
+        return self::$token;
     }
 }

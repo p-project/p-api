@@ -1,8 +1,10 @@
 <?php
 
+use Behatch\HttpCall\Request;
+
 class CategoryHelper extends ResourceHelper
 {
-    public function __construct(\Behatch\HttpCall\Request $request)
+    public function __construct(Request $request)
     {
         parent::__construct($request);
     }
@@ -10,5 +12,10 @@ class CategoryHelper extends ResourceHelper
     public function createResource()
     {
 
+    }
+
+    public function createRelationWith(string $id1, string $resource2, string $id2)
+    {
+        
     }
 }

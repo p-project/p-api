@@ -8,7 +8,7 @@ Feature: Manage category
     Given I am connected as "denis" with password "password"
 
   @createSchema
-  @requiresOauth
+  @requiresOAuth
   Scenario: Create a category
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"

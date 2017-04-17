@@ -5,7 +5,7 @@ Feature: Manage channel
   I need to be able to retrieve, create, update and delete them trough the API.
 
   @createSchema
-  @requiresOauth
+  @requiresOAuth
   Scenario: I am connected as Denis with passwowrd: password
     Given I am connected as "denis" with password "password"
 

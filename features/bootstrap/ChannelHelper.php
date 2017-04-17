@@ -6,34 +6,36 @@ class ChannelHelper extends ResourceHelper
 {
     private static $numberChannel = 0;
 
-    public function __construct(Request $request)
+    private $accountHelper;
+
+    public function __construct(Request $request, AccountHelper $accountHelper)
     {
         parent::__construct($request);
+        $this->accountHelper = $accountHelper;
     }
 
     public function createResource()
     {
+        $idUser = $this->accountHelper->createResource();
+
         $name = 'string' . self::$numberChannel;
         $body =<<<EOF
     {
-      "account": "/accounts/1",
+      "account": "$idUser",
       "name": "$name",
       "tags": [
          "string"
       ]
     }
 EOF;
+
         ++self::$numberChannel;
 
-        $response = $this->request->send(
-            'POST',
-            '/channels',
-            [],
-            [],
-            $body
-        );
-        $responseData = json_decode($response->getContent(), true);
-        var_dump($responseData);
-        return $responseData['@id'];
+        return $this->returnId('/channels', $body);
+    }
+
+    public function createRelationWith(string $id1, string $resource2, string $id2)
+    {
+        
     }
 }

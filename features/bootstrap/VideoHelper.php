@@ -36,18 +36,6 @@ class VideoHelper extends ResourceHelper
       }
     }
 EOF;
-
-        $response = $this->request->send(
-            'POST',
-            '/videos',
-            [],
-            [],
-            $body
-        );
-
-        $responseData = json_decode($response->getContent(), true);
-        var_dump($responseData['@id']);
-        return $responseData['@id'];
-
+        return $this->returnId('/videos', $body);
     }
 }
