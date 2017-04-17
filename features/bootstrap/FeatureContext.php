@@ -201,12 +201,9 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
         }
     }
 
-    /**
-     * @param There are association between :id and :id2
-     */
-    public function thereAreAssociationBetween($id, $id2)
+    private function relationExists(string $eachId1, string $resource2, string $id2)
     {
-
+        // TODO check if relation exists
     }
 
     /**
@@ -218,6 +215,14 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
         $this->thereAreResource($resource2, $id2);
 
 
-        $this->thereAreAssociationBetween($id, $id2);
+        $id = explode(',', $id);
+        $id2 = explode(',', $id2);
+
+        foreach ($id as $eachId1) {
+            if (!$this->relationsExists($eachId1, $resource2, $id2)) {
+                $helper = $resource . 'Helper';
+                $this->{$helper}->createRelationWith($eachId1, $resource2, $id2);
+            }
+        }
     }
 }
