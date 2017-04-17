@@ -47,6 +47,26 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
     private static $token;
 
     /**
+     * @var VideoHelper
+     */
+    private $videosHelper;
+
+    /**
+     * @var ChannelHelper
+     */
+    private $channelsHelper;
+
+    /**
+     * @var AccountHelper
+     */
+    private $accountsHelper;
+
+    /**
+     * @var CategoryHelper
+     */
+    private $categoriesHelper;
+
+    /**
      * Initializes context.
      *
      * Every scenario gets its own context instance.
@@ -61,6 +81,10 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
         $this->manager = $doctrine->getManager();
         $this->schemaTool = new SchemaTool($this->manager);
         $this->classes = $this->manager->getMetadataFactory()->getAllMetadata();
+        $this->accountsHelper = new AccountHelper($request);
+        $this->channelsHelper = new ChannelHelper($request, $this->accountsHelper);
+        $this->videosHelper = new VideoHelper($request, $this->channelsHelper);
+        $this->categoriesHelper = new CategoryHelper($request);
     }
 
     /**
@@ -139,5 +163,61 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
             $files,
             $body !== null ? $body->getRaw() : null
         );
+    }
+
+    /**
+     * Create resource if there are not created
+     * @Given Resource :resource :id exists
+     */
+    private function exists($resource, $id)
+    {
+        if (!strpos($id, $resource)) {
+            return false;
+        }
+
+        $this->request->send(
+            'GET',
+            $id,
+            [],
+            [],
+            null
+        );
+
+        return $this->getMinkContext()->getSession()->getStatusCode() !== 404;
+    }
+
+    /**
+     * @Given There are :resource :id
+     */
+    public function thereAreResource($resource, $id)
+    {
+        $id = explode(',', $id);
+
+        foreach ($id as $eachId) {
+            if (!$this->exists($resource, $eachId)) {
+                $helper = $resource . 'Helper';
+                $this->{$helper}->createResource();
+            }
+        }
+    }
+
+    /**
+     * @param There are association between :id and :id2
+     */
+    public function thereAreAssociationBetween($id, $id2)
+    {
+
+    }
+
+    /**
+     * @Given There are :resource :id which have :resource2 :id2
+     */
+    public function thereAreResourceWhichHaveResource($resource, $id, $resource2, $id2)
+    {
+        $this->thereAreResource($resource, $id);
+        $this->thereAreResource($resource2, $id2);
+
+
+        $this->thereAreAssociationBetween($id, $id2);
     }
 }

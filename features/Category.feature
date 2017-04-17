@@ -6,7 +6,6 @@ Feature: Manage category
 
   Background:
     Given I am connected as "denis" with password "password"
-    Given There are channels "/channels/1, /channels/2"
 
   @createSchema
   @requiresOauth
@@ -37,7 +36,7 @@ Feature: Manage category
     """
 
   Scenario: See videos in category
-    Given There are videos "/videos/1, /videos/2"
+    Given There are "videos" "/videos/1,/videos/2" which have "categories" "/categories/1"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/categories/1"
     Then the response status code should be 200
