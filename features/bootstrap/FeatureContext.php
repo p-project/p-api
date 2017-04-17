@@ -41,6 +41,9 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
      */
     private $classes;
 
+    /**
+     * @var String
+     */
     private static $token;
 
     /**

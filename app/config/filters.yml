@@ -1,7 +1,7 @@
 services:
     video.search_filter:
         parent:    'api_platform.doctrine.orm.search_filter'
-        arguments: [ { id: 'exact', title: 'ipartial', channel: 'ipartial' } ]
+        arguments: [ { id: 'exact', title: 'ipartial', channel: 'ipartial', magnet: 'ipartial', hash: 'ipartial' } ]
         tags:      [ { name: 'api_platform.filter', id: 'video.search' } ]
 
     account.search_filter:
