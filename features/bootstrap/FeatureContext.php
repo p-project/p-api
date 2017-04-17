@@ -85,7 +85,7 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
     }
 
     /**
-     * @BeforeScenario @fixtures
+     * @BeforeScenario @requiresOauth
      */
     public function loadFixtures()
     {
