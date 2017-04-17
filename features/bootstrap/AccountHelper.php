@@ -25,10 +25,6 @@ class AccountHelper extends ResourceHelper
       "salt": "salt"
     }
 EOF;
-
-        dump($body);
-        dump("toto");
-
         ++self::$numberAccount;
 
         return $this->returnId('/accounts', $body);

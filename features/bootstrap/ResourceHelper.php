@@ -16,9 +16,7 @@ abstract class ResourceHelper implements ResourceHelperInterface
 
     protected function returnId($route, $body)
     {
-        if (FeatureContext::getToken() != NULL) {
-            $this->request->setHttpHeader('Authorization', sprintf('Bearer %s', FeatureContext::getToken()));
-        }
+        $this->setHeader();
 
         $response = $this->request->send(
             'POST',
@@ -29,7 +27,6 @@ abstract class ResourceHelper implements ResourceHelperInterface
         );
 
         $responseData = json_decode($response->getContent(), true);
-        dump($responseData['@id']);
         return $responseData['@id'];
     }
 
@@ -37,9 +34,7 @@ abstract class ResourceHelper implements ResourceHelperInterface
 
     private function putData($route, $body)
     {
-        if (FeatureContext::getToken() != NULL) {
-            $this->request->setHttpHeader('Authorization', sprintf('Bearer %s', FeatureContext::getToken()));
-        }
+        $this->setHeader();
 
         return $this->request->send(
             'PUT',
@@ -48,6 +43,14 @@ abstract class ResourceHelper implements ResourceHelperInterface
             [],
             $body
         );
+    }
+
+    private function setHeader()
+    {
+        $this->request->setHttpHeader('Content-Type', 'application/ld+json');
+        if (FeatureContext::getToken() != NULL) {
+            $this->request->setHttpHeader('Authorization', sprintf('Bearer %s', FeatureContext::getToken()));
+        }
     }
 
     public function createRelationWith(string $id1, string $resource2, string $id2)
