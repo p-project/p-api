@@ -13,3 +13,8 @@ services:
         parent:    'api_platform.doctrine.orm.search_filter'
         arguments: [ { id: 'exact', name: 'ipartial', account: 'ipartial' } ]
         tags:      [ { name: 'api_platform.filter', id: 'channel.search' } ]
+
+    view.search_filter:
+        parent:    'api_platform.doctrine.orm.search_filter'
+        arguments: [ { video: 'exact' } ]
+        tags:      [ { name: 'api_platform.filter', id: 'view.search' } ]
