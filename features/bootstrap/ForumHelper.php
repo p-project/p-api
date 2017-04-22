@@ -38,6 +38,7 @@ class ForumHelper extends ResourceHelper
         if ($nameResource2 == 'Account') {
             return parent::createRelationWith($resource, 'CreatedBy', $resource2);
         }
+
         return parent::createRelationWith($resource, $nameResource2, $resource2);
     }
 
@@ -46,6 +47,7 @@ class ForumHelper extends ResourceHelper
         if ($nameResource2 == 'Account') {
             return parent::relationExists($resource, 'CreatedBy', $resource2);
         }
+
         return parent::relationExists($resource, $nameResource2, $resource2);
     }
 }

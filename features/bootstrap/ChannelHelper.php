@@ -19,10 +19,10 @@ class ChannelHelper extends ResourceHelper
     {
         $account = $this->accountHelper->persistResource();
 
-        $name = 'string' . self::$numberChannel;
+        $name = 'string'.self::$numberChannel;
 
         $channel = new Channel();
-        $channel->setAccount($account)->setName($name)->setTags([ 'string' ]);
+        $channel->setAccount($account)->setName($name)->setTags(['string']);
 
         ++self::$numberChannel;
 
@@ -34,6 +34,7 @@ class ChannelHelper extends ResourceHelper
         if ($nameResource2 == 'Video') {
             return parent::createRelationWith($resource, 'Videos', $resource2);
         }
+
         return parent::createRelationWith($resource, $nameResource2, $resource2);
     }
 
@@ -42,6 +43,7 @@ class ChannelHelper extends ResourceHelper
         if ($nameResource2 == 'Video') {
             return parent::relationExists($resource, 'Videos', $resource2);
         }
+
         return parent::relationExists($resource, $nameResource2, $resource2);
     }
 }

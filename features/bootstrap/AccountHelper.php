@@ -14,8 +14,8 @@ class AccountHelper extends ResourceHelper
 
     public function createResource()
     {
-        $username = 'string' .  self::$numberAccount;
-        $email = 'string' . self::$numberAccount . '@string.fr';
+        $username = 'string'.self::$numberAccount;
+        $email = 'string'.self::$numberAccount.'@string.fr';
 
         $account = new Account();
         $account->setUsername($username)->setEmail($email)->setFirstName('string')
@@ -31,6 +31,7 @@ class AccountHelper extends ResourceHelper
         if ($nameResource2 == 'Channel') {
             return parent::createRelationWith($resource, 'Channels', $resource2);
         }
+
         return parent::createRelationWith($resource, $nameResource2, $resource2);
     }
 
@@ -39,6 +40,7 @@ class AccountHelper extends ResourceHelper
         if ($nameResource2 == 'Channel') {
             return parent::relationExists($resource, 'Channels', $resource2);
         }
+
         return parent::relationExists($resource, $nameResource2, $resource2);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
-use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Category;
+use Doctrine\ORM\EntityManager;
 
 class CategoryHelper extends ResourceHelper
 {
@@ -12,7 +12,6 @@ class CategoryHelper extends ResourceHelper
 
     public function createResource()
     {
-
         $category = new Category();
         $category->setName('string')->setDescription('string');
 

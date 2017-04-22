@@ -2,14 +2,14 @@
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
+use Behat\Gherkin\Node\PyStringNode;
+use Behatch\Context\RestContext;
+use Behatch\HttpCall\Request;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Symfony\Component\HttpKernel\Kernel;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\StringInput;
-use Behatch\Context\RestContext;
-use Behat\Gherkin\Node\PyStringNode;
-use Behatch\HttpCall\Request;
+use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * Defines application features from the specific context.
@@ -119,23 +119,22 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
     }
 
     /**
-     * Sends a HTTP request after authentication
+     * Sends a HTTP request after authentication.
      *
      * @Given I am connected as :login with password :password
      */
     public function iSendAnAuthenticatedRequestTo($login, $password)
     {
-
         $responseLogin = $this->request->send(
             'GET',
-            $this->locatePath("/oauth/v2/token"),
+            $this->locatePath('/oauth/v2/token'),
             [
                 'client_id' => '1_client_id',
                 'client_secret' => 'client_secret',
                 'grant_type' => 'password',
                 'redirect_uri' => '127.0.0.1',
                 'username' => $login,
-                'password' => $password
+                'password' => $password,
             ],
             [],
             null,
@@ -143,12 +142,11 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
         );
         $responseLoginData = json_decode($responseLogin->getContent(), true);
         self::$token = $responseLoginData['access_token'];
-
     }
 
     public function iSendARequestTo($method, $url, PyStringNode $body = null, $files = [])
     {
-        if (self::$token != NULL) {
+        if (self::$token != null) {
             $this->request->setHttpHeader('Authorization', sprintf('Bearer %s', self::$token));
         }
 
@@ -162,14 +160,15 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
     }
 
     /**
-     * Create resource if there are not created
+     * Create resource if there are not created.
+     *
      * @Given Resource :resource :id exists
      */
     private function exists(string $resource, string $id, array &$resources)
     {
         $id = explode('/', $id)[2];
 
-        $resource = $this->manager->getRepository('AppBundle:' . $resource)->findOneById($id);
+        $resource = $this->manager->getRepository('AppBundle:'.$resource)->findOneById($id);
 
         if ($resource !== null) {
             array_push($resources, $resource);
@@ -183,7 +182,7 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
      */
     public function thereAreResource($resource, $ids)
     {
-        $resources = array();
+        $resources = [];
 
         $id = explode(',', $ids);
 

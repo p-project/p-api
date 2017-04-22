@@ -1,7 +1,7 @@
 <?php
 
-use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Playlist;
+use Doctrine\ORM\EntityManager;
 
 class PlaylistHelper extends ResourceHelper
 {

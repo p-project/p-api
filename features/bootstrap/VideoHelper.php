@@ -1,7 +1,7 @@
 <?php
 
-use AppBundle\Entity\Video;
 use AppBundle\Entity\Metadata;
+use AppBundle\Entity\Video;
 use Doctrine\ORM\EntityManager;
 
 class VideoHelper extends ResourceHelper
@@ -37,6 +37,7 @@ class VideoHelper extends ResourceHelper
         if ($nameResource2 == 'Category') {
             return parent::createRelationWith($resource, 'Categories', $resource2);
         }
+
         return parent::createRelationWith($resource, $nameResource2, $resource2);
     }
 
@@ -45,6 +46,7 @@ class VideoHelper extends ResourceHelper
         if ($nameResource2 == 'Category') {
             return parent::relationExists($resource, 'Categories', $resource2);
         }
+
         return parent::relationExists($resource, $nameResource2, $resource2);
     }
 }

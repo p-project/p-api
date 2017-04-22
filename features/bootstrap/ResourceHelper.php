@@ -20,6 +20,7 @@ abstract class ResourceHelper implements ResourceHelperInterface
         $resource = $this->createResource();
         $this->em->persist($resource);
         $this->em->flush();
+
         return $resource;
     }
 
@@ -27,7 +28,7 @@ abstract class ResourceHelper implements ResourceHelperInterface
 
     public function relationExists($resource, string $nameResource2, $resource2)
     {
-        $getResource = 'get' . $nameResource2;
+        $getResource = 'get'.$nameResource2;
 
         if ($resource->{$getResource}() instanceof PersistentCollection) {
             return $resource->{$getResource}()->contains($resource2);
@@ -36,14 +37,13 @@ abstract class ResourceHelper implements ResourceHelperInterface
         return $resource->{$getResource}() == $resource2;
     }
 
-
     public function createRelationWith($resource, string $nameResource2, $resource2)
     {
-        $getResource = 'get' . $nameResource2;
-        $setResource = 'set' . $nameResource2;
+        $getResource = 'get'.$nameResource2;
+        $setResource = 'set'.$nameResource2;
 
         if ($resource->{$getResource}() instanceof PersistentCollection) {
-            $resource->{$setResource}(array($resource2));
+            $resource->{$setResource}([$resource2]);
         } else {
             $resource->{$setResource}($resource2);
         }

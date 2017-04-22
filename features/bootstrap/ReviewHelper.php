@@ -27,10 +27,8 @@ class ReviewHelper extends ResourceHelper
         $account = $this->accountHelper->persistResource();
         $video = $this->videoHelper->persistResource();
 
-
         $review = new Review();
         $review->setVideo($video)->setAuthor($account)->setContent('string')->setDateReview(new \DateTime('1879-03-14'));
-
 
         return $review;
     }
@@ -40,6 +38,7 @@ class ReviewHelper extends ResourceHelper
         if ($nameResource2 == 'Account') {
             return parent::createRelationWith($resource, 'Author', $resource2);
         }
+
         return parent::createRelationWith($resource, $nameResource2, $resource2);
     }
 
@@ -48,6 +47,7 @@ class ReviewHelper extends ResourceHelper
         if ($nameResource2 == 'Account') {
             return parent::relationExists($resource, 'Author', $resource2);
         }
+
         return parent::relationExists($resource, $nameResource2, $resource2);
     }
 }

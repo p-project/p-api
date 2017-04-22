@@ -1,7 +1,7 @@
 <?php
 
-use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\SustainabilityOffer;
+use Doctrine\ORM\EntityManager;
 
 class SustainabilityOfferHelper extends ResourceHelper
 {

@@ -1,7 +1,7 @@
 <?php
 
-use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Network;
+use Doctrine\ORM\EntityManager;
 
 class NetworkHelper extends ResourceHelper
 {
@@ -14,6 +14,7 @@ class NetworkHelper extends ResourceHelper
     {
         $network = new Network();
         $network->setName('name');
+
         return $network;
     }
 
@@ -21,9 +22,10 @@ class NetworkHelper extends ResourceHelper
     {
         if ($nameResource2 == 'Channel') {
             return parent::createRelationWith($resource, 'Channels', $resource2);
-        } else if ($nameResource2 == 'Account') {
+        } elseif ($nameResource2 == 'Account') {
             return parent::createRelationWith($resource, 'Peoples', $resource2);
         }
+
         return parent::createRelationWith($resource, $nameResource2, $resource2);
     }
 
@@ -31,9 +33,10 @@ class NetworkHelper extends ResourceHelper
     {
         if ($nameResource2 == 'Channel') {
             return parent::relationExists($resource, 'Channels', $resource2);
-        } else if ($nameResource2 == 'Account') {
+        } elseif ($nameResource2 == 'Account') {
             return parent::relationExists($resource, 'Peoples', $resource2);
         }
+
         return parent::relationExists($resource, $nameResource2, $resource2);
     }
 }
