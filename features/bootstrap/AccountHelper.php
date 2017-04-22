@@ -1,37 +1,28 @@
 <?php
 
-use Behatch\HttpCall\Request;
+use AppBundle\Entity\Account;
+use Doctrine\ORM\EntityManager;
 
 class AccountHelper extends ResourceHelper
 {
     private static $numberAccount = 0;
 
-    public function __construct(Request $request)
+    public function __construct(EntityManager $em)
     {
-        parent::__construct($request);
+        parent::__construct($em);
     }
 
     public function createResource()
     {
         $username = 'string' .  self::$numberAccount;
         $email = 'string' . self::$numberAccount . '@string.fr';
-        $body =<<<EOF
-    {
-      "username": "$username",
-      "email": "$email",
-      "firstName": "string",
-      "lastName": "string",
-      "password": "password",
-      "salt": "salt"
-    }
-EOF;
+
+        $account = new Account();
+        $account->setUsername($username)->setEmail($email)->setFirstName('string')
+            ->setLastName('string')->setPassword('string')->setSalt('string');
+
         ++self::$numberAccount;
 
-        return $this->returnId('/accounts', $body);
-    }
-
-    public function createRelationWith(string $id1, string $resource2, string $id2)
-    {
-
+        return $account;
     }
 }

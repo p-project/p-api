@@ -1,6 +1,8 @@
 <?php
 
-use Behatch\HttpCall\Request;
+use AppBundle\Entity\Video;
+use AppBundle\Entity\Metadata;
+use Doctrine\ORM\EntityManager;
 
 class VideoHelper extends ResourceHelper
 {
@@ -9,33 +11,24 @@ class VideoHelper extends ResourceHelper
      */
     private $channelHelper;
 
-    public function __construct(Request $request, ChannelHelper $channelHelper)
+    public function __construct(EntityManager $em, ChannelHelper $channelHelper)
     {
-        parent::__construct($request);
+        parent::__construct($em);
         $this->channelHelper = $channelHelper;
     }
 
     public function createResource()
     {
-        $idChannel = $this->channelHelper->createResource();
+        $channel = $this->channelHelper->createResource();
 
-        $body =<<<EOF
-    {
-      "title": "string",
-      "description": "string",
-      "uploadDate": "2017-02-01T18:30:52.055Z",
-      "numberView": 120,
-      "channel": "$idChannel",
-      "hash": "Abdsbfs",
-      "magnet": "ssdf",
-      "metadata":
-      {
-        "height": 100,
-        "width": 100,
-        "format": "mp3"
-      }
-    }
-EOF;
-        return $this->returnId('/videos', $body);
+        $metaData = new Metadata();
+        $metaData->setHeight(100)->setWidth(100)->setFormat('mp3');
+
+        $video = new Video();
+        $video->setTitle('string')->setDescription('string')
+            ->setUploadDate(new DateTime())->setNumberView('120')
+            ->setChannel($channel)->setHash('et')->setMagnet('et');
+
+        return $video;
     }
 }

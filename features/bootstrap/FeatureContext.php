@@ -66,10 +66,11 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
         $this->manager = $doctrine->getManager();
         $this->schemaTool = new SchemaTool($this->manager);
         $this->classes = $this->manager->getMetadataFactory()->getAllMetadata();
-        $this->helpers['accounts'] = new AccountHelper($request);
-        $this->helpers['channels'] = new ChannelHelper($request, $this->helpers['accounts']);
-        $this->helpers['videos'] = new VideoHelper($request, $this->helpers['channels']);
-        $this->helpers['categories'] = new CategoryHelper($request);
+        $this->helpers['Account'] = new AccountHelper($this->manager);
+        $this->helpers['Channel'] = new ChannelHelper($this->manager, $this->helpers['Account']);
+        $this->helpers['Video'] = new VideoHelper($this->manager, $this->helpers['Channel']);
+        $this->helpers['Category'] = new CategoryHelper($this->manager);
+        $this->helpers['Network'] = new NetworkHelper($this->manager);
     }
 
     /**
@@ -130,7 +131,6 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
             ['Content-Type' => 'application/ld+json']
         );
         $responseLoginData = json_decode($responseLogin->getContent(), true);
-
         self::$token = $responseLoginData['access_token'];
 
     }
@@ -160,15 +160,11 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
             return false;
         }
 
-        $this->request->send(
-            'GET',
-            $id,
-            [],
-            [],
-            null
-        );
+        $id = explode('/', $id)[2];
 
-        return $this->getMinkContext()->getSession()->getStatusCode() !== 404;
+        $resource = $this->manager->getRepository('AppBundle:' . $resource)->findOneBy($id);
+
+        return $resource === null;
     }
 
     /**
@@ -176,13 +172,17 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
      */
     public function thereAreResource($resource, $ids)
     {
+        $resourcesCreated = array();
+
         $id = explode(',', $ids);
 
         foreach ($id as $eachId) {
             if (!$this->exists($resource, $eachId)) {
-                $this->helpers[$resource]->createResource();
+                array_push($resourcesCreated, $this->helpers[$resource]->persistResource());
             }
         }
+
+        return $resourcesCreated;
     }
 
     private function relationExists(string $id1, string $resource2, string $id2)
@@ -203,23 +203,15 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
      */
     public function thereAreResourceWhichHaveResource($resource, $ids, $resource2, $ids2)
     {
-        $this->thereAreResource($resource, $ids);
-        $this->thereAreResource($resource2, $ids2);
-
-        $id = explode(',', $ids);
-        $id2 = explode(',', $ids2);
-
+        $resourcesCreated = $this->thereAreResource($resource, $ids);
+        $resourcesCreated2 = $this->thereAreResource($resource2, $ids2);
+        /**
         foreach ($id as $eachId1) {
             foreach ($id2 as $eachId2) {
                 if (!$this->relationExists($eachId1, $resource2, $eachId2)) {
                     $this->helpers[$resource]->createRelationWith($eachId1, $resource2, $eachId2);
                 }
             }
-        }
-    }
-
-    public static function getToken()
-    {
-        return self::$token;
+        }*/
     }
 }

@@ -1,0 +1,196 @@
+Feature: Manage annotation
+  In order to manage annotation
+  As a client software developer
+  I need to be able to retrieve, create, update and delete them trough the API.
+
+  Background:                                                # features/Annotation.feature:7
+    Given I am connected as "denis" with password "password" # FeatureContext::iSendAnAuthenticatedRequestTo()
+    And There are "videos" "/videos/1,/videos/2"             # FeatureContext::thereAreResource()
+      │ AccountHelper.php on line 32:
+      │ "MzllN2JjNzExZmQ5MzJjYzI2YWE2ZTAxN2UxMzYzMGQ5ZWZjMmJjODE4OTc1MmViNDkwZGQ0YzBkMGQwMWJmMg"
+      │ AccountHelper.php on line 33:
+      │ null
+      │ 
+
+  @createSchema @requiresOAuth
+  Scenario: Create an annotation                                                          # features/Annotation.feature:13
+    When I add "Content-Type" header equal to "application/ld+json"                       # FeatureContext::iAddHeaderEqualTo()
+    And I add "Accept" header equal to "application/ld+json"                              # FeatureContext::iAddHeaderEqualTo()
+    And I send a "POST" request to "/annotations" with body:                              # FeatureContext::iSendARequestToWithBody()
+      """
+      {
+        "begin": "2017-02-01T21:22:44.929Z",
+        "end": "2017-02-01T21:22:44.929Z",
+        "annotationText": "string",
+        "video": "/videos/1"
+      }
+      """
+    Then the response status code should be 201                                           # Behat\MinkExtension\Context\MinkContext::assertResponseStatus()
+      Current response status code is 400, but 201 expected. (Behat\Mink\Exception\ExpectationException)
+    And the response should be in JSON                                                    # Behatch\Context\JsonContext::theResponseShouldBeInJson()
+    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8" # FeatureContext::theHeaderShouldBeEqualTo()
+    And the JSON should be equal to:                                                      # Behatch\Context\JsonContext::theJsonShouldBeEqualTo()
+      """
+      {
+         "@context": "/contexts/Annotation",
+         "@id": "/annotations/1",
+         "@type": "Annotation",
+         "id": 1,
+         "begin": "2017-02-01T21:22:44+00:00",
+         "end": "2017-02-01T21:22:44+00:00",
+         "annotationText": "string",
+         "video": "/videos/1"
+      }
+      """
+
+  Scenario: Retrieve the annotation list                                                  # features/Annotation.feature:42
+    And There are "videos" "/videos/1,/videos/2"                                          # FeatureContext::thereAreResource()
+      │ AccountHelper.php on line 32:
+      │ "OTk2MDU3MWFmZmI4ZWQzNzk5MWEwNmQ0YzZhNWUyNGQ2ODZmMGYxNjdmYTlmYWNkODRhY2I1ZTRlMDg5YTBjMQ"
+      │ AccountHelper.php on line 33:
+      │ "/accounts/2"
+      │ 
+    When I add "Accept" header equal to "application/ld+json"                             # FeatureContext::iAddHeaderEqualTo()
+    And I send a "GET" request to "/annotations"                                          # FeatureContext::iSendARequestTo()
+      │ AccountHelper.php on line 32:
+      │ "OTk2MDU3MWFmZmI4ZWQzNzk5MWEwNmQ0YzZhNWUyNGQ2ODZmMGYxNjdmYTlmYWNkODRhY2I1ZTRlMDg5YTBjMQ"
+      │ AccountHelper.php on line 33:
+      │ "/accounts/3"
+      │ 
+    Then the response status code should be 200                                           # Behat\MinkExtension\Context\MinkContext::assertResponseStatus()
+    And the response should be in JSON                                                    # Behatch\Context\JsonContext::theResponseShouldBeInJson()
+    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8" # FeatureContext::theHeaderShouldBeEqualTo()
+    And the JSON should be equal to:                                                      # Behatch\Context\JsonContext::theJsonShouldBeEqualTo()
+      """
+      {
+        "@context": "/contexts/Annotation",
+        "@id": "/annotations",
+        "@type": "hydra:Collection",
+        "hydra:member": [
+          {
+            "@id": "/annotations/1",
+            "@type": "Annotation",
+            "id": 1,
+            "begin": "2017-02-01T21:22:44+01:00",
+            "end": "2017-02-01T21:22:44+01:00",
+            "annotationText": "string",
+            "video": "/videos/1"
+          }
+        ],
+        "hydra:totalItems": 1
+      }
+      """
+      The json is equal to:
+      {
+          "@context": "\/contexts\/Annotation",
+          "@id": "\/annotations",
+          "@type": "hydra:Collection",
+          "hydra:member": [],
+          "hydra:totalItems": 0
+      } (Behat\Mink\Exception\ExpectationException)
+
+  Scenario: Throw errors when there is only bad properties                                # features/Annotation.feature:69
+    When I add "Content-Type" header equal to "application/ld+json"                       # FeatureContext::iAddHeaderEqualTo()
+    And I add "Accept" header equal to "application/ld+json"                              # FeatureContext::iAddHeaderEqualTo()
+    And I send a "POST" request to "/annotations" with body:                              # FeatureContext::iSendARequestToWithBody()
+      """
+      {
+        "videos": "/videos/1"
+      }
+      """
+    Then the response status code should be 400                                           # Behat\MinkExtension\Context\MinkContext::assertResponseStatus()
+    And the response should be in JSON                                                    # Behatch\Context\JsonContext::theResponseShouldBeInJson()
+    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8" # FeatureContext::theHeaderShouldBeEqualTo()
+    And the JSON should be equal to:                                                      # Behatch\Context\JsonContext::theJsonShouldBeEqualTo()
+      """
+      {
+        "@context": "/contexts/ConstraintViolationList",
+        "@type": "ConstraintViolationList",
+        "hydra:title": "An error occurred",
+        "hydra:description": "begin: This value should not be blank.\nend: This value should not be blank.",
+        "violations": [
+          {
+            "propertyPath": "begin",
+            "message": "This value should not be blank."
+          },
+          {
+            "propertyPath": "end",
+            "message": "This value should not be blank."
+          }
+        ]
+      }
+      """
+
+  Scenario: Update an annotation                                                          # features/Annotation.feature:101
+    When I add "Content-Type" header equal to "application/ld+json"                       # FeatureContext::iAddHeaderEqualTo()
+    And I add "Accept" header equal to "application/ld+json"                              # FeatureContext::iAddHeaderEqualTo()
+    And I send a "PUT" request to "/annotations/1" with body:                             # FeatureContext::iSendARequestToWithBody()
+      """
+      {
+        "annotationText": "stringUpdated"
+      }
+      """
+    Then the response status code should be 200                                           # Behat\MinkExtension\Context\MinkContext::assertResponseStatus()
+      Current response status code is 404, but 200 expected. (Behat\Mink\Exception\ExpectationException)
+    And the response should be in JSON                                                    # Behatch\Context\JsonContext::theResponseShouldBeInJson()
+    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8" # FeatureContext::theHeaderShouldBeEqualTo()
+    And the JSON should be equal to:                                                      # Behatch\Context\JsonContext::theJsonShouldBeEqualTo()
+      """
+      {
+        "@context": "/contexts/Annotation",
+        "@id": "/annotations/1",
+        "@type": "Annotation",
+        "id": 1,
+        "begin": "2017-02-01T21:22:44+01:00",
+        "end": "2017-02-01T21:22:44+01:00",
+        "annotationText": "stringUpdated",
+        "video": "/videos/1"
+      }
+      """
+
+  Scenario: Get a specific annotation                                                     # features/Annotation.feature:127
+    When I add "Accept" header equal to "application/ld+json"                             # FeatureContext::iAddHeaderEqualTo()
+    And I send a "GET" request to "/annotations/1"                                        # FeatureContext::iSendARequestTo()
+    Then the response status code should be 200                                           # Behat\MinkExtension\Context\MinkContext::assertResponseStatus()
+      Current response status code is 404, but 200 expected. (Behat\Mink\Exception\ExpectationException)
+    And the response should be in JSON                                                    # Behatch\Context\JsonContext::theResponseShouldBeInJson()
+    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8" # FeatureContext::theHeaderShouldBeEqualTo()
+    And the JSON should be equal to:                                                      # Behatch\Context\JsonContext::theJsonShouldBeEqualTo()
+      """
+      {
+        "@context": "/contexts/Annotation",
+        "@id": "/annotations/1",
+        "@type": "Annotation",
+        "id": 1,
+        "begin": "2017-02-01T21:22:44+01:00",
+        "end": "2017-02-01T21:22:44+01:00",
+        "annotationText": "stringUpdated",
+        "video": "/videos/1"
+      }
+      """
+
+  Scenario: Delete an annotation                                    # features/Annotation.feature:147
+    When I add "Content-Type" header equal to "application/ld+json" # FeatureContext::iAddHeaderEqualTo()
+    And I add "Accept" header equal to "application/ld+json"        # FeatureContext::iAddHeaderEqualTo()
+    And I send a "DELETE" request to "/annotations/1"               # FeatureContext::iSendARequestTo()
+    Then the response status code should be 204                     # Behat\MinkExtension\Context\MinkContext::assertResponseStatus()
+      Current response status code is 404, but 204 expected. (Behat\Mink\Exception\ExpectationException)
+
+  @dropSchema
+  Scenario: Delete an annotation which not exists                   # features/Annotation.feature:154
+    When I add "Content-Type" header equal to "application/ld+json" # FeatureContext::iAddHeaderEqualTo()
+    And I add "Accept" header equal to "application/ld+json"        # FeatureContext::iAddHeaderEqualTo()
+    And I send a "DELETE" request to "/annotations/1"               # FeatureContext::iSendARequestTo()
+    Then the response status code should be 404                     # Behat\MinkExtension\Context\MinkContext::assertResponseStatus()
+
+--- Scénarios échoués:
+
+    features/Annotation.feature:13
+    features/Annotation.feature:42
+    features/Annotation.feature:101
+    features/Annotation.feature:127
+    features/Annotation.feature:147
+
+7 scénarios (2 succès, 5 échecs)
+55 étapes (41 succès, 5 échecs, 9 ignorés)
+0m6.62s (34.01Mb)

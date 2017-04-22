@@ -1,6 +1,7 @@
 <?php
 
-use Behatch\HttpCall\Request;
+use AppBundle\Entity\Channel;
+use Doctrine\ORM\EntityManager;
 
 class ChannelHelper extends ResourceHelper
 {
@@ -8,34 +9,23 @@ class ChannelHelper extends ResourceHelper
 
     private $accountHelper;
 
-    public function __construct(Request $request, AccountHelper $accountHelper)
+    public function __construct(EntityManager $em, AccountHelper $accountHelper)
     {
-        parent::__construct($request);
+        parent::__construct($em);
         $this->accountHelper = $accountHelper;
     }
 
     public function createResource()
     {
-        $idUser = $this->accountHelper->createResource();
+        $account = $this->accountHelper->createResource();
 
         $name = 'string' . self::$numberChannel;
-        $body =<<<EOF
-    {
-      "account": "$idUser",
-      "name": "$name",
-      "tags": [
-         "string"
-      ]
-    }
-EOF;
+
+        $channel = new Channel();
+        $channel->setAccount($account)->setName($name)->setTags([ "string" ]);
 
         ++self::$numberChannel;
 
-        return $this->returnId('/channels', $body);
-    }
-
-    public function createRelationWith(string $id1, string $resource2, string $id2)
-    {
-        
+        return $channel;
     }
 }
