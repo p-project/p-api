@@ -16,6 +16,7 @@ install:
 
 before_script:
     - export SYMFONY_ENV=test
+    - echo 'date.timezone = "Europe/Paris"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
     - composer self-update --no-progress
 
 script:
