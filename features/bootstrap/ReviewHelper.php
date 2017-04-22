@@ -28,7 +28,7 @@ class ReviewHelper extends ResourceHelper
         $video = $this->videoHelper->persistResource();
 
         $review = new Review();
-        $review->setVideo($video)->setAuthor($account)->setContent('string')->setDateReview(new \DateTime('1879-03-14'));
+        $review->setVideo($video)->setAuthor($account)->setContent('string')->setDateReview(new \DateTime('1879-03-14T00:00:00+00:09'));
 
         return $review;
     }

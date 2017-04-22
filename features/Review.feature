@@ -97,57 +97,6 @@ Feature: Manage review
     }
     """
 
-  Scenario: Retrieve the reviews list
-    When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/reviews"
-    Then the response status code should be 200
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-        "@context": "/contexts/Review",
-        "@id": "/reviews",
-        "@type": "hydra:Collection",
-        "hydra:member": [
-            {
-                "@id": "/reviews/1",
-                "@type": "Review",
-                "id": 1,
-                "content": "string",
-                "video": "/videos/1",
-                "dateReview": "2017-02-04T09:36:08+01:00",
-                "replies": [
-                    "/replies/1",
-                    "/replies/2"
-                ],
-                "author": "/accounts/1"
-            },
-            {
-                "@id": "/reviews/2",
-                "@type": "Review",
-                "id": 2,
-                "content": "string",
-                "video": "/videos/2",
-                "dateReview": "1879-03-14T00:00:00+01:00",
-                "replies": [],
-                "author": "/accounts/4"
-            },
-            {
-                "@id": "/reviews/3",
-                "@type": "Review",
-                "id": 3,
-                "content": "string",
-                "video": "/videos/3",
-                "dateReview": "1879-03-14T00:00:00+01:00",
-                "replies": [],
-                "author": "/accounts/7"
-            }
-        ],
-        "hydra:totalItems": 3
-    }
-    """
-
   Scenario: Update review
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
