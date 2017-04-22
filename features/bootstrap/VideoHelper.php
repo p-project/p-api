@@ -26,7 +26,7 @@ class VideoHelper extends ResourceHelper
 
         $video = new Video();
         $video->setTitle('string')->setDescription('string')
-            ->setUploadDate(new DateTime())->setNumberView('120')
+            ->setUploadDate(new DateTime('1879-03-14'))->setNumberView('120')
             ->setChannel($channel)->setHash('et')->setMagnet('et');
 
         return $video;

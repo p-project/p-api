@@ -1,89 +1,15 @@
-# features/Annotation.feature
-Feature: Manage comment
-  In order to manage account
+# features/SustainabilityOffer.feature
+Feature: Manage substainability_offer
+  In order to manage substainability_offer
   As a client software developer
   I need to be able to retrieve, create, update and delete them trough the API.
 
+  Background:
+    Given I am connected as "denis" with password "password"
+    And There are "Channel" "/channels/1"
+
   @createSchema
   @requiresOAuth
-  Scenario: I am connected as Denis with passwowrd: password
-    Given I am connected as "denis" with password "password"
-
-  Scenario: Create an account
-    When I add "Content-Type" header equal to "application/ld+json"
-    And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/accounts" with body:
-    """
-    {
-      "username": "string",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
-      "password": "password",
-      "salt": "salt"
-    }
-    """
-    Then the response status code should be 201
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/2",
-      "@type": "Account",
-      "id": 2,
-      "username": "string",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
-      "channels": [],
-      "views": [],
-      "forums": [],
-      "networks": [],
-      "playlists": [],
-      "replies": [],
-      "reviews": [],
-      "sustainabilityOffers": [],
-      "seeders": []
-    } 
-    """
-
-  Scenario: Create a channel
-    When I add "Content-Type" header equal to "application/ld+json"
-    And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/channels" with body:
-    """
-    {
-      "account": "/accounts/1",
-      "name": "string",
-      "tags": [
-         "string"
-      ]
-    }
-    """
-    Then the response status code should be 201
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-      "@context": "/contexts/Channel",
-      "@id": "/channels/1",
-      "@type": "Channel",
-      "account": "/accounts/1",
-      "id": 1,
-      "name": "string",
-      "tags": [
-        "string"
-      ],
-      "videos": [],
-      "networks": [],
-      "playlists": [],
-      "sustainabilityOffers": []
-    }
-    """
-
   Scenario: Create SustainabilityOffer
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"

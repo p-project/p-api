@@ -29,7 +29,7 @@ class ReviewHelper extends ResourceHelper
 
 
         $review = new Review();
-        $review->setVideo($video)->setAuthor($account)->setContent('string')->setDateReview(new \DateTime());
+        $review->setVideo($video)->setAuthor($account)->setContent('string')->setDateReview(new \DateTime('1879-03-14'));
 
 
         return $review;

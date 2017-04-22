@@ -73,6 +73,8 @@ class Subtitles
     public function setBegin(\DateTime $begin)
     {
         $this->begin = $begin;
+
+        return $this;
     }
 
     public function getEnd(): \DateTime
@@ -83,6 +85,8 @@ class Subtitles
     public function setEnd(\DateTime $end)
     {
         $this->end = $end;
+
+        return $this;
     }
 
     public function getPath()
@@ -93,6 +97,8 @@ class Subtitles
     public function setPath($path)
     {
         $this->path = $path;
+
+        return $this;
     }
 
     public function getVideo(): Video

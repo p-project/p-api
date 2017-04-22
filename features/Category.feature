@@ -1,6 +1,6 @@
-# features/Annotation.feature
+# features/Category.feature
 Feature: Manage category
-  In order to manage account
+  In order to manage categories
   As a client software developer
   I need to be able to retrieve, create, update and delete them trough the API.
 

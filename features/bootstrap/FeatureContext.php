@@ -66,6 +66,7 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
         $this->manager = $doctrine->getManager();
         $this->schemaTool = new SchemaTool($this->manager);
         $this->classes = $this->manager->getMetadataFactory()->getAllMetadata();
+
         $this->helpers['Account'] = new AccountHelper($this->manager);
         $this->helpers['Channel'] = new ChannelHelper($this->manager, $this->helpers['Account']);
         $this->helpers['Playlist'] = new PlaylistHelper($this->manager, $this->helpers['Account']);
@@ -78,6 +79,9 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
         $this->helpers['Review'] = new ReviewHelper($this->manager, $this->helpers['Account'], $this->helpers['Video']);
         $this->helpers['Reply'] = new ReplyHelper($this->manager, $this->helpers['Account'], $this->helpers['Review']);
         $this->helpers['Seeder'] = new SeederHelper($this->manager, $this->helpers['Account'], $this->helpers['Video']);
+        $this->helpers['Subtitles'] = new SubtitlesHelper($this->manager, $this->helpers['Video']);
+        $this->helpers['Annotation'] = new AnnotationHelper($this->manager, $this->helpers['Video']);
+        $this->helpers['Comment'] = new CommentHelper($this->manager, $this->helpers['Account'], $this->helpers['Video']);
     }
 
     /**

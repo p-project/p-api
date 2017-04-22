@@ -4,11 +4,11 @@ Feature: Manage account
   As a client software developer
   I need to be able to retrieve, create, update and delete them trough the API.
 
-  @createSchema
-  @requiresOAuth
-  Scenario: I am connected as Denis with passwowrd: password
+  Background:
     Given I am connected as "denis" with password "password"
 
+  @createSchema
+  @requiresOAuth
   Scenario: Create an account
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"

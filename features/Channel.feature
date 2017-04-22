@@ -1,6 +1,6 @@
-# features/Annotation.feature
+# features/Channel.feature
 Feature: Manage channel
-  In order to manage account
+  In order to manage channels
   As a client software developer
   I need to be able to retrieve, create, update and delete them trough the API.
 
@@ -208,7 +208,7 @@ Feature: Manage channel
               "@type": "Channel",
               "account": "/accounts/3",
               "id": 2,
-              "name": "string0",
+              "name": "string18",
               "tags": [
                   "string"
               ],
@@ -222,7 +222,7 @@ Feature: Manage channel
               "@type": "Channel",
               "account": "/accounts/4",
               "id": 3,
-              "name": "string1",
+              "name": "string19",
               "tags": [
                   "string"
               ],
@@ -236,7 +236,7 @@ Feature: Manage channel
               "@type": "Channel",
               "account": "/accounts/5",
               "id": 4,
-              "name": "string2",
+              "name": "string20",
               "tags": [
                   "string"
               ],
