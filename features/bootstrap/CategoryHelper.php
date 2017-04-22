@@ -1,6 +1,7 @@
 <?php
 
 use Doctrine\ORM\EntityManager;
+use AppBundle\Entity\Category;
 
 class CategoryHelper extends ResourceHelper
 {
@@ -11,17 +12,10 @@ class CategoryHelper extends ResourceHelper
 
     public function createResource()
     {
-        $body = <<<EOF
-    {
-      "name": "string",
-      "description": "string"
-    }
-EOF;
-        return $this->returnId('/categories', $body);
-    }
 
-    public function createRelationWith(string $id1, string $resource2, string $id2)
-    {
+        $category = new Category();
+        $category->setName('string')->setDescription('string');
 
+        return $category;
     }
 }

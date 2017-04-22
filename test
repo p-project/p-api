@@ -1,101 +1,57 @@
-Feature: Manage annotation
-  In order to manage annotation
+Feature: Manage channel
+  In order to manage account
   As a client software developer
   I need to be able to retrieve, create, update and delete them trough the API.
 
-  Background:                                                # features/Annotation.feature:7
+  Background:                                                # features/Channel.feature:7
     Given I am connected as "denis" with password "password" # FeatureContext::iSendAnAuthenticatedRequestTo()
-    And There are "videos" "/videos/1,/videos/2"             # FeatureContext::thereAreResource()
-      │ AccountHelper.php on line 32:
-      │ "MzllN2JjNzExZmQ5MzJjYzI2YWE2ZTAxN2UxMzYzMGQ5ZWZjMmJjODE4OTc1MmViNDkwZGQ0YzBkMGQwMWJmMg"
-      │ AccountHelper.php on line 33:
-      │ null
-      │ 
+    And There are "Account" "/accounts/2"                    # FeatureContext::thereAreResource()
 
   @createSchema @requiresOAuth
-  Scenario: Create an annotation                                                          # features/Annotation.feature:13
+  Scenario: Create a channel                                                              # features/Channel.feature:13
     When I add "Content-Type" header equal to "application/ld+json"                       # FeatureContext::iAddHeaderEqualTo()
     And I add "Accept" header equal to "application/ld+json"                              # FeatureContext::iAddHeaderEqualTo()
-    And I send a "POST" request to "/annotations" with body:                              # FeatureContext::iSendARequestToWithBody()
+    And I send a "POST" request to "/channels" with body:                                 # FeatureContext::iSendARequestToWithBody()
       """
       {
-        "begin": "2017-02-01T21:22:44.929Z",
-        "end": "2017-02-01T21:22:44.929Z",
-        "annotationText": "string",
-        "video": "/videos/1"
+        "account": "/accounts/2",
+        "name": "string",
+        "tags": [
+           "string"
+        ]
       }
       """
     Then the response status code should be 201                                           # Behat\MinkExtension\Context\MinkContext::assertResponseStatus()
-      Current response status code is 400, but 201 expected. (Behat\Mink\Exception\ExpectationException)
     And the response should be in JSON                                                    # Behatch\Context\JsonContext::theResponseShouldBeInJson()
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8" # FeatureContext::theHeaderShouldBeEqualTo()
     And the JSON should be equal to:                                                      # Behatch\Context\JsonContext::theJsonShouldBeEqualTo()
       """
       {
-         "@context": "/contexts/Annotation",
-         "@id": "/annotations/1",
-         "@type": "Annotation",
-         "id": 1,
-         "begin": "2017-02-01T21:22:44+00:00",
-         "end": "2017-02-01T21:22:44+00:00",
-         "annotationText": "string",
-         "video": "/videos/1"
-      }
-      """
-
-  Scenario: Retrieve the annotation list                                                  # features/Annotation.feature:42
-    And There are "videos" "/videos/1,/videos/2"                                          # FeatureContext::thereAreResource()
-      │ AccountHelper.php on line 32:
-      │ "OTk2MDU3MWFmZmI4ZWQzNzk5MWEwNmQ0YzZhNWUyNGQ2ODZmMGYxNjdmYTlmYWNkODRhY2I1ZTRlMDg5YTBjMQ"
-      │ AccountHelper.php on line 33:
-      │ "/accounts/2"
-      │ 
-    When I add "Accept" header equal to "application/ld+json"                             # FeatureContext::iAddHeaderEqualTo()
-    And I send a "GET" request to "/annotations"                                          # FeatureContext::iSendARequestTo()
-      │ AccountHelper.php on line 32:
-      │ "OTk2MDU3MWFmZmI4ZWQzNzk5MWEwNmQ0YzZhNWUyNGQ2ODZmMGYxNjdmYTlmYWNkODRhY2I1ZTRlMDg5YTBjMQ"
-      │ AccountHelper.php on line 33:
-      │ "/accounts/3"
-      │ 
-    Then the response status code should be 200                                           # Behat\MinkExtension\Context\MinkContext::assertResponseStatus()
-    And the response should be in JSON                                                    # Behatch\Context\JsonContext::theResponseShouldBeInJson()
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8" # FeatureContext::theHeaderShouldBeEqualTo()
-    And the JSON should be equal to:                                                      # Behatch\Context\JsonContext::theJsonShouldBeEqualTo()
-      """
-      {
-        "@context": "/contexts/Annotation",
-        "@id": "/annotations",
-        "@type": "hydra:Collection",
-        "hydra:member": [
-          {
-            "@id": "/annotations/1",
-            "@type": "Annotation",
-            "id": 1,
-            "begin": "2017-02-01T21:22:44+01:00",
-            "end": "2017-02-01T21:22:44+01:00",
-            "annotationText": "string",
-            "video": "/videos/1"
-          }
+        "@context": "/contexts/Channel",
+        "@id": "/channels/1",
+        "@type": "Channel",
+        "account": "/accounts/2",
+        "id": 1,
+        "name": "string",
+        "tags": [
+          "string"
         ],
-        "hydra:totalItems": 1
+        "videos": [],
+        "networks": [],
+        "playlists": [],
+        "sustainabilityOffers": []
       }
       """
-      The json is equal to:
-      {
-          "@context": "\/contexts\/Annotation",
-          "@id": "\/annotations",
-          "@type": "hydra:Collection",
-          "hydra:member": [],
-          "hydra:totalItems": 0
-      } (Behat\Mink\Exception\ExpectationException)
 
-  Scenario: Throw errors when there is only bad properties                                # features/Annotation.feature:69
+  Scenario: Throw errors when there is only bad properties                                # features/Channel.feature:48
     When I add "Content-Type" header equal to "application/ld+json"                       # FeatureContext::iAddHeaderEqualTo()
     And I add "Accept" header equal to "application/ld+json"                              # FeatureContext::iAddHeaderEqualTo()
-    And I send a "POST" request to "/annotations" with body:                              # FeatureContext::iSendARequestToWithBody()
+    And I send a "POST" request to "/channels" with body:                                 # FeatureContext::iSendARequestToWithBody()
       """
       {
-        "videos": "/videos/1"
+        "tags": [
+            "string"
+        ]
       }
       """
     Then the response status code should be 400                                           # Behat\MinkExtension\Context\MinkContext::assertResponseStatus()
@@ -107,90 +63,2063 @@ Feature: Manage annotation
         "@context": "/contexts/ConstraintViolationList",
         "@type": "ConstraintViolationList",
         "hydra:title": "An error occurred",
-        "hydra:description": "begin: This value should not be blank.\nend: This value should not be blank.",
+        "hydra:description": "name: This value should not be blank.",
         "violations": [
           {
-            "propertyPath": "begin",
-            "message": "This value should not be blank."
-          },
-          {
-            "propertyPath": "end",
+            "propertyPath": "name",
             "message": "This value should not be blank."
           }
         ]
       }
       """
 
-  Scenario: Update an annotation                                                          # features/Annotation.feature:101
+  Scenario: See video on channel                                                          # features/Channel.feature:78
+    Given There are "Channel" "/channels/1" which have "Video" "/videos/1,/videos/2"      # FeatureContext::thereAreResourceWhichHaveResource()
+    When I add "Accept" header equal to "application/ld+json"                             # FeatureContext::iAddHeaderEqualTo()
+    And I send a "GET" request to "/channels/1"                                           # FeatureContext::iSendARequestTo()
+      │ ResourceHelper.php on line 30:
+      │ Doctrine\ORM\PersistentCollection {#6247
+      │   -snapshot: []
+      │   -owner: AppBundle\Entity\Channel {#6204
+      │     -id: 1
+      │     -name: "string"
+      │     -tags: array:1 [
+      │       0 => "string"
+      │     ]
+      │     -account: AppBundle\Entity\Account {#6223
+      │       -id: 2
+      │       -username: "string0"
+      │       -email: "string0@string.fr"
+      │       -firstName: "string"
+      │       -lastName: "string"
+      │       -channels: Doctrine\ORM\PersistentCollection {#6224
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Account {#6223}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "account"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3089 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6215
+      │           -elements: []
+      │         }
+      │         #initialized: false
+      │       }
+      │       -views: Doctrine\ORM\PersistentCollection {#6226
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Account {#6223}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "account"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2905 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6227
+      │           -elements: []
+      │         }
+      │         #initialized: false
+      │       }
+      │       -forums: Doctrine\ORM\PersistentCollection {#6228
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Account {#6223}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "createdBy"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3080 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6229
+      │           -elements: []
+      │         }
+      │         #initialized: false
+      │       }
+      │       -networks: Doctrine\ORM\PersistentCollection {#6230
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Account {#6223}
+      │         -association: array:16 [ …16]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "peoples"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2908 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6219
+      │           -elements: []
+      │         }
+      │         #initialized: false
+      │       }
+      │       -playlists: Doctrine\ORM\PersistentCollection {#6232
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Account {#6223}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "account"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#5034 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6233
+      │           -elements: []
+      │         }
+      │         #initialized: false
+      │       }
+      │       -replies: Doctrine\ORM\PersistentCollection {#6234
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Account {#6223}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "author"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3151 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6235
+      │           -elements: []
+      │         }
+      │         #initialized: false
+      │       }
+      │       -reviews: Doctrine\ORM\PersistentCollection {#6236
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Account {#6223}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "author"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3015 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6225
+      │           -elements: []
+      │         }
+      │         #initialized: false
+      │       }
+      │       -sustainabilityOffers: Doctrine\ORM\PersistentCollection {#6238
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Account {#6223}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "account"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2579 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6239
+      │           -elements: []
+      │         }
+      │         #initialized: false
+      │       }
+      │       -seeders: Doctrine\ORM\PersistentCollection {#6240
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Account {#6223}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "account"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2883 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6241
+      │           -elements: []
+      │         }
+      │         #initialized: false
+      │       }
+      │       -salt: "string"
+      │       -password: "string"
+      │     }
+      │     -videos: Doctrine\ORM\PersistentCollection {#6247}
+      │     -networks: Doctrine\ORM\PersistentCollection {#6249
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Channel {#6204}
+      │       -association: array:16 [ …16]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "channels"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2908 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6250
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │     -playlists: Doctrine\ORM\PersistentCollection {#6251
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Channel {#6204}
+      │       -association: array:15 [ …15]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "channel"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#5034 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6245
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │     -sustainabilityOffers: Doctrine\ORM\PersistentCollection {#6253
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Channel {#6204}
+      │       -association: array:15 [ …15]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "channel"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2579 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6254
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │   }
+      │   -association: array:15 [ …15]
+      │   -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │   -backRefFieldName: "channel"
+      │   -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2625 …}
+      │   -isDirty: false
+      │   #collection: Doctrine\Common\Collections\ArrayCollection {#6248
+      │     -elements: []
+      │   }
+      │   #initialized: false
+      │ }
+      │ ResourceHelper.php on line 41:
+      │ AppBundle\Entity\Channel {#6204
+      │   -id: 1
+      │   -name: "string"
+      │   -tags: array:1 [
+      │     0 => "string"
+      │   ]
+      │   -account: AppBundle\Entity\Account {#6223
+      │     -id: 2
+      │     -username: "string0"
+      │     -email: "string0@string.fr"
+      │     -firstName: "string"
+      │     -lastName: "string"
+      │     -channels: Doctrine\ORM\PersistentCollection {#6224
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Account {#6223}
+      │       -association: array:15 [ …15]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "account"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3089 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6215
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │     -views: Doctrine\ORM\PersistentCollection {#6226
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Account {#6223}
+      │       -association: array:15 [ …15]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "account"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2905 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6227
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │     -forums: Doctrine\ORM\PersistentCollection {#6228
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Account {#6223}
+      │       -association: array:15 [ …15]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "createdBy"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3080 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6229
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │     -networks: Doctrine\ORM\PersistentCollection {#6230
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Account {#6223}
+      │       -association: array:16 [ …16]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "peoples"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2908 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6219
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │     -playlists: Doctrine\ORM\PersistentCollection {#6232
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Account {#6223}
+      │       -association: array:15 [ …15]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "account"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#5034 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6233
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │     -replies: Doctrine\ORM\PersistentCollection {#6234
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Account {#6223}
+      │       -association: array:15 [ …15]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "author"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3151 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6235
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │     -reviews: Doctrine\ORM\PersistentCollection {#6236
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Account {#6223}
+      │       -association: array:15 [ …15]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "author"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3015 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6225
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │     -sustainabilityOffers: Doctrine\ORM\PersistentCollection {#6238
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Account {#6223}
+      │       -association: array:15 [ …15]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "account"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2579 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6239
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │     -seeders: Doctrine\ORM\PersistentCollection {#6240
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Account {#6223}
+      │       -association: array:15 [ …15]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "account"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2883 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6241
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │     -salt: "string"
+      │     -password: "string"
+      │   }
+      │   -videos: array:1 [
+      │     0 => AppBundle\Entity\Video {#6173
+      │       -id: 1
+      │       -title: "string"
+      │       -description: "string"
+      │       -uploadDate: DateTime {#6287
+      │         +"date": "2017-04-22 16:09:41.000000"
+      │         +"timezone_type": 3
+      │         +"timezone": "Europe/Berlin"
+      │       }
+      │       -numberView: 120
+      │       -annotations: Doctrine\ORM\PersistentCollection {#6282
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Video {#6173}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "video"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3192 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6278
+      │           -elements: []
+      │         }
+      │         #initialized: true
+      │       }
+      │       -channel: AppBundle\Entity\Channel {#6271
+      │         -id: 2
+      │         -name: "string0"
+      │         -tags: array:1 [
+      │           0 => "string"
+      │         ]
+      │         -account: AppBundle\Entity\Account {#6262
+      │           -id: 3
+      │           -username: "string1"
+      │           -email: "string1@string.fr"
+      │           -firstName: "string"
+      │           -lastName: "string"
+      │           -channels: Doctrine\ORM\PersistentCollection {#6298
+      │             -snapshot: []
+      │             -owner: AppBundle\Entity\Account {#6262}
+      │             -association: array:15 [ …15]
+      │             -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │             -backRefFieldName: "account"
+      │             -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3089 …}
+      │             -isDirty: false
+      │             #collection: Doctrine\Common\Collections\ArrayCollection {#6260
+      │               -elements: []
+      │             }
+      │             #initialized: true
+      │           }
+      │           -views: Doctrine\ORM\PersistentCollection {#6299
+      │             -snapshot: []
+      │             -owner: AppBundle\Entity\Account {#6262}
+      │             -association: array:15 [ …15]
+      │             -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │             -backRefFieldName: "account"
+      │             -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2905 …}
+      │             -isDirty: false
+      │             #collection: Doctrine\Common\Collections\ArrayCollection {#6263
+      │               -elements: []
+      │             }
+      │             #initialized: true
+      │           }
+      │           -forums: Doctrine\ORM\PersistentCollection {#6300
+      │             -snapshot: []
+      │             -owner: AppBundle\Entity\Account {#6262}
+      │             -association: array:15 [ …15]
+      │             -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │             -backRefFieldName: "createdBy"
+      │             -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3080 …}
+      │             -isDirty: false
+      │             #collection: Doctrine\Common\Collections\ArrayCollection {#6264
+      │               -elements: []
+      │             }
+      │             #initialized: true
+      │           }
+      │           -networks: Doctrine\ORM\PersistentCollection {#6301
+      │             -snapshot: []
+      │             -owner: AppBundle\Entity\Account {#6262}
+      │             -association: array:16 [ …16]
+      │             -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │             -backRefFieldName: "peoples"
+      │             -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2908 …}
+      │             -isDirty: false
+      │             #collection: Doctrine\Common\Collections\ArrayCollection {#6255
+      │               -elements: []
+      │             }
+      │             #initialized: true
+      │           }
+      │           -playlists: Doctrine\ORM\PersistentCollection {#6302
+      │             -snapshot: []
+      │             -owner: AppBundle\Entity\Account {#6262}
+      │             -association: array:15 [ …15]
+      │             -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │             -backRefFieldName: "account"
+      │             -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#5034 …}
+      │             -isDirty: false
+      │             #collection: Doctrine\Common\Collections\ArrayCollection {#6266
+      │               -elements: []
+      │             }
+      │             #initialized: true
+      │           }
+      │           -replies: Doctrine\ORM\PersistentCollection {#6303
+      │             -snapshot: []
+      │             -owner: AppBundle\Entity\Account {#6262}
+      │             -association: array:15 [ …15]
+      │             -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │             -backRefFieldName: "author"
+      │             -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3151 …}
+      │             -isDirty: false
+      │             #collection: Doctrine\Common\Collections\ArrayCollection {#6267
+      │               -elements: []
+      │             }
+      │             #initialized: true
+      │           }
+      │           -reviews: Doctrine\ORM\PersistentCollection {#6304
+      │             -snapshot: []
+      │             -owner: AppBundle\Entity\Account {#6262}
+      │             -association: array:15 [ …15]
+      │             -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │             -backRefFieldName: "author"
+      │             -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3015 …}
+      │             -isDirty: false
+      │             #collection: Doctrine\Common\Collections\ArrayCollection {#6268
+      │               -elements: []
+      │             }
+      │             #initialized: true
+      │           }
+      │           -sustainabilityOffers: Doctrine\ORM\PersistentCollection {#6305
+      │             -snapshot: []
+      │             -owner: AppBundle\Entity\Account {#6262}
+      │             -association: array:15 [ …15]
+      │             -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │             -backRefFieldName: "account"
+      │             -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2579 …}
+      │             -isDirty: false
+      │             #collection: Doctrine\Common\Collections\ArrayCollection {#6269
+      │               -elements: []
+      │             }
+      │             #initialized: true
+      │           }
+      │           -seeders: Doctrine\ORM\PersistentCollection {#6306
+      │             -snapshot: []
+      │             -owner: AppBundle\Entity\Account {#6262}
+      │             -association: array:15 [ …15]
+      │             -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │             -backRefFieldName: "account"
+      │             -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2883 …}
+      │             -isDirty: false
+      │             #collection: Doctrine\Common\Collections\ArrayCollection {#6270
+      │               -elements: []
+      │             }
+      │             #initialized: true
+      │           }
+      │           -salt: "string"
+      │           -password: "string"
+      │         }
+      │         -videos: Doctrine\ORM\PersistentCollection {#6294
+      │           -snapshot: []
+      │           -owner: AppBundle\Entity\Channel {#6271}
+      │           -association: array:15 [ …15]
+      │           -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │           -backRefFieldName: "channel"
+      │           -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2625 …}
+      │           -isDirty: false
+      │           #collection: Doctrine\Common\Collections\ArrayCollection {#6272
+      │             -elements: []
+      │           }
+      │           #initialized: true
+      │         }
+      │         -networks: Doctrine\ORM\PersistentCollection {#6295
+      │           -snapshot: []
+      │           -owner: AppBundle\Entity\Channel {#6271}
+      │           -association: array:16 [ …16]
+      │           -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │           -backRefFieldName: "channels"
+      │           -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2908 …}
+      │           -isDirty: false
+      │           #collection: Doctrine\Common\Collections\ArrayCollection {#6273
+      │             -elements: []
+      │           }
+      │           #initialized: true
+      │         }
+      │         -playlists: Doctrine\ORM\PersistentCollection {#6296
+      │           -snapshot: []
+      │           -owner: AppBundle\Entity\Channel {#6271}
+      │           -association: array:15 [ …15]
+      │           -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │           -backRefFieldName: "channel"
+      │           -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#5034 …}
+      │           -isDirty: false
+      │           #collection: Doctrine\Common\Collections\ArrayCollection {#6274
+      │             -elements: []
+      │           }
+      │           #initialized: true
+      │         }
+      │         -sustainabilityOffers: Doctrine\ORM\PersistentCollection {#6172
+      │           -snapshot: []
+      │           -owner: AppBundle\Entity\Channel {#6271}
+      │           -association: array:15 [ …15]
+      │           -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │           -backRefFieldName: "channel"
+      │           -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2579 …}
+      │           -isDirty: false
+      │           #collection: Doctrine\Common\Collections\ArrayCollection {#6275
+      │             -elements: []
+      │           }
+      │           #initialized: true
+      │         }
+      │       }
+      │       -comments: Doctrine\ORM\PersistentCollection {#6276
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Video {#6173}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "video"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#5119 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6280
+      │           -elements: []
+      │         }
+      │         #initialized: true
+      │       }
+      │       -forums: Doctrine\ORM\PersistentCollection {#6288
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Video {#6173}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "video"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3080 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6279
+      │           -elements: []
+      │         }
+      │         #initialized: true
+      │       }
+      │       -views: Doctrine\ORM\PersistentCollection {#6289
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Video {#6173}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "video"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2905 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6283
+      │           -elements: []
+      │         }
+      │         #initialized: true
+      │       }
+      │       -reviews: Doctrine\ORM\PersistentCollection {#6290
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Video {#6173}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "video"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3015 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6285
+      │           -elements: []
+      │         }
+      │         #initialized: true
+      │       }
+      │       -subtitles: Doctrine\ORM\PersistentCollection {#6291
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Video {#6173}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "video"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2601 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6284
+      │           -elements: []
+      │         }
+      │         #initialized: true
+      │       }
+      │       -categories: Doctrine\ORM\PersistentCollection {#6292
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Video {#6173}
+      │         -association: array:20 [ …20]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "videos"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3173 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6281
+      │           -elements: []
+      │         }
+      │         #initialized: true
+      │       }
+      │       -metadata: null
+      │       -seeders: Doctrine\ORM\PersistentCollection {#6293
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Video {#6173}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "video"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2883 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6169
+      │           -elements: []
+      │         }
+      │         #initialized: true
+      │       }
+      │       -hash: "et"
+      │       -magnet: "et"
+      │     }
+      │   ]
+      │   -networks: Doctrine\ORM\PersistentCollection {#6249
+      │     -snapshot: []
+      │     -owner: AppBundle\Entity\Channel {#6204}
+      │     -association: array:16 [ …16]
+      │     -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │     -backRefFieldName: "channels"
+      │     -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2908 …}
+      │     -isDirty: false
+      │     #collection: Doctrine\Common\Collections\ArrayCollection {#6250
+      │       -elements: []
+      │     }
+      │     #initialized: false
+      │   }
+      │   -playlists: Doctrine\ORM\PersistentCollection {#6251
+      │     -snapshot: []
+      │     -owner: AppBundle\Entity\Channel {#6204}
+      │     -association: array:15 [ …15]
+      │     -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │     -backRefFieldName: "channel"
+      │     -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#5034 …}
+      │     -isDirty: false
+      │     #collection: Doctrine\Common\Collections\ArrayCollection {#6245
+      │       -elements: []
+      │     }
+      │     #initialized: false
+      │   }
+      │   -sustainabilityOffers: Doctrine\ORM\PersistentCollection {#6253
+      │     -snapshot: []
+      │     -owner: AppBundle\Entity\Channel {#6204}
+      │     -association: array:15 [ …15]
+      │     -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │     -backRefFieldName: "channel"
+      │     -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2579 …}
+      │     -isDirty: false
+      │     #collection: Doctrine\Common\Collections\ArrayCollection {#6254
+      │       -elements: []
+      │     }
+      │     #initialized: false
+      │   }
+      │ }
+      │ ResourceHelper.php on line 30:
+      │ Doctrine\ORM\PersistentCollection {#9288
+      │   -snapshot: array:1 [ …1]
+      │   -owner: AppBundle\Entity\Channel {#6204
+      │     -id: 1
+      │     -name: "string"
+      │     -tags: array:1 [
+      │       0 => "string"
+      │     ]
+      │     -account: AppBundle\Entity\Account {#6223
+      │       -id: 2
+      │       -username: "string0"
+      │       -email: "string0@string.fr"
+      │       -firstName: "string"
+      │       -lastName: "string"
+      │       -channels: Doctrine\ORM\PersistentCollection {#6224
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Account {#6223}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "account"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3089 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6215
+      │           -elements: []
+      │         }
+      │         #initialized: false
+      │       }
+      │       -views: Doctrine\ORM\PersistentCollection {#6226
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Account {#6223}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "account"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2905 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6227
+      │           -elements: []
+      │         }
+      │         #initialized: false
+      │       }
+      │       -forums: Doctrine\ORM\PersistentCollection {#6228
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Account {#6223}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "createdBy"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3080 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6229
+      │           -elements: []
+      │         }
+      │         #initialized: false
+      │       }
+      │       -networks: Doctrine\ORM\PersistentCollection {#6230
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Account {#6223}
+      │         -association: array:16 [ …16]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "peoples"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2908 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6219
+      │           -elements: []
+      │         }
+      │         #initialized: false
+      │       }
+      │       -playlists: Doctrine\ORM\PersistentCollection {#6232
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Account {#6223}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "account"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#5034 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6233
+      │           -elements: []
+      │         }
+      │         #initialized: false
+      │       }
+      │       -replies: Doctrine\ORM\PersistentCollection {#6234
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Account {#6223}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "author"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3151 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6235
+      │           -elements: []
+      │         }
+      │         #initialized: false
+      │       }
+      │       -reviews: Doctrine\ORM\PersistentCollection {#6236
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Account {#6223}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "author"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3015 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6225
+      │           -elements: []
+      │         }
+      │         #initialized: false
+      │       }
+      │       -sustainabilityOffers: Doctrine\ORM\PersistentCollection {#6238
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Account {#6223}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "account"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2579 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6239
+      │           -elements: []
+      │         }
+      │         #initialized: false
+      │       }
+      │       -seeders: Doctrine\ORM\PersistentCollection {#6240
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Account {#6223}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "account"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2883 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6241
+      │           -elements: []
+      │         }
+      │         #initialized: false
+      │       }
+      │       -salt: "string"
+      │       -password: "string"
+      │     }
+      │     -videos: Doctrine\ORM\PersistentCollection {#9288}
+      │     -networks: Doctrine\ORM\PersistentCollection {#6249
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Channel {#6204}
+      │       -association: array:16 [ …16]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "channels"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2908 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6250
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │     -playlists: Doctrine\ORM\PersistentCollection {#6251
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Channel {#6204}
+      │       -association: array:15 [ …15]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "channel"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#5034 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6245
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │     -sustainabilityOffers: Doctrine\ORM\PersistentCollection {#6253
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Channel {#6204}
+      │       -association: array:15 [ …15]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "channel"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2579 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6254
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │   }
+      │   -association: array:15 [ …15]
+      │   -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │   -backRefFieldName: "channel"
+      │   -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2625 …}
+      │   -isDirty: false
+      │   #collection: Doctrine\Common\Collections\ArrayCollection {#9289
+      │     -elements: array:1 [
+      │       0 => AppBundle\Entity\Video {#6173
+      │         -id: 1
+      │         -title: "string"
+      │         -description: "string"
+      │         -uploadDate: DateTime {#6287
+      │           +"date": "2017-04-22 16:09:41.000000"
+      │           +"timezone_type": 3
+      │           +"timezone": "Europe/Berlin"
+      │         }
+      │         -numberView: 120
+      │         -annotations: Doctrine\ORM\PersistentCollection {#6282
+      │           -snapshot: []
+      │           -owner: AppBundle\Entity\Video {#6173}
+      │           -association: array:15 [ …15]
+      │           -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │           -backRefFieldName: "video"
+      │           -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3192 …}
+      │           -isDirty: false
+      │           #collection: Doctrine\Common\Collections\ArrayCollection {#6278
+      │             -elements: []
+      │           }
+      │           #initialized: true
+      │         }
+      │         -channel: AppBundle\Entity\Channel {#6271
+      │           -id: 2
+      │           -name: "string0"
+      │           -tags: array:1 [
+      │             0 => "string"
+      │           ]
+      │           -account: AppBundle\Entity\Account {#6262
+      │             -id: 3
+      │             -username: "string1"
+      │             -email: "string1@string.fr"
+      │             -firstName: "string"
+      │             -lastName: "string"
+      │             -channels: Doctrine\ORM\PersistentCollection {#6298
+      │               -snapshot: []
+      │               -owner: AppBundle\Entity\Account {#6262}
+      │               -association: array:15 [ …15]
+      │               -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │               -backRefFieldName: "account"
+      │               -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3089 …}
+      │               -isDirty: false
+      │               #collection: Doctrine\Common\Collections\ArrayCollection {#6260
+      │                 -elements: []
+      │               }
+      │               #initialized: true
+      │             }
+      │             -views: Doctrine\ORM\PersistentCollection {#6299
+      │               -snapshot: []
+      │               -owner: AppBundle\Entity\Account {#6262}
+      │               -association: array:15 [ …15]
+      │               -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │               -backRefFieldName: "account"
+      │               -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2905 …}
+      │               -isDirty: false
+      │               #collection: Doctrine\Common\Collections\ArrayCollection {#6263
+      │                 -elements: []
+      │               }
+      │               #initialized: true
+      │             }
+      │             -forums: Doctrine\ORM\PersistentCollection {#6300
+      │               -snapshot: []
+      │               -owner: AppBundle\Entity\Account {#6262}
+      │               -association: array:15 [ …15]
+      │               -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │               -backRefFieldName: "createdBy"
+      │               -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3080 …}
+      │               -isDirty: false
+      │               #collection: Doctrine\Common\Collections\ArrayCollection {#6264
+      │                 -elements: []
+      │               }
+      │               #initialized: true
+      │             }
+      │             -networks: Doctrine\ORM\PersistentCollection {#6301
+      │               -snapshot: []
+      │               -owner: AppBundle\Entity\Account {#6262}
+      │               -association: array:16 [ …16]
+      │               -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │               -backRefFieldName: "peoples"
+      │               -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2908 …}
+      │               -isDirty: false
+      │               #collection: Doctrine\Common\Collections\ArrayCollection {#6255
+      │                 -elements: []
+      │               }
+      │               #initialized: true
+      │             }
+      │             -playlists: Doctrine\ORM\PersistentCollection {#6302
+      │               -snapshot: []
+      │               -owner: AppBundle\Entity\Account {#6262}
+      │               -association: array:15 [ …15]
+      │               -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │               -backRefFieldName: "account"
+      │               -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#5034 …}
+      │               -isDirty: false
+      │               #collection: Doctrine\Common\Collections\ArrayCollection {#6266
+      │                 -elements: []
+      │               }
+      │               #initialized: true
+      │             }
+      │             -replies: Doctrine\ORM\PersistentCollection {#6303
+      │               -snapshot: []
+      │               -owner: AppBundle\Entity\Account {#6262}
+      │               -association: array:15 [ …15]
+      │               -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │               -backRefFieldName: "author"
+      │               -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3151 …}
+      │               -isDirty: false
+      │               #collection: Doctrine\Common\Collections\ArrayCollection {#6267
+      │                 -elements: []
+      │               }
+      │               #initialized: true
+      │             }
+      │             -reviews: Doctrine\ORM\PersistentCollection {#6304
+      │               -snapshot: []
+      │               -owner: AppBundle\Entity\Account {#6262}
+      │               -association: array:15 [ …15]
+      │               -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │               -backRefFieldName: "author"
+      │               -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3015 …}
+      │               -isDirty: false
+      │               #collection: Doctrine\Common\Collections\ArrayCollection {#6268
+      │                 -elements: []
+      │               }
+      │               #initialized: true
+      │             }
+      │             -sustainabilityOffers: Doctrine\ORM\PersistentCollection {#6305
+      │               -snapshot: []
+      │               -owner: AppBundle\Entity\Account {#6262}
+      │               -association: array:15 [ …15]
+      │               -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │               -backRefFieldName: "account"
+      │               -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2579 …}
+      │               -isDirty: false
+      │               #collection: Doctrine\Common\Collections\ArrayCollection {#6269
+      │                 -elements: []
+      │               }
+      │               #initialized: true
+      │             }
+      │             -seeders: Doctrine\ORM\PersistentCollection {#6306
+      │               -snapshot: []
+      │               -owner: AppBundle\Entity\Account {#6262}
+      │               -association: array:15 [ …15]
+      │               -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │               -backRefFieldName: "account"
+      │               -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2883 …}
+      │               -isDirty: false
+      │               #collection: Doctrine\Common\Collections\ArrayCollection {#6270
+      │                 -elements: []
+      │               }
+      │               #initialized: true
+      │             }
+      │             -salt: "string"
+      │             -password: "string"
+      │           }
+      │           -videos: Doctrine\ORM\PersistentCollection {#6294
+      │             -snapshot: []
+      │             -owner: AppBundle\Entity\Channel {#6271}
+      │             -association: array:15 [ …15]
+      │             -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │             -backRefFieldName: "channel"
+      │             -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2625 …}
+      │             -isDirty: false
+      │             #collection: Doctrine\Common\Collections\ArrayCollection {#6272
+      │               -elements: []
+      │             }
+      │             #initialized: true
+      │           }
+      │           -networks: Doctrine\ORM\PersistentCollection {#6295
+      │             -snapshot: []
+      │             -owner: AppBundle\Entity\Channel {#6271}
+      │             -association: array:16 [ …16]
+      │             -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │             -backRefFieldName: "channels"
+      │             -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2908 …}
+      │             -isDirty: false
+      │             #collection: Doctrine\Common\Collections\ArrayCollection {#6273
+      │               -elements: []
+      │             }
+      │             #initialized: true
+      │           }
+      │           -playlists: Doctrine\ORM\PersistentCollection {#6296
+      │             -snapshot: []
+      │             -owner: AppBundle\Entity\Channel {#6271}
+      │             -association: array:15 [ …15]
+      │             -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │             -backRefFieldName: "channel"
+      │             -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#5034 …}
+      │             -isDirty: false
+      │             #collection: Doctrine\Common\Collections\ArrayCollection {#6274
+      │               -elements: []
+      │             }
+      │             #initialized: true
+      │           }
+      │           -sustainabilityOffers: Doctrine\ORM\PersistentCollection {#6172
+      │             -snapshot: []
+      │             -owner: AppBundle\Entity\Channel {#6271}
+      │             -association: array:15 [ …15]
+      │             -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │             -backRefFieldName: "channel"
+      │             -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2579 …}
+      │             -isDirty: false
+      │             #collection: Doctrine\Common\Collections\ArrayCollection {#6275
+      │               -elements: []
+      │             }
+      │             #initialized: true
+      │           }
+      │         }
+      │         -comments: Doctrine\ORM\PersistentCollection {#6276
+      │           -snapshot: []
+      │           -owner: AppBundle\Entity\Video {#6173}
+      │           -association: array:15 [ …15]
+      │           -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │           -backRefFieldName: "video"
+      │           -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#5119 …}
+      │           -isDirty: false
+      │           #collection: Doctrine\Common\Collections\ArrayCollection {#6280
+      │             -elements: []
+      │           }
+      │           #initialized: true
+      │         }
+      │         -forums: Doctrine\ORM\PersistentCollection {#6288
+      │           -snapshot: []
+      │           -owner: AppBundle\Entity\Video {#6173}
+      │           -association: array:15 [ …15]
+      │           -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │           -backRefFieldName: "video"
+      │           -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3080 …}
+      │           -isDirty: false
+      │           #collection: Doctrine\Common\Collections\ArrayCollection {#6279
+      │             -elements: []
+      │           }
+      │           #initialized: true
+      │         }
+      │         -views: Doctrine\ORM\PersistentCollection {#6289
+      │           -snapshot: []
+      │           -owner: AppBundle\Entity\Video {#6173}
+      │           -association: array:15 [ …15]
+      │           -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │           -backRefFieldName: "video"
+      │           -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2905 …}
+      │           -isDirty: false
+      │           #collection: Doctrine\Common\Collections\ArrayCollection {#6283
+      │             -elements: []
+      │           }
+      │           #initialized: true
+      │         }
+      │         -reviews: Doctrine\ORM\PersistentCollection {#6290
+      │           -snapshot: []
+      │           -owner: AppBundle\Entity\Video {#6173}
+      │           -association: array:15 [ …15]
+      │           -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │           -backRefFieldName: "video"
+      │           -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3015 …}
+      │           -isDirty: false
+      │           #collection: Doctrine\Common\Collections\ArrayCollection {#6285
+      │             -elements: []
+      │           }
+      │           #initialized: true
+      │         }
+      │         -subtitles: Doctrine\ORM\PersistentCollection {#6291
+      │           -snapshot: []
+      │           -owner: AppBundle\Entity\Video {#6173}
+      │           -association: array:15 [ …15]
+      │           -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │           -backRefFieldName: "video"
+      │           -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2601 …}
+      │           -isDirty: false
+      │           #collection: Doctrine\Common\Collections\ArrayCollection {#6284
+      │             -elements: []
+      │           }
+      │           #initialized: true
+      │         }
+      │         -categories: Doctrine\ORM\PersistentCollection {#6292
+      │           -snapshot: []
+      │           -owner: AppBundle\Entity\Video {#6173}
+      │           -association: array:20 [ …20]
+      │           -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │           -backRefFieldName: "videos"
+      │           -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3173 …}
+      │           -isDirty: false
+      │           #collection: Doctrine\Common\Collections\ArrayCollection {#6281
+      │             -elements: []
+      │           }
+      │           #initialized: true
+      │         }
+      │         -metadata: null
+      │         -seeders: Doctrine\ORM\PersistentCollection {#6293
+      │           -snapshot: []
+      │           -owner: AppBundle\Entity\Video {#6173}
+      │           -association: array:15 [ …15]
+      │           -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │           -backRefFieldName: "video"
+      │           -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2883 …}
+      │           -isDirty: false
+      │           #collection: Doctrine\Common\Collections\ArrayCollection {#6169
+      │             -elements: []
+      │           }
+      │           #initialized: true
+      │         }
+      │         -hash: "et"
+      │         -magnet: "et"
+      │       }
+      │     ]
+      │   }
+      │   #initialized: true
+      │ }
+      │ ResourceHelper.php on line 41:
+      │ AppBundle\Entity\Channel {#6204
+      │   -id: 1
+      │   -name: "string"
+      │   -tags: array:1 [
+      │     0 => "string"
+      │   ]
+      │   -account: AppBundle\Entity\Account {#6223
+      │     -id: 2
+      │     -username: "string0"
+      │     -email: "string0@string.fr"
+      │     -firstName: "string"
+      │     -lastName: "string"
+      │     -channels: Doctrine\ORM\PersistentCollection {#6224
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Account {#6223}
+      │       -association: array:15 [ …15]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "account"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3089 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6215
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │     -views: Doctrine\ORM\PersistentCollection {#6226
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Account {#6223}
+      │       -association: array:15 [ …15]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "account"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2905 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6227
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │     -forums: Doctrine\ORM\PersistentCollection {#6228
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Account {#6223}
+      │       -association: array:15 [ …15]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "createdBy"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3080 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6229
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │     -networks: Doctrine\ORM\PersistentCollection {#6230
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Account {#6223}
+      │       -association: array:16 [ …16]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "peoples"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2908 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6219
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │     -playlists: Doctrine\ORM\PersistentCollection {#6232
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Account {#6223}
+      │       -association: array:15 [ …15]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "account"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#5034 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6233
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │     -replies: Doctrine\ORM\PersistentCollection {#6234
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Account {#6223}
+      │       -association: array:15 [ …15]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "author"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3151 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6235
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │     -reviews: Doctrine\ORM\PersistentCollection {#6236
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Account {#6223}
+      │       -association: array:15 [ …15]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "author"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3015 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6225
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │     -sustainabilityOffers: Doctrine\ORM\PersistentCollection {#6238
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Account {#6223}
+      │       -association: array:15 [ …15]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "account"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2579 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6239
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │     -seeders: Doctrine\ORM\PersistentCollection {#6240
+      │       -snapshot: []
+      │       -owner: AppBundle\Entity\Account {#6223}
+      │       -association: array:15 [ …15]
+      │       -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │       -backRefFieldName: "account"
+      │       -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2883 …}
+      │       -isDirty: false
+      │       #collection: Doctrine\Common\Collections\ArrayCollection {#6241
+      │         -elements: []
+      │       }
+      │       #initialized: false
+      │     }
+      │     -salt: "string"
+      │     -password: "string"
+      │   }
+      │   -videos: array:1 [
+      │     0 => AppBundle\Entity\Video {#6341
+      │       -id: 2
+      │       -title: "string"
+      │       -description: "string"
+      │       -uploadDate: DateTime {#6353
+      │         +"date": "2017-04-22 16:09:41.000000"
+      │         +"timezone_type": 3
+      │         +"timezone": "Europe/Berlin"
+      │       }
+      │       -numberView: 120
+      │       -annotations: Doctrine\ORM\PersistentCollection {#6343
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Video {#6341}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "video"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3192 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6342
+      │           -elements: []
+      │         }
+      │         #initialized: true
+      │       }
+      │       -channel: AppBundle\Entity\Channel {#6330
+      │         -id: 3
+      │         -name: "string1"
+      │         -tags: array:1 [
+      │           0 => "string"
+      │         ]
+      │         -account: AppBundle\Entity\Account {#6175
+      │           -id: 4
+      │           -username: "string2"
+      │           -email: "string2@string.fr"
+      │           -firstName: "string"
+      │           -lastName: "string"
+      │           -channels: Doctrine\ORM\PersistentCollection {#6355
+      │             -snapshot: []
+      │             -owner: AppBundle\Entity\Account {#6175}
+      │             -association: array:15 [ …15]
+      │             -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │             -backRefFieldName: "account"
+      │             -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3089 …}
+      │             -isDirty: false
+      │             #collection: Doctrine\Common\Collections\ArrayCollection {#6166
+      │               -elements: []
+      │             }
+      │             #initialized: true
+      │           }
+      │           -views: Doctrine\ORM\PersistentCollection {#6357
+      │             -snapshot: []
+      │             -owner: AppBundle\Entity\Account {#6175}
+      │             -association: array:15 [ …15]
+      │             -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │             -backRefFieldName: "account"
+      │             -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2905 …}
+      │             -isDirty: false
+      │             #collection: Doctrine\Common\Collections\ArrayCollection {#6322
+      │               -elements: []
+      │             }
+      │             #initialized: true
+      │           }
+      │           -forums: Doctrine\ORM\PersistentCollection {#6358
+      │             -snapshot: []
+      │             -owner: AppBundle\Entity\Account {#6175}
+      │             -association: array:15 [ …15]
+      │             -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │             -backRefFieldName: "createdBy"
+      │             -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3080 …}
+      │             -isDirty: false
+      │             #collection: Doctrine\Common\Collections\ArrayCollection {#6323
+      │               -elements: []
+      │             }
+      │             #initialized: true
+      │           }
+      │           -networks: Doctrine\ORM\PersistentCollection {#6356
+      │             -snapshot: []
+      │             -owner: AppBundle\Entity\Account {#6175}
+      │             -association: array:16 [ …16]
+      │             -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │             -backRefFieldName: "peoples"
+      │             -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2908 …}
+      │             -isDirty: false
+      │             #collection: Doctrine\Common\Collections\ArrayCollection {#6324
+      │               -elements: []
+      │             }
+      │             #initialized: true
+      │           }
+      │           -playlists: Doctrine\ORM\PersistentCollection {#6359
+      │             -snapshot: []
+      │             -owner: AppBundle\Entity\Account {#6175}
+      │             -association: array:15 [ …15]
+      │             -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │             -backRefFieldName: "account"
+      │             -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#5034 …}
+      │             -isDirty: false
+      │             #collection: Doctrine\Common\Collections\ArrayCollection {#6325
+      │               -elements: []
+      │             }
+      │             #initialized: true
+      │           }
+      │           -replies: Doctrine\ORM\PersistentCollection {#6360
+      │             -snapshot: []
+      │             -owner: AppBundle\Entity\Account {#6175}
+      │             -association: array:15 [ …15]
+      │             -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │             -backRefFieldName: "author"
+      │             -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3151 …}
+      │             -isDirty: false
+      │             #collection: Doctrine\Common\Collections\ArrayCollection {#6316
+      │               -elements: []
+      │             }
+      │             #initialized: true
+      │           }
+      │           -reviews: Doctrine\ORM\PersistentCollection {#6361
+      │             -snapshot: []
+      │             -owner: AppBundle\Entity\Account {#6175}
+      │             -association: array:15 [ …15]
+      │             -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │             -backRefFieldName: "author"
+      │             -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3015 …}
+      │             -isDirty: false
+      │             #collection: Doctrine\Common\Collections\ArrayCollection {#6327
+      │               -elements: []
+      │             }
+      │             #initialized: true
+      │           }
+      │           -sustainabilityOffers: Doctrine\ORM\PersistentCollection {#6362
+      │             -snapshot: []
+      │             -owner: AppBundle\Entity\Account {#6175}
+      │             -association: array:15 [ …15]
+      │             -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │             -backRefFieldName: "account"
+      │             -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2579 …}
+      │             -isDirty: false
+      │             #collection: Doctrine\Common\Collections\ArrayCollection {#6328
+      │               -elements: []
+      │             }
+      │             #initialized: true
+      │           }
+      │           -seeders: Doctrine\ORM\PersistentCollection {#6363
+      │             -snapshot: []
+      │             -owner: AppBundle\Entity\Account {#6175}
+      │             -association: array:15 [ …15]
+      │             -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │             -backRefFieldName: "account"
+      │             -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2883 …}
+      │             -isDirty: false
+      │             #collection: Doctrine\Common\Collections\ArrayCollection {#6329
+      │               -elements: []
+      │             }
+      │             #initialized: true
+      │           }
+      │           -salt: "string"
+      │           -password: "string"
+      │         }
+      │         -videos: Doctrine\ORM\PersistentCollection {#6140
+      │           -snapshot: []
+      │           -owner: AppBundle\Entity\Channel {#6330}
+      │           -association: array:15 [ …15]
+      │           -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │           -backRefFieldName: "channel"
+      │           -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2625 …}
+      │           -isDirty: false
+      │           #collection: Doctrine\Common\Collections\ArrayCollection {#6331
+      │             -elements: []
+      │           }
+      │           #initialized: true
+      │         }
+      │         -networks: Doctrine\ORM\PersistentCollection {#6147
+      │           -snapshot: []
+      │           -owner: AppBundle\Entity\Channel {#6330}
+      │           -association: array:16 [ …16]
+      │           -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │           -backRefFieldName: "channels"
+      │           -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2908 …}
+      │           -isDirty: false
+      │           #collection: Doctrine\Common\Collections\ArrayCollection {#6332
+      │             -elements: []
+      │           }
+      │           #initialized: true
+      │         }
+      │         -playlists: Doctrine\ORM\PersistentCollection {#6152
+      │           -snapshot: []
+      │           -owner: AppBundle\Entity\Channel {#6330}
+      │           -association: array:15 [ …15]
+      │           -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │           -backRefFieldName: "channel"
+      │           -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#5034 …}
+      │           -isDirty: false
+      │           #collection: Doctrine\Common\Collections\ArrayCollection {#6333
+      │             -elements: []
+      │           }
+      │           #initialized: true
+      │         }
+      │         -sustainabilityOffers: Doctrine\ORM\PersistentCollection {#6339
+      │           -snapshot: []
+      │           -owner: AppBundle\Entity\Channel {#6330}
+      │           -association: array:15 [ …15]
+      │           -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │           -backRefFieldName: "channel"
+      │           -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2579 …}
+      │           -isDirty: false
+      │           #collection: Doctrine\Common\Collections\ArrayCollection {#6321
+      │             -elements: []
+      │           }
+      │           #initialized: true
+      │         }
+      │       }
+      │       -comments: Doctrine\ORM\PersistentCollection {#6340
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Video {#6341}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "video"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#5119 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6345
+      │           -elements: []
+      │         }
+      │         #initialized: true
+      │       }
+      │       -forums: Doctrine\ORM\PersistentCollection {#6134
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Video {#6341}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "video"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3080 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6346
+      │           -elements: []
+      │         }
+      │         #initialized: true
+      │       }
+      │       -views: Doctrine\ORM\PersistentCollection {#6135
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Video {#6341}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "video"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2905 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6347
+      │           -elements: []
+      │         }
+      │         #initialized: true
+      │       }
+      │       -reviews: Doctrine\ORM\PersistentCollection {#6136
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Video {#6341}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "video"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3015 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6133
+      │           -elements: []
+      │         }
+      │         #initialized: true
+      │       }
+      │       -subtitles: Doctrine\ORM\PersistentCollection {#6137
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Video {#6341}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "video"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2601 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6350
+      │           -elements: []
+      │         }
+      │         #initialized: true
+      │       }
+      │       -categories: Doctrine\ORM\PersistentCollection {#6138
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Video {#6341}
+      │         -association: array:20 [ …20]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "videos"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#3173 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6344
+      │           -elements: []
+      │         }
+      │         #initialized: true
+      │       }
+      │       -metadata: null
+      │       -seeders: Doctrine\ORM\PersistentCollection {#6139
+      │         -snapshot: []
+      │         -owner: AppBundle\Entity\Video {#6341}
+      │         -association: array:15 [ …15]
+      │         -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │         -backRefFieldName: "video"
+      │         -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2883 …}
+      │         -isDirty: false
+      │         #collection: Doctrine\Common\Collections\ArrayCollection {#6352
+      │           -elements: []
+      │         }
+      │         #initialized: true
+      │       }
+      │       -hash: "et"
+      │       -magnet: "et"
+      │     }
+      │   ]
+      │   -networks: Doctrine\ORM\PersistentCollection {#6249
+      │     -snapshot: []
+      │     -owner: AppBundle\Entity\Channel {#6204}
+      │     -association: array:16 [ …16]
+      │     -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │     -backRefFieldName: "channels"
+      │     -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2908 …}
+      │     -isDirty: false
+      │     #collection: Doctrine\Common\Collections\ArrayCollection {#6250
+      │       -elements: []
+      │     }
+      │     #initialized: false
+      │   }
+      │   -playlists: Doctrine\ORM\PersistentCollection {#6251
+      │     -snapshot: []
+      │     -owner: AppBundle\Entity\Channel {#6204}
+      │     -association: array:15 [ …15]
+      │     -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │     -backRefFieldName: "channel"
+      │     -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#5034 …}
+      │     -isDirty: false
+      │     #collection: Doctrine\Common\Collections\ArrayCollection {#6245
+      │       -elements: []
+      │     }
+      │     #initialized: false
+      │   }
+      │   -sustainabilityOffers: Doctrine\ORM\PersistentCollection {#6253
+      │     -snapshot: []
+      │     -owner: AppBundle\Entity\Channel {#6204}
+      │     -association: array:15 [ …15]
+      │     -em: Doctrine\ORM\EntityManager {#2703 …11}
+      │     -backRefFieldName: "channel"
+      │     -typeClass: Doctrine\ORM\Mapping\ClassMetadata {#2579 …}
+      │     -isDirty: false
+      │     #collection: Doctrine\Common\Collections\ArrayCollection {#6254
+      │       -elements: []
+      │     }
+      │     #initialized: false
+      │   }
+      │ }
+      │ 
+    Then the response status code should be 200                                           # Behat\MinkExtension\Context\MinkContext::assertResponseStatus()
+    And the response should be in JSON                                                    # Behatch\Context\JsonContext::theResponseShouldBeInJson()
+    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8" # FeatureContext::theHeaderShouldBeEqualTo()
+    And the JSON should be equal to:                                                      # Behatch\Context\JsonContext::theJsonShouldBeEqualTo()
+      """
+      {
+        "@context": "/contexts/Channel",
+        "@id": "/channels/1",
+        "@type": "Channel",
+        "account": "/accounts/1",
+        "id": 1,
+        "name": "string",
+        "tags": [
+          "string"
+        ],
+        "videos": [
+            "/videos/1"
+        ],
+        "networks": [],
+        "playlists": [],
+        "sustainabilityOffers": []
+      }
+      """
+      The json is equal to:
+      {
+          "@context": "\/contexts\/Channel",
+          "@id": "\/channels\/1",
+          "@type": "Channel",
+          "account": "\/accounts\/2",
+          "id": 1,
+          "name": "string",
+          "tags": [
+              "string"
+          ],
+          "videos": [],
+          "networks": [],
+          "playlists": [],
+          "sustainabilityOffers": []
+      } (Behat\Mink\Exception\ExpectationException)
+
+  Scenario: See networks on channel                                                       # features/Channel.feature:106
+    Given There are "Network" "/networks/1,networks/2" which have "Channel" "/channels/1" # FeatureContext::thereAreResourceWhichHaveResource()
+      Notice: Undefined offset: 2 in features/bootstrap/FeatureContext.php line 159
+    When I add "Accept" header equal to "application/ld+json"                             # FeatureContext::iAddHeaderEqualTo()
+    And I send a "GET" request to "/channels/1"                                           # FeatureContext::iSendARequestTo()
+    Then the response status code should be 200                                           # Behat\MinkExtension\Context\MinkContext::assertResponseStatus()
+    And the response should be in JSON                                                    # Behatch\Context\JsonContext::theResponseShouldBeInJson()
+    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8" # FeatureContext::theHeaderShouldBeEqualTo()
+    And the JSON should be equal to:                                                      # Behatch\Context\JsonContext::theJsonShouldBeEqualTo()
+      """
+      {
+        "@context": "/contexts/Channel",
+        "@id": "/channels/1",
+        "@type": "Channel",
+        "account": "/accounts/1",
+        "id": 1,
+        "name": "string",
+        "tags": [
+          "string"
+        ],
+        "videos": [
+            "/videos/1"
+        ],
+        "networks": [
+            "/networks/1",
+            "/networks/2"
+        ],
+        "playlists": [],
+        "sustainabilityOffers": []
+      }
+      """
+
+  Scenario: See sustainability offer on channel                                                                                    # features/Channel.feature:137
+    Given There are "sustainabilityOffers" "/sustainability_offers/1,/sustainability_offers/2" which have "channels" "/channels/1" # FeatureContext::thereAreResourceWhichHaveResource()
+      Class 'AppBundle\Entity\sustainabilityOffers' does not exist (Doctrine\Common\Persistence\Mapping\MappingException)
+    When I add "Accept" header equal to "application/ld+json"                                                                      # FeatureContext::iAddHeaderEqualTo()
+    And I send a "GET" request to "/channels/1"                                                                                    # FeatureContext::iSendARequestTo()
+    Then the response status code should be 200                                                                                    # Behat\MinkExtension\Context\MinkContext::assertResponseStatus()
+    And the response should be in JSON                                                                                             # Behatch\Context\JsonContext::theResponseShouldBeInJson()
+    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"                                          # FeatureContext::theHeaderShouldBeEqualTo()
+    And the JSON should be equal to:                                                                                               # Behatch\Context\JsonContext::theJsonShouldBeEqualTo()
+      """
+      {
+        "@context": "/contexts/Channel",
+        "@id": "/channels/1",
+        "@type": "Channel",
+        "account": "/accounts/1",
+        "id": 1,
+        "name": "string",
+        "tags": [
+          "string"
+        ],
+        "videos": [
+            "/videos/1"
+        ],
+        "networks": [
+            "/networks/1"
+        ],
+        "playlists": [],
+        "sustainabilityOffers": [
+            "/sustainability_offers/1",
+            "/sustainability_offers/2",
+        ]
+      }
+      """
+
+  Scenario: Retrieve the channels list                                                    # features/Channel.feature:170
+    When I add "Accept" header equal to "application/ld+json"                             # FeatureContext::iAddHeaderEqualTo()
+    And I send a "GET" request to "/channels"                                             # FeatureContext::iSendARequestTo()
+    Then the response status code should be 200                                           # Behat\MinkExtension\Context\MinkContext::assertResponseStatus()
+    And the response should be in JSON                                                    # Behatch\Context\JsonContext::theResponseShouldBeInJson()
+    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8" # FeatureContext::theHeaderShouldBeEqualTo()
+    And the JSON should be equal to:                                                      # Behatch\Context\JsonContext::theJsonShouldBeEqualTo()
+      """
+      {
+            "@context": "/contexts/Channel",
+            "@id": "/channels",
+            "@type": "hydra:Collection",
+            "hydra:member": [
+                {
+                    "@id": "/channels/1",
+                    "@type": "Channel",
+                    "account": "/accounts/1",
+                    "id": 1,
+                    "name": "string",
+                    "tags": [
+                        "string"
+                    ],
+                    "videos": [
+                        "/videos/1"
+                    ],
+                    "networks": [
+                        "/networks/1"
+                    ],
+                    "playlists": [],
+                    "sustainabilityOffers": [
+                        "/sustainability_offers/1"
+                    ]
+                }
+            ],
+            "hydra:totalItems": 1,
+            "hydra:search": {
+                "@type": "hydra:IriTemplate",
+                "hydra:template": "/channels{?id,id[],name,account,account[]}",
+                "hydra:variableRepresentation": "BasicRepresentation",
+                "hydra:mapping": [
+                    {
+                        "@type": "IriTemplateMapping",
+                        "variable": "id",
+                        "property": "id",
+                        "required": false
+                    },
+                    {
+                        "@type": "IriTemplateMapping",
+                        "variable": "id[]",
+                        "property": "id",
+                        "required": false
+                    },
+                    {
+                        "@type": "IriTemplateMapping",
+                        "variable": "name",
+                        "property": "name",
+                        "required": false
+                    },
+                    {
+                        "@type": "IriTemplateMapping",
+                        "variable": "account",
+                        "property": "account",
+                        "required": false
+                    },
+                    {
+                        "@type": "IriTemplateMapping",
+                        "variable": "account[]",
+                        "property": "account",
+                        "required": false
+                    }
+                ]
+            }
+        }
+      """
+      The json is equal to:
+      {
+          "@context": "\/contexts\/Channel",
+          "@id": "\/channels",
+          "@type": "hydra:Collection",
+          "hydra:member": [
+              {
+                  "@id": "\/channels\/1",
+                  "@type": "Channel",
+                  "account": "\/accounts\/2",
+                  "id": 1,
+                  "name": "string",
+                  "tags": [
+                      "string"
+                  ],
+                  "videos": [],
+                  "networks": [],
+                  "playlists": [],
+                  "sustainabilityOffers": []
+              },
+              {
+                  "@id": "\/channels\/2",
+                  "@type": "Channel",
+                  "account": "\/accounts\/3",
+                  "id": 2,
+                  "name": "string0",
+                  "tags": [
+                      "string"
+                  ],
+                  "videos": [
+                      "\/videos\/1"
+                  ],
+                  "networks": [],
+                  "playlists": [],
+                  "sustainabilityOffers": []
+              },
+              {
+                  "@id": "\/channels\/3",
+                  "@type": "Channel",
+                  "account": "\/accounts\/4",
+                  "id": 3,
+                  "name": "string1",
+                  "tags": [
+                      "string"
+                  ],
+                  "videos": [
+                      "\/videos\/2"
+                  ],
+                  "networks": [],
+                  "playlists": [],
+                  "sustainabilityOffers": []
+              }
+          ],
+          "hydra:totalItems": 3,
+          "hydra:search": {
+              "@type": "hydra:IriTemplate",
+              "hydra:template": "\/channels{?id,id[],name,account,account[]}",
+              "hydra:variableRepresentation": "BasicRepresentation",
+              "hydra:mapping": [
+                  {
+                      "@type": "IriTemplateMapping",
+                      "variable": "id",
+                      "property": "id",
+                      "required": false
+                  },
+                  {
+                      "@type": "IriTemplateMapping",
+                      "variable": "id[]",
+                      "property": "id",
+                      "required": false
+                  },
+                  {
+                      "@type": "IriTemplateMapping",
+                      "variable": "name",
+                      "property": "name",
+                      "required": false
+                  },
+                  {
+                      "@type": "IriTemplateMapping",
+                      "variable": "account",
+                      "property": "account",
+                      "required": false
+                  },
+                  {
+                      "@type": "IriTemplateMapping",
+                      "variable": "account[]",
+                      "property": "account",
+                      "required": false
+                  }
+              ]
+          }
+      } (Behat\Mink\Exception\ExpectationException)
+
+  Scenario: Update a channel                                                              # features/Channel.feature:245
     When I add "Content-Type" header equal to "application/ld+json"                       # FeatureContext::iAddHeaderEqualTo()
     And I add "Accept" header equal to "application/ld+json"                              # FeatureContext::iAddHeaderEqualTo()
-    And I send a "PUT" request to "/annotations/1" with body:                             # FeatureContext::iSendARequestToWithBody()
+    And I send a "PUT" request to "/channels/1" with body:                                # FeatureContext::iSendARequestToWithBody()
       """
       {
-        "annotationText": "stringUpdated"
+        "name": "stringUpdated"
       }
       """
     Then the response status code should be 200                                           # Behat\MinkExtension\Context\MinkContext::assertResponseStatus()
-      Current response status code is 404, but 200 expected. (Behat\Mink\Exception\ExpectationException)
     And the response should be in JSON                                                    # Behatch\Context\JsonContext::theResponseShouldBeInJson()
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8" # FeatureContext::theHeaderShouldBeEqualTo()
     And the JSON should be equal to:                                                      # Behatch\Context\JsonContext::theJsonShouldBeEqualTo()
       """
       {
-        "@context": "/contexts/Annotation",
-        "@id": "/annotations/1",
-        "@type": "Annotation",
+        "@context": "/contexts/Channel",
+        "@id": "/channels/1",
+        "@type": "Channel",
+        "account": "/accounts/1",
         "id": 1,
-        "begin": "2017-02-01T21:22:44+01:00",
-        "end": "2017-02-01T21:22:44+01:00",
-        "annotationText": "stringUpdated",
-        "video": "/videos/1"
+        "name": "stringUpdated",
+        "tags": [
+          "string"
+        ],
+        "videos": [
+            "/videos/1"
+        ],
+        "networks": [
+            "/networks/1"
+        ],
+        "playlists": [],
+        "sustainabilityOffers": [
+            "/sustainability_offers/1"
+        ]
       }
       """
+      The json is equal to:
+      {
+          "@context": "\/contexts\/Channel",
+          "@id": "\/channels\/1",
+          "@type": "Channel",
+          "account": "\/accounts\/2",
+          "id": 1,
+          "name": "stringUpdated",
+          "tags": [
+              "string"
+          ],
+          "videos": [],
+          "networks": [],
+          "playlists": [],
+          "sustainabilityOffers": []
+      } (Behat\Mink\Exception\ExpectationException)
 
-  Scenario: Get a specific annotation                                                     # features/Annotation.feature:127
-    When I add "Accept" header equal to "application/ld+json"                             # FeatureContext::iAddHeaderEqualTo()
-    And I send a "GET" request to "/annotations/1"                                        # FeatureContext::iSendARequestTo()
-    Then the response status code should be 200                                           # Behat\MinkExtension\Context\MinkContext::assertResponseStatus()
-      Current response status code is 404, but 200 expected. (Behat\Mink\Exception\ExpectationException)
+  Scenario: Create playlist in channel                                                    # features/Channel.feature:282
+    When I add "Content-Type" header equal to "application/ld+json"                       # FeatureContext::iAddHeaderEqualTo()
+    And I add "Accept" header equal to "application/ld+json"                              # FeatureContext::iAddHeaderEqualTo()
+    And I send a "POST" request to "/playlists" with body:                                # FeatureContext::iSendARequestToWithBody()
+      """
+      {
+        "name": "string",
+        "channel": "/channels/1"
+      }
+      """
+    Then the response status code should be 201                                           # Behat\MinkExtension\Context\MinkContext::assertResponseStatus()
     And the response should be in JSON                                                    # Behatch\Context\JsonContext::theResponseShouldBeInJson()
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8" # FeatureContext::theHeaderShouldBeEqualTo()
     And the JSON should be equal to:                                                      # Behatch\Context\JsonContext::theJsonShouldBeEqualTo()
       """
       {
-        "@context": "/contexts/Annotation",
-        "@id": "/annotations/1",
-        "@type": "Annotation",
+        "@context": "/contexts/Playlist",
+        "@id": "/playlists/1",
+        "@type": "Playlist",
         "id": 1,
-        "begin": "2017-02-01T21:22:44+01:00",
-        "end": "2017-02-01T21:22:44+01:00",
-        "annotationText": "stringUpdated",
-        "video": "/videos/1"
+        "name": "string",
+        "channel": "/channels/1",
+        "network": null,
+        "account": null
       }
       """
 
-  Scenario: Delete an annotation                                    # features/Annotation.feature:147
+  Scenario: See playlist in channel                                                          # features/Channel.feature:309
+    Given There are "Playlist" "/playlists/1,/playlist/2" which have "Channel" "/channels/1" # FeatureContext::thereAreResourceWhichHaveResource()
+      Notice: Undefined index: Playlist in features/bootstrap/FeatureContext.php line 181
+    When I add "Accept" header equal to "application/ld+json"                                # FeatureContext::iAddHeaderEqualTo()
+    And I send a "GET" request to "/channels/1"                                              # FeatureContext::iSendARequestTo()
+    Then the response status code should be 200                                              # Behat\MinkExtension\Context\MinkContext::assertResponseStatus()
+    And the response should be in JSON                                                       # Behatch\Context\JsonContext::theResponseShouldBeInJson()
+    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"    # FeatureContext::theHeaderShouldBeEqualTo()
+    And the JSON should be equal to:                                                         # Behatch\Context\JsonContext::theJsonShouldBeEqualTo()
+      """
+      {
+        "@context": "/contexts/Channel",
+        "@id": "/channels/1",
+        "@type": "Channel",
+        "account": "/accounts/1",
+        "id": 1,
+        "name": "stringUpdated",
+        "tags": [
+          "string"
+        ],
+        "videos": [
+            "/videos/1"
+        ],
+        "networks": [
+            "/networks/1"
+        ],
+        "playlists": [
+            "/playlists/1"
+        ],
+        "sustainabilityOffers": [
+            "/sustainability_offers/1"
+        ]
+      }
+      """
+
+  Scenario: Delete a channel                                        # features/Channel.feature:343
     When I add "Content-Type" header equal to "application/ld+json" # FeatureContext::iAddHeaderEqualTo()
     And I add "Accept" header equal to "application/ld+json"        # FeatureContext::iAddHeaderEqualTo()
-    And I send a "DELETE" request to "/annotations/1"               # FeatureContext::iSendARequestTo()
+    And I send a "DELETE" request to "/channels/1"                  # FeatureContext::iSendARequestTo()
     Then the response status code should be 204                     # Behat\MinkExtension\Context\MinkContext::assertResponseStatus()
-      Current response status code is 404, but 204 expected. (Behat\Mink\Exception\ExpectationException)
 
   @dropSchema
-  Scenario: Delete an annotation which not exists                   # features/Annotation.feature:154
+  Scenario: Delete a category which not exists                      # features/Channel.feature:350
     When I add "Content-Type" header equal to "application/ld+json" # FeatureContext::iAddHeaderEqualTo()
     And I add "Accept" header equal to "application/ld+json"        # FeatureContext::iAddHeaderEqualTo()
-    And I send a "DELETE" request to "/annotations/1"               # FeatureContext::iSendARequestTo()
+    And I send a "DELETE" request to "/channels/1"                  # FeatureContext::iSendARequestTo()
     Then the response status code should be 404                     # Behat\MinkExtension\Context\MinkContext::assertResponseStatus()
 
 --- Scénarios échoués:
 
-    features/Annotation.feature:13
-    features/Annotation.feature:42
-    features/Annotation.feature:101
-    features/Annotation.feature:127
-    features/Annotation.feature:147
+    features/Channel.feature:78
+    features/Channel.feature:106
+    features/Channel.feature:137
+    features/Channel.feature:170
+    features/Channel.feature:245
+    features/Channel.feature:309
 
-7 scénarios (2 succès, 5 échecs)
-55 étapes (41 succès, 5 échecs, 9 ignorés)
-0m6.62s (34.01Mb)
+11 scénarios (5 succès, 6 échecs)
+92 étapes (68 succès, 6 échecs, 18 ignorés)
+0m5.96s (32.70Mb)

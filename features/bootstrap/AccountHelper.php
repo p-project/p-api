@@ -25,4 +25,20 @@ class AccountHelper extends ResourceHelper
 
         return $account;
     }
+
+    public function createRelationWith($resource, string $nameResource2, $resource2)
+    {
+        if ($nameResource2 == 'Channel') {
+            return parent::createRelationWith($resource, 'Channels', $resource2);
+        }
+        return parent::createRelationWith($resource, $nameResource2, $resource2);
+    }
+
+    public function relationExists($resource, string $nameResource2, $resource2)
+    {
+        if ($nameResource2 == 'Channel') {
+            return parent::relationExists($resource, 'Channels', $resource2);
+        }
+        return parent::relationExists($resource, $nameResource2, $resource2);
+    }
 }

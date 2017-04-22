@@ -68,9 +68,16 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
         $this->classes = $this->manager->getMetadataFactory()->getAllMetadata();
         $this->helpers['Account'] = new AccountHelper($this->manager);
         $this->helpers['Channel'] = new ChannelHelper($this->manager, $this->helpers['Account']);
+        $this->helpers['Playlist'] = new PlaylistHelper($this->manager, $this->helpers['Account']);
         $this->helpers['Video'] = new VideoHelper($this->manager, $this->helpers['Channel']);
+        $this->helpers['SustainabilityOffer'] = new SustainabilityOfferHelper($this->manager, $this->helpers['Channel']);
         $this->helpers['Category'] = new CategoryHelper($this->manager);
         $this->helpers['Network'] = new NetworkHelper($this->manager);
+        $this->helpers['View'] = new ViewHelper($this->manager, $this->helpers['Account'], $this->helpers['Video']);
+        $this->helpers['Forum'] = new ForumHelper($this->manager, $this->helpers['Account'], $this->helpers['Video']);
+        $this->helpers['Review'] = new ReviewHelper($this->manager, $this->helpers['Account'], $this->helpers['Video']);
+        $this->helpers['Reply'] = new ReplyHelper($this->manager, $this->helpers['Account'], $this->helpers['Review']);
+        $this->helpers['Seeder'] = new SeederHelper($this->manager, $this->helpers['Account'], $this->helpers['Video']);
     }
 
     /**
@@ -154,17 +161,17 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
      * Create resource if there are not created
      * @Given Resource :resource :id exists
      */
-    private function exists(string $resource, string $id)
+    private function exists(string $resource, string $id, array &$resources)
     {
-        if (!strpos($id, $resource)) {
-            return false;
-        }
-
         $id = explode('/', $id)[2];
 
-        $resource = $this->manager->getRepository('AppBundle:' . $resource)->findOneBy($id);
+        $resource = $this->manager->getRepository('AppBundle:' . $resource)->findOneById($id);
 
-        return $resource === null;
+        if ($resource !== null) {
+            array_push($resources, $resource);
+        }
+
+        return $resource !== null;
     }
 
     /**
@@ -172,30 +179,17 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
      */
     public function thereAreResource($resource, $ids)
     {
-        $resourcesCreated = array();
+        $resources = array();
 
         $id = explode(',', $ids);
 
         foreach ($id as $eachId) {
-            if (!$this->exists($resource, $eachId)) {
-                array_push($resourcesCreated, $this->helpers[$resource]->persistResource());
+            if (!$this->exists($resource, $eachId, $resources)) {
+                array_push($resources, $this->helpers[$resource]->persistResource());
             }
         }
 
-        return $resourcesCreated;
-    }
-
-    private function relationExists(string $id1, string $resource2, string $id2)
-    {
-        $response = $this->request->send(
-            'GET',
-            $id1,
-            [],
-            [],
-            null
-        );
-        $responseData = json_decode($response->getContent(), true);
-        return in_array($id2, $responseData[$resource2]);
+        return $resources;
     }
 
     /**
@@ -205,13 +199,13 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
     {
         $resourcesCreated = $this->thereAreResource($resource, $ids);
         $resourcesCreated2 = $this->thereAreResource($resource2, $ids2);
-        /**
-        foreach ($id as $eachId1) {
-            foreach ($id2 as $eachId2) {
-                if (!$this->relationExists($eachId1, $resource2, $eachId2)) {
-                    $this->helpers[$resource]->createRelationWith($eachId1, $resource2, $eachId2);
+
+        foreach ($resourcesCreated as $resourceCreated) {
+            foreach ($resourcesCreated2 as $resourceCreated2) {
+                if (!$this->helpers[$resource]->relationExists($resourceCreated, $resource2, $resourceCreated2)) {
+                    $this->helpers[$resource]->createRelationWith($resourceCreated, $resource2, $resourceCreated2);
                 }
             }
-        }*/
+        }
     }
 }

@@ -6,7 +6,7 @@ Feature: Manage channel
 
   Background:
     Given I am connected as "denis" with password "password"
-    And There are "accounts" "/accounts/2"
+    And There are "Account" "/accounts/2"
 
   @createSchema
   @requiresOAuth
@@ -76,7 +76,7 @@ Feature: Manage channel
     """
 
   Scenario: See video on channel
-    Given There are "channels" "/channels/1" which have "videos" "/videos/1,/videos/2"
+    Given There are "Video" "/videos/1" which have "Channel" "/channels/1"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/channels/1"
     Then the response status code should be 200
@@ -88,7 +88,7 @@ Feature: Manage channel
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "account": "/accounts/1",
+      "account": "/accounts/2",
       "id": 1,
       "name": "string",
       "tags": [
@@ -104,7 +104,7 @@ Feature: Manage channel
     """
 
   Scenario: See networks on channel
-    Given There are "networks" "/networks/1,networks/2" which have "channels" "/channels/1"
+    Given There are "Network" "/networks/1,/networks/2" which have "Channel" "/channels/1"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/channels/1"
     Then the response status code should be 200
@@ -116,7 +116,7 @@ Feature: Manage channel
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "account": "/accounts/1",
+      "account": "/accounts/2",
       "id": 1,
       "name": "string",
       "tags": [
@@ -135,7 +135,7 @@ Feature: Manage channel
     """
 
   Scenario: See sustainability offer on channel
-    Given There are "sustainabilityOffers" "/sustainability_offers/1,/sustainability_offers/2" which have "channels" "/channels/1"
+    Given There are "SustainabilityOffer" "/sustainability_offers/1,/sustainability_offers/2" which have "Channel" "/channels/1"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/channels/1"
     Then the response status code should be 200
@@ -147,7 +147,7 @@ Feature: Manage channel
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "account": "/accounts/1",
+      "account": "/accounts/2",
       "id": 1,
       "name": "string",
       "tags": [
@@ -157,12 +157,13 @@ Feature: Manage channel
           "/videos/1"
       ],
       "networks": [
-          "/networks/1"
+          "/networks/1",
+          "/networks/2"
       ],
       "playlists": [],
       "sustainabilityOffers": [
           "/sustainability_offers/1",
-          "/sustainability_offers/2",
+          "/sustainability_offers/2"
       ]
     }
     """
@@ -176,70 +177,114 @@ Feature: Manage channel
     And the JSON should be equal to:
     """
     {
-          "@context": "/contexts/Channel",
-          "@id": "/channels",
-          "@type": "hydra:Collection",
-          "hydra:member": [
-              {
-                  "@id": "/channels/1",
-                  "@type": "Channel",
-                  "account": "/accounts/1",
-                  "id": 1,
-                  "name": "string",
-                  "tags": [
-                      "string"
-                  ],
-                  "videos": [
-                      "/videos/1"
-                  ],
-                  "networks": [
-                      "/networks/1"
-                  ],
-                  "playlists": [],
-                  "sustainabilityOffers": [
-                      "/sustainability_offers/1"
-                  ]
-              }
-          ],
-          "hydra:totalItems": 1,
-          "hydra:search": {
-              "@type": "hydra:IriTemplate",
-              "hydra:template": "/channels{?id,id[],name,account,account[]}",
-              "hydra:variableRepresentation": "BasicRepresentation",
-              "hydra:mapping": [
-                  {
-                      "@type": "IriTemplateMapping",
-                      "variable": "id",
-                      "property": "id",
-                      "required": false
-                  },
-                  {
-                      "@type": "IriTemplateMapping",
-                      "variable": "id[]",
-                      "property": "id",
-                      "required": false
-                  },
-                  {
-                      "@type": "IriTemplateMapping",
-                      "variable": "name",
-                      "property": "name",
-                      "required": false
-                  },
-                  {
-                      "@type": "IriTemplateMapping",
-                      "variable": "account",
-                      "property": "account",
-                      "required": false
-                  },
-                  {
-                      "@type": "IriTemplateMapping",
-                      "variable": "account[]",
-                      "property": "account",
-                      "required": false
-                  }
+      "@context": "/contexts/Channel",
+      "@id": "/channels",
+      "@type": "hydra:Collection",
+      "hydra:member": [
+          {
+              "@id": "/channels/1",
+              "@type": "Channel",
+              "account": "/accounts/2",
+              "id": 1,
+              "name": "string",
+              "tags": [
+                  "string"
+              ],
+              "videos": [
+                  "/videos/1"
+              ],
+              "networks": [
+                  "/networks/1",
+                  "/networks/2"
+              ],
+              "playlists": [],
+              "sustainabilityOffers": [
+                  "/sustainability_offers/1",
+                  "/sustainability_offers/2"
               ]
+          },
+          {
+              "@id": "/channels/2",
+              "@type": "Channel",
+              "account": "/accounts/3",
+              "id": 2,
+              "name": "string0",
+              "tags": [
+                  "string"
+              ],
+              "videos": [],
+              "networks": [],
+              "playlists": [],
+              "sustainabilityOffers": []
+          },
+          {
+              "@id": "/channels/3",
+              "@type": "Channel",
+              "account": "/accounts/4",
+              "id": 3,
+              "name": "string1",
+              "tags": [
+                  "string"
+              ],
+              "videos": [],
+              "networks": [],
+              "playlists": [],
+              "sustainabilityOffers": []
+          },
+          {
+              "@id": "/channels/4",
+              "@type": "Channel",
+              "account": "/accounts/5",
+              "id": 4,
+              "name": "string2",
+              "tags": [
+                  "string"
+              ],
+              "videos": [],
+              "networks": [],
+              "playlists": [],
+              "sustainabilityOffers": []
           }
+      ],
+      "hydra:totalItems": 4,
+      "hydra:search": {
+          "@type": "hydra:IriTemplate",
+          "hydra:template": "/channels{?id,id[],name,account,account[]}",
+          "hydra:variableRepresentation": "BasicRepresentation",
+          "hydra:mapping": [
+              {
+                  "@type": "IriTemplateMapping",
+                  "variable": "id",
+                  "property": "id",
+                  "required": false
+              },
+              {
+                  "@type": "IriTemplateMapping",
+                  "variable": "id[]",
+                  "property": "id",
+                  "required": false
+              },
+              {
+                  "@type": "IriTemplateMapping",
+                  "variable": "name",
+                  "property": "name",
+                  "required": false
+              },
+              {
+                  "@type": "IriTemplateMapping",
+                  "variable": "account",
+                  "property": "account",
+                  "required": false
+              },
+              {
+                  "@type": "IriTemplateMapping",
+                  "variable": "account[]",
+                  "property": "account",
+                  "required": false
+              }
+          ]
       }
+  }
     """
 
   Scenario: Update a channel
@@ -260,7 +305,7 @@ Feature: Manage channel
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "account": "/accounts/1",
+      "account": "/accounts/2",
       "id": 1,
       "name": "stringUpdated",
       "tags": [
@@ -270,11 +315,13 @@ Feature: Manage channel
           "/videos/1"
       ],
       "networks": [
-          "/networks/1"
+          "/networks/1",
+          "/networks/2"
       ],
       "playlists": [],
       "sustainabilityOffers": [
-          "/sustainability_offers/1"
+          "/sustainability_offers/1",
+          "/sustainability_offers/2"
       ]
     }
     """
@@ -307,7 +354,7 @@ Feature: Manage channel
     """
 
   Scenario: See playlist in channel
-    Given There are "playlists" "/playlists/1,/playlist/2" which have "/channels/1"
+    Given There are "Playlist" "/playlists/1,/playlist/2" which have "Channel" "/channels/1"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/channels/1"
     Then the response status code should be 200
@@ -319,7 +366,7 @@ Feature: Manage channel
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "account": "/accounts/1",
+      "account": "/accounts/2",
       "id": 1,
       "name": "stringUpdated",
       "tags": [
@@ -329,13 +376,16 @@ Feature: Manage channel
           "/videos/1"
       ],
       "networks": [
-          "/networks/1"
+          "/networks/1",
+          "/networks/2"
       ],
       "playlists": [
-          "/playlists/1"
+          "/playlists/1",
+          "/playlists/2"
       ],
       "sustainabilityOffers": [
-          "/sustainability_offers/1"
+          "/sustainability_offers/1",
+          "/sustainability_offers/2"
       ]
     }
     """

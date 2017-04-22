@@ -252,42 +252,8 @@ Feature: Manage account
     }
     """
 
-  Scenario: Create a channel
-    When I add "Content-Type" header equal to "application/ld+json"
-    And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/channels" with body:
-    """
-    {
-      "account": "/accounts/2",
-      "name": "string",
-      "tags": [
-         "string"
-      ]
-    }
-    """
-    Then the response status code should be 201
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-      "@context": "/contexts/Channel",
-      "@id": "/channels/1",
-      "@type": "Channel",
-      "account": "/accounts/2",
-      "id": 1,
-      "name": "string",
-      "tags": [
-        "string"
-      ],
-      "videos": [],
-      "networks": [],
-      "playlists": [],
-      "sustainabilityOffers": []
-    }
-    """
-
   Scenario: See channel in account
+    Given There are "Channel" "/channels/1,/channels/2" which have "Account" "/accounts/2"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
@@ -305,7 +271,8 @@ Feature: Manage account
         "firstName": "string",
         "lastName": "string",
         "channels": [
-            "/channels/1"
+            "/channels/1",
+            "/channels/2"
         ],
         "views": [],
         "forums": [],
@@ -318,89 +285,8 @@ Feature: Manage account
     }
     """
 
-  Scenario: Create a video
-    When I add "Content-Type" header equal to "application/ld+json"
-    And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/videos" with body:
-    """
-    {
-      "title": "string",
-      "description": "string",
-      "uploadDate": "2017-02-01T18:30:52.055Z",
-      "numberView": 120,
-      "channel": "/channels/1",
-      "hash": "Abdsbfs",
-      "magnet": "ssdf",
-      "metadata":
-      {
-        "height": 100,
-        "width": 100,
-        "format": "mp3"
-      }
-    }
-    """
-    Then the response status code should be 201
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-      "@context": "/contexts/Video",
-      "@id": "/videos/1",
-      "@type": "Video",
-      "id": 1,
-      "title": "string",
-      "description": "string",
-      "uploadDate": "2017-02-01T18:30:52+00:00",
-      "numberView": 120,
-      "annotations": [],
-      "channel": "/channels/1",
-      "comments": [],
-      "forums": [],
-      "views": [],
-      "reviews": [],
-      "subtitles": [],
-      "categories": [],
-      "metadata": {
-          "@id": "/metadatas/1",
-          "@type": "Metadata",
-          "id": 1,
-          "height": 100,
-          "width": 100,
-          "format": "mp3"
-      },
-      "seeders": [],
-      "hash": "Abdsbfs",
-      "magnet": "ssdf"
-    }
-    """
-
-  Scenario: Create a view
-    When I add "Content-Type" header equal to "application/ld+json"
-    And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/views" with body:
-    """
-    {
-      "account": "/accounts/2",
-      "video": "/videos/1"
-    }
-    """
-    Then the response status code should be 201
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-      "@context": "/contexts/View",
-      "@id": "/views/1",
-      "@type": "View",
-      "id": 1,
-      "account": "/accounts/2",
-      "video": "/videos/1"
-    }
-    """
-
   Scenario: See view in account
+    Given There are "View" "/views/1,/views/2" which have "Account" "/accounts/2"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
@@ -418,10 +304,12 @@ Feature: Manage account
         "firstName": "string",
         "lastName": "string",
         "channels": [
-            "/channels/1"
+            "/channels/1",
+            "/channels/2"
         ],
         "views": [
-            "/views/1"
+            "/views/1",
+            "/views/2"
         ],
         "forums": [],
         "networks": [],
@@ -430,37 +318,11 @@ Feature: Manage account
         "reviews": [],
         "sustainabilityOffers": [],
         "seeders": []
-    }
-    """
-
-  Scenario: Create a forum
-    When I add "Content-Type" header equal to "application/ld+json"
-    And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/forums" with body:
-    """
-    {
-      "name": "string",
-      "video": "/videos/1",
-      "createdBy": "/accounts/1"
-    }
-    """
-    Then the response status code should be 201
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-      "@context": "/contexts/Forum",
-      "@id": "/forums/1",
-      "@type": "Forum",
-      "id": 1,
-      "name": "string",
-      "video": "/videos/1",
-      "createdBy": "/accounts/1"
     }
     """
 
   Scenario: See forum in account
+    Given There are "Forum" "/forums/1,/forums/2" which have "Account" "/accounts/2"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
@@ -478,56 +340,28 @@ Feature: Manage account
         "firstName": "string",
         "lastName": "string",
         "channels": [
-            "/channels/1"
+            "/channels/1",
+            "/channels/2"
         ],
         "views": [
-            "/views/1"
+            "/views/1",
+            "/views/2"
         ],
-        "forums": [],
+        "forums": [
+            "/forums/1",
+            "/forums/2"
+        ],
         "networks": [],
         "playlists": [],
         "replies": [],
         "reviews": [],
         "sustainabilityOffers": [],
         "seeders": []
-    }
-    """
-
-  Scenario: Create a network
-    When I add "Content-Type" header equal to "application/ld+json"
-    And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/networks" with body:
-    """
-    {
-      "channels": ["/channels/1"],
-      "name": "string",
-      "peoples": [
-        "/accounts/1"
-      ]
-    }
-    """
-    Then the response status code should be 201
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-      "@context": "/contexts/Network",
-      "@id": "/networks/1",
-      "@type": "Network",
-      "id": 1,
-      "channels": [
-         "/channels/1"
-      ],
-      "name": "string",
-      "peoples": [
-        "/accounts/1"
-      ],
-      "playlists": []
     }
     """
 
   Scenario: See network in account
+    Given There are "Network" "/networks/1,/networks/2" which have "Account" "/accounts/2"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
@@ -535,7 +369,7 @@ Feature: Manage account
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
-    {
+        {
         "@context": "/contexts/Account",
         "@id": "/accounts/2",
         "@type": "Account",
@@ -545,13 +379,21 @@ Feature: Manage account
         "firstName": "string",
         "lastName": "string",
         "channels": [
-            "/channels/1"
+            "/channels/1",
+            "/channels/2"
         ],
         "views": [
-            "/views/1"
+            "/views/1",
+            "/views/2"
         ],
-        "forums": [],
-        "networks": [],
+        "forums": [
+            "/forums/1",
+            "/forums/2"
+        ],
+        "networks": [
+            "/networks/1",
+            "/networks/2"
+        ],
         "playlists": [],
         "replies": [],
         "reviews": [],
@@ -560,37 +402,8 @@ Feature: Manage account
     }
     """
 
-  Scenario: Create a review
-    When I add "Content-Type" header equal to "application/ld+json"
-    And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/reviews" with body:
-    """
-    {
-      "content": "string",
-      "video": "/videos/1",
-      "dateReview": "2017-02-01T19:43:22.729Z",
-      "author": "/accounts/2"
-    }
-    """
-    Then the response status code should be 201
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-      "@context": "/contexts/Review",
-      "@id": "/reviews/1",
-      "@type": "Review",
-      "id": 1,
-      "content": "string",
-      "video": "/videos/1",
-      "dateReview": "2017-02-01T19:43:22+00:00",
-      "replies": [],
-      "author": "/accounts/2"
-    }
-    """
-
   Scenario: See review in account
+    Given There are "Review" "/reviews/1,/reviews/2" which have "Account" "/accounts/2"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
@@ -608,83 +421,26 @@ Feature: Manage account
         "firstName": "string",
         "lastName": "string",
         "channels": [
-            "/channels/1"
+            "/channels/1",
+            "/channels/2"
         ],
         "views": [
-            "/views/1"
+            "/views/1",
+            "/views/2"
         ],
-        "forums": [],
-        "networks": [],
+        "forums": [
+            "/forums/1",
+            "/forums/2"
+        ],
+        "networks": [
+            "/networks/1",
+            "/networks/2"
+        ],
         "playlists": [],
         "replies": [],
         "reviews": [
-            "/reviews/1"
-        ],
-        "sustainabilityOffers": [],
-        "seeders": []
-    }
-    """
-
-  Scenario: Create a reply
-    When I add "Content-Type" header equal to "application/ld+json"
-    And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/replies" with body:
-    """
-    {
-      "content": "string",
-      "review": "/reviews/1",
-      "author": "/accounts/2",
-      "dateReply": "2017-02-01T19:43:22.700Z"
-    }
-    """
-    Then the response status code should be 201
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-      "@context": "/contexts/Reply",
-      "@id": "/replies/1",
-      "@type": "Reply",
-      "id": 1,
-      "content": "string",
-      "review": "/reviews/1",
-      "author": "/accounts/2",
-      "dateReply": "2017-02-01T19:43:22+00:00"
-    }
-    """
-
-  Scenario: See review in account
-    When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/accounts/2"
-    Then the response status code should be 200
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-        "@context": "/contexts/Account",
-        "@id": "/accounts/2",
-        "@type": "Account",
-        "id": 2,
-        "username": "stringUpdated",
-        "email": "string@string.fr",
-        "firstName": "string",
-        "lastName": "string",
-        "channels": [
-            "/channels/1"
-        ],
-        "views": [
-            "/views/1"
-        ],
-        "forums": [],
-        "networks": [],
-        "playlists": [],
-        "replies": [
-            "/replies/1"
-        ],
-        "reviews": [
-            "/reviews/1"
+            "/reviews/1",
+            "/reviews/2"
         ],
         "sustainabilityOffers": [],
         "seeders": []
@@ -692,6 +448,7 @@ Feature: Manage account
     """
 
   Scenario: See reply in account
+    Given There are "Reply" "/replies/1,/replies/2" which have "Account" "/accounts/1,/accounts/2"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
@@ -709,55 +466,37 @@ Feature: Manage account
         "firstName": "string",
         "lastName": "string",
         "channels": [
-            "/channels/1"
+            "/channels/1",
+            "/channels/2"
         ],
         "views": [
-            "/views/1"
+            "/views/1",
+            "/views/2"
         ],
-        "forums": [],
-        "networks": [],
+        "forums": [
+            "/forums/1",
+            "/forums/2"
+        ],
+        "networks": [
+            "/networks/1",
+            "/networks/2"
+        ],
         "playlists": [],
         "replies": [
-            "/replies/1"
+            "/replies/1",
+            "/replies/2"
         ],
         "reviews": [
-            "/reviews/1"
+            "/reviews/1",
+            "/reviews/2"
         ],
         "sustainabilityOffers": [],
         "seeders": []
     }
     """
 
-  Scenario: Create a Sustainability Offers
-    When I add "Content-Type" header equal to "application/ld+json"
-    And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/sustainability_offers" with body:
-    """
-    {
-        "name": "string",
-        "duration": 0,
-        "account": "/accounts/2",
-        "channel": "/channels/1"
-    }
-    """
-    Then the response status code should be 201
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-      "@context": "/contexts/SustainabilityOffer",
-      "@id": "/sustainability_offers/1",
-      "@type": "SustainabilityOffer",
-      "id": 1,
-      "name": "string",
-      "duration": 0,
-      "account": "/accounts/2",
-      "channel": "/channels/1"
-    }
-    """
-
   Scenario: See Sustainability Offers in account
+    Given There are "SustainabilityOffer" "/sustainability_offers/1,/sustainability_offers/2" which have "Account" "/accounts/2"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
@@ -775,58 +514,40 @@ Feature: Manage account
         "firstName": "string",
         "lastName": "string",
         "channels": [
-            "/channels/1"
+            "/channels/1",
+            "/channels/2"
         ],
         "views": [
-            "/views/1"
+            "/views/1",
+            "/views/2"
         ],
-        "forums": [],
-        "networks": [],
+        "forums": [
+            "/forums/1",
+            "/forums/2"
+        ],
+        "networks": [
+            "/networks/1",
+            "/networks/2"
+        ],
         "playlists": [],
         "replies": [
-            "/replies/1"
+            "/replies/1",
+            "/replies/2"
         ],
         "reviews": [
-            "/reviews/1"
+            "/reviews/1",
+            "/reviews/2"
         ],
         "sustainabilityOffers": [
-            "/sustainability_offers/1"
+            "/sustainability_offers/1",
+            "/sustainability_offers/2"
         ],
         "seeders": []
     }
     """
 
-  Scenario: Create a seeder
-    When I add "Content-Type" header equal to "application/ld+json"
-    And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/seeders" with body:
-    """
-    {
-      "id": 0,
-      "platform": "string",
-      "ip": "127.0.0.1",
-      "account": "/accounts/2",
-      "video": "/videos/1"
-    }
-    """
-    Then the response status code should be 201
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-      "@context": "/contexts/Seeder",
-      "@id": "/seeders/1",
-      "@type": "Seeder",
-      "id": 1,
-      "platform": "string",
-      "account": "/accounts/2",
-      "ip": "127.0.0.1",
-      "video": "/videos/1"
-    }
-    """
-
   Scenario: See seeder in account
+    Given There are "Seeder" "/seeders/1,/seeders/2" which have "Account" "/accounts/2"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
@@ -844,57 +565,43 @@ Feature: Manage account
         "firstName": "string",
         "lastName": "string",
         "channels": [
-            "/channels/1"
+            "/channels/1",
+            "/channels/2"
         ],
         "views": [
-            "/views/1"
+            "/views/1",
+            "/views/2"
         ],
-        "forums": [],
-        "networks": [],
+        "forums": [
+            "/forums/1",
+            "/forums/2"
+        ],
+        "networks": [
+            "/networks/1",
+            "/networks/2"
+        ],
         "playlists": [],
         "replies": [
-            "/replies/1"
+            "/replies/1",
+            "/replies/2"
         ],
         "reviews": [
-            "/reviews/1"
+            "/reviews/1",
+            "/reviews/2"
         ],
         "sustainabilityOffers": [
-            "/sustainability_offers/1"
+            "/sustainability_offers/1",
+            "/sustainability_offers/2"
         ],
         "seeders": [
-            "/seeders/1"
+            "/seeders/1",
+            "/seeders/2"
         ]
     }
     """
 
-  Scenario: Create playlist in account
-    When I add "Content-Type" header equal to "application/ld+json"
-    And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/playlists" with body:
-    """
-    {
-      "name": "string",
-      "account": "/accounts/2"
-    }
-    """
-    Then the response status code should be 201
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-      "@context": "/contexts/Playlist",
-      "@id": "/playlists/1",
-      "@type": "Playlist",
-      "id": 1,
-      "name": "string",
-      "channel": null,
-      "network": null,
-      "account": "/accounts/2"
-    }
-    """
-
   Scenario: See playlist in account
+    Given There are "Playlist" "/playlists/1,/playlist/2" which have "Account" "/accounts/2"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
@@ -902,7 +609,7 @@ Feature: Manage account
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
-    {
+        {
         "@context": "/contexts/Account",
         "@id": "/accounts/2",
         "@type": "Account",
@@ -912,27 +619,40 @@ Feature: Manage account
         "firstName": "string",
         "lastName": "string",
         "channels": [
-            "/channels/1"
+            "/channels/1",
+            "/channels/2"
         ],
         "views": [
-            "/views/1"
+            "/views/1",
+            "/views/2"
         ],
-        "forums": [],
-        "networks": [],
+        "forums": [
+            "/forums/1",
+            "/forums/2"
+        ],
+        "networks": [
+            "/networks/1",
+            "/networks/2"
+        ],
         "playlists": [
-            "/playlists/1"
+            "/playlists/1",
+            "/playlists/2"
         ],
         "replies": [
-            "/replies/1"
+            "/replies/1",
+            "/replies/2"
         ],
         "reviews": [
-            "/reviews/1"
+            "/reviews/1",
+            "/reviews/2"
         ],
         "sustainabilityOffers": [
-            "/sustainability_offers/1"
+            "/sustainability_offers/1",
+            "/sustainability_offers/2"
         ],
         "seeders": [
-            "/seeders/1"
+            "/seeders/1",
+            "/seeders/2"
         ]
     }
     """
