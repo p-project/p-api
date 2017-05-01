@@ -21,7 +21,7 @@ class AnnotationHelper extends ResourceHelper
         $video = $this->videoHelper->persistResource();
 
         $annotation = new Annotation();
-        $annotation->setBegin(new \DateTime('1879-03-14'))->setEnd(new \DateTime('1879-03-14'))
+        $annotation->setBegin(0)->setEnd(0)
             ->setAnnotationText('string')->setVideo($video);
 
         return $annotation;

@@ -16,8 +16,8 @@ Feature: Manage annotation
     And I send a "POST" request to "/annotations" with body:
     """
     {
-      "begin": "2017-02-01T21:22:44.929Z",
-      "end": "2017-02-01T21:22:44.929Z",
+      "begin": 0,
+      "end": 0,
       "annotationText": "string",
       "video": "/videos/1"
     }
@@ -32,8 +32,8 @@ Feature: Manage annotation
        "@id": "/annotations/1",
        "@type": "Annotation",
        "id": 1,
-       "begin": "2017-02-01T21:22:44+00:00",
-       "end": "2017-02-01T21:22:44+00:00",
+       "begin": 0,
+       "end": 0,
        "annotationText": "string",
        "video": "/videos/1"
     }
@@ -56,8 +56,8 @@ Feature: Manage annotation
           "@id": "/annotations/1",
           "@type": "Annotation",
           "id": 1,
-          "begin": "2017-02-01T21:22:44+01:00",
-          "end": "2017-02-01T21:22:44+01:00",
+          "begin": 0,
+          "end": 0,
           "annotationText": "string",
           "video": "/videos/1"
         }
@@ -117,8 +117,8 @@ Feature: Manage annotation
       "@id": "/annotations/1",
       "@type": "Annotation",
       "id": 1,
-      "begin": "2017-02-01T21:22:44+01:00",
-      "end": "2017-02-01T21:22:44+01:00",
+      "begin": 0,
+      "end": 0,
       "annotationText": "stringUpdated",
       "video": "/videos/1"
     }
@@ -137,8 +137,8 @@ Feature: Manage annotation
       "@id": "/annotations/1",
       "@type": "Annotation",
       "id": 1,
-      "begin": "2017-02-01T21:22:44+01:00",
-      "end": "2017-02-01T21:22:44+01:00",
+      "begin": 0,
+      "end": 0,
       "annotationText": "stringUpdated",
       "video": "/videos/1"
     }
