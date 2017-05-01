@@ -15,7 +15,7 @@ class AccountHelper extends ResourceHelper
     public function createResource()
     {
         $username = 'string'.self::$numberAccount;
-        $email = 'string'.self::$numberAccount.'@string.fr';
+        $email = 'string'.self::$numberAccount.'@example.com';
 
         $account = new Account();
         $account->setUsername($username)->setEmail($email)->setFirstName('string')

@@ -23,6 +23,7 @@ class NetworkHelper extends ResourceHelper
         if ($nameResource2 == 'Account') {
             return parent::createRelationWith($resource, 'Peoples', $resource2);
         }
+
         return parent::createRelationWith($resource, $nameResource2, $resource2);
     }
 

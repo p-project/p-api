@@ -28,5 +28,4 @@ class ChannelHelper extends ResourceHelper
 
         return $channel;
     }
-
 }
