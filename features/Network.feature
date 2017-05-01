@@ -1,6 +1,6 @@
 # features/Network.feature
 Feature: Manage network
-  In order to manage network
+  In order to manage networks
   As a client software developer
   I need to be able to retrieve, create, update and delete them trough the API.
 

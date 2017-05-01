@@ -1,6 +1,6 @@
 # features/Annotation.feature
 Feature: Manage annotation
-  In order to manage annotation
+  In order to manage annotations
   As a client software developer
   I need to be able to retrieve, create, update and delete them trough the API.
 

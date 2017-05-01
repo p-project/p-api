@@ -1,6 +1,6 @@
 # features/Reply.feature
 Feature: Manage reply
-  In order to manage reply
+  In order to manage replies
   As a client software developer
   I need to be able to retrieve, create, update and delete them trough the API.
 

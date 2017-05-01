@@ -1,6 +1,6 @@
 # features/Playlist.feature
 Feature: Manage playlist
-  In order to manage playlist
+  In order to manage playlists
   As a client software developer
   I need to be able to retrieve, create, update and delete them trough the API.
 

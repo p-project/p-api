@@ -1,6 +1,6 @@
 # features/View.feature
 Feature: Manage view
-  In order to manage view
+  In order to manage views
   As a client software developer
   I need to be able to retrieve, create, update and delete them trough the API.
 

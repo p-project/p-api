@@ -1,6 +1,6 @@
 # features/Seeder.feature
 Feature: Manage seeder
-  In order to manage seeder
+  In order to manage seeders
   As a client software developer
   I need to be able to retrieve, create, update and delete them trough the API.
 

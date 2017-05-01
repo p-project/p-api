@@ -1,6 +1,6 @@
 # features/Video.feature
 Feature: Manage video
-  In order to manage video
+  In order to manage videos
   As a client software developer
   I need to be able to retrieve, create, update and delete them trough the API.
 

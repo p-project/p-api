@@ -1,6 +1,6 @@
 # features/Account.feature
 Feature: Manage account
-  In order to manage account
+  In order to manage accounts
   As a client software developer
   I need to be able to retrieve, create, update and delete them trough the API.
 
