@@ -6,7 +6,7 @@ Feature: Manage reply
 
   Background:
     Given I am connected as "denis" with password "password"
-    And There are "Review" "/reviews/1"
+    And There are "review" "/reviews/1"
 
   @createSchema
   @requiresOAuth

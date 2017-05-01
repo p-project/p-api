@@ -36,7 +36,7 @@ Feature: Manage category
     """
 
   Scenario: See videos in category
-    Given There are "Video" "/videos/1,/videos/2" which have "Category" "/categories/1"
+    Given There are "video" "/videos/1,/videos/2" which have "Category" "/categories/1"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/categories/1"
     Then the response status code should be 200

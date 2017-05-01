@@ -6,7 +6,7 @@ Feature: Manage comment
 
   Background:
     Given I am connected as "denis" with password "password"
-    And There are "Video" "/videos/1"
+    And There are "video" "/videos/1"
 
   @createSchema
   @requiresOAuth

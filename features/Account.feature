@@ -253,7 +253,7 @@ Feature: Manage account
     """
 
   Scenario: See channel in account
-    Given There are "Channel" "/channels/1,/channels/2" which have "Account" "/accounts/2"
+    Given There are "channel" "/channels/1,/channels/2" which have "account" "/accounts/2"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
@@ -286,7 +286,7 @@ Feature: Manage account
     """
 
   Scenario: See view in account
-    Given There are "View" "/views/1,/views/2" which have "Account" "/accounts/2"
+    Given There are "view" "/views/1,/views/2" which have "account" "/accounts/2"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
@@ -322,7 +322,7 @@ Feature: Manage account
     """
 
   Scenario: See forum in account
-    Given There are "Forum" "/forums/1,/forums/2" which have "Account" "/accounts/2"
+    Given There are "forum" "/forums/1,/forums/2" which have "account" "/accounts/2"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
@@ -361,7 +361,7 @@ Feature: Manage account
     """
 
   Scenario: See network in account
-    Given There are "Network" "/networks/1,/networks/2" which have "Account" "/accounts/2"
+    Given There are "network" "/networks/1,/networks/2" which have "account" "/accounts/2"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
@@ -403,7 +403,7 @@ Feature: Manage account
     """
 
   Scenario: See review in account
-    Given There are "Review" "/reviews/1,/reviews/2" which have "Account" "/accounts/2"
+    Given There are "review" "/reviews/1,/reviews/2" which have "account" "/accounts/2"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
@@ -448,7 +448,7 @@ Feature: Manage account
     """
 
   Scenario: See reply in account
-    Given There are "Reply" "/replies/1,/replies/2" which have "Account" "/accounts/1,/accounts/2"
+    Given There are "reply" "/replies/1,/replies/2" which have "account" "/accounts/1,/accounts/2"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
@@ -496,7 +496,7 @@ Feature: Manage account
     """
 
   Scenario: See Sustainability Offers in account
-    Given There are "SustainabilityOffer" "/sustainability_offers/1,/sustainability_offers/2" which have "Account" "/accounts/2"
+    Given There are "sustainability offer" "/sustainability_offers/1,/sustainability_offers/2" which have "account" "/accounts/2"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
@@ -547,7 +547,7 @@ Feature: Manage account
     """
 
   Scenario: See seeder in account
-    Given There are "Seeder" "/seeders/1,/seeders/2" which have "Account" "/accounts/2"
+    Given There are "seeder" "/seeders/1,/seeders/2" which have "account" "/accounts/2"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200
@@ -601,7 +601,7 @@ Feature: Manage account
     """
 
   Scenario: See playlist in account
-    Given There are "Playlist" "/playlists/1,/playlist/2" which have "Account" "/accounts/2"
+    Given There are "playlist" "/playlists/1,/playlist/2" which have "account" "/accounts/2"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/accounts/2"
     Then the response status code should be 200

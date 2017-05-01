@@ -6,7 +6,7 @@ Feature: Manage annotation
 
   Background:
     Given I am connected as "denis" with password "password"
-    And There are "Video" "/videos/1,/videos/2"
+    And There are "video" "/videos/1,/videos/2"
 
   @createSchema
   @requiresOAuth

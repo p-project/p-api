@@ -6,7 +6,7 @@ Feature: Manage channel
 
   Background:
     Given I am connected as "denis" with password "password"
-    And There are "Account" "/accounts/2"
+    And There are "account" "/accounts/2"
 
   @createSchema
   @requiresOAuth
@@ -76,7 +76,7 @@ Feature: Manage channel
     """
 
   Scenario: See video on channel
-    Given There are "Video" "/videos/1" which have "Channel" "/channels/1"
+    Given There are "video" "/videos/1" which have "channel" "/channels/1"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/channels/1"
     Then the response status code should be 200
@@ -104,7 +104,7 @@ Feature: Manage channel
     """
 
   Scenario: See networks on channel
-    Given There are "Network" "/networks/1,/networks/2" which have "Channel" "/channels/1"
+    Given There are "network" "/networks/1,/networks/2" which have "channel" "/channels/1"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/channels/1"
     Then the response status code should be 200
@@ -135,7 +135,7 @@ Feature: Manage channel
     """
 
   Scenario: See sustainability offer on channel
-    Given There are "SustainabilityOffer" "/sustainability_offers/1,/sustainability_offers/2" which have "Channel" "/channels/1"
+    Given There are "sustainability offer" "/sustainability_offers/1,/sustainability_offers/2" which have "channel" "/channels/1"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/channels/1"
     Then the response status code should be 200
@@ -354,7 +354,7 @@ Feature: Manage channel
     """
 
   Scenario: See playlist in channel
-    Given There are "Playlist" "/playlists/1,/playlist/2" which have "Channel" "/channels/1"
+    Given There are "playlist" "/playlists/1,/playlist/2" which have "channel" "/channels/1"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/channels/1"
     Then the response status code should be 200

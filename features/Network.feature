@@ -6,7 +6,7 @@ Feature: Manage network
 
   Background:
     Given I am connected as "denis" with password "password"
-    And There are "Channel" "/channels/1"
+    And There are "channel" "/channels/1"
 
   @createSchema
   @requiresOAuth
@@ -38,7 +38,7 @@ Feature: Manage network
     """
 
   Scenario: Put a user
-    Given There are "Account" "/accounts/1,/accounts/2"
+    Given There are "account" "/accounts/1,/accounts/2"
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
     And I send a "PUT" request to "/networks/1" with body:
@@ -101,7 +101,7 @@ Feature: Manage network
     """
 
   Scenario: See a playlist in network
-    Given There are "Playlist" "/playlists/1,/playlist/2" which have "Network" "/networks/1"
+    Given There are "playlist" "/playlists/1,/playlist/2" which have "network" "/networks/1"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/networks/1"
     Then the response status code should be 200

@@ -6,7 +6,7 @@ Feature: Manage playlist
 
   Background:
     Given I am connected as "denis" with password "password"
-    And There are "Account" "/accounts/2"
+    And There are "account" "/accounts/2"
 
   @createSchema
   @requiresOAuth
@@ -119,7 +119,7 @@ Feature: Manage playlist
     """
 
   Scenario: Create a playlists with network
-    Given There are "Network" "/networks/1"
+    Given There are "network" "/networks/1"
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
     And I send a "POST" request to "/playlists" with body:

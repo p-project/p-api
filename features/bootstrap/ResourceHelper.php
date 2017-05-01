@@ -2,6 +2,7 @@
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\PersistentCollection;
+use Doctrine\Common\Inflector\Inflector;
 
 abstract class ResourceHelper implements ResourceHelperInterface
 {
@@ -28,24 +29,23 @@ abstract class ResourceHelper implements ResourceHelperInterface
 
     public function relationExists($resource, string $nameResource2, $resource2)
     {
-        $getResource = 'get'.$nameResource2;
+        $getResource = 'get'. Inflector::pluralize($nameResource2);
 
-        if ($resource->{$getResource}() instanceof PersistentCollection) {
+        if (method_exists($resource, $getResource)) {
             return $resource->{$getResource}()->contains($resource2);
         }
 
-        return $resource->{$getResource}() == $resource2;
+        return $resource->{'get' . $nameResource2}() == $resource2;
     }
 
     public function createRelationWith($resource, string $nameResource2, $resource2)
     {
-        $getResource = 'get'.$nameResource2;
-        $setResource = 'set'.$nameResource2;
+        $setResource = 'set' . Inflector::pluralize($nameResource2);
 
-        if ($resource->{$getResource}() instanceof PersistentCollection) {
+        if (method_exists($resource, $setResource)) {
             $resource->{$setResource}([$resource2]);
         } else {
-            $resource->{$setResource}($resource2);
+            $resource->{'set' . $nameResource2}($resource2);
         }
         $this->em->flush();
 

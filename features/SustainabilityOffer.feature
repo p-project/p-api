@@ -6,7 +6,7 @@ Feature: Manage substainability_offer
 
   Background:
     Given I am connected as "denis" with password "password"
-    And There are "Channel" "/channels/1"
+    And There are "channel" "/channels/1"
 
   @createSchema
   @requiresOAuth

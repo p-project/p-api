@@ -182,6 +182,7 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
      */
     public function thereAreResource($resource, $ids)
     {
+        $resource = preg_replace('/\s/', '', ucwords($resource));
         $resources = [];
 
         $id = explode(',', $ids);
@@ -200,6 +201,9 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
      */
     public function thereAreResourceWhichHaveResource($resource, $ids, $resource2, $ids2)
     {
+        $resource = preg_replace('/\s/', '', ucwords($resource));
+        $resource2 = preg_replace('/\s/', '', ucwords($resource2));
+
         $resourcesCreated = $this->thereAreResource($resource, $ids);
         $resourcesCreated2 = $this->thereAreResource($resource2, $ids2);
 

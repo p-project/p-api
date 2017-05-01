@@ -6,8 +6,8 @@ Feature: Manage video
 
   Background:
     Given I am connected as "denis" with password "password"
-    And There are "Channel" "/channels/1"
-    And There are "Category" "/categories/1"
+    And There are "channel" "/channels/1"
+    And There are "category" "/categories/1"
 
   @createSchema
   @requiresOAuth
@@ -74,7 +74,7 @@ Feature: Manage video
     """
 
   Scenario: See subtitles in video
-    Given There are "Subtitles" "/subtitles/1,/subtitles/2" which have "Video" "/videos/1"
+    Given There are "subtitles" "/subtitles/1,/subtitles/2" which have "video" "/videos/1"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/videos/1"
     Then the response status code should be 200
@@ -119,7 +119,7 @@ Feature: Manage video
     """
 
   Scenario: See reviews in video
-    Given There are "Review" "/reviews/1,/reviews/2" which have "Video" "/videos/1"
+    Given There are "review" "/reviews/1,/reviews/2" which have "video" "/videos/1"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/videos/1"
     Then the response status code should be 200
@@ -167,7 +167,7 @@ Feature: Manage video
     """
 
   Scenario: See views in video
-    Given There are "View" "/views/1,/views/2" which have "Video" "/videos/1"
+    Given There are "view" "/views/1,/views/2" which have "video" "/videos/1"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/videos/1"
     Then the response status code should be 200
@@ -218,7 +218,7 @@ Feature: Manage video
     """
 
   Scenario: See forums in video
-    Given There are "Forum" "/forums/1,/forums/2" which have "Video" "/videos/1"
+    Given There are "forum" "/forums/1,/forums/2" which have "video" "/videos/1"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/videos/1"
     Then the response status code should be 200
@@ -272,7 +272,7 @@ Feature: Manage video
     """
 
   Scenario: See annotations in video
-    Given There are "Annotation" "/annotations/1,/annotations/2" which have "Video" "/videos/1"
+    Given There are "annotation" "/annotations/1,/annotations/2" which have "video" "/videos/1"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/videos/1"
     Then the response status code should be 200
@@ -329,7 +329,7 @@ Feature: Manage video
     """
 
   Scenario: See comments in video
-    Given There are "Comment" "/comments/1,/comments/2" which have "Video" "/videos/1"
+    Given There are "comment" "/comments/1,/comments/2" which have "video" "/videos/1"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/videos/1"
     Then the response status code should be 200
@@ -490,7 +490,7 @@ Feature: Manage video
     """
 
   Scenario: See seeders in video
-    Given There are "Seeder" "/seeders/1,/seeders/2" which have "Video" "/videos/1"
+    Given There are "seeder" "/seeders/1,/seeders/2" which have "video" "/videos/1"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/videos/1"
     Then the response status code should be 200

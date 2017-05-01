@@ -6,7 +6,7 @@ Feature: Manage review
 
   Background:
     Given I am connected as "denis" with password "password"
-    And There are "Video" "/videos/1"
+    And There are "video" "/videos/1"
 
   @createSchema
   @requiresOAuth
@@ -41,7 +41,7 @@ Feature: Manage review
     """
 
   Scenario: See reply in reviews
-    Given There are "Reply" "/replies/1,/replies/2" which have "Review" "/reviews/1"
+    Given There are "reply" "/replies/1,/replies/2" which have "review" "/reviews/1"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/reviews/1"
     Then the response status code should be 200
