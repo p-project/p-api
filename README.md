@@ -1,5 +1,7 @@
 # P-API
 
+[![Build Status](https://travis-ci.org/p-project/p-api.svg?branch=master)](https://travis-ci.org/p-project/p-api)
+
 Welcome to the P-Platform API made with [API-Platform](https://api-platform.com/).
 
 ## Installation
