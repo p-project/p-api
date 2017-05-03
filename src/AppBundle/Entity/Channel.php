@@ -95,6 +95,8 @@ class Channel
     public function setAccount(Account $account)
     {
         $this->account = $account;
+
+        return $this;
     }
 
     public function getId(): int

@@ -54,6 +54,8 @@ class View
     public function setAccount(Account $account)
     {
         $this->account = $account;
+
+        return $this;
     }
 
     public function getVideo(): Video
@@ -64,5 +66,7 @@ class View
     public function setVideo(Video $video)
     {
         $this->video = $video;
+
+        return $this;
     }
 }

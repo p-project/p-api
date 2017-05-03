@@ -60,13 +60,13 @@ AppBundle\Entity\Video:
 
 AppBundle\Entity\Annotation:
   annotation_{1..5}:
-    begin: <date()>
-    end: <date()>
+    begin: <numberBetween(100, 99999)>
+    end: <numberBetween(100, 99999)>
     annotationText: <realText(150)>
     video: '@video_michel'
   annotation_{6..10}:
-    begin: <date()>
-    end: <date()>
+    begin: <numberBetween(100, 99999)>
+    end: <numberBetween(100, 99999)>
     annotationText: <realText(150)>
     video: '@video_1'
 
