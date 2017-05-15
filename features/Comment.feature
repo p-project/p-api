@@ -8,7 +8,7 @@ Feature: Manage comment
     Given I am connected as "denis" with password "password"
     And There are "video" "/videos/1"
 
-  @createSchema
+  @refreshSchema
   @requiresOAuth
   Scenario: Create a comment
     When I add "Content-Type" header equal to "application/ld+json"
@@ -130,7 +130,6 @@ Feature: Manage comment
     And I send a "DELETE" request to "/comments/1"
     Then the response status code should be 204
 
-  @dropSchema
   Scenario: Delete a comment which not exists
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"

@@ -8,7 +8,7 @@ Feature: Manage seeder
     Given I am connected as "denis" with password "password"
     And There are "video" "/videos/1"
 
-  @createSchema
+  @refreshSchema
   @requiresOAuth
   Scenario: Create a seeder
     When I add "Content-Type" header equal to "application/ld+json"
@@ -130,7 +130,6 @@ Feature: Manage seeder
     And I send a "DELETE" request to "/seeders/1"
     Then the response status code should be 204
 
-  @dropSchema
   Scenario: Delete a seed which not exists
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"

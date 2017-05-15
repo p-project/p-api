@@ -8,7 +8,7 @@ Feature: Manage review
     Given I am connected as "denis" with password "password"
     And There are "video" "/videos/1"
 
-  @createSchema
+  @refreshSchema
   @requiresOAuth
   Scenario: Create a review
     When I add "Content-Type" header equal to "application/ld+json"
@@ -133,7 +133,6 @@ Feature: Manage review
     And I send a "DELETE" request to "/reviews/1"
     Then the response status code should be 204
 
-  @dropSchema
   Scenario: Delete a comment which not exists
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
