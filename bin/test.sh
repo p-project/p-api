@@ -10,3 +10,7 @@ export SYMFONY_ENV=test
 
 ./vendor/bin/phpunit --verbose
 
+# ./bin/reset
+
+./vendor/bin/behat
+
