@@ -1,61 +1,22 @@
-# features/Annotation.feature
+# features/Channel.feature
 Feature: Manage channel
-  In order to manage account
+  In order to manage channels
   As a client software developer
   I need to be able to retrieve, create, update and delete them trough the API.
 
-  @createSchema
-  @fixtures
-  Scenario: I am connected as Denis with passwowrd: password
+  Background:
     Given I am connected as "denis" with password "password"
+    And There are "account" "/accounts/2"
 
-  Scenario: Create an account
-    When I add "Content-Type" header equal to "application/ld+json"
-    And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/accounts" with body:
-    """
-    {
-      "username": "string",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
-      "password": "password",
-      "salt": "salt"
-    }
-    """
-    Then the response status code should be 201
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-        "@context": "/contexts/Account",
-        "@id": "/accounts/2",
-        "@type": "Account",
-        "id": 2,
-        "username": "string",
-        "email": "string@string.fr",
-        "firstName": "string",
-        "lastName": "string",
-        "channels": [],
-        "views": [],
-        "forums": [],
-        "networks": [],
-        "playlists": [],
-        "replies": [],
-        "reviews": [],
-        "sustainabilityOffers": [],
-        "seeders": []
-    } 
-    """
-
+  @createSchema
+  @requiresOAuth
   Scenario: Create a channel
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
     And I send a "POST" request to "/channels" with body:
     """
     {
-      "account": "/accounts/1",
+      "account": "/accounts/2",
       "name": "string",
       "tags": [
          "string"
@@ -71,7 +32,7 @@ Feature: Manage channel
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "account": "/accounts/1",
+      "account": "/accounts/2",
       "id": 1,
       "name": "string",
       "tags": [
@@ -114,64 +75,8 @@ Feature: Manage channel
     }
     """
 
-  Scenario: Create video on channel
-    When I add "Content-Type" header equal to "application/ld+json"
-    And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/videos" with body:
-    """
-    {
-      "title": "string",
-      "description": "string",
-      "uploadDate": "2017-02-01T18:30:52.055Z",
-      "numberView": 120,
-      "channel": "/channels/1",
-      "hash": "Abdsbfs",
-      "magnet": "string",
-      "metadata":
-      {
-        "height": 100,
-        "width": 100,
-        "format": "mp3"
-      }
-    }
-    """
-    Then the response status code should be 201
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-      "@context": "/contexts/Video",
-      "@id": "/videos/1",
-      "@type": "Video",
-      "id": 1,
-      "title": "string",
-      "description": "string",
-      "uploadDate": "2017-02-01T18:30:52+00:00",
-      "numberView": 120,
-      "annotations": [],
-      "channel": "/channels/1",
-      "comments": [],
-      "forums": [],
-      "views": [],
-      "reviews": [],
-      "subtitles": [],
-      "categories": [],
-      "metadata": {
-          "@id": "/metadatas/1",
-          "@type": "Metadata",
-          "id": 1,
-          "height": 100,
-          "width": 100,
-          "format": "mp3"
-      },
-      "seeders": [],
-      "hash": "Abdsbfs",
-      "magnet": "string"
-    }
-    """
-
   Scenario: See video on channel
+    Given There are "video" "/videos/1" which have "channel" "/channels/1"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/channels/1"
     Then the response status code should be 200
@@ -183,7 +88,7 @@ Feature: Manage channel
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "account": "/accounts/1",
+      "account": "/accounts/2",
       "id": 1,
       "name": "string",
       "tags": [
@@ -198,43 +103,8 @@ Feature: Manage channel
     }
     """
 
-  Scenario: Create a network
-    When I add "Content-Type" header equal to "application/ld+json"
-    And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/networks" with body:
-    """
-    {
-      "channels": [
-        "/channels/1"
-      ],
-      "name": "string",
-      "peoples": [
-        "/accounts/1"
-      ]
-    }
-    """
-    Then the response status code should be 201
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-      "@context": "/contexts/Network",
-      "@id": "/networks/1",
-      "@type": "Network",
-      "id": 1,
-      "channels": [
-        "/channels/1"
-      ],
-      "name": "string",
-      "peoples": [
-        "/accounts/1"
-      ],
-      "playlists": []
-    }
-    """
-
   Scenario: See networks on channel
+    Given There are "network" "/networks/1,/networks/2" which have "channel" "/channels/1"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/channels/1"
     Then the response status code should be 200
@@ -246,7 +116,7 @@ Feature: Manage channel
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "account": "/accounts/1",
+      "account": "/accounts/2",
       "id": 1,
       "name": "string",
       "tags": [
@@ -256,43 +126,16 @@ Feature: Manage channel
           "/videos/1"
       ],
       "networks": [
-          "/networks/1"
+          "/networks/1",
+          "/networks/2"
       ],
       "playlists": [],
       "sustainabilityOffers": []
     }
     """
 
-  Scenario: Create a Sustainability Offers
-    When I add "Content-Type" header equal to "application/ld+json"
-    And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/sustainability_offers" with body:
-    """
-    {
-        "name": "string",
-        "duration": 0,
-        "account": "/accounts/1",
-        "channel": "/channels/1"
-    }
-    """
-    Then the response status code should be 201
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-       "@context": "/contexts/SustainabilityOffer",
-      "@id": "/sustainability_offers/1",
-      "@type": "SustainabilityOffer",
-      "id": 1,
-      "name": "string",
-      "duration": 0,
-      "account": "/accounts/1",
-      "channel": "/channels/1"
-    }
-    """
-
   Scenario: See sustainability offer on channel
+    Given There are "sustainability offer" "/sustainability_offers/1,/sustainability_offers/2" which have "channel" "/channels/1"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/channels/1"
     Then the response status code should be 200
@@ -304,7 +147,7 @@ Feature: Manage channel
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "account": "/accounts/1",
+      "account": "/accounts/2",
       "id": 1,
       "name": "string",
       "tags": [
@@ -314,16 +157,18 @@ Feature: Manage channel
           "/videos/1"
       ],
       "networks": [
-          "/networks/1"
+          "/networks/1",
+          "/networks/2"
       ],
       "playlists": [],
       "sustainabilityOffers": [
-          "/sustainability_offers/1"
+          "/sustainability_offers/1",
+          "/sustainability_offers/2"
       ]
     }
     """
 
-  Scenario: Retrieve the categories list
+  Scenario: Retrieve the channels list
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/channels"
     Then the response status code should be 200
@@ -332,70 +177,114 @@ Feature: Manage channel
     And the JSON should be equal to:
     """
     {
-          "@context": "/contexts/Channel",
-          "@id": "/channels",
-          "@type": "hydra:Collection",
-          "hydra:member": [
-              {
-                  "@id": "/channels/1",
-                  "@type": "Channel",
-                  "account": "/accounts/1",
-                  "id": 1,
-                  "name": "string",
-                  "tags": [
-                      "string"
-                  ],
-                  "videos": [
-                      "/videos/1"
-                  ],
-                  "networks": [
-                      "/networks/1"
-                  ],
-                  "playlists": [],
-                  "sustainabilityOffers": [
-                      "/sustainability_offers/1"
-                  ]
-              }
-          ],
-          "hydra:totalItems": 1,
-          "hydra:search": {
-              "@type": "hydra:IriTemplate",
-              "hydra:template": "/channels{?id,id[],name,account,account[]}",
-              "hydra:variableRepresentation": "BasicRepresentation",
-              "hydra:mapping": [
-                  {
-                      "@type": "IriTemplateMapping",
-                      "variable": "id",
-                      "property": "id",
-                      "required": false
-                  },
-                  {
-                      "@type": "IriTemplateMapping",
-                      "variable": "id[]",
-                      "property": "id",
-                      "required": false
-                  },
-                  {
-                      "@type": "IriTemplateMapping",
-                      "variable": "name",
-                      "property": "name",
-                      "required": false
-                  },
-                  {
-                      "@type": "IriTemplateMapping",
-                      "variable": "account",
-                      "property": "account",
-                      "required": false
-                  },
-                  {
-                      "@type": "IriTemplateMapping",
-                      "variable": "account[]",
-                      "property": "account",
-                      "required": false
-                  }
+      "@context": "/contexts/Channel",
+      "@id": "/channels",
+      "@type": "hydra:Collection",
+      "hydra:member": [
+          {
+              "@id": "/channels/1",
+              "@type": "Channel",
+              "account": "/accounts/2",
+              "id": 1,
+              "name": "string",
+              "tags": [
+                  "string"
+              ],
+              "videos": [
+                  "/videos/1"
+              ],
+              "networks": [
+                  "/networks/1",
+                  "/networks/2"
+              ],
+              "playlists": [],
+              "sustainabilityOffers": [
+                  "/sustainability_offers/1",
+                  "/sustainability_offers/2"
               ]
+          },
+          {
+              "@id": "/channels/2",
+              "@type": "Channel",
+              "account": "/accounts/3",
+              "id": 2,
+              "name": "string18",
+              "tags": [
+                  "string"
+              ],
+              "videos": [],
+              "networks": [],
+              "playlists": [],
+              "sustainabilityOffers": []
+          },
+          {
+              "@id": "/channels/3",
+              "@type": "Channel",
+              "account": "/accounts/4",
+              "id": 3,
+              "name": "string19",
+              "tags": [
+                  "string"
+              ],
+              "videos": [],
+              "networks": [],
+              "playlists": [],
+              "sustainabilityOffers": []
+          },
+          {
+              "@id": "/channels/4",
+              "@type": "Channel",
+              "account": "/accounts/5",
+              "id": 4,
+              "name": "string20",
+              "tags": [
+                  "string"
+              ],
+              "videos": [],
+              "networks": [],
+              "playlists": [],
+              "sustainabilityOffers": []
           }
+      ],
+      "hydra:totalItems": 4,
+      "hydra:search": {
+          "@type": "hydra:IriTemplate",
+          "hydra:template": "/channels{?id,id[],name,account,account[]}",
+          "hydra:variableRepresentation": "BasicRepresentation",
+          "hydra:mapping": [
+              {
+                  "@type": "IriTemplateMapping",
+                  "variable": "id",
+                  "property": "id",
+                  "required": false
+              },
+              {
+                  "@type": "IriTemplateMapping",
+                  "variable": "id[]",
+                  "property": "id",
+                  "required": false
+              },
+              {
+                  "@type": "IriTemplateMapping",
+                  "variable": "name",
+                  "property": "name",
+                  "required": false
+              },
+              {
+                  "@type": "IriTemplateMapping",
+                  "variable": "account",
+                  "property": "account",
+                  "required": false
+              },
+              {
+                  "@type": "IriTemplateMapping",
+                  "variable": "account[]",
+                  "property": "account",
+                  "required": false
+              }
+          ]
       }
+  }
     """
 
   Scenario: Update a channel
@@ -416,7 +305,7 @@ Feature: Manage channel
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "account": "/accounts/1",
+      "account": "/accounts/2",
       "id": 1,
       "name": "stringUpdated",
       "tags": [
@@ -426,11 +315,13 @@ Feature: Manage channel
           "/videos/1"
       ],
       "networks": [
-          "/networks/1"
+          "/networks/1",
+          "/networks/2"
       ],
       "playlists": [],
       "sustainabilityOffers": [
-          "/sustainability_offers/1"
+          "/sustainability_offers/1",
+          "/sustainability_offers/2"
       ]
     }
     """
@@ -463,6 +354,7 @@ Feature: Manage channel
     """
 
   Scenario: See playlist in channel
+    Given There are "playlist" "/playlists/1,/playlist/2" which have "channel" "/channels/1"
     When I add "Accept" header equal to "application/ld+json"
     And I send a "GET" request to "/channels/1"
     Then the response status code should be 200
@@ -474,7 +366,7 @@ Feature: Manage channel
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "account": "/accounts/1",
+      "account": "/accounts/2",
       "id": 1,
       "name": "stringUpdated",
       "tags": [
@@ -484,13 +376,16 @@ Feature: Manage channel
           "/videos/1"
       ],
       "networks": [
-          "/networks/1"
+          "/networks/1",
+          "/networks/2"
       ],
       "playlists": [
-          "/playlists/1"
+          "/playlists/1",
+          "/playlists/2"
       ],
       "sustainabilityOffers": [
-          "/sustainability_offers/1"
+          "/sustainability_offers/1",
+          "/sustainability_offers/2"
       ]
     }
     """

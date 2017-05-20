@@ -25,20 +25,20 @@ class Annotation
     private $id;
 
     /**
-     * @var \DateTime
+     * @var int
      *
-     * @ORM\Column(name="begin_time", type="datetime")
+     * @ORM\Column(name="begin_time", type="integer")
      * @Assert\NotBlank
-     * @Assert\Type("datetime")
+     * @Assert\Type("integer")
      */
     private $begin;
 
     /**
-     * @var \DateTime
+     * @var int
      *
-     * @ORM\Column(name="end_time", type="datetime")
+     * @ORM\Column(name="end_time", type="integer")
      * @Assert\NotBlank
-     * @Assert\Type("datetime")
+     * @Assert\Type("integer")
      */
     private $end;
 
@@ -70,24 +70,24 @@ class Annotation
         return $this;
     }
 
-    public function getBegin(): \DateTime
+    public function getBegin(): int
     {
         return $this->begin;
     }
 
-    public function setBegin(\DateTime $begin): Annotation
+    public function setBegin(int $begin): Annotation
     {
         $this->begin = $begin;
 
         return $this;
     }
 
-    public function getEnd(): \DateTime
+    public function getEnd(): int
     {
         return $this->end;
     }
 
-    public function setEnd(\DateTime $end): Annotation
+    public function setEnd(int $end): Annotation
     {
         $this->end = $end;
 

@@ -1,53 +1,15 @@
-Feature: Manage network
-  In order to manage account
+# features/Playlist.feature
+Feature: Manage playlist
+  In order to manage playlists
   As a client software developer
   I need to be able to retrieve, create, update and delete them trough the API.
 
-  @createSchema
-  @fixtures
-  Scenario: I am connected as Denis with passwowrd: password
+  Background:
     Given I am connected as "denis" with password "password"
+    And There are "account" "/accounts/2"
 
-  Scenario: Create an account
-    When I add "Content-Type" header equal to "application/ld+json"
-    And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/accounts" with body:
-    """
-    {
-      "username": "string",
-      "email": "string@string.fr",
-      "firstName": "string",
-      "lastName": "string",
-      "password": "password",
-      "salt": "salt"
-    }
-    """
-    Then the response status code should be 201
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-        "@context": "/contexts/Account",
-        "@id": "/accounts/2",
-        "@type": "Account",
-        "id": 2,
-        "username": "string",
-        "email": "string@string.fr",
-        "firstName": "string",
-        "lastName": "string",
-        "channels": [],
-        "views": [],
-        "forums": [],
-        "networks": [],
-        "playlists": [],
-        "replies": [],
-        "reviews": [],
-        "sustainabilityOffers": [],
-        "seeders": []
-    }
-    """
-
+  @createSchema
+  @requiresOAuth
   Scenario: Create a playlists
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
@@ -128,42 +90,8 @@ Feature: Manage network
     }
     """
 
-  Scenario: Create a channel
-    When I add "Content-Type" header equal to "application/ld+json"
-    And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/channels" with body:
-    """
-    {
-      "account": "/accounts/1",
-      "name": "string",
-      "tags": [
-         "string"
-      ]
-    }
-    """
-    Then the response status code should be 201
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-      "@context": "/contexts/Channel",
-      "@id": "/channels/1",
-      "@type": "Channel",
-      "account": "/accounts/1",
-      "id": 1,
-      "name": "string",
-      "tags": [
-        "string"
-      ],
-      "videos": [],
-      "networks": [],
-      "playlists": [],
-      "sustainabilityOffers": []
-    }
-    """
-
   Scenario: Create a playlists with channel
+    Given There are "Channel" "/channels/1"
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
     And I send a "POST" request to "/playlists" with body:
@@ -190,34 +118,8 @@ Feature: Manage network
     }
     """
 
-  Scenario: Create a network
-    When I add "Content-Type" header equal to "application/ld+json"
-    And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/networks" with body:
-    """
-    {
-        "channels": [ "/channels/1" ],
-        "name": "string"
-    }
-    """
-    Then the response status code should be 201
-    And the response should be in JSON
-    And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
-    And the JSON should be equal to:
-    """
-    {
-      "@context": "/contexts/Network",
-      "@id": "/networks/1",
-      "@type": "Network",
-      "id": 1,
-      "channels": [ "/channels/1" ],
-      "name": "string",
-      "peoples": [],
-      "playlists": []
-    }
-    """
-
   Scenario: Create a playlists with network
+    Given There are "network" "/networks/1"
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
     And I send a "POST" request to "/playlists" with body:
