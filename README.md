@@ -6,13 +6,12 @@ Welcome to the P-Platform API made with [API-Platform](https://api-platform.com/
 
 ## Installation
 
-All dependencies, installation and run scripts are listed in the
+### P-Properties
+
+As for any P-Project application, all dependencies, installation and run scripts are listed in the
 [.p-properties.yml](https://github.com/p-project/p-api/blob/master/.p-properties.yml) file.
 
 ### PostgreSQL
-
-Download and install [PostgreSQL](https://www.postgresql.org/download/) on your
-system.
 
 If you want to use P-API default settings, you can create a `postgres` user
 with a `postgres` password:
@@ -30,6 +29,11 @@ template1=# \q
 ```
 
 ## Run the API
+
+### In development mode
+
+Commands are listed in the `run` section of the
+[.p-properties.yml](https://github.com/p-project/p-api/blob/master/.p-properties.yml) file.
 
 ### In production mode using Docker
 
