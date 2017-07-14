@@ -1,0 +1,9 @@
+dependencies:
+  bin:
+    - git
+    - php
+    - psql
+  script:
+    - php -v | grep "PHP 7.1"
+install:
+  - ./bin/reset
