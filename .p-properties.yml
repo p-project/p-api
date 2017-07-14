@@ -3,6 +3,7 @@ dependencies:
     - git
     - php
     - psql
+    - composer
   script:
     - php -v | grep "PHP 7.1"
 install:
