@@ -7,3 +7,5 @@ dependencies:
     - php -v | grep "PHP 7.1"
 install:
   - ./bin/reset
+run:
+  - ./bin/console server:run
