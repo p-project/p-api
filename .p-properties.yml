@@ -2,7 +2,7 @@ dependencies:
   bin:
     - git
     - php
-    - psql
+    - psql # Provided by PostgreSQL
     - composer
   script:
     - php -v | grep "PHP 7.1"
