@@ -6,10 +6,13 @@
     "homepage": "https://api-platform.com",
     "authors": [
         {
-            "name": "Kévin Dunglas",
-            "email": "dunglas@gmail.com",
-            "homepage": "https://dunglas.fr"
-        }
+            "name": "Mickael Brunel",
+            "email": "mickael_brunel@hotmail.fr"
+        },
+	{
+	    "name": "Quentin DeLongraye",
+            "email": "quentin@dldl.fr"
+	}
     ],
     "autoload": {
         "psr-4": { "": "src/" },
@@ -19,7 +22,7 @@
         "psr-4": { "Tests\\": "tests/" }
     },
     "require": {
-        "php": ">=7.0",
+        "php": ">=7.1",
         "symfony/symfony": "3.2.*",
         "api-platform/core": "^2.0",
         "doctrine/orm": "^2.5",
