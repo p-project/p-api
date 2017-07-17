@@ -6,21 +6,12 @@ Welcome to the P-Platform API made with [API-Platform](https://api-platform.com/
 
 ## Installation
 
-### PHP
+### P-Properties
 
-The project requires PHP 7.0. To install the project, run the following command
-to check if your system meets the default requirements:
-
-```sh
-./bin/symfony_requirements
-```
-
-Install [Composer](https://getcomposer.org) globally on your system.
+As for any P-Project application, all dependencies, installation and run scripts are listed in the
+[.p-properties.yml](https://github.com/p-project/p-api/blob/master/.p-properties.yml) file.
 
 ### PostgreSQL
-
-Download and install [PostgreSQL](https://www.postgresql.org/download/) on your
-system.
 
 If you want to use P-API default settings, you can create a `postgres` user
 with a `postgres` password:
@@ -37,22 +28,12 @@ template1=# GRANT ALL PRIVILEGES ON DATABASE "api" to postgres;
 template1=# \q
 ```
 
-### Dependencies
-
-Install the project and initialize the database by running at the root project
-folder:
-
-`./bin/reset`
-
 ## Run the API
 
 ### In development mode
 
-Start the API using the Symfony PHP build-in server:
-
-```sh
-./bin/console server:run
-```
+Commands are listed in the `run` section of the
+[.p-properties.yml](https://github.com/p-project/p-api/blob/master/.p-properties.yml) file.
 
 ### In production mode using Docker
 
