@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 use Symfony\Component\HttpKernel\Controller\ControllerResolver;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -21,9 +22,6 @@ class AccessListenerTest extends KernelTestCase
 
     private $accessListener;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function setUp()
     {
         self::bootKernel();
@@ -58,10 +56,14 @@ class AccessListenerTest extends KernelTestCase
         $event = $this->getEvent();
         $this->accessListener->onKernelRequest($event);
         $ipRequest = $this->em->getRepository('AppBundle:IpRequest')->findOneBy(['ip' => '127.0.0.1']);
+
         $this->assertNull($event->getResponse());
         $this->assertEquals($ipRequest->countAccesses(), 1);
     }
 
+    /**
+     * @depends testRequestPassed
+     */
     public function testRequestIsBlocked()
     {
         $event = null;
@@ -70,14 +72,15 @@ class AccessListenerTest extends KernelTestCase
             $event = $this->getEvent();
             $this->accessListener->onKernelRequest($event);
         }
-
-        $this->assertEquals($event->getResponse()->getStatusCode(), 429);
-
         $ipRequest = $this->em->getRepository('AppBundle:IpRequest')->findOneBy(['ip' => '127.0.0.1']);
 
+        $this->assertEquals($event->getResponse()->getStatusCode(), Response::HTTP_TOO_MANY_REQUESTS);
         $this->assertEquals($ipRequest->countAccesses(), 15);
     }
 
+    /**
+     * @depends testRequestIsBlocked
+     */
     public function testRequestPassedAgain()
     {
         sleep(AccessListener::AGGREGATION_DELAY);
@@ -87,20 +90,17 @@ class AccessListenerTest extends KernelTestCase
         $this->accessListener->onKernelRequest($event);
 
         $ipRequests = $this->em->getRepository('AppBundle:IpRequest')->findAll();
-        $this->assertNull($event->getResponse());
 
+        $this->assertNull($event->getResponse());
         $this->assertEquals(count($ipRequests), 2);
         $this->assertEquals($ipRequests[1]->countAccesses(), 1);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function tearDown()
     {
         parent::tearDown();
 
         $this->em->close();
-        $this->em = null; // avoid memory leaks
+        $this->em = null;
     }
 }
