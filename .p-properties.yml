@@ -1,0 +1,12 @@
+dependencies:
+  bin:
+    - git
+    - php
+    - psql # Provided by PostgreSQL
+    - composer
+  script:
+    - php -v | grep "PHP 7.1"
+install:
+  - ./bin/reset
+run:
+  - ./bin/console server:run

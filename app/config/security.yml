@@ -26,4 +26,5 @@ security:
     access_control:
         - { path: "^/$", roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: "^/videos", roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "^/categories", roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: "^/", roles: IS_AUTHENTICATED_FULLY }
