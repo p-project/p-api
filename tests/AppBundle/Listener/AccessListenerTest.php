@@ -90,7 +90,7 @@ class AccessListenerTest extends KernelTestCase
 
         $event = $this->getEvent();
 
-        $this->accessListener->onKernelRequest($event);
+        $accessListener->onKernelRequest($event);
 
         $ipRequests = $this->em->getRepository('AppBundle:IpRequest')->findAll();
 
@@ -105,7 +105,6 @@ class AccessListenerTest extends KernelTestCase
     {
         parent::tearDown();
 
-        $this->em->close();
         $this->em = null;
     }
 }
