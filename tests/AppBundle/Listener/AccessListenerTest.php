@@ -20,8 +20,6 @@ class AccessListenerTest extends KernelTestCase
      */
     private $em;
 
-    private $accessListener;
-
     protected function setUp()
     {
         self::bootKernel();
@@ -30,7 +28,6 @@ class AccessListenerTest extends KernelTestCase
             ->get('doctrine')
             ->getManager();
 
-        $this->accessListener = new AccessListener($this->em, 'unit-test');
     }
 
     private function getEvent()
@@ -54,34 +51,41 @@ class AccessListenerTest extends KernelTestCase
     public function testRequestPassed()
     {
         $event = $this->getEvent();
-        $this->accessListener->onKernelRequest($event);
+
+        $accessListener = new AccessListener($this->em, 'unit-test');
+        $accessListener->onKernelRequest($event);
+
         $ipRequest = $this->em->getRepository('AppBundle:IpRequest')->findOneBy(['ip' => '127.0.0.1']);
 
         $this->assertNull($event->getResponse());
         $this->assertEquals($ipRequest->countAccesses(), 1);
+
+        return $accessListener;
     }
 
     /**
      * @depends testRequestPassed
      */
-    public function testRequestIsBlocked()
+    public function testRequestIsBlocked(AccessListener $accessListener)
     {
         $event = null;
 
         for ($i = 0; $i < AccessListener::MAX_ATTEMPTS + 2; ++$i) {
             $event = $this->getEvent();
-            $this->accessListener->onKernelRequest($event);
+            $accessListener->onKernelRequest($event);
         }
         $ipRequest = $this->em->getRepository('AppBundle:IpRequest')->findOneBy(['ip' => '127.0.0.1']);
 
         $this->assertEquals($event->getResponse()->getStatusCode(), Response::HTTP_TOO_MANY_REQUESTS);
         $this->assertEquals($ipRequest->countAccesses(), 15);
+
+        return $accessListener;
     }
 
     /**
      * @depends testRequestIsBlocked
      */
-    public function testRequestPassedAgain()
+    public function testRequestPassedAgain(AccessListener $accessListener)
     {
         sleep(AccessListener::AGGREGATION_DELAY);
 
@@ -94,6 +98,8 @@ class AccessListenerTest extends KernelTestCase
         $this->assertNull($event->getResponse());
         $this->assertEquals(count($ipRequests), 2);
         $this->assertEquals($ipRequests[1]->countAccesses(), 1);
+
+        return $accessListener;
     }
 
     protected function tearDown()
