@@ -61,13 +61,20 @@ class AccessListener
 
     private function vote(IpRequest $ipRequest, GetResponseEvent $event)
     {
+        $headers = [
+            "X-Rate-Limit-Limit" => MAX_ATTEMPTS,
+            "X-Rate-Limit-Remaining" => "",
+            "X-Rate-Limit-Reset" => ""
+        ];
+
         if ($ipRequest->countAccesses() > static::MAX_ATTEMPTS) {
-            $event->setResponse(
-                (new Response())->setStatusCode(Response::HTTP_TOO_MANY_REQUESTS)->setContent('Too Many Request')
-            );
+            $response = (new Response())->setStatusCode(Response::HTTP_TOO_MANY_REQUESTS)
+                ->setContent('Too Many Request')->headers->add($headers);
+            $event->setResponse($response);
         } else {
             $this->em->persist($ipRequest);
             $this->em->flush();
+            $event->getResponse()->headers->add($headers);
         }
     }
 }
