@@ -6,25 +6,24 @@ use AppBundle\Entity\IpRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\HttpKernel\Kernel;
 
 class AccessListener
 {
     private $em;
-    private $kernel;
+    private $env;
 
     const AGGREGATION_DELAY = 5;
     const MAX_ATTEMPTS = 15;
 
-    public function __construct(EntityManagerInterface $entityManager, Kernel $kernel)
+    public function __construct(EntityManagerInterface $entityManager, string $env)
     {
         $this->em = $entityManager;
-        $this->kernel = $kernel;
+        $this->env = $env;
     }
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        if (!$event->isMasterRequest() || $this->kernel->getEnvironment() === 'test') {
+        if (!$event->isMasterRequest() || $this->env === 'test') {
             return;
         }
 
@@ -50,23 +49,24 @@ class AccessListener
 
     private function updateAttempts(IpRequest $ipRequest)
     {
-        $delay = $ipRequest->getDateRequest()->modify('+'.static::AGGREGATION_DELAY.' second');
+        $dateRequest = clone $ipRequest->getDateRequest();
+        $delay = $dateRequest->modify('+'.static::AGGREGATION_DELAY.' second');
 
         if ($delay < new \DateTime()) {
             $ipRequest = $this->getNewIpRequest($ipRequest->getIp());
         }
 
-        return $ipRequest->recordAccess();
+        return $ipRequest;
     }
 
     private function vote(IpRequest $ipRequest, GetResponseEvent $event)
     {
-        if ($ipRequest->countAccesses() > static::MAX_ATTEMPTS) {
+        if ($ipRequest->countAccesses() >= static::MAX_ATTEMPTS) {
             $event->setResponse(
                 (new Response())->setStatusCode(Response::HTTP_TOO_MANY_REQUESTS)->setContent('Too Many Request')
             );
         } else {
-            $this->em->persist($ipRequest);
+            $this->em->persist($ipRequest->recordAccess());
             $this->em->flush();
         }
     }

@@ -8,7 +8,7 @@ Feature: Manage annotation
     Given I am connected as "denis" with password "password"
     And There are "video" "/videos/1,/videos/2"
 
-  @createSchema
+  @refreshSchema
   @requiresOAuth
   Scenario: Create an annotation
     When I add "Content-Type" header equal to "application/ld+json"
@@ -150,7 +150,6 @@ Feature: Manage annotation
     And I send a "DELETE" request to "/annotations/1"
     Then the response status code should be 204
 
-  @dropSchema
   Scenario: Delete an annotation which not exists
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"

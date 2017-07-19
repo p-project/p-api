@@ -7,7 +7,7 @@ Feature: Manage category
   Background:
     Given I am connected as "denis" with password "password"
 
-  @createSchema
+  @refreshSchema
   @requiresOAuth
   Scenario: Create a category
     When I add "Content-Type" header equal to "application/ld+json"
@@ -149,7 +149,6 @@ Feature: Manage category
     And I send a "DELETE" request to "/categories/1"
     Then the response status code should be 204
 
-  @dropSchema
   Scenario: Delete a category which not exists
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
