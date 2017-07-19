@@ -27,7 +27,6 @@ class AccessListenerTest extends KernelTestCase
         $this->em = static::$kernel->getContainer()
             ->get('doctrine')
             ->getManager();
-
     }
 
     private function getEvent()
