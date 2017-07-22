@@ -8,6 +8,7 @@ services:
     image: postgres:9-alpine
     volumes:
       - db-data:/var/lib/postgresql
+
   nginx:
     image: nginx:1.11-alpine
     depends_on:
@@ -17,6 +18,20 @@ services:
     volumes:
       - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
       - ./web:/srv/api-platform/web
+
+
+  varnish:
+    build:
+      context: ./docker/varnish
+      dockerfile: ./Dockerfile
+    depends_on:
+      - php
+      - nginx
+    volumes:
+      - ./docker/varnish/conf:/etc/varnish:ro
+    ports:
+      - "80:80"
+
   php:
     build: .
     depends_on:
