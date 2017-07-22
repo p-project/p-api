@@ -54,6 +54,9 @@ parameters:
     cors_allow_origin:
         - 'http://localhost:3000'
         - 'http://localhost:9080'
+    varnish_enabled: false
+    varnish_urls:
+        - 'http://varnish'
 ```
 
 Build the image:
