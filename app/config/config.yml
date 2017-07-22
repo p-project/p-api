@@ -85,7 +85,7 @@ fos_oauth_server:
 api_platform:
     http_cache:
         invalidation:
-            enabled: true
+            enabled: "%varnish_enabled%"
             varnish_urls: '%varnish_urls%'
         max_age: 0
         shared_max_age: 3600
