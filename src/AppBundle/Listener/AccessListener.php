@@ -3,78 +3,41 @@
 namespace AppBundle\Listener;
 
 use AppBundle\Entity\IpRequest;
+use AppBundle\Security\RateLimiter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\HttpKernel\Kernel;
 
 class AccessListener
 {
-    private $em;
-    private $kernel;
+    private $rateLimiter;
+    private $env;
 
-    const AGGREGATION_DELAY = 5;
-    const MAX_ATTEMPTS = 15;
-
-    public function __construct(EntityManagerInterface $entityManager, Kernel $kernel)
+    public function __construct(RateLimiter $rateLimiter, string $env)
     {
-        $this->em = $entityManager;
-        $this->kernel = $kernel;
+        $this->rateLimiter = $rateLimiter;
+        $this->env = $env;
     }
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        if (!$event->isMasterRequest() || $this->kernel->getEnvironment() === 'test') {
+        if (!$event->isMasterRequest() || $this->env === 'test') {
             return;
         }
 
         $ip = $event->getRequest()->getClientIp();
 
-        $ipRequest = $this->searchOldIpRequest($ip) ?? $this->getNewIpRequest($ip);
-        $ipRequest = $this->updateAttempts($ipRequest);
-
-        $this->vote($ipRequest, $event);
-    }
-
-    private function searchOldIpRequest(string $ip)
-    {
-        $startingAt = (new \DateTime())->modify('-'.static::AGGREGATION_DELAY.' second');
-
-        return $this->em->getRepository('AppBundle:IpRequest')->findLastIpRequest($ip, $startingAt);
-    }
-
-    private function getNewIpRequest(string $ip)
-    {
-        return new IpRequest($ip);
-    }
-
-    private function updateAttempts(IpRequest $ipRequest)
-    {
-        $delay = $ipRequest->getDateRequest()->modify('+'.static::AGGREGATION_DELAY.' second');
-
-        if ($delay < new \DateTime()) {
-            $ipRequest = $this->getNewIpRequest($ipRequest->getIp());
-        }
-
-        return $ipRequest->recordAccess();
+        $this->vote($this->rateLimiter->getIpRequest($ip), $event);
     }
 
     private function vote(IpRequest $ipRequest, GetResponseEvent $event)
     {
-        $headers = [
-            "X-Rate-Limit-Limit" => MAX_ATTEMPTS,
-            "X-Rate-Limit-Remaining" => "",
-            "X-Rate-Limit-Reset" => ""
-        ];
-
-        if ($ipRequest->countAccesses() > static::MAX_ATTEMPTS) {
+        if ($ipRequest->countAccesses() >= RateLimiter::MAX_ATTEMPTS) {
             $response = (new Response())->setStatusCode(Response::HTTP_TOO_MANY_REQUESTS)
-                ->setContent('Too Many Request')->headers->add($headers);
+                ->setContent('Too Many Request');
             $event->setResponse($response);
         } else {
-            $this->em->persist($ipRequest);
-            $this->em->flush();
-            $event->getResponse()->headers->add($headers);
+            $this->rateLimiter->persistIpRequest($ipRequest->recordAccess());
         }
     }
 }

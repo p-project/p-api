@@ -8,7 +8,7 @@ Feature: Manage channel
     Given I am connected as "denis" with password "password"
     And There are "account" "/accounts/2"
 
-  @createSchema
+  @refreshSchema
   @requiresOAuth
   Scenario: Create a channel
     When I add "Content-Type" header equal to "application/ld+json"
@@ -396,7 +396,6 @@ Feature: Manage channel
     And I send a "DELETE" request to "/channels/1"
     Then the response status code should be 204
 
-  @dropSchema
   Scenario: Delete a category which not exists
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"

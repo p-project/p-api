@@ -1,7 +1,7 @@
 language: php
 
 php:
-    - 7.0
+    - 7.1
 
 cache:
     apt: true
@@ -21,5 +21,5 @@ before_script:
 
 script:
     - composer install --no-interaction --no-progress
-    - ./vendor/bin/behat
+    - ./bin/test
     - ./php-cs-fixer.phar fix --no-interaction --dry-run --diff -v

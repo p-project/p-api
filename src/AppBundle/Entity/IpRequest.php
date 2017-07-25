@@ -25,7 +25,7 @@ class IpRequest
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string")
+     * @ORM\Column(name="ip", type="string")
      * @Assert\NotBlank
      * @Assert\Type("string")
      */

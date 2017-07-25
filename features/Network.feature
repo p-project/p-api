@@ -8,7 +8,7 @@ Feature: Manage network
     Given I am connected as "denis" with password "password"
     And There are "channel" "/channels/1"
 
-  @createSchema
+  @refreshSchema
   @requiresOAuth
   Scenario: Create a network
     When I add "Content-Type" header equal to "application/ld+json"
@@ -161,7 +161,6 @@ Feature: Manage network
     And I send a "DELETE" request to "/networks/1"
     Then the response status code should be 204
 
-  @dropSchema
   Scenario: Delete a network which not exists
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"

@@ -1,11 +1,21 @@
 services:
     app.listener.access_listener:
         class: AppBundle\Listener\AccessListener
-        arguments: [ "@doctrine.orm.entity_manager", "@kernel" ]
+        arguments: [ "@app.security.rate_limiter", "%kernel.environment%" ]
         tags:
             - { name: kernel.event_listener, event: kernel.request }
+
+    app.listener.response_listener:
+        class: AppBundle\Listener\ResponseListener
+        arguments: [ "@app.security.rate_limiter", "%kernel.environment%" ]
+        tags:
+            - { name: kernel.event_listener, event: kernel.response }
 
     app.security.account_provider:
         class: AppBundle\Security\AccountProvider
         arguments: [ "@doctrine.orm.entity_manager" ]
         public: false
+
+    app.security.rate_limiter:
+        class: AppBundle\Security\RateLimiter
+        arguments: [ "@doctrine.orm.entity_manager" ]

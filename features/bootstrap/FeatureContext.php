@@ -85,19 +85,12 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
     }
 
     /**
-     * @BeforeScenario @createSchema
+     * @BeforeScenario @refreshSchema
      */
-    public function createDatabase()
-    {
-        $this->schemaTool->createSchema($this->classes);
-    }
-
-    /**
-     * @AfterScenario @dropSchema
-     */
-    public function dropDatabase()
+    public function refreshDatabase()
     {
         $this->schemaTool->dropSchema($this->classes);
+        $this->schemaTool->createSchema($this->classes);
     }
 
     protected function runCommand($command)
