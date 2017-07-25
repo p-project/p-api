@@ -29,5 +29,4 @@ class ResponseListener
     {
         $event->getResponse()->headers->add($header);
     }
-
 }

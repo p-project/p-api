@@ -65,7 +65,7 @@ class ListenerTest extends KernelTestCase
 
         $response = new Response();
         $response->setContent(json_encode(
-            [ 'data' => '123' ]
+            ['data' => '123']
         ));
 
         $event = new FilterResponseEvent($kernel, $request, 1, $response);
@@ -104,7 +104,6 @@ class ListenerTest extends KernelTestCase
 
         $eventResponse = $this->getResponseEvent();
         $event = $this->getFilterResponseEvent();
-
 
         for ($i = 0; $i < RateLimiter::MAX_ATTEMPTS + 2; ++$i) {
             $accessListener->onKernelRequest($eventResponse);

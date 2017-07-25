@@ -4,7 +4,6 @@ namespace AppBundle\Listener;
 
 use AppBundle\Entity\IpRequest;
 use AppBundle\Security\RateLimiter;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 

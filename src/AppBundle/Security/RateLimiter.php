@@ -2,10 +2,8 @@
 
 namespace AppBundle\Security;
 
-use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\IpRequest;
-use Faker\Provider\DateTime;
-use Symfony\Component\Validator\Constraints\Date;
+use Doctrine\ORM\EntityManager;
 
 class RateLimiter
 {
@@ -24,6 +22,7 @@ class RateLimiter
     public function getIpRequest(string $ip)
     {
         $this->ipRequest = $this->searchOldIpRequest($ip) ?? $this->getNewIpRequest($ip);
+
         return $this->updateAttempts($this->ipRequest);
     }
 
@@ -42,8 +41,8 @@ class RateLimiter
         $dateRequest = clone $this->ipRequest->getDateRequest();
         $interval = (new \DateTime())->diff($dateRequest);
 
-        $secondBetweenDate = $interval->days*86400 + $interval->h*3600
-            + $interval->i*60 + $interval->s;
+        $secondBetweenDate = $interval->days * 86400 + $interval->h * 3600
+            + $interval->i * 60 + $interval->s;
 
         $rateLimitReset = static::AGGREGATION_DELAY - $secondBetweenDate;
         if ($rateLimitReset < 0) {
@@ -58,7 +57,7 @@ class RateLimiter
         return [
             'X-RateLimit-Limit' => static::MAX_ATTEMPTS,
             'X-RateLimit-Remaining' => $this->getRateLimitRemaining(),
-            'X-RateLimit-Reset' => $this->getRateLimitReset()
+            'X-RateLimit-Reset' => $this->getRateLimitReset(),
         ];
     }
 
