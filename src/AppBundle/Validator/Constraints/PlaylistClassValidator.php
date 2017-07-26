@@ -16,7 +16,7 @@ class PlaylistClassValidator extends ConstraintValidator
 
     public function ternaryXor($channel, $network, $account)
     {
-        return ($channel == null && ($network != null ^ $account != null))
-            || ($channel != null && !($network != null || $account != null));
+        return ($channel === null && ($network !== null ^ $account !== null))
+            || ($channel !== null && !($network !== null || $account !== null));
     }
 }
