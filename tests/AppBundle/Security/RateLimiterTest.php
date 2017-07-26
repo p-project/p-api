@@ -32,7 +32,7 @@ class RateLimiterTest extends KernelTestCase
     }
 
     /**
-     * @depends testGetItestNewIpRequest
+     * @depends testNewIpRequest
      */
     public function testSeveralIpRequest(RateLimiter $rateLimiter)
     {
