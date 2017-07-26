@@ -94,3 +94,15 @@ For example :
 Bearer OWQ3ZGYzZmVhZDcxNTRmNDAwZGE3YjhjZWI1MmIwOWY1YzIzY2FmYjA0MmYxMGUwZDY5N2RiZTQ5NWM1NDA2Mw
 ```
 
+## SensioLabs Insight
+
+The badge from [SensioLabs Insight](https://insight.sensiolabs.com/) provides
+another indication of the quality of a project. It checks for a lot of issues
+and enforces/encourages best practices. The following styles are available:
+
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/dc5ca27e-0d4e-46e2-b153-22c9f48f6bb4/big.png)](https://insight.sensiolabs.com/projects/dc5ca27e-0d4e-46e2-b153-22c9f48f6bb4)
+
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/dc5ca27e-0d4e-46e2-b153-22c9f48f6bb4/small.png)](https://insight.sensiolabs.com/projects/dc5ca27e-0d4e-46e2-b153-22c9f48f6bb4))
+
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/dc5ca27e-0d4e-46e2-b153-22c9f48f6bb4/mini.png)](https://insight.sensiolabs.com/projects/dc5ca27e-0d4e-46e2-b153-22c9f48f6bb4)
+
