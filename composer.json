@@ -11,7 +11,7 @@
         },
         {
             "name": "Quentin de Longraye",
-                "email": "quentin@dldl.fr"
+            "email": "quentin@dldl.fr"
         }
     ],
     "autoload": {
