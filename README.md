@@ -1,9 +1,6 @@
 # P-API
 
-[![Build Status](https://travis-ci.org/p-project/p-api.svg?branch=master)](https://travis-ci.org/p-project/p-api)
-
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/dc5ca27e-0d4e-46e2-b153-22c9f48f6bb4/mini.png)](https://insight.sensiolabs.com/projects/dc5ca27e-0d4e-46e2-b153-22c9f48f6bb4)
-
+[![Build Status](https://travis-ci.org/p-project/p-api.svg?branch=master)](https://travis-ci.org/p-project/p-api) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/dc5ca27e-0d4e-46e2-b153-22c9f48f6bb4/mini.png)](https://insight.sensiolabs.com/projects/dc5ca27e-0d4e-46e2-b153-22c9f48f6bb4)
 
 Welcome to the P-Platform API made with [API-Platform](https://api-platform.com/).
 
