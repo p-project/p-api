@@ -1,0 +1,3 @@
+pre_composer_script:
+    apt-get install php7.1-pgsql
+
