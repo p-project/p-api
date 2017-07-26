@@ -21,7 +21,7 @@ class RateLimiterTest extends KernelTestCase
             ->getManager();
     }
 
-    public function testGetIpRequest()
+    public function testNewIpRequest()
     {
         $rateLimiter = new RateLimiter($this->em);
         $ipRequest = $rateLimiter->getIpRequest('127.0.0.1');
@@ -32,9 +32,9 @@ class RateLimiterTest extends KernelTestCase
     }
 
     /**
-     * @depends testGetIpRequest
+     * @depends testGetItestNewIpRequest
      */
-    public function testPersistIpRequest(RateLimiter $rateLimiter)
+    public function testSeveralIpRequest(RateLimiter $rateLimiter)
     {
         $ipRequest = $rateLimiter->getIpRequest('127.0.0.1');
         $rateLimiter->persistIpRequest($ipRequest->recordAccess());
@@ -47,7 +47,7 @@ class RateLimiterTest extends KernelTestCase
         $rateLimiter = new RateLimiter($this->em);
         $ipRequest = $rateLimiter->getIpRequest('127.0.0.1');
 
-        $header = $rateLimiter->getHeader();
+        $header = $rateLimiter->getResponseHeaders();
 
         $this->assertEquals($header['X-RateLimit-Limit'], RateLimiter::MAX_ATTEMPTS);
         $this->assertEquals($header['X-RateLimit-Remaining'], RateLimiter::MAX_ATTEMPTS - $ipRequest->countAccesses());

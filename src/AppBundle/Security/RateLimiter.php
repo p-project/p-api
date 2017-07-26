@@ -8,7 +8,6 @@ use Doctrine\ORM\EntityManager;
 class RateLimiter
 {
     private $em;
-
     private $ipRequest;
 
     const AGGREGATION_DELAY = 5;
@@ -38,11 +37,8 @@ class RateLimiter
 
     private function getRateLimitReset(): int
     {
-        $dateRequest = clone $this->ipRequest->getDateRequest();
-        $interval = (new \DateTime())->diff($dateRequest);
-
-        $secondBetweenDate = $interval->days * 86400 + $interval->h * 3600
-            + $interval->i * 60 + $interval->s;
+        $dateRequest = $this->ipRequest->getDateRequest();
+        $secondBetweenDate = (new \DateTime())->getTimestamp() - $dateRequest->getTimestamp();
 
         $rateLimitReset = static::AGGREGATION_DELAY - $secondBetweenDate;
         if ($rateLimitReset < 0) {
@@ -52,7 +48,7 @@ class RateLimiter
         return $rateLimitReset;
     }
 
-    public function getHeader(): array
+    public function getResponseHeaders(): array
     {
         return [
             'X-RateLimit-Limit' => static::MAX_ATTEMPTS,

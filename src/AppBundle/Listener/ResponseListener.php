@@ -22,11 +22,6 @@ class ResponseListener
             return;
         }
 
-        $this->addHeader($event, $this->rateLimiter->getHeader());
-    }
-
-    private function addHeader(FilterResponseEvent $event, array $header)
-    {
-        $event->getResponse()->headers->add($header);
+        $event->getResponse()->headers->add($this->rateLimiter->getResponseHeaders());
     }
 }
