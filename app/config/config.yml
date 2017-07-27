@@ -86,7 +86,7 @@ api_platform:
     http_cache:
         invalidation:
             enabled: "%varnish_enabled%"
-            varnish_urls: '%varnish_urls%'
+            varnish_urls: "%varnish_urls%"
         max_age: 0
         shared_max_age: 3600
         vary: ['Content-Type', 'Authorization']
