@@ -6,7 +6,7 @@ default:
       contexts:
         - FeatureContext: { request: "@request_stack", doctrine: "@doctrine", kernel: "@kernel" }
         - Behat\MinkExtension\Context\MinkContext
-        - Sanpi\Behatch\Context\JsonContext
+        - Behatch\Context\JsonContext
   extensions:
     Behat\Symfony2Extension:
       kernel:
@@ -17,4 +17,4 @@ default:
       sessions:
         default:
           symfony2: ~
-    Sanpi\Behatch\Extension: ~
+    Behatch\Extension: ~

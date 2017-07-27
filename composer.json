@@ -9,13 +9,13 @@
             "name": "Mickael Brunel",
             "email": "mickael_brunel@hotmail.fr"
         },
-	{
-	    "name": "Quentin de Longraye",
+        {
+            "name": "Quentin de Longraye",
             "email": "quentin@dldl.fr"
-	}
+        }
     ],
     "autoload": {
-        "psr-4": { "": "src/" },
+        "psr-4": { "AppBundle\\": "src/AppBundle" },
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
     "autoload-dev": {
