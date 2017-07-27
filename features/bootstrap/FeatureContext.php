@@ -1,7 +1,6 @@
 <?php
 
 use Behat\Behat\Context\Context;
-use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behatch\Context\RestContext;
 use Behatch\HttpCall\Request;
@@ -14,7 +13,7 @@ use Symfony\Component\HttpKernel\Kernel;
 /**
  * Defines application features from the specific context.
  */
-class FeatureContext extends RestContext implements Context, SnippetAcceptingContext
+class FeatureContext extends RestContext implements Context
 {
     /**
      * @var ManagerRegistry
