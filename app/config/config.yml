@@ -23,6 +23,7 @@ framework:
     trusted_hosts:   ~
     trusted_proxies: ~
     session:
+        name: pproject_session
         handler_id:  session.handler.native_file
         save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
     fragments:       ~
@@ -38,6 +39,7 @@ twig:
 doctrine:
     dbal:
         driver:   pdo_pgsql
+        server_version: 9.5.7
         host:     "%database_host%"
         port:     "%database_port%"
         dbname:   "%database_name%"
