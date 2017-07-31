@@ -83,6 +83,7 @@ class AccessListenerTest extends KernelTestCase
         $ipRequest = $this->em->getRepository('AppBundle:IpRequest')->findOneBy(['ip' => '127.0.0.1']);
 
         $this->assertEquals($event->getResponse()->getStatusCode(), Response::HTTP_TOO_MANY_REQUESTS);
+        $this->assertTrue($event->getResponse()->headers->get('Retry-After') >= 0);
         $this->assertEquals($ipRequest->countAccesses(), 15);
 
         return $accessListener;

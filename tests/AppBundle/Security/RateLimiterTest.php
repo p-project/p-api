@@ -54,6 +54,16 @@ class RateLimiterTest extends KernelTestCase
         $this->assertTrue($header['X-RateLimit-Reset'] >= 0);
     }
 
+    public function testGetBlockedHeader()
+    {
+        $rateLimiter = new RateLimiter($this->em);
+        $ipRequest = $rateLimiter->getIpRequest('127.0.0.1');
+
+        $header = $rateLimiter->getBlockedHeaders();
+
+        $this->assertTrue($header['Retry-After'] >= 0);
+    }
+
     protected function tearDown()
     {
         parent::tearDown();

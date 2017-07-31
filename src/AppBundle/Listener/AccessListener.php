@@ -32,8 +32,8 @@ class AccessListener
     private function vote(IpRequest $ipRequest, GetResponseEvent $event)
     {
         if ($ipRequest->countAccesses() >= RateLimiter::MAX_ATTEMPTS) {
-            $response = (new Response())->setStatusCode(Response::HTTP_TOO_MANY_REQUESTS)
-                ->setContent('Too Many Request');
+            $response = new Response('Too Many Request', Response::HTTP_TOO_MANY_REQUESTS,
+                $this->rateLimiter->getBlockedHeaders());
             $event->setResponse($response);
         } else {
             $this->rateLimiter->persistIpRequest($ipRequest->recordAccess());

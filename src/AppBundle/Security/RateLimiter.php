@@ -57,6 +57,13 @@ class RateLimiter
         ];
     }
 
+    public function getBlockedHeaders(): array
+    {
+        return [
+            'Retry-After' => $this->getRateLimitReset(),
+        ];
+    }
+
     public function persistIpRequest(IpRequest $ipRequest)
     {
         $this->em->persist($ipRequest);
