@@ -2,6 +2,8 @@
     "name": "api-platform/api-platform",
     "license": "MIT",
     "type": "project",
+    "description": "The API Platform framework",
+    "homepage": "https://api-platform.com",
     "authors": [
         {
             "name": "Mickael Brunel",
