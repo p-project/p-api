@@ -19,3 +19,12 @@ services:
     app.security.rate_limiter:
         class: AppBundle\Security\RateLimiter
         arguments: [ "@doctrine.orm.entity_manager" ]
+
+    app.security.account_voter:
+            class: AppBundle\Security\AccountVoter
+
+    app.event_subscriber.account_checker:
+        class: AppBundle\EventSubscriber\AccountChecker
+        arguments: [ "@app.security.account_voter", "%security.token_storage%" ]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request }
