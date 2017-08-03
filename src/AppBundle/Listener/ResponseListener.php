@@ -22,6 +22,8 @@ class ResponseListener
             return;
         }
 
-        $event->getResponse()->headers->add($this->rateLimiter->getResponseHeaders());
+        $ip = $event->getRequest()->getClientIp();
+
+        $event->getResponse()->headers->add($this->rateLimiter->getResponseHeaders($ip));
     }
 }

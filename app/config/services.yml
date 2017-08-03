@@ -27,4 +27,9 @@ services:
         class: AppBundle\EventSubscriber\AccountChecker
         arguments: [ "@security.authorization_checker" ]
         tags:
-            - { name: kernel.event_listener, event: kernel.request }
+            - { name: kernel.event_listener, event: kernel.view }
+
+    app.event_subscriber.password_encryption:
+        class: AppBundle\EventSubscriber\PasswordEncryption
+        tags:
+            - { name: kernel.event_listener, event: kernel.view }

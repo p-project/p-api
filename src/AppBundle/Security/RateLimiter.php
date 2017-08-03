@@ -25,9 +25,14 @@ class RateLimiter
         return $this->updateAttempts($this->ipRequest);
     }
 
-    private function getRateLimitRemaining(): int
+    private function getRateLimitRemaining(string $ip): int
     {
+        if ($this->ipRequest === null) {
+            $this->getIpRequest($ip);
+        }
+
         $rateLimitRemaining = static::MAX_ATTEMPTS - $this->ipRequest->countAccesses();
+
         if ($rateLimitRemaining < 0) {
             $rateLimitRemaining = 0;
         }
@@ -48,11 +53,11 @@ class RateLimiter
         return $rateLimitReset;
     }
 
-    public function getResponseHeaders(): array
+    public function getResponseHeaders(string $ip): array
     {
         return [
             'X-RateLimit-Limit' => static::MAX_ATTEMPTS,
-            'X-RateLimit-Remaining' => $this->getRateLimitRemaining(),
+            'X-RateLimit-Remaining' => $this->getRateLimitRemaining($ip),
             'X-RateLimit-Reset' => $this->getRateLimitReset(),
         ];
     }

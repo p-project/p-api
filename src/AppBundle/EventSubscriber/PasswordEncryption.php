@@ -14,23 +14,16 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
-class AccountChecker implements EventSubscriberInterface
+class PasswordEncryption implements EventSubscriberInterface
 {
-    private $authorizationChecker;
-
-    public function __construct(AuthorizationCheckerInterface $authorizationChecker)
-    {
-        $this->authorizationChecker = $authorizationChecker;
-    }
-
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::VIEW => [['checkAccountAccess', EventPriorities::POST_VALIDATE]],
+            KernelEvents::VIEW => [['encryptPassword', EventPriorities::PRE_WRITE]],
         ];
     }
 
-    public function checkAccountAccess(GetResponseForControllerResultEvent $event)
+    public function encryptPassword(GetResponseForControllerResultEvent $event)
     {
         $profile = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();
@@ -39,9 +32,10 @@ class AccountChecker implements EventSubscriberInterface
             return;
         }
 
-        if (!$this->authorizationChecker->isGranted('access', $profile)) {
-            $response = new Response('You don\'t have access to this account', Response::HTTP_FORBIDDEN);
-            $event->setResponse($response);
-        }
+        $profile->getAccount()
+            ->setSalt(base_convert(uniqid(mt_rand(), true), 16, 36))
+            ->setPassword($this->container->get('security.password_encoder')
+                ->encodePassword($profile->getAccount(), 'password'))
+        ;
     }
 }

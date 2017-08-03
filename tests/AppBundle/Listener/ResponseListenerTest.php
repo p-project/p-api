@@ -11,6 +11,7 @@ namespace Tests\AppBundle\Listener;
 use AppBundle\Listener\ResponseListener;
 use AppBundle\Security\RateLimiter;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 
@@ -18,12 +19,18 @@ class ResponseListenerTest extends KernelTestCase
 {
     private function getEvent()
     {
+        $request = Request::create(
+            '/videos',
+            'GET'
+        );
+
         $response = new Response(json_encode(
             ['data' => '123']
         ));
 
         $event = $this->createMock(FilterResponseEvent::class);
         $event->expects($this->any())->method('getResponse')->willReturn($response);
+        $event->expects($this->any())->method('getRequest')->willReturn($request);
         $event->expects($this->once())->method('isMasterRequest')->willReturn(true);
 
         return $event;

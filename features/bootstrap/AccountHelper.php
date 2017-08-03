@@ -1,6 +1,7 @@
 <?php
 
 use AppBundle\Entity\Account;
+use Doctrine\ORM\EntityManager;
 
 class AccountHelper extends ResourceHelper
 {
