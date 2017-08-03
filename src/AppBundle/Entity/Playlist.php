@@ -52,12 +52,12 @@ class Playlist
     private $network;
 
     /**
-     * @var Account
+     * @var Profile
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account", inversedBy="playlists", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Profile", inversedBy="playlists", cascade={"persist"})
      * @ORM\JoinColumn(name="account_id", referencedColumnName="id", nullable=true)
      */
-    private $account;
+    private $profile;
 
     public function getId(): int
     {
@@ -107,14 +107,14 @@ class Playlist
         return $this;
     }
 
-    public function getAccount()
+    public function getProfile()
     {
-        return $this->account;
+        return $this->profile;
     }
 
-    public function setAccount(Account $account): Playlist
+    public function setProfile(Profile $profile): Playlist
     {
-        $this->account = $account;
+        $this->profile = $profile;
 
         return $this;
     }

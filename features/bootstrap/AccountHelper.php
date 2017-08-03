@@ -1,7 +1,6 @@
 <?php
 
 use AppBundle\Entity\Account;
-use Doctrine\ORM\EntityManager;
 
 class AccountHelper extends ResourceHelper
 {
@@ -14,15 +13,14 @@ class AccountHelper extends ResourceHelper
 
     public function createResource()
     {
-        $username = 'string'.self::$numberAccount;
         $email = 'string'.self::$numberAccount.'@example.com';
 
         $account = new Account();
-        $account->setUsername($username)->setEmail($email)->setFirstName('string')
-            ->setLastName('string')->setPassword('string')->setSalt('string');
+        $account->setEmail($email)->setPassword('string')->setSalt('string');
 
         ++self::$numberAccount;
 
         return $account;
     }
+
 }

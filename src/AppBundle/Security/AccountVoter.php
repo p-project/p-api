@@ -4,6 +4,7 @@ namespace AppBundle\Security;
 
 use AppBundle\Entity\Account;
 use AppBundle\Entity\Profile;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -41,8 +42,8 @@ class AccountVoter extends Voter
         throw new \LogicException('This code should not be reached!');
     }
 
-    private function canAccess(Account $account, Profile $user)
+    private function canAccess(Profile $profile, Account $account)
     {
-        return $user->getAccount()->getId() === $account->getId();
+        return $profile->getAccount()->getId() === $account->getId();
     }
 }

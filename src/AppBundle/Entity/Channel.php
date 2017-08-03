@@ -43,11 +43,11 @@ class Channel
     private $tags;
 
     /**
-     * @var Account The owner's account
+     * @var Profile The owner's account
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account", inversedBy="channels", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Profile", inversedBy="channels", cascade={"persist"})
      */
-    private $account;
+    private $profile;
 
     /**
      * @var Video
@@ -87,14 +87,14 @@ class Channel
         $this->sustainabilityOffers = new ArrayCollection();
     }
 
-    public function getAccount(): Account
+    public function getProfile(): Profile
     {
-        return $this->account;
+        return $this->profile;
     }
 
-    public function setAccount(Account $account)
+    public function setProfile(Profile $profile): Channel
     {
-        $this->account = $account;
+        $this->profile = $profile;
 
         return $this;
     }

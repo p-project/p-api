@@ -6,29 +6,29 @@ use Doctrine\ORM\EntityManager;
 class ViewHelper extends ResourceHelper
 {
     /**
-     * @var AccountHelper
+     * @var ProfileHelper
      */
-    private $accountHelper;
+    private $profileHelper;
 
     /**
      * @var VideoHelper
      */
     private $videoHelper;
 
-    public function __construct(EntityManager $em, AccountHelper $accountHelper, VideoHelper $videoHelper)
+    public function __construct(EntityManager $em, ProfileHelper $profileHelper, VideoHelper $videoHelper)
     {
         parent::__construct($em);
-        $this->accountHelper = $accountHelper;
+        $this->profileHelper = $profileHelper;
         $this->videoHelper = $videoHelper;
     }
 
     public function createResource()
     {
-        $account = $this->accountHelper->persistResource();
+        $profile = $this->profileHelper>persistResource();
         $video = $this->videoHelper->persistResource();
 
         $view = new View();
-        $view->setVideo($video)->setAccount($account);
+        $view->setVideo($video)->setProfile($profile);
 
         return $view;
     }

@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * User's account.
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AccountRepository")
- * @ApiResource(attributes={"filters" = {"account.search"}, "normalization_context" = {"groups" = {"account"}}})
+ * @ApiResource
  */
 class Account implements UserInterface
 {
@@ -72,7 +72,7 @@ class Account implements UserInterface
         return $this->profile->getUsername();
     }
 
-    public function setUsername($username)
+    public function setUsername(string $username): Account
     {
         $this->profile->setUsername($username);
 
@@ -84,7 +84,7 @@ class Account implements UserInterface
         return $this->email;
     }
 
-    public function setEmail($email)
+    public function setEmail($email): Account
     {
         $this->email = $email;
 
@@ -136,12 +136,12 @@ class Account implements UserInterface
         return $this;
     }
 
-    public function getProfile(): Account
+    public function getProfile(): Profile
     {
         return $this->profile;
     }
 
-    public function setProfile(Account $profile): Account
+    public function setProfile(Profile $profile): Account
     {
         $this->profile = $profile;
 

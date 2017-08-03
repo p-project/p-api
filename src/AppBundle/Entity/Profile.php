@@ -41,7 +41,7 @@ class Profile
     /**
      * @var ArrayCollection The list of the channels
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Channel", mappedBy="account", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Channel", mappedBy="profile", cascade={"persist"})
      * @Groups({"account"})
      */
     private $channels;
@@ -50,7 +50,7 @@ class Profile
      * @var ArrayCollection The list of views
      *
      * @Groups({"account"})
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\View", mappedBy="account", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\View", mappedBy="profile", cascade={"persist"})
      */
     private $views;
 
@@ -74,7 +74,7 @@ class Profile
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="account", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="profile", cascade={"persist"})
      * @Groups({"account"})
      */
     private $playlists;
@@ -98,7 +98,7 @@ class Profile
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SustainabilityOffer", mappedBy="account", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SustainabilityOffer", mappedBy="profile", cascade={"persist"})
      * @Groups({"account"})
      */
     private $sustainabilityOffers;
@@ -106,7 +106,7 @@ class Profile
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Seeder", mappedBy="account", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Seeder", mappedBy="profile", cascade={"persist"})
      * @Groups({"account"})
      */
     private $seeders;
@@ -158,7 +158,7 @@ class Profile
         return $this->views;
     }
 
-    public function setViews($views)
+    public function setViews($views): Profile
     {
         $this->views = $views;
 
@@ -170,7 +170,7 @@ class Profile
         return $this->channels;
     }
 
-    public function setChannels($channels)
+    public function setChannels($channels): Profile
     {
         $this->channels = $channels;
 
@@ -182,7 +182,7 @@ class Profile
         return $this->id;
     }
 
-    public function setId($id)
+    public function setId($id): Profile
     {
         $this->id = $id;
 
@@ -194,7 +194,7 @@ class Profile
         return $this->username;
     }
 
-    public function setUsername($username)
+    public function setUsername(string $username): Profile
     {
         $this->username = $username;
 
@@ -206,7 +206,7 @@ class Profile
         return $this->firstName;
     }
 
-    public function setFirstName($firstName)
+    public function setFirstName(string $firstName): Profile
     {
         $this->firstName = $firstName;
 
@@ -218,7 +218,7 @@ class Profile
         return $this->lastName;
     }
 
-    public function setLastName($lastName)
+    public function setLastName(string $lastName): Profile
     {
         $this->lastName = $lastName;
 
@@ -230,7 +230,7 @@ class Profile
         return $this->forums;
     }
 
-    public function setForums($forums): Account
+    public function setForums($forums): Profile
     {
         $this->forums = $forums;
 
@@ -242,7 +242,7 @@ class Profile
         return $this->networks;
     }
 
-    public function setNetworks($networks): Account
+    public function setNetworks($networks): Profile
     {
         $this->networks = $networks;
 
@@ -254,7 +254,7 @@ class Profile
         return $this->playlists;
     }
 
-    public function setPlaylist($playlists): Account
+    public function setPlaylist($playlists): Profile
     {
         $this->playlists = $playlists;
 
@@ -266,7 +266,7 @@ class Profile
         return $this->replies;
     }
 
-    public function setReplies($replies): Account
+    public function setReplies($replies): Profile
     {
         $this->replies = $replies;
 
@@ -278,7 +278,7 @@ class Profile
         return $this->reviews;
     }
 
-    public function setReviews($reviews): Account
+    public function setReviews($reviews): Profile
     {
         $this->reviews = $reviews;
 
@@ -290,7 +290,7 @@ class Profile
         return $this->sustainabilityOffers;
     }
 
-    public function setSustainabilityOffers($sustainabilityOffers): Account
+    public function setSustainabilityOffers($sustainabilityOffers): Profile
     {
         $this->sustainabilityOffers = $sustainabilityOffers;
 
@@ -302,7 +302,7 @@ class Profile
         return $this->seeders;
     }
 
-    public function setSeeders($seeders): Account
+    public function setSeeders($seeders): Profile
     {
         $this->seeders = $seeders;
 

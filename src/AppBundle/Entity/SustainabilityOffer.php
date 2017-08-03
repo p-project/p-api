@@ -43,11 +43,11 @@ class SustainabilityOffer
     private $duration;
 
     /**
-     * @var Account
+     * @var Profile
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account", inversedBy="sustainabilityOffers", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Profile", inversedBy="sustainabilityOffers", cascade={"persist"})
      */
-    private $account;
+    private $profile;
 
     /**
      * @var Channel
@@ -92,14 +92,14 @@ class SustainabilityOffer
         return $this;
     }
 
-    public function getAccount(): Account
+    public function getProfile(): Profile
     {
-        return $this->account;
+        return $this->profile;
     }
 
-    public function setAccount($account): SustainabilityOffer
+    public function setProfile(Profile $profile): SustainabilityOffer
     {
-        $this->account = $account;
+        $this->profile = $profile;
 
         return $this;
     }
@@ -109,7 +109,7 @@ class SustainabilityOffer
         return $this->channel;
     }
 
-    public function setChannel($channel): SustainabilityOffer
+    public function setChannel(Channel $channel): SustainabilityOffer
     {
         $this->channel = $channel;
 

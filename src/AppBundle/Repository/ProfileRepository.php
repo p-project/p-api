@@ -4,16 +4,16 @@ namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
-class AccountRepository extends EntityRepository
+class ProfileRepository extends EntityRepository
 {
-    public function findOneByUsername(string $username)
+    public function findOneByEmail(string $email)
     {
         return $this->createQueryBuilder('a')
             ->select('a')
-            ->where('a.username = :username')
-            ->setParameter('username', $username)
+            ->where('a.email = :email')
+            ->setParameter('email', $email)
             ->getQuery()
             ->getOneOrNullResult()
-        ;
+            ;
     }
 }

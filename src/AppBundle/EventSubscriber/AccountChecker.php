@@ -2,24 +2,24 @@
 
 namespace AppBundle\EventSubscriber;
 
+use ApiPlatform\Core\EventListener\EventPriorities;
 use AppBundle\Entity\Profile;
 use AppBundle\Security\AccountVoter;
-use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
 class AccountChecker implements EventSubscriberInterface
 {
-    private $accountVoter;
-    private $tokenStorage;
+    private $authorizationChecker;
 
-    public function __construct(AccountVoter $accountVoter, TokenInterface $tokenStorage)
+    public function __construct(AuthorizationCheckerInterface $authorizationChecker)
     {
-        $this->accountVoter = $accountVoter;
-        $this->tokenStorage = $tokenStorage;
+        $this->authorizationChecker = $authorizationChecker;
     }
 
     public static function getSubscribedEvents()
@@ -38,15 +38,9 @@ class AccountChecker implements EventSubscriberInterface
             return;
         }
 
-        if (!correctValue($profile)) {
-            $response = new Response('You don\'t have access to this account', Response::);
+        if (!$this->authorizationChecker->isGranted('access', $profile)) {
+            $response = new Response('You don\'t have access to this account', Response::HTTP_FORBIDDEN);
             $event->setResponse($response);
         }
     }
-
-    private function correctValue(Profile $profile)
-    {
-        $this->accountVoter->vote($this->tokenStorage, $profile, $profile->getAccount()) === VoterInterface::ACCESS_GRANTED;
-    }
-
 }

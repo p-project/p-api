@@ -89,12 +89,12 @@ class Subtitles
         return $this;
     }
 
-    public function getPath()
+    public function getPath(): string
     {
         return $this->path;
     }
 
-    public function setPath($path)
+    public function setPath(string $path)
     {
         $this->path = $path;
 

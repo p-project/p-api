@@ -8,20 +8,20 @@ class PlaylistHelper extends ResourceHelper
     /**
      * @var ChannelHelper
      */
-    private $accountHelper;
+    private $profileHelper;
 
-    public function __construct(EntityManager $em, AccountHelper $accountHelper)
+    public function __construct(EntityManager $em, ProfileHelper $profileHelper)
     {
         parent::__construct($em);
-        $this->accountHelper = $accountHelper;
+        $this->accountHelper = $profileHelper;
     }
 
     public function createResource()
     {
-        $account = $this->accountHelper->persistResource();
+        $profileHelper = $this->profileHelper->persistResource();
 
         $playlist = new Playlist();
-        $playlist->setAccount($account)->setName('string');
+        $playlist->setProfile($profileHelper)->setName('string');
 
         return $playlist;
     }

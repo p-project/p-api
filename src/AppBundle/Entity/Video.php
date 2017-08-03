@@ -187,7 +187,7 @@ class Video
         return $this->id;
     }
 
-    public function setTitle($title)
+    public function setTitle(string $title): Video
     {
         $this->title = $title;
 
@@ -235,12 +235,12 @@ class Video
         return $this;
     }
 
-    public function getChannel()
+    public function getChannel(): Channel
     {
         return $this->channel;
     }
 
-    public function setChannel($channel): Video
+    public function setChannel(Channel $channel): Video
     {
         $this->channel = $channel;
 

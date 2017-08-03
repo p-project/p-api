@@ -41,9 +41,9 @@ class Comment
     private $video;
 
     /**
-     * @var Account Author of the comment
+     * @var Profile Author of the comment
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Profile")
      */
     private $author;
 
@@ -104,12 +104,12 @@ class Comment
         return $this;
     }
 
-    public function getAuthor(): Account
+    public function getAuthor(): Profile
     {
         return $this->author;
     }
 
-    public function setAuthor(Account $author): Comment
+    public function setAuthor(Profile $author): Comment
     {
         $this->author = $author;
 

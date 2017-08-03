@@ -7,22 +7,22 @@ class ChannelHelper extends ResourceHelper
 {
     private static $numberChannel = 0;
 
-    private $accountHelper;
+    private $profileHelper;
 
-    public function __construct(EntityManager $em, AccountHelper $accountHelper)
+    public function __construct(EntityManager $em, ProfileHelper $profileHelper)
     {
         parent::__construct($em);
-        $this->accountHelper = $accountHelper;
+        $this->profileHelper = $profileHelper;
     }
 
     public function createResource()
     {
-        $account = $this->accountHelper->persistResource();
+        $profile = $this->profileHelper->persistResource();
 
         $name = 'string'.self::$numberChannel;
 
         $channel = new Channel();
-        $channel->setAccount($account)->setName($name)->setTags(['string']);
+        $channel->setProfile($profile)->setName($name)->setTags(['string']);
 
         ++self::$numberChannel;
 

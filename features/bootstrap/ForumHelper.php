@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 class ForumHelper extends ResourceHelper
 {
     /**
-     * @var AccountHelper
+     * @var ProfileHelper
      */
     private $accountHelper;
 
@@ -15,7 +15,7 @@ class ForumHelper extends ResourceHelper
      */
     private $videoHelper;
 
-    public function __construct(EntityManager $em, AccountHelper $accountHelper, VideoHelper $videoHelper)
+    public function __construct(EntityManager $em, ProfileHelper $accountHelper, VideoHelper $videoHelper)
     {
         parent::__construct($em);
         $this->accountHelper = $accountHelper;
@@ -35,7 +35,7 @@ class ForumHelper extends ResourceHelper
 
     public function createRelationWith($resource, string $nameResource2, $resource2)
     {
-        if ($nameResource2 == 'Account') {
+        if ($nameResource2 == 'Profile') {
             return parent::createRelationWith($resource, 'CreatedBy', $resource2);
         }
 
@@ -44,7 +44,7 @@ class ForumHelper extends ResourceHelper
 
     public function relationExists($resource, string $nameResource2, $resource2)
     {
-        if ($nameResource2 == 'Account') {
+        if ($nameResource2 == 'Profile') {
             return parent::relationExists($resource, 'CreatedBy', $resource2);
         }
 

@@ -23,11 +23,11 @@ class View
     private $id;
 
     /**
-     * @var Account
+     * @var Profile
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account", inversedBy="views", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Profile", inversedBy="views", cascade={"persist"})
      */
-    private $account;
+    private $profile;
 
     /**
      * @var Video
@@ -46,14 +46,14 @@ class View
         $this->id = $id;
     }
 
-    public function getAccount(): Account
+    public function getProfile(): Profile
     {
-        return $this->account;
+        return $this->profile;
     }
 
-    public function setAccount(Account $account)
+    public function setProfile(Profile $profile)
     {
-        $this->account = $account;
+        $this->profile = $profile;
 
         return $this;
     }

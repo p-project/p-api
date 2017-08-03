@@ -25,6 +25,6 @@ services:
 
     app.event_subscriber.account_checker:
         class: AppBundle\EventSubscriber\AccountChecker
-        arguments: [ "@app.security.account_voter", "%security.token_storage%" ]
+        arguments: [ "@security.authorization_checker" ]
         tags:
             - { name: kernel.event_listener, event: kernel.request }
