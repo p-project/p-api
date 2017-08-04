@@ -9,7 +9,7 @@ class ChannelHelper extends ResourceHelper
 
     private $profileHelper;
 
-    public function __construct(EntityManager $em, ProfileHelper $profileHelper)
+    public function __construct(EntityManager $em, UserProfileHelper $profileHelper)
     {
         parent::__construct($em);
         $this->profileHelper = $profileHelper;

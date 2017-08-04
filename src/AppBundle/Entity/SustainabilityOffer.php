@@ -43,9 +43,9 @@ class SustainabilityOffer
     private $duration;
 
     /**
-     * @var Profile
+     * @var UserProfile
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Profile", inversedBy="sustainabilityOffers", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserProfile", inversedBy="sustainabilityOffers", cascade={"persist"})
      */
     private $profile;
 
@@ -92,12 +92,12 @@ class SustainabilityOffer
         return $this;
     }
 
-    public function getProfile(): Profile
+    public function getProfile(): UserProfile
     {
         return $this->profile;
     }
 
-    public function setProfile(Profile $profile): SustainabilityOffer
+    public function setProfile(UserProfile $profile): SustainabilityOffer
     {
         $this->profile = $profile;
 

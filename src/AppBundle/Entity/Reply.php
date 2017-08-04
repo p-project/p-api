@@ -41,9 +41,9 @@ class Reply
     private $review;
 
     /**
-     * @var Profile
+     * @var UserProfile
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Profile", inversedBy="replies")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserProfile", inversedBy="replies")
      */
     private $author;
 
@@ -92,12 +92,12 @@ class Reply
         return $this;
     }
 
-    public function getAuthor(): Profile
+    public function getAuthor(): UserProfile
     {
         return $this->author;
     }
 
-    public function setAuthor(Profile $author): Reply
+    public function setAuthor(UserProfile $author): Reply
     {
         $this->author = $author;
 

@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @ApiResource(attributes={"filters" = {"account.search"}, "normalization_context" = {"groups" = {"account"}}})
  */
-class Profile
+class UserProfile
 {
     /**
      * @var int The Id of the user
@@ -134,9 +134,10 @@ class Profile
     private $lastName;
 
     /**
-     * @var Account
+     * @var UserAccount
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Account", mappedBy="profile", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\UserAccount", inversedBy="profile", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private $account;
 
@@ -158,7 +159,7 @@ class Profile
         return $this->views;
     }
 
-    public function setViews($views): Profile
+    public function setViews($views): UserProfile
     {
         $this->views = $views;
 
@@ -170,7 +171,7 @@ class Profile
         return $this->channels;
     }
 
-    public function setChannels($channels): Profile
+    public function setChannels($channels): UserProfile
     {
         $this->channels = $channels;
 
@@ -182,7 +183,7 @@ class Profile
         return $this->id;
     }
 
-    public function setId($id): Profile
+    public function setId($id): UserProfile
     {
         $this->id = $id;
 
@@ -194,7 +195,7 @@ class Profile
         return $this->username;
     }
 
-    public function setUsername(string $username): Profile
+    public function setUsername(string $username): UserProfile
     {
         $this->username = $username;
 
@@ -206,7 +207,7 @@ class Profile
         return $this->firstName;
     }
 
-    public function setFirstName(string $firstName): Profile
+    public function setFirstName(string $firstName): UserProfile
     {
         $this->firstName = $firstName;
 
@@ -218,7 +219,7 @@ class Profile
         return $this->lastName;
     }
 
-    public function setLastName(string $lastName): Profile
+    public function setLastName(string $lastName): UserProfile
     {
         $this->lastName = $lastName;
 
@@ -230,7 +231,7 @@ class Profile
         return $this->forums;
     }
 
-    public function setForums($forums): Profile
+    public function setForums($forums): UserProfile
     {
         $this->forums = $forums;
 
@@ -242,7 +243,7 @@ class Profile
         return $this->networks;
     }
 
-    public function setNetworks($networks): Profile
+    public function setNetworks($networks): UserProfile
     {
         $this->networks = $networks;
 
@@ -254,7 +255,7 @@ class Profile
         return $this->playlists;
     }
 
-    public function setPlaylist($playlists): Profile
+    public function setPlaylist($playlists): UserProfile
     {
         $this->playlists = $playlists;
 
@@ -266,7 +267,7 @@ class Profile
         return $this->replies;
     }
 
-    public function setReplies($replies): Profile
+    public function setReplies($replies): UserProfile
     {
         $this->replies = $replies;
 
@@ -278,7 +279,7 @@ class Profile
         return $this->reviews;
     }
 
-    public function setReviews($reviews): Profile
+    public function setReviews($reviews): UserProfile
     {
         $this->reviews = $reviews;
 
@@ -290,7 +291,7 @@ class Profile
         return $this->sustainabilityOffers;
     }
 
-    public function setSustainabilityOffers($sustainabilityOffers): Profile
+    public function setSustainabilityOffers($sustainabilityOffers): UserProfile
     {
         $this->sustainabilityOffers = $sustainabilityOffers;
 
@@ -302,19 +303,19 @@ class Profile
         return $this->seeders;
     }
 
-    public function setSeeders($seeders): Profile
+    public function setSeeders($seeders): UserProfile
     {
         $this->seeders = $seeders;
 
         return $this;
     }
 
-    public function getAccount(): Account
+    public function getAccount(): UserAccount
     {
         return $this->account;
     }
 
-    public function setAccount(Account $account): Profile
+    public function setAccount(UserAccount $account): UserProfile
     {
         $this->account = $account;
 

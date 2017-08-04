@@ -2,8 +2,8 @@
 
 namespace AppBundle\Security;
 
-use AppBundle\Entity\Account;
-use AppBundle\Entity\Profile;
+use AppBundle\Entity\UserAccount;
+use AppBundle\Entity\UserProfile;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -16,12 +16,12 @@ class AccountProvider implements UserProviderInterface
 
     public function __construct(EntityManager $em)
     {
-        $this->repository = $em->getRepository('AppBundle:Profile');
+        $this->repository = $em->getRepository('AppBundle:UserAccount');
     }
 
     public function loadUserByUsername($username)
     {
-        $account = $this->repository->findOneByUsername($username);
+        $account = $this->repository->findOneByEmail($username);
 
         if (null === $account) {
             throw new UsernameNotFoundException('No account found for email');
@@ -32,7 +32,7 @@ class AccountProvider implements UserProviderInterface
 
     public function refreshUser(UserInterface $user)
     {
-        if (!$user instanceof Profile) {
+        if (!$user instanceof UserProfile) {
             throw new UnsupportedUserException(
                 sprintf('Instances of "%s" are not supported.', get_class($user))
             );
@@ -43,6 +43,6 @@ class AccountProvider implements UserProviderInterface
 
     public function supportsClass($class)
     {
-        return Account::class === $class;
+        return UserAccount::class === $class;
     }
 }

@@ -16,4 +16,15 @@ class AccountRepository extends EntityRepository
             ->getOneOrNullResult()
         ;
     }
+
+    public function findOneByEmail(string $email)
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a')
+            ->where('a.email = :email')
+            ->setParameter('email', $email)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
 }

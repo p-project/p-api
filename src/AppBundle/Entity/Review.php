@@ -42,9 +42,9 @@ class Review
     private $video;
 
     /**
-     * @var Profile
+     * @var UserProfile
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Profile", inversedBy="reviews")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserProfile", inversedBy="reviews")
      */
     private $author;
 
@@ -128,12 +128,12 @@ class Review
         return $this;
     }
 
-    public function getAuthor(): Profile
+    public function getAuthor(): UserProfile
     {
         return $this->author;
     }
 
-    public function setAuthor(Profile $author): Review
+    public function setAuthor(UserProfile $author): Review
     {
         $this->author = $author;
 

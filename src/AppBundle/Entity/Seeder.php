@@ -41,9 +41,9 @@ class Seeder
     private $ip;
 
     /**
-     * @var Profile
+     * @var UserProfile
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Profile", inversedBy="seeders", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserProfile", inversedBy="seeders", cascade={"persist"})
      */
     private $profile;
 
@@ -78,12 +78,12 @@ class Seeder
         return $this;
     }
 
-    public function getProfile(): Profile
+    public function getProfile(): UserProfile
     {
         return $this->profile;
     }
 
-    public function setProfile(Profile $profile): Seeder
+    public function setProfile(UserProfile $profile): Seeder
     {
         $this->profile = $profile;
 

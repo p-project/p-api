@@ -5,8 +5,8 @@ Feature: Manage channel
   I need to be able to retrieve, create, update and delete them trough the API.
 
   Background:
-    Given I am connected as "denis" with password "password"
-    And There are "account" "/accounts/2"
+    Given I am connected as "denis@denis.fr" with password "password"
+    And There are "profile" "/profiles/2"
 
   @refreshSchema
   @requiresOAuth
@@ -16,7 +16,7 @@ Feature: Manage channel
     And I send a "POST" request to "/channels" with body:
     """
     {
-      "account": "/accounts/2",
+      "profile": "/profiles/2",
       "name": "string",
       "tags": [
          "string"
@@ -32,7 +32,7 @@ Feature: Manage channel
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "account": "/accounts/2",
+      "profile": "/profiles/2",
       "id": 1,
       "name": "string",
       "tags": [
@@ -88,7 +88,7 @@ Feature: Manage channel
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "account": "/accounts/2",
+      "profile": "/profiles/2",
       "id": 1,
       "name": "string",
       "tags": [
@@ -116,7 +116,7 @@ Feature: Manage channel
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "account": "/accounts/2",
+      "profile": "/profiles/2",
       "id": 1,
       "name": "string",
       "tags": [
@@ -147,7 +147,7 @@ Feature: Manage channel
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "account": "/accounts/2",
+      "profile": "/profiles/2",
       "id": 1,
       "name": "string",
       "tags": [
@@ -184,7 +184,7 @@ Feature: Manage channel
           {
               "@id": "/channels/1",
               "@type": "Channel",
-              "account": "/accounts/2",
+              "profile": "/profiles/2",
               "id": 1,
               "name": "string",
               "tags": [
@@ -206,7 +206,7 @@ Feature: Manage channel
           {
               "@id": "/channels/2",
               "@type": "Channel",
-              "account": "/accounts/3",
+              "profile": "/profiles/3",
               "id": 2,
               "name": "string18",
               "tags": [
@@ -220,7 +220,7 @@ Feature: Manage channel
           {
               "@id": "/channels/3",
               "@type": "Channel",
-              "account": "/accounts/4",
+              "profile": "/profiles/4",
               "id": 3,
               "name": "string19",
               "tags": [
@@ -234,7 +234,7 @@ Feature: Manage channel
           {
               "@id": "/channels/4",
               "@type": "Channel",
-              "account": "/accounts/5",
+              "profile": "/profiles/5",
               "id": 4,
               "name": "string20",
               "tags": [
@@ -249,7 +249,7 @@ Feature: Manage channel
       "hydra:totalItems": 4,
       "hydra:search": {
           "@type": "hydra:IriTemplate",
-          "hydra:template": "/channels{?id,id[],name,account,account[]}",
+          "hydra:template": "/channels{?id,id[],name}",
           "hydra:variableRepresentation": "BasicRepresentation",
           "hydra:mapping": [
               {
@@ -268,18 +268,6 @@ Feature: Manage channel
                   "@type": "IriTemplateMapping",
                   "variable": "name",
                   "property": "name",
-                  "required": false
-              },
-              {
-                  "@type": "IriTemplateMapping",
-                  "variable": "account",
-                  "property": "account",
-                  "required": false
-              },
-              {
-                  "@type": "IriTemplateMapping",
-                  "variable": "account[]",
-                  "property": "account",
                   "required": false
               }
           ]
@@ -305,7 +293,7 @@ Feature: Manage channel
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "account": "/accounts/2",
+      "profile": "/profiles/2",
       "id": 1,
       "name": "stringUpdated",
       "tags": [
@@ -349,7 +337,7 @@ Feature: Manage channel
       "name": "string",
       "channel": "/channels/1",
       "network": null,
-      "account": null
+      "profile": null
     }
     """
 
@@ -366,7 +354,7 @@ Feature: Manage channel
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "account": "/accounts/2",
+      "profile": "/profiles/2",
       "id": 1,
       "name": "stringUpdated",
       "tags": [

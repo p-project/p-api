@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 class CommentHelper extends ResourceHelper
 {
     /**
-     * @var ProfileHelper
+     * @var UserProfileHelper
      */
     private $profileHelper;
 
@@ -15,7 +15,7 @@ class CommentHelper extends ResourceHelper
      */
     private $videoHelper;
 
-    public function __construct(EntityManager $em, ProfileHelper $profileHelper, VideoHelper $videoHelper)
+    public function __construct(EntityManager $em, UserProfileHelper $profileHelper, VideoHelper $videoHelper)
     {
         parent::__construct($em);
         $this->profileHelper = $profileHelper;

@@ -23,9 +23,9 @@ class View
     private $id;
 
     /**
-     * @var Profile
+     * @var UserProfile
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Profile", inversedBy="views", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserProfile", inversedBy="views", cascade={"persist"})
      */
     private $profile;
 
@@ -46,12 +46,12 @@ class View
         $this->id = $id;
     }
 
-    public function getProfile(): Profile
+    public function getProfile(): UserProfile
     {
         return $this->profile;
     }
 
-    public function setProfile(Profile $profile)
+    public function setProfile(UserProfile $profile)
     {
         $this->profile = $profile;
 

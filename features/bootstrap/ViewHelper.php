@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 class ViewHelper extends ResourceHelper
 {
     /**
-     * @var ProfileHelper
+     * @var UserProfileHelper
      */
     private $profileHelper;
 
@@ -15,7 +15,7 @@ class ViewHelper extends ResourceHelper
      */
     private $videoHelper;
 
-    public function __construct(EntityManager $em, ProfileHelper $profileHelper, VideoHelper $videoHelper)
+    public function __construct(EntityManager $em, UserProfileHelper $profileHelper, VideoHelper $videoHelper)
     {
         parent::__construct($em);
         $this->profileHelper = $profileHelper;
@@ -24,7 +24,7 @@ class ViewHelper extends ResourceHelper
 
     public function createResource()
     {
-        $profile = $this->profileHelper>persistResource();
+        $profile = $this->profileHelper->persistResource();
         $video = $this->videoHelper->persistResource();
 
         $view = new View();

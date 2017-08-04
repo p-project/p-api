@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 class ReplyHelper extends ResourceHelper
 {
     /**
-     * @var ProfileHelper
+     * @var UserProfileHelper
      */
     private $profileHelper;
 
@@ -15,7 +15,7 @@ class ReplyHelper extends ResourceHelper
      */
     private $reviewHelper;
 
-    public function __construct(EntityManager $em, ProfileHelper $profileHelper, ReviewHelper $reviewHelper)
+    public function __construct(EntityManager $em, UserProfileHelper $profileHelper, ReviewHelper $reviewHelper)
     {
         parent::__construct($em);
         $this->profileHelper = $profileHelper;
@@ -35,7 +35,7 @@ class ReplyHelper extends ResourceHelper
 
     public function createRelationWith($resource, string $nameResource2, $resource2)
     {
-        if ($nameResource2 == 'Profile') {
+        if ($nameResource2 == 'UserProfile') {
             return parent::createRelationWith($resource, 'Author', $resource2);
         }
 
@@ -44,7 +44,7 @@ class ReplyHelper extends ResourceHelper
 
     public function relationExists($resource, string $nameResource2, $resource2)
     {
-        if ($nameResource2 == 'Profile') {
+        if ($nameResource2 == 'UserProfile') {
             return parent::relationExists($resource, 'Author', $resource2);
         }
 

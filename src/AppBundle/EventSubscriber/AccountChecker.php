@@ -3,9 +3,10 @@
 namespace AppBundle\EventSubscriber;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
-use AppBundle\Entity\Profile;
+use AppBundle\Entity\UserProfile;
 use AppBundle\Security\AccountVoter;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
@@ -26,22 +27,22 @@ class AccountChecker implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::VIEW => [['checkAccountAccess', EventPriorities::POST_VALIDATE]],
+            KernelEvents::VIEW => [['onKernelRequest', EventPriorities::PRE_READ]],
         ];
     }
 
-    public function checkAccountAccess(GetResponseForControllerResultEvent $event)
+    public function onKernelRequest(GetResponseEvent $event)
     {
-        $profile = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();
 
-        if (!$profile instanceof Profile || Request::METHOD_POST !== $method) {
+        if (Request::METHOD_POST === $method || $event->getRequest()->getPathInfo() === '/oauth/v2/token') {
             return;
         }
 
-        if (!$this->authorizationChecker->isGranted('access', $profile)) {
+        if (!$this->authorizationChecker->isGranted('access', $event->getRequest()->getPathInfo())) {
             $response = new Response('You don\'t have access to this account', Response::HTTP_FORBIDDEN);
             $event->setResponse($response);
         }
+
     }
 }

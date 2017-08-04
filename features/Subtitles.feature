@@ -5,7 +5,7 @@ Feature: Manage subtitles
   I need to be able to retrieve, create, update and delete them trough the API.
 
   Background:
-    Given I am connected as "denis" with password "password"
+    Given I am connected as "denis@denis.fr" with password "password"
     And There are "video" "/videos/1"
 
   @refreshSchema

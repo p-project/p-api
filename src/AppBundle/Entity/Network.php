@@ -37,7 +37,7 @@ class Network
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Profile", inversedBy="networks", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\UserProfile", inversedBy="networks", cascade={"persist"})
      */
     private $peoples;
 

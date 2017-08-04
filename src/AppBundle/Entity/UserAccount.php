@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * User's account.
@@ -14,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AccountRepository")
  * @ApiResource
  */
-class Account implements UserInterface
+class UserAccount implements UserInterface
 {
     /**
      * @var int
@@ -61,20 +62,20 @@ class Account implements UserInterface
     private $password;
 
     /**
-     * @var Profile
+     * @var UserProfile
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Profile", inversedBy="account", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\UserProfile", mappedBy="account", cascade={"persist"})
      */
     private $profile;
-
+    
     public function getUsername(): string
     {
-        return $this->profile->getUsername();
+        return $this->email;
     }
 
-    public function setUsername(string $username): Account
+    public function setUsername(string $username): UserAccount
     {
-        $this->profile->setUsername($username);
+        $this->email = $username;
 
         return $this;
     }
@@ -84,7 +85,7 @@ class Account implements UserInterface
         return $this->email;
     }
 
-    public function setEmail($email): Account
+    public function setEmail($email): UserAccount
     {
         $this->email = $email;
 
@@ -96,7 +97,7 @@ class Account implements UserInterface
         return $this->salt;
     }
 
-    public function setSalt(string $salt): Account
+    public function setSalt(string $salt): UserAccount
     {
         $this->salt = $salt;
 
@@ -117,7 +118,7 @@ class Account implements UserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): Account
+    public function setPassword(string $password): UserAccount
     {
         $this->password = $password;
 
@@ -129,19 +130,19 @@ class Account implements UserInterface
         return $this->id;
     }
 
-    public function setId(int $id): Account
+    public function setId(int $id): UserAccount
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function getProfile(): Profile
+    public function getProfile(): ?UserProfile
     {
         return $this->profile;
     }
 
-    public function setProfile(Profile $profile): Account
+    public function setProfile(UserProfile $profile): UserAccount
     {
         $this->profile = $profile;
 

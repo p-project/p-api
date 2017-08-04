@@ -2,8 +2,8 @@
 
 namespace AppBundle\Security;
 
-use AppBundle\Entity\Account;
-use AppBundle\Entity\Profile;
+use AppBundle\Entity\UserAccount;
+use AppBundle\Entity\UserProfile;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -18,7 +18,7 @@ class AccountVoter extends Voter
             return false;
         }
 
-        if (!$subject instanceof Account) {
+        if ($subject === null) {
             return false;
         }
 
@@ -29,21 +29,22 @@ class AccountVoter extends Voter
     {
         $user = $token->getUser();
 
-        if (!$user instanceof Profile) {
+        if (!$user instanceof UserAccount) {
             return false;
         }
 
-        $profile = $subject;
+        $profileId = explode('/', $subject)[2];
+
 
         if ($attribute === self::ACCESS) {
-            return $this->canAccess($profile, $user);
+            return $this->canAccess($profileId, $user);
         }
 
         throw new \LogicException('This code should not be reached!');
     }
 
-    private function canAccess(Profile $profile, Account $account)
+    private function canAccess(string $profileId, UserAccount $account)
     {
-        return $profile->getAccount()->getId() === $account->getId();
+        return $account->getId() === intval($profileId);
     }
 }

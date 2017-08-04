@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 class SeederHelper extends ResourceHelper
 {
     /**
-     * @var ProfileHelper
+     * @var UserProfileHelper
      */
     private $profileHelper;
 
@@ -15,7 +15,7 @@ class SeederHelper extends ResourceHelper
      */
     private $videoHelper;
 
-    public function __construct(EntityManager $em, ProfileHelper $profileHelper, VideoHelper $videoHelper)
+    public function __construct(EntityManager $em, UserProfileHelper $profileHelper, VideoHelper $videoHelper)
     {
         parent::__construct($em);
         $this->profileHelper = $profileHelper;
@@ -28,7 +28,7 @@ class SeederHelper extends ResourceHelper
         $video = $this->videoHelper->persistResource();
 
         $seeder = new Seeder();
-        $seeder->setPlatform('string')->setIp('127.0.0.1')->setAccount($profile)->setVideo($video);
+        $seeder->setPlatform('string')->setIp('127.0.0.1')->setProfile($profile)->setVideo($video);
 
         return $seeder;
     }

@@ -20,7 +20,7 @@ class NetworkHelper extends ResourceHelper
 
     public function createRelationWith($resource, string $nameResource2, $resource2)
     {
-        if ($nameResource2 == 'Profile') {
+        if ($nameResource2 == 'UserProfile') {
             return parent::createRelationWith($resource, 'Peoples', $resource2);
         }
 
@@ -29,7 +29,7 @@ class NetworkHelper extends ResourceHelper
 
     public function relationExists($resource, string $nameResource2, $resource2)
     {
-        if ($nameResource2 == 'Profile') {
+        if ($nameResource2 == 'UserProfile') {
             return parent::relationExists($resource, 'Peoples', $resource2);
         }
 

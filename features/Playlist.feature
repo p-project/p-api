@@ -5,8 +5,8 @@ Feature: Manage playlist
   I need to be able to retrieve, create, update and delete them trough the API.
 
   Background:
-    Given I am connected as "denis" with password "password"
-    And There are "account" "/accounts/2"
+    Given I am connected as "denis@denis.fr" with password "password"
+    And There are "profile" "/profiles/2"
 
   @refreshSchema
   @requiresOAuth
@@ -17,7 +17,7 @@ Feature: Manage playlist
     """
     {
       "name": "string",
-      "account": "/accounts/1"
+      "profile": "/profiles/1"
     }
     """
     Then the response status code should be 201
@@ -33,7 +33,7 @@ Feature: Manage playlist
       "name": "string",
       "channel": null,
       "network": null,
-      "account": "/accounts/1"
+      "profile": "/profiles/1"
     }
     """
 
@@ -57,7 +57,7 @@ Feature: Manage playlist
             "name": "string",
             "channel": null,
             "network": null,
-            "account": "/accounts/1"
+            "profile": "/profiles/1"
           }
       ],
       "hydra:totalItems": 1
@@ -86,7 +86,7 @@ Feature: Manage playlist
       "name": "stringUpdated",
       "channel": null,
       "network": null,
-      "account": "/accounts/1"
+      "profile": "/profiles/1"
     }
     """
 
@@ -114,7 +114,7 @@ Feature: Manage playlist
       "name": "string",
       "channel": "/channels/1",
       "network": null,
-      "account": null
+      "profile": null
     }
     """
 
@@ -142,7 +142,7 @@ Feature: Manage playlist
       "name": "string",
       "channel": null,
       "network": "/networks/1",
-      "account": null
+      "profile": null
     }
     """
 
@@ -153,7 +153,7 @@ Feature: Manage playlist
     """
     {
       "channel": "/channels/1",
-      "account": "/accounts/1"
+      "profile": "/profiles/1"
     }
     """
     Then the response status code should be 400

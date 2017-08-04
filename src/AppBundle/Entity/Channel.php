@@ -43,9 +43,9 @@ class Channel
     private $tags;
 
     /**
-     * @var Profile The owner's account
+     * @var UserProfile The owner's account
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Profile", inversedBy="channels", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserProfile", inversedBy="channels", cascade={"persist"})
      */
     private $profile;
 
@@ -87,12 +87,12 @@ class Channel
         $this->sustainabilityOffers = new ArrayCollection();
     }
 
-    public function getProfile(): Profile
+    public function getProfile(): UserProfile
     {
         return $this->profile;
     }
 
-    public function setProfile(Profile $profile): Channel
+    public function setProfile(UserProfile $profile): Channel
     {
         $this->profile = $profile;
 

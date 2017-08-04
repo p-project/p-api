@@ -5,7 +5,7 @@ Feature: Manage video
   I need to be able to retrieve, create, update and delete them trough the API.
 
   Background:
-    Given I am connected as "denis" with password "password"
+    Given I am connected as "denis@denis.fr" with password "password"
     And There are "channel" "/channels/1"
     And There are "category" "/categories/1"
 

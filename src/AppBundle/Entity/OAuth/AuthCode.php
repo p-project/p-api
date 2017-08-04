@@ -24,7 +24,7 @@ class AuthCode extends BaseAuthCode
     protected $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserAccount")
      */
     protected $user;
 }
