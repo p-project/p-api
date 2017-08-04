@@ -4,7 +4,7 @@ namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
-class AccountRepository extends EntityRepository
+class UserAccountRepository extends EntityRepository
 {
     public function findOneByUsername(string $username)
     {

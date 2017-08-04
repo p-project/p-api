@@ -28,7 +28,7 @@ class SeederHelper extends ResourceHelper
         $video = $this->videoHelper->persistResource();
 
         $seeder = new Seeder();
-        $seeder->setPlatform('string')->setIp('127.0.0.1')->setProfile($profile)->setVideo($video);
+        $seeder->setPlatform('string')->setIp('127.0.0.1')->setUserProfile($profile)->setVideo($video);
 
         return $seeder;
     }

@@ -23,7 +23,7 @@ services:
     app.security.account_voter:
         class: AppBundle\Security\AccountVoter
         tags:
-            - { name: security.voter, voter: access }
+            - { name: security.voter }
 
     app.event_subscriber.account_checker:
         class: AppBundle\EventSubscriber\AccountChecker

@@ -18,7 +18,7 @@ Feature: Manage reply
     {
       "content": "string",
       "review": "/reviews/1",
-      "author": "/profiles/1",
+      "author": "/user_profiles/1",
       "dateReply": "2017-02-04T09:36:08.014Z"
     }
     """
@@ -34,7 +34,7 @@ Feature: Manage reply
       "id": 1,
       "content": "string",
       "review": "/reviews/1",
-      "author": "/profiles/1",
+      "author": "/user_profiles/1",
       "dateReply": "2017-02-04T09:36:08+00:00"
     }
     """
@@ -90,7 +90,7 @@ Feature: Manage reply
           "id": 1,
           "content": "string",
           "review": "/reviews/1",
-          "author": "/profiles/1",
+          "author": "/user_profiles/1",
           "dateReply": "2017-02-04T09:36:08+01:00"
         }
       ],
@@ -119,7 +119,7 @@ Feature: Manage reply
       "id": 1,
       "content": "stringUpdated",
       "review": "/reviews/1",
-      "author": "/profiles/1",
+      "author": "/user_profiles/1",
       "dateReply": "2017-02-04T09:36:08+01:00"
     }
     """

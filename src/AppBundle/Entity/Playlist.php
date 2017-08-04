@@ -57,7 +57,7 @@ class Playlist
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserProfile", inversedBy="playlists", cascade={"persist"})
      * @ORM\JoinColumn(name="account_id", referencedColumnName="id", nullable=true)
      */
-    private $profile;
+    private $userProfile;
 
     public function getId(): int
     {
@@ -107,14 +107,14 @@ class Playlist
         return $this;
     }
 
-    public function getProfile()
+    public function getUserProfile()
     {
-        return $this->profile;
+        return $this->userProfile;
     }
 
-    public function setProfile(UserProfile $profile): Playlist
+    public function setUserProfile(UserProfile $userProfile): Playlist
     {
-        $this->profile = $profile;
+        $this->userProfile = $userProfile;
 
         return $this;
     }

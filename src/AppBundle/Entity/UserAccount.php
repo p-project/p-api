@@ -7,12 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * User's account.
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\AccountRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserAccountRepository")
  * @ApiResource
  */
 class UserAccount implements UserInterface
@@ -64,10 +63,10 @@ class UserAccount implements UserInterface
     /**
      * @var UserProfile
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\UserProfile", mappedBy="account", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\UserProfile", mappedBy="userAccount", cascade={"persist"})
      */
-    private $profile;
-    
+    private $userProfile;
+
     public function getUsername(): string
     {
         return $this->email;
@@ -137,14 +136,14 @@ class UserAccount implements UserInterface
         return $this;
     }
 
-    public function getProfile(): ?UserProfile
+    public function getUserProfile(): ?UserProfile
     {
-        return $this->profile;
+        return $this->userProfile;
     }
 
-    public function setProfile(UserProfile $profile): UserAccount
+    public function setUserProfile(UserProfile $userProfile): UserAccount
     {
-        $this->profile = $profile;
+        $this->userProfile = $userProfile;
 
         return $this;
     }

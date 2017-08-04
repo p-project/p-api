@@ -1,29 +1,30 @@
-AppBundle\Entity\Profile:
-  profile_{1..10}:
-    username: <Username()>
-    firstName: <firstName()>
-    lastName: <lastName()>
-  profile_michel:
-    username: michel
-    firstName: Michel
-    lastName: Michel
 
-AppBundle\Entity\Account:
+AppBundle\Entity\UserAccount:
   account_{1..10}:
     email: <email()>
     password: /ZPeKADSrd8e3wUM7f6DpK/0ukgbztjkSkasUz0Znugln//yx4zXtZTCUckmi/MsRkCCGaZQsTcSX2MTuXfwmw==
     salt: 12xiixme87nk4cs4sgws400ko
-    profile: '@profile_<current()>'
   account_michel:
     email: michel@yopmail.fr
     password: /ZPeKADSrd8e3wUM7f6DpK/0ukgbztjkSkasUz0Znugln//yx4zXtZTCUckmi/MsRkCCGaZQsTcSX2MTuXfwmw==
     salt: 12xiixme87nk4cs4sgws400ko
-    profile: '@profile_michel'
+
+AppBundle\Entity\UserProfile:
+  profile_{1..10}:
+    username: <Username()>
+    firstName: <firstName()>
+    lastName: <lastName()>
+    userAccount: '@account_<current()>'
+  profile_michel:
+    username: michel
+    firstName: Michel
+    lastName: Michel
+    userAccount: '@account_michel'
 
 AppBundle\Entity\Channel:
   channel_michel:
     name: <word()>
-    profile: '@profile_michel'
+    userProfile: '@profile_michel'
 
 AppBundle\Entity\Category:
   category_michel:
@@ -113,7 +114,7 @@ AppBundle\Entity\Seeder:
   seeder_{1..5}:
     platform: <realText(150)>
     ip: <realText(150)>
-    profile: '@profile_michel'
+    userProfile: '@profile_michel'
     video: '@video_michel'
 
 AppBundle\Entity\Subtitles:
@@ -127,15 +128,15 @@ AppBundle\Entity\SustainabilityOffer:
   sustainability_offer_{1..5}:
     name: <word()>
     duration: 0
-    profile: '@profile_michel'
+    userProfile: '@profile_michel'
     channel: '@channel_michel'
 
 AppBundle\Entity\View:
   view_{1..5}:
-    profile: '@profile_michel'
+    userProfile: '@profile_michel'
     video: '@video_michel'
 
 AppBundle\Entity\Playlist:
   playlist_{1..5}:
     name: <word()>
-    profile: '@profile_michel'
+    userProfile: '@profile_michel'

@@ -22,7 +22,7 @@ class ChannelHelper extends ResourceHelper
         $name = 'string'.self::$numberChannel;
 
         $channel = new Channel();
-        $channel->setProfile($profile)->setName($name)->setTags(['string']);
+        $channel->setUserProfile($profile)->setName($name)->setTags(['string']);
 
         ++self::$numberChannel;
 

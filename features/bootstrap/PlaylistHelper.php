@@ -18,11 +18,10 @@ class PlaylistHelper extends ResourceHelper
 
     public function createResource()
     {
-
         $profile = $this->profileHelper->persistResource();
 
         $playlist = new Playlist();
-        $playlist->setProfile($profile)->setName('string');
+        $playlist->setUserProfile($profile)->setName('string');
 
         return $playlist;
     }

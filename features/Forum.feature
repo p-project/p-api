@@ -18,7 +18,7 @@ Feature: Manage forum
     {
       "name": "string",
       "video": "/videos/1",
-      "createdBy": "/profiles/1"
+      "createdBy": "/user_profiles/1"
     }
     """
     Then the response status code should be 201
@@ -33,7 +33,7 @@ Feature: Manage forum
       "id": 1,
       "name": "string",
       "video": "/videos/1",
-      "createdBy": "/profiles/1"
+      "createdBy": "/user_profiles/1"
     }
     """
 
@@ -84,7 +84,7 @@ Feature: Manage forum
           "id": 1,
           "name": "string",
           "video": "/videos/1",
-          "createdBy": "/profiles/1"
+          "createdBy": "/user_profiles/1"
         }
       ],
       "hydra:totalItems": 1
@@ -112,7 +112,7 @@ Feature: Manage forum
       "id": 1,
       "name": "stringUpdated",
       "video": "/videos/1",
-      "createdBy": "/profiles/1"
+      "createdBy": "/user_profiles/1"
     }
     """
 

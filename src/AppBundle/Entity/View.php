@@ -27,7 +27,7 @@ class View
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserProfile", inversedBy="views", cascade={"persist"})
      */
-    private $profile;
+    private $userProfile;
 
     /**
      * @var Video
@@ -46,14 +46,14 @@ class View
         $this->id = $id;
     }
 
-    public function getProfile(): UserProfile
+    public function getUserProfile(): UserProfile
     {
-        return $this->profile;
+        return $this->userProfile;
     }
 
-    public function setProfile(UserProfile $profile)
+    public function setUserProfile(UserProfile $userProfile)
     {
-        $this->profile = $profile;
+        $this->userProfile = $userProfile;
 
         return $this;
     }

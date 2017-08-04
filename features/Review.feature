@@ -19,7 +19,7 @@ Feature: Manage review
       "content": "string",
       "video": "/videos/1",
       "dateReview": "2017-02-04T09:36:08.044Z",
-      "author": "/profiles/1"
+      "author": "/user_profiles/1"
     }
     """
     Then the response status code should be 201
@@ -36,7 +36,7 @@ Feature: Manage review
         "video": "/videos/1",
         "dateReview": "2017-02-04T09:36:08+00:00",
         "replies": [],
-        "author": "/profiles/1"
+        "author": "/user_profiles/1"
     }
     """
 
@@ -61,7 +61,7 @@ Feature: Manage review
           "/replies/1",
           "/replies/2"
       ],
-      "author": "/profiles/1"
+      "author": "/user_profiles/1"
     }
     """
 
@@ -123,7 +123,7 @@ Feature: Manage review
           "/replies/1",
           "/replies/2"
       ],
-      "author": "/profiles/1"
+      "author": "/user_profiles/1"
     }
     """
 

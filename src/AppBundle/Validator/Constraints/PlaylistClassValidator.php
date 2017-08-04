@@ -9,7 +9,7 @@ class PlaylistClassValidator extends ConstraintValidator
 {
     public function validate($playlist, Constraint $constraint)
     {
-        if (!$this->ternaryXor($playlist->getChannel(), $playlist->getNetwork(), $playlist->getProfile())) {
+        if (!$this->ternaryXor($playlist->getChannel(), $playlist->getNetwork(), $playlist->getUserProfile())) {
             $this->context->buildViolation($constraint->message)->atPath('Playlist')->addViolation();
         }
     }

@@ -28,7 +28,7 @@ class ViewHelper extends ResourceHelper
         $video = $this->videoHelper->persistResource();
 
         $view = new View();
-        $view->setVideo($video)->setProfile($profile);
+        $view->setVideo($video)->setUserProfile($profile);
 
         return $view;
     }

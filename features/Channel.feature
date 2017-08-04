@@ -6,7 +6,7 @@ Feature: Manage channel
 
   Background:
     Given I am connected as "denis@denis.fr" with password "password"
-    And There are "profile" "/profiles/2"
+    And There are "user profile" "/user_profiles/2"
 
   @refreshSchema
   @requiresOAuth
@@ -16,7 +16,7 @@ Feature: Manage channel
     And I send a "POST" request to "/channels" with body:
     """
     {
-      "profile": "/profiles/2",
+      "userProfile": "/user_profiles/2",
       "name": "string",
       "tags": [
          "string"
@@ -32,7 +32,7 @@ Feature: Manage channel
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "profile": "/profiles/2",
+      "userProfile": "/user_profiles/2",
       "id": 1,
       "name": "string",
       "tags": [
@@ -88,7 +88,7 @@ Feature: Manage channel
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "profile": "/profiles/2",
+      "userProfile": "/user_profiles/2",
       "id": 1,
       "name": "string",
       "tags": [
@@ -116,7 +116,7 @@ Feature: Manage channel
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "profile": "/profiles/2",
+      "userProfile": "/user_profiles/2",
       "id": 1,
       "name": "string",
       "tags": [
@@ -147,7 +147,7 @@ Feature: Manage channel
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "profile": "/profiles/2",
+      "userProfile": "/user_profiles/2",
       "id": 1,
       "name": "string",
       "tags": [
@@ -184,7 +184,7 @@ Feature: Manage channel
           {
               "@id": "/channels/1",
               "@type": "Channel",
-              "profile": "/profiles/2",
+              "userProfile": "/user_profiles/2",
               "id": 1,
               "name": "string",
               "tags": [
@@ -206,9 +206,9 @@ Feature: Manage channel
           {
               "@id": "/channels/2",
               "@type": "Channel",
-              "profile": "/profiles/3",
+              "userProfile": "/user_profiles/3",
               "id": 2,
-              "name": "string18",
+              "name": "string4",
               "tags": [
                   "string"
               ],
@@ -220,9 +220,9 @@ Feature: Manage channel
           {
               "@id": "/channels/3",
               "@type": "Channel",
-              "profile": "/profiles/4",
+              "userProfile": "/user_profiles/4",
               "id": 3,
-              "name": "string19",
+              "name": "string5",
               "tags": [
                   "string"
               ],
@@ -234,9 +234,9 @@ Feature: Manage channel
           {
               "@id": "/channels/4",
               "@type": "Channel",
-              "profile": "/profiles/5",
+              "userProfile": "/user_profiles/5",
               "id": 4,
-              "name": "string20",
+              "name": "string6",
               "tags": [
                   "string"
               ],
@@ -293,7 +293,7 @@ Feature: Manage channel
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "profile": "/profiles/2",
+      "userProfile": "/user_profiles/2",
       "id": 1,
       "name": "stringUpdated",
       "tags": [
@@ -337,7 +337,7 @@ Feature: Manage channel
       "name": "string",
       "channel": "/channels/1",
       "network": null,
-      "profile": null
+      "userProfile": null
     }
     """
 
@@ -354,7 +354,7 @@ Feature: Manage channel
       "@context": "/contexts/Channel",
       "@id": "/channels/1",
       "@type": "Channel",
-      "profile": "/profiles/2",
+      "userProfile": "/user_profiles/2",
       "id": 1,
       "name": "stringUpdated",
       "tags": [

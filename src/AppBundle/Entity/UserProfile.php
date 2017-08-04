@@ -41,7 +41,7 @@ class UserProfile
     /**
      * @var ArrayCollection The list of the channels
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Channel", mappedBy="profile", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Channel", mappedBy="userProfile", cascade={"persist"})
      * @Groups({"account"})
      */
     private $channels;
@@ -50,7 +50,7 @@ class UserProfile
      * @var ArrayCollection The list of views
      *
      * @Groups({"account"})
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\View", mappedBy="profile", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\View", mappedBy="userProfile", cascade={"persist"})
      */
     private $views;
 
@@ -74,7 +74,7 @@ class UserProfile
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="profile", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="userProfile", cascade={"persist"})
      * @Groups({"account"})
      */
     private $playlists;
@@ -98,7 +98,7 @@ class UserProfile
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SustainabilityOffer", mappedBy="profile", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SustainabilityOffer", mappedBy="userProfile", cascade={"persist"})
      * @Groups({"account"})
      */
     private $sustainabilityOffers;
@@ -106,7 +106,7 @@ class UserProfile
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Seeder", mappedBy="profile", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Seeder", mappedBy="userProfile", cascade={"persist"})
      * @Groups({"account"})
      */
     private $seeders;
@@ -136,10 +136,10 @@ class UserProfile
     /**
      * @var UserAccount
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\UserAccount", inversedBy="profile", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\UserAccount", inversedBy="userProfile", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $account;
+    private $userAccount;
 
     public function __construct()
     {
@@ -310,16 +310,15 @@ class UserProfile
         return $this;
     }
 
-    public function getAccount(): UserAccount
+    public function getUserAccount(): UserAccount
     {
-        return $this->account;
+        return $this->userAccount;
     }
 
-    public function setAccount(UserAccount $account): UserProfile
+    public function setUserAccount(UserAccount $userAccount): UserProfile
     {
-        $this->account = $account;
+        $this->userAccount = $userAccount;
 
         return $this;
     }
-
 }

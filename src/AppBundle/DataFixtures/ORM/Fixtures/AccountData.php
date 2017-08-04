@@ -12,22 +12,22 @@ class AccountData extends ContainerAwareFixture implements OrderedFixtureInterfa
 {
     public function load(ObjectManager $manager)
     {
-        $account = new UserProfile();
-        $account
-            ->setFirstName('denis')
-            ->setLastName('denis')
-            ->setUsername('denis')
-        ;
-
         $privateData = new UserAccount();
         $privateData
             ->setEmail('denis@denis.fr')
             ->setSalt(base_convert(uniqid(mt_rand(), true), 16, 36))
             ->setPassword($this->container->get('security.password_encoder')->encodePassword($privateData, 'password'))
-            ->setProfile($account)
         ;
-        $manager->persist($account);
+        $account = new UserProfile();
+        $account
+            ->setFirstName('denis')
+            ->setLastName('denis')
+            ->setUsername('denis')
+            ->setUserAccount($privateData)
+        ;
+
         $manager->persist($privateData);
+        $manager->persist($account);
 
         $manager->flush();
     }

@@ -45,7 +45,7 @@ class Seeder
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserProfile", inversedBy="seeders", cascade={"persist"})
      */
-    private $profile;
+    private $userProfile;
 
     /**
      * @var Video
@@ -78,14 +78,14 @@ class Seeder
         return $this;
     }
 
-    public function getProfile(): UserProfile
+    public function getUserProfile(): UserProfile
     {
-        return $this->profile;
+        return $this->userProfile;
     }
 
-    public function setProfile(UserProfile $profile): Seeder
+    public function setUserProfile(UserProfile $userProfile): Seeder
     {
-        $this->profile = $profile;
+        $this->userProfile = $userProfile;
 
         return $this;
     }

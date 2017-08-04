@@ -6,7 +6,6 @@ Feature: Manage playlist
 
   Background:
     Given I am connected as "denis@denis.fr" with password "password"
-    And There are "profile" "/profiles/2"
 
   @refreshSchema
   @requiresOAuth
@@ -17,7 +16,7 @@ Feature: Manage playlist
     """
     {
       "name": "string",
-      "profile": "/profiles/1"
+      "userProfile": "/user_profiles/1"
     }
     """
     Then the response status code should be 201
@@ -33,7 +32,7 @@ Feature: Manage playlist
       "name": "string",
       "channel": null,
       "network": null,
-      "profile": "/profiles/1"
+      "userProfile": "/user_profiles/1"
     }
     """
 
@@ -57,7 +56,7 @@ Feature: Manage playlist
             "name": "string",
             "channel": null,
             "network": null,
-            "profile": "/profiles/1"
+            "userProfile": "/user_profiles/1"
           }
       ],
       "hydra:totalItems": 1
@@ -86,7 +85,7 @@ Feature: Manage playlist
       "name": "stringUpdated",
       "channel": null,
       "network": null,
-      "profile": "/profiles/1"
+      "userProfile": "/user_profiles/1"
     }
     """
 
@@ -114,7 +113,7 @@ Feature: Manage playlist
       "name": "string",
       "channel": "/channels/1",
       "network": null,
-      "profile": null
+      "userProfile": null
     }
     """
 
@@ -142,7 +141,7 @@ Feature: Manage playlist
       "name": "string",
       "channel": null,
       "network": "/networks/1",
-      "profile": null
+      "userProfile": null
     }
     """
 
@@ -153,7 +152,7 @@ Feature: Manage playlist
     """
     {
       "channel": "/channels/1",
-      "profile": "/profiles/1"
+      "userProfile": "/user_profiles/1"
     }
     """
     Then the response status code should be 400

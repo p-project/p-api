@@ -47,7 +47,7 @@ class Channel
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserProfile", inversedBy="channels", cascade={"persist"})
      */
-    private $profile;
+    private $userProfile;
 
     /**
      * @var Video
@@ -87,14 +87,14 @@ class Channel
         $this->sustainabilityOffers = new ArrayCollection();
     }
 
-    public function getProfile(): UserProfile
+    public function getUserProfile(): UserProfile
     {
-        return $this->profile;
+        return $this->userProfile;
     }
 
-    public function setProfile(UserProfile $profile): Channel
+    public function setUserProfile(UserProfile $profile): Channel
     {
-        $this->profile = $profile;
+        $this->userProfile = $profile;
 
         return $this;
     }

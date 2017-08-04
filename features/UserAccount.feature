@@ -1,4 +1,4 @@
-# features/Account.feature
+# features/UserAccount.feature
 Feature: Manage account
   In order to manage accounts
   As a client software developer
@@ -12,7 +12,7 @@ Feature: Manage account
   Scenario: Create an account
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/accounts" with body:
+    And I send a "POST" request to "/user_accounts" with body:
     """
     {
       "email": "string@string.fr",
@@ -26,9 +26,9 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/2",
-      "@type": "Account",
+      "@context": "/contexts/UserAccount",
+      "@id": "/user_accounts/2",
+      "@type": "UserAccount",
       "username": "string@string.fr",
       "email": "string@string.fr",
       "salt": "salt",
@@ -37,14 +37,14 @@ Feature: Manage account
       ],
       "password": "password",
       "id": 2,
-      "profile": "/profiles/2"
+      "userProfile": null
     }
     """
 
   Scenario: Throw errors when there is only bad properties
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/accounts" with body:
+    And I send a "POST" request to "/user_accounts" with body:
     """
     {
     }
@@ -76,39 +76,39 @@ Feature: Manage account
     }
     """
 
-  Scenario: Get his own account
+  Scenario: Get his own user_account
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/accounts/1"
+    And I send a "GET" request to "/user_accounts/1"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Account",
-      "@id": "/accounts/1",
-      "@type": "Account",
-      "username": "",
+      "@context": "/contexts/UserAccount",
+      "@id": "/user_accounts/1",
+      "@type": "UserAccount",
+      "username": "denis@denis.fr",
       "email": "denis@denis.fr",
-      "salt": "salt",
+      "salt": "iakegoihtfs4w44sgsg880wg",
       "roles": [
           "ROLE_USER"
       ],
-      "password": "password",
-      "id": 2,
-      "profile": "/profiles/1"
+      "password": "hvXTcPLThKqPeuYBr6qebw3SBAC1PkXR78vlr5GongvcOLyOniqjJ4QTYNoNsqHewKO0K+b5HhfEJwRSk0NJjw==",
+      "id": 1,
+      "userProfile": "/user_profiles/1"
     }
     """
 
-  Scenario: Get another account
+  Scenario: Get another user_account
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/accounts/2"
+    And I send a "GET" request to "/user_accounts/2"
     Then the response status code should be 403
 
-  Scenario: Update his account
+  Scenario: Update his user_account
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "PUT" request to "/accounts/1" with body:
+    And I send a "PUT" request to "/user_accounts/1" with body:
     """
     {
     }
@@ -119,40 +119,35 @@ Feature: Manage account
     And the JSON should be equal to:
     """
     {
-        "@context": "/contexts/Account",
-        "@id": "/accounts/2",
-        "@type": "Account",
-        "id": 2,
-        "username": "stringUpdated",
-        "email": "string@string.fr",
-        "firstName": "string",
-        "lastName": "string",
-        "channels": [],
-        "views": [],
-        "forums": [],
-        "networks": [],
-        "playlists": [],
-        "replies": [],
-        "reviews": [],
-        "sustainabilityOffers": [],
-        "seeders": []
+      "@context": "/contexts/UserAccount",
+      "@id": "/user_accounts/1",
+      "@type": "UserAccount",
+      "username": "denis@denis.fr",
+      "email": "denis@denis.fr",
+      "salt": "iakegoihtfs4w44sgsg880wg",
+      "roles": [
+          "ROLE_USER"
+      ],
+      "password": "hvXTcPLThKqPeuYBr6qebw3SBAC1PkXR78vlr5GongvcOLyOniqjJ4QTYNoNsqHewKO0K+b5HhfEJwRSk0NJjw==",
+      "id": 1,
+      "userProfile": "/user_profiles/1"
     }
     """
 
-  Scenario: Update another account
+  Scenario: Update another user_account
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "PUT" request to "/accounts/2" with body:
+    And I send a "PUT" request to "/user_accounts/2" with body:
     """
     {
-      "username": "stringUpdated"
+      "emai": "stringUpdated@denis.fr"
     }
     """
     Then the response status code should be 403
 
 
-  Scenario: Delete an account
+  Scenario: Delete an user_account
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "DELETE" request to "/accounts/2"
+    And I send a "DELETE" request to "/user_accounts/2"
     Then the response status code should be 403

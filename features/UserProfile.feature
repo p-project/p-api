@@ -1,23 +1,25 @@
-# features/Profile.feature
-Feature: Manage Profile
-  In order to manage Profile
+# features/UserProfile.feature
+Feature: Manage UserProfile
+  In order to manage UserProfile
   As a client software developer
   I need to be able to retrieve, create, update and delete them trough the API.
 
   Background:
     Given I am connected as "denis@denis.fr" with password "password"
+    And There are "user account" "/user_accounts/2"
 
   @refreshSchema
   @requiresOAuth
-  Scenario: Create a profile
+  Scenario: Create a user_profile
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/profiles" with body:
+    And I send a "POST" request to "/user_profiles" with body:
     """
     {
       "username": "string",
       "firstName": "string",
-      "lastName": "string"
+      "lastName": "string",
+      "userAccount": "/user_accounts/2"
     }
     """
     Then the response status code should be 201
@@ -26,9 +28,9 @@ Feature: Manage Profile
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Profile",
-      "@id": "/profiles/2",
-      "@type": "Profile",
+      "@context": "/contexts/UserProfile",
+      "@id": "/user_profiles/2",
+      "@type": "UserProfile",
       "id": 2,
       "username": "string",
       "channels": [],
@@ -45,22 +47,22 @@ Feature: Manage Profile
     }
     """
 
-  Scenario: Retrieve the profile list
+  Scenario: Retrieve the user profile list
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/profiles"
+    And I send a "GET" request to "/user_profiles"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-        "@context": "/contexts/Profile",
-        "@id": "/profiles",
+        "@context": "/contexts/UserProfile",
+        "@id": "/user_profiles",
         "@type": "hydra:Collection",
         "hydra:member": [
             {
-              "@id": "/profiles/1",
-              "@type": "Profile",
+              "@id": "/user_profiles/1",
+              "@type": "UserProfile",
               "id": 1,
               "username": "denis",
               "channels": [],
@@ -76,8 +78,8 @@ Feature: Manage Profile
               "lastName": "denis"
             },
             {
-              "@id": "/profiles/2",
-              "@type": "Profile",
+              "@id": "/user_profiles/2",
+              "@type": "UserProfile",
               "id": 2,
               "username": "string",
               "channels": [],
@@ -96,7 +98,7 @@ Feature: Manage Profile
         "hydra:totalItems": 2,
         "hydra:search": {
             "@type": "hydra:IriTemplate",
-            "hydra:template": "/profiles{?id,id[],username,firstName}",
+            "hydra:template": "/user_profiles{?id,id[],username,firstName}",
             "hydra:variableRepresentation": "BasicRepresentation",
             "hydra:mapping": [
                 {
@@ -131,12 +133,10 @@ Feature: Manage Profile
   Scenario: Throw errors when there is only bad properties
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "POST" request to "/profiles" with body:
+    And I send a "POST" request to "/user_profiles" with body:
     """
     {
-      "username": "string",
-      "firstName": "string",
-      "lastName": "string"
+      "username": ""
     }
     """
     Then the response status code should be 400
@@ -166,10 +166,10 @@ Feature: Manage Profile
     }
     """
   
-  Scenario: Update a profile
+  Scenario: Update a user_profile
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "PUT" request to "/profiles/2" with body:
+    And I send a "PUT" request to "/user_profiles/2" with body:
     """
     {
       "username": "stringUpdated"
@@ -181,9 +181,9 @@ Feature: Manage Profile
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Profile",
-      "@id": "/profiles/2",
-      "@type": "Profile",
+      "@context": "/contexts/UserProfile",
+      "@id": "/user_profiles/2",
+      "@type": "UserProfile",
       "id": 2,
       "username": "stringUpdated",
       "channels": [],
@@ -200,18 +200,18 @@ Feature: Manage Profile
     }
     """
   
-  Scenario: Get a specific profile
+  Scenario: Get a specific user_profile
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/profiles/2"
+    And I send a "GET" request to "/user_profiles/2"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Profile",
-      "@id": "/profiles/2",
-      "@type": "Profile",
+      "@context": "/contexts/UserProfile",
+      "@id": "/user_profiles/2",
+      "@type": "UserProfile",
       "id": 2,
       "username": "stringUpdated",
       "channels": [],
@@ -228,19 +228,19 @@ Feature: Manage Profile
     }
     """
   
-  Scenario: See channel in profile
-    Given There are "channel" "/channels/1,/channels/2" which have "profile" "/profiles/2"
+  Scenario: See channel in user profile
+    Given There are "channel" "/channels/1,/channels/2" which have "user profile" "/user_profiles/2"
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/profiles/2"
+    And I send a "GET" request to "/user_profiles/2"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Profile",
-      "@id": "/profiles/2",
-      "@type": "Profile",
+      "@context": "/contexts/UserProfile",
+      "@id": "/user_profiles/2",
+      "@type": "UserProfile",
       "id": 2,
       "username": "stringUpdated",
       "channels": [
@@ -260,19 +260,19 @@ Feature: Manage Profile
     }
     """
   
-  Scenario: See view in profile
-    Given There are "view" "/views/1,/views/2" which have "profile" "/profiles/2"
+  Scenario: See view in user profile
+    Given There are "view" "/views/1,/views/2" which have "user profile" "/user_profiles/2"
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/profiles/2"
+    And I send a "GET" request to "/user_profiles/2"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Profile",
-      "@id": "/profiles/2",
-      "@type": "Profile",
+      "@context": "/contexts/UserProfile",
+      "@id": "/user_profiles/2",
+      "@type": "UserProfile",
       "id": 2,
       "username": "stringUpdated",
       "channels": [
@@ -295,19 +295,19 @@ Feature: Manage Profile
     }
     """
   
-  Scenario: See forum in profile
-    Given There are "forum" "/forums/1,/forums/2" which have "profile" "/profiles/2"
+  Scenario: See forum in user profile
+    Given There are "forum" "/forums/1,/forums/2" which have "user profile" "/user_profiles/2"
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/profiles/2"
+    And I send a "GET" request to "/user_profiles/2"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Profile",
-      "@id": "/profiles/2",
-      "@type": "Profile",
+      "@context": "/contexts/UserProfile",
+      "@id": "/user_profiles/2",
+      "@type": "UserProfile",
       "id": 2,
       "username": "stringUpdated",
       "channels": [
@@ -334,18 +334,18 @@ Feature: Manage Profile
     """
   
   Scenario: See network in profile
-    Given There are "network" "/networks/1,/networks/2" which have "profile" "/profiles/2"
+    Given There are "network" "/networks/1,/networks/2" which have "user profile" "/user_profiles/2"
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/profiles/2"
+    And I send a "GET" request to "/user_profiles/2"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Profile",
-      "@id": "/profiles/2",
-      "@type": "Profile",
+      "@context": "/contexts/UserProfile",
+      "@id": "/user_profiles/2",
+      "@type": "UserProfile",
       "id": 2,
       "username": "stringUpdated",
       "channels": [
@@ -375,18 +375,18 @@ Feature: Manage Profile
     """
   
   Scenario: See review in profile
-    Given There are "review" "/reviews/1,/reviews/2" which have "profile" "/profiles/2"
+    Given There are "review" "/reviews/1,/reviews/2" which have "user profile" "/user_profiles/2"
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/profiles/2"
+    And I send a "GET" request to "/user_profiles/2"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Profile",
-      "@id": "/profiles/2",
-      "@type": "Profile",
+      "@context": "/contexts/UserProfile",
+      "@id": "/user_profiles/2",
+      "@type": "UserProfile",
       "id": 2,
       "username": "stringUpdated",
       "channels": [
@@ -419,18 +419,18 @@ Feature: Manage Profile
     """
   
   Scenario: See reply in profile
-    Given There are "reply" "/replies/1,/replies/2" which have "profile" "/profiles/1,/profiles/2"
+    Given There are "reply" "/replies/1,/replies/2" which have "user profile" "/user_profiles/1,/user_profiles/2"
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/profiles/2"
+    And I send a "GET" request to "/user_profiles/2"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Profile",
-      "@id": "/profiles/2",
-      "@type": "Profile",
+      "@context": "/contexts/UserProfile",
+      "@id": "/user_profiles/2",
+      "@type": "UserProfile",
       "id": 2,
       "username": "stringUpdated",
       "channels": [
@@ -466,18 +466,18 @@ Feature: Manage Profile
     """
   
   Scenario: See Sustainability Offers in profile
-    Given There are "sustainability offer" "/sustainability_offers/1,/sustainability_offers/2" which have "profile" "/profiles/2"
+    Given There are "sustainability offer" "/sustainability_offers/1,/sustainability_offers/2" which have "user profile" "/user_profiles/2"
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/profiles/2"
+    And I send a "GET" request to "/user_profiles/2"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Profile",
-      "@id": "/profiles/2",
-      "@type": "Profile",
+      "@context": "/contexts/UserProfile",
+      "@id": "/user_profiles/2",
+      "@type": "UserProfile",
       "id": 2,
       "username": "stringUpdated",
       "channels": [
@@ -516,18 +516,18 @@ Feature: Manage Profile
     """
   
   Scenario: See seeder in profile
-    Given There are "seeder" "/seeders/1,/seeders/2" which have "profile" "/profiles/2"
+    Given There are "seeder" "/seeders/1,/seeders/2" which have "user profile" "/user_profiles/2"
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/profiles/2"
+    And I send a "GET" request to "/user_profiles/2"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Profile",
-      "@id": "/profiles/2",
-      "@type": "Profile",
+      "@context": "/contexts/UserProfile",
+      "@id": "/user_profiles/2",
+      "@type": "UserProfile",
       "id": 2,
       "username": "stringUpdated",
       "channels": [
@@ -569,18 +569,18 @@ Feature: Manage Profile
     """
   
   Scenario: See playlist in profile
-    Given There are "playlist" "/playlists/1,/playlist/2" which have "profile" "/profiles/2"
+    Given There are "playlist" "/playlists/1,/playlist/2" which have "user profile" "/user_profiles/2"
     When I add "Accept" header equal to "application/ld+json"
-    And I send a "GET" request to "/profiles/2"
+    And I send a "GET" request to "/user_profiles/2"
     Then the response status code should be 200
     And the response should be in JSON
     And the header "Content-Type" should be equal to "application/ld+json; charset=utf-8"
     And the JSON should be equal to:
     """
     {
-      "@context": "/contexts/Profile",
-      "@id": "/profiles/2",
-      "@type": "Profile",
+      "@context": "/contexts/UserProfile",
+      "@id": "/user_profiles/2",
+      "@type": "UserProfile",
       "id": 2,
       "username": "stringUpdated",
       "channels": [
@@ -627,11 +627,11 @@ Feature: Manage Profile
   Scenario: Delete an profile
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "DELETE" request to "/profiles/2"
+    And I send a "DELETE" request to "/user_profiles/2"
     Then the response status code should be 204
   
   Scenario: Delete an profile
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
-    And I send a "DELETE" request to "/profiles/2"
+    And I send a "DELETE" request to "/user_profiles/2"
     Then the response status code should be 404

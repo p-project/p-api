@@ -8,7 +8,7 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20170804131111 extends AbstractMigration
+class Version20170804145916 extends AbstractMigration
 {
     /**
      * @param Schema $schema
@@ -40,8 +40,8 @@ class Version20170804131111 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE metadata_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE ip_request_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE category_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE TABLE view (id INT NOT NULL, profile_id INT DEFAULT NULL, video_id INT DEFAULT NULL, PRIMARY KEY(id))');
-        $this->addSql('CREATE INDEX IDX_FEFDAB8ECCFA12B8 ON view (profile_id)');
+        $this->addSql('CREATE TABLE view (id INT NOT NULL, user_profile_id INT DEFAULT NULL, video_id INT DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_FEFDAB8E6B9DD454 ON view (user_profile_id)');
         $this->addSql('CREATE INDEX IDX_FEFDAB8E29C1004E ON view (video_id)');
         $this->addSql('CREATE TABLE forum (id INT NOT NULL, video_id INT DEFAULT NULL, created_by_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_852BBECD29C1004E ON forum (video_id)');
@@ -59,11 +59,11 @@ class Version20170804131111 extends AbstractMigration
         $this->addSql('CREATE TABLE review (id INT NOT NULL, video_id INT DEFAULT NULL, author_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, date_comment TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_794381C629C1004E ON review (video_id)');
         $this->addSql('CREATE INDEX IDX_794381C6F675F31B ON review (author_id)');
-        $this->addSql('CREATE TABLE user_profile (id INT NOT NULL, account_id INT NOT NULL, username VARCHAR(255) NOT NULL, first_name VARCHAR(255) NOT NULL, last_name VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE user_profile (id INT NOT NULL, user_account_id INT NOT NULL, username VARCHAR(255) NOT NULL, first_name VARCHAR(255) NOT NULL, last_name VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_D95AB405F85E0677 ON user_profile (username)');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_D95AB4059B6B5FBA ON user_profile (account_id)');
-        $this->addSql('CREATE TABLE sustainability_offer (id INT NOT NULL, profile_id INT DEFAULT NULL, channel_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, duration INT NOT NULL, PRIMARY KEY(id))');
-        $this->addSql('CREATE INDEX IDX_BDC3DF35CCFA12B8 ON sustainability_offer (profile_id)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_D95AB4053C0C9956 ON user_profile (user_account_id)');
+        $this->addSql('CREATE TABLE sustainability_offer (id INT NOT NULL, user_profile_id INT DEFAULT NULL, channel_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, duration INT NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_BDC3DF356B9DD454 ON sustainability_offer (user_profile_id)');
         $this->addSql('CREATE INDEX IDX_BDC3DF3572F5A1AA ON sustainability_offer (channel_id)');
         $this->addSql('CREATE TABLE video (id INT NOT NULL, channel_id INT DEFAULT NULL, metadata_id INT DEFAULT NULL, title VARCHAR(255) NOT NULL, description VARCHAR(255) DEFAULT NULL, date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, number_view INT DEFAULT NULL, hash VARCHAR(255) NOT NULL, magnet VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_7CC7DA2C72F5A1AA ON video (channel_id)');
@@ -73,8 +73,8 @@ class Version20170804131111 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_AECE2B7D12469DE2 ON video_category (category_id)');
         $this->addSql('CREATE TABLE user_account (id INT NOT NULL, email VARCHAR(255) NOT NULL, salt VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_253B48AEE7927C74 ON user_account (email)');
-        $this->addSql('CREATE TABLE seeder (id INT NOT NULL, profile_id INT DEFAULT NULL, video_id INT DEFAULT NULL, platform VARCHAR(255) NOT NULL, ip VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
-        $this->addSql('CREATE INDEX IDX_8801CDCECCFA12B8 ON seeder (profile_id)');
+        $this->addSql('CREATE TABLE seeder (id INT NOT NULL, user_profile_id INT DEFAULT NULL, video_id INT DEFAULT NULL, platform VARCHAR(255) NOT NULL, ip VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_8801CDCE6B9DD454 ON seeder (user_profile_id)');
         $this->addSql('CREATE INDEX IDX_8801CDCE29C1004E ON seeder (video_id)');
         $this->addSql('CREATE TABLE annotation (id INT NOT NULL, video_id INT DEFAULT NULL, begin_time INT NOT NULL, end_time INT NOT NULL, annotation_text VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_2E443EF229C1004E ON annotation (video_id)');
@@ -100,16 +100,16 @@ class Version20170804131111 extends AbstractMigration
         $this->addSql('CREATE TABLE client (id INT NOT NULL, random_id VARCHAR(255) NOT NULL, redirect_uris TEXT NOT NULL, secret VARCHAR(255) NOT NULL, allowed_grant_types TEXT NOT NULL, PRIMARY KEY(id))');
         $this->addSql('COMMENT ON COLUMN client.redirect_uris IS \'(DC2Type:array)\'');
         $this->addSql('COMMENT ON COLUMN client.allowed_grant_types IS \'(DC2Type:array)\'');
-        $this->addSql('CREATE TABLE channel (id INT NOT NULL, profile_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, tags TEXT DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE channel (id INT NOT NULL, user_profile_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, tags TEXT DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_A2F98E475E237E06 ON channel (name)');
-        $this->addSql('CREATE INDEX IDX_A2F98E47CCFA12B8 ON channel (profile_id)');
+        $this->addSql('CREATE INDEX IDX_A2F98E476B9DD454 ON channel (user_profile_id)');
         $this->addSql('COMMENT ON COLUMN channel.tags IS \'(DC2Type:array)\'');
         $this->addSql('CREATE TABLE subtitles (id INT NOT NULL, video_id INT DEFAULT NULL, begin_time TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, end_time TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, path VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_A739C98629C1004E ON subtitles (video_id)');
         $this->addSql('CREATE TABLE metadata (id INT NOT NULL, height INT NOT NULL, width INT NOT NULL, format VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE ip_request (id INT NOT NULL, ip VARCHAR(255) NOT NULL, date_request TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, accesses INT NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE category (id INT NOT NULL, name VARCHAR(255) NOT NULL, description VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
-        $this->addSql('ALTER TABLE view ADD CONSTRAINT FK_FEFDAB8ECCFA12B8 FOREIGN KEY (profile_id) REFERENCES user_profile (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE view ADD CONSTRAINT FK_FEFDAB8E6B9DD454 FOREIGN KEY (user_profile_id) REFERENCES user_profile (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE view ADD CONSTRAINT FK_FEFDAB8E29C1004E FOREIGN KEY (video_id) REFERENCES video (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE forum ADD CONSTRAINT FK_852BBECD29C1004E FOREIGN KEY (video_id) REFERENCES video (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE forum ADD CONSTRAINT FK_852BBECDB03A8386 FOREIGN KEY (created_by_id) REFERENCES user_profile (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
@@ -122,14 +122,14 @@ class Version20170804131111 extends AbstractMigration
         $this->addSql('ALTER TABLE reply ADD CONSTRAINT FK_FDA8C6E0F675F31B FOREIGN KEY (author_id) REFERENCES user_profile (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE review ADD CONSTRAINT FK_794381C629C1004E FOREIGN KEY (video_id) REFERENCES video (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE review ADD CONSTRAINT FK_794381C6F675F31B FOREIGN KEY (author_id) REFERENCES user_profile (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE user_profile ADD CONSTRAINT FK_D95AB4059B6B5FBA FOREIGN KEY (account_id) REFERENCES user_account (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE sustainability_offer ADD CONSTRAINT FK_BDC3DF35CCFA12B8 FOREIGN KEY (profile_id) REFERENCES user_profile (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE user_profile ADD CONSTRAINT FK_D95AB4053C0C9956 FOREIGN KEY (user_account_id) REFERENCES user_account (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE sustainability_offer ADD CONSTRAINT FK_BDC3DF356B9DD454 FOREIGN KEY (user_profile_id) REFERENCES user_profile (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE sustainability_offer ADD CONSTRAINT FK_BDC3DF3572F5A1AA FOREIGN KEY (channel_id) REFERENCES channel (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE video ADD CONSTRAINT FK_7CC7DA2C72F5A1AA FOREIGN KEY (channel_id) REFERENCES channel (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE video ADD CONSTRAINT FK_7CC7DA2CDC9EE959 FOREIGN KEY (metadata_id) REFERENCES metadata (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE video_category ADD CONSTRAINT FK_AECE2B7D29C1004E FOREIGN KEY (video_id) REFERENCES video (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE video_category ADD CONSTRAINT FK_AECE2B7D12469DE2 FOREIGN KEY (category_id) REFERENCES category (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE seeder ADD CONSTRAINT FK_8801CDCECCFA12B8 FOREIGN KEY (profile_id) REFERENCES user_profile (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE seeder ADD CONSTRAINT FK_8801CDCE6B9DD454 FOREIGN KEY (user_profile_id) REFERENCES user_profile (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE seeder ADD CONSTRAINT FK_8801CDCE29C1004E FOREIGN KEY (video_id) REFERENCES video (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE annotation ADD CONSTRAINT FK_2E443EF229C1004E FOREIGN KEY (video_id) REFERENCES video (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE network_user_profile ADD CONSTRAINT FK_BC28636D34128B91 FOREIGN KEY (network_id) REFERENCES network (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
@@ -142,7 +142,7 @@ class Version20170804131111 extends AbstractMigration
         $this->addSql('ALTER TABLE refresh_token ADD CONSTRAINT FK_C74F2195A76ED395 FOREIGN KEY (user_id) REFERENCES user_account (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE access_token ADD CONSTRAINT FK_B6A2DD6819EB6921 FOREIGN KEY (client_id) REFERENCES client (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE access_token ADD CONSTRAINT FK_B6A2DD68A76ED395 FOREIGN KEY (user_id) REFERENCES user_account (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE channel ADD CONSTRAINT FK_A2F98E47CCFA12B8 FOREIGN KEY (profile_id) REFERENCES user_profile (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE channel ADD CONSTRAINT FK_A2F98E476B9DD454 FOREIGN KEY (user_profile_id) REFERENCES user_profile (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE subtitles ADD CONSTRAINT FK_A739C98629C1004E FOREIGN KEY (video_id) REFERENCES video (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
     }
 
@@ -156,16 +156,16 @@ class Version20170804131111 extends AbstractMigration
 
         $this->addSql('CREATE SCHEMA public');
         $this->addSql('ALTER TABLE reply DROP CONSTRAINT FK_FDA8C6E03E2E969B');
-        $this->addSql('ALTER TABLE view DROP CONSTRAINT FK_FEFDAB8ECCFA12B8');
+        $this->addSql('ALTER TABLE view DROP CONSTRAINT FK_FEFDAB8E6B9DD454');
         $this->addSql('ALTER TABLE forum DROP CONSTRAINT FK_852BBECDB03A8386');
         $this->addSql('ALTER TABLE comment DROP CONSTRAINT FK_9474526CF675F31B');
         $this->addSql('ALTER TABLE playlist DROP CONSTRAINT FK_D782112D9B6B5FBA');
         $this->addSql('ALTER TABLE reply DROP CONSTRAINT FK_FDA8C6E0F675F31B');
         $this->addSql('ALTER TABLE review DROP CONSTRAINT FK_794381C6F675F31B');
-        $this->addSql('ALTER TABLE sustainability_offer DROP CONSTRAINT FK_BDC3DF35CCFA12B8');
-        $this->addSql('ALTER TABLE seeder DROP CONSTRAINT FK_8801CDCECCFA12B8');
+        $this->addSql('ALTER TABLE sustainability_offer DROP CONSTRAINT FK_BDC3DF356B9DD454');
+        $this->addSql('ALTER TABLE seeder DROP CONSTRAINT FK_8801CDCE6B9DD454');
         $this->addSql('ALTER TABLE network_user_profile DROP CONSTRAINT FK_BC28636D6B9DD454');
-        $this->addSql('ALTER TABLE channel DROP CONSTRAINT FK_A2F98E47CCFA12B8');
+        $this->addSql('ALTER TABLE channel DROP CONSTRAINT FK_A2F98E476B9DD454');
         $this->addSql('ALTER TABLE view DROP CONSTRAINT FK_FEFDAB8E29C1004E');
         $this->addSql('ALTER TABLE forum DROP CONSTRAINT FK_852BBECD29C1004E');
         $this->addSql('ALTER TABLE comment DROP CONSTRAINT FK_9474526C29C1004E');
@@ -174,7 +174,7 @@ class Version20170804131111 extends AbstractMigration
         $this->addSql('ALTER TABLE seeder DROP CONSTRAINT FK_8801CDCE29C1004E');
         $this->addSql('ALTER TABLE annotation DROP CONSTRAINT FK_2E443EF229C1004E');
         $this->addSql('ALTER TABLE subtitles DROP CONSTRAINT FK_A739C98629C1004E');
-        $this->addSql('ALTER TABLE user_profile DROP CONSTRAINT FK_D95AB4059B6B5FBA');
+        $this->addSql('ALTER TABLE user_profile DROP CONSTRAINT FK_D95AB4053C0C9956');
         $this->addSql('ALTER TABLE auth_code DROP CONSTRAINT FK_5933D02CA76ED395');
         $this->addSql('ALTER TABLE refresh_token DROP CONSTRAINT FK_C74F2195A76ED395');
         $this->addSql('ALTER TABLE access_token DROP CONSTRAINT FK_B6A2DD68A76ED395');

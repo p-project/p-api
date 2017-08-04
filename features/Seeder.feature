@@ -17,7 +17,7 @@ Feature: Manage seeder
     """
     {
       "platform": "string",
-      "profile": "/profiles/1",
+      "userProfile": "/user_profiles/1",
       "video": "/videos/1",
       "ip": "127.0.0.1"
     }
@@ -33,7 +33,7 @@ Feature: Manage seeder
       "@type": "Seeder",
       "id": 1,
       "platform": "string",
-      "profile": "/profiles/1",
+      "userProfile": "/user_profiles/1",
       "ip": "127.0.0.1",
       "video": "/videos/1"
     }
@@ -89,7 +89,7 @@ Feature: Manage seeder
           "@type": "Seeder",
           "id": 1,
           "platform": "string",
-          "profile": "/profiles/1",
+          "userProfile": "/user_profiles/1",
           "ip": "127.0.0.1",
           "video": "/videos/1"
         }
@@ -118,7 +118,7 @@ Feature: Manage seeder
       "@type": "Seeder",
       "id": 1,
       "platform": "stringUpdated",
-      "profile": "/profiles/1",
+      "userProfile": "/user_profiles/1",
       "ip": "127.0.0.1",
       "video": "/videos/1"
     }

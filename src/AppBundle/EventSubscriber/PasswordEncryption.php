@@ -3,16 +3,11 @@
 namespace AppBundle\EventSubscriber;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
-use AppBundle\Entity\UserProfile;
-use AppBundle\Security\AccountVoter;
+use AppBundle\Entity\UserAccount;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Request;use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
 class PasswordEncryption implements EventSubscriberInterface
 {
@@ -25,10 +20,10 @@ class PasswordEncryption implements EventSubscriberInterface
 
     public function encryptPassword(GetResponseForControllerResultEvent $event)
     {
-        $account = $event->getControllerResult();
+        /*$account = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();
 
-        if (!$account instanceof Account || $method !== Request::METHOD_POST) {
+        if (!$account instanceof UserAccount || $method !== Request::METHOD_POST) {
             return;
         }
 
@@ -36,6 +31,6 @@ class PasswordEncryption implements EventSubscriberInterface
             ->setSalt(base_convert(uniqid(mt_rand(), true), 16, 36))
             ->setPassword($this->container->get('security.password_encoder')
                 ->encodePassword($account, 'password'))
-        ;
+        ;*/
     }
 }

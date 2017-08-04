@@ -22,7 +22,7 @@ class SustainabilityOfferHelper extends ResourceHelper
 
         $sustainabilityOffer = new SustainabilityOffer();
         $sustainabilityOffer->setName('string')->setDuration(0)
-            ->setProfile($channel->getProfile())->setChannel($channel);
+            ->setUserProfile($channel->getUserProfile())->setChannel($channel);
 
         return $sustainabilityOffer;
     }

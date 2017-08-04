@@ -18,7 +18,7 @@ Feature: Manage substainability_offer
     {
       "name": "string",
       "duration": 0,
-      "profile": "/profiles/1",
+      "userProfile": "/user_profiles/1",
       "channel": "/channels/1"
     }
     """
@@ -34,7 +34,7 @@ Feature: Manage substainability_offer
       "id": 1,
       "name": "string",
       "duration": 0,
-      "profile": "/profiles/1",
+      "userProfile": "/user_profiles/1",
       "channel": "/channels/1"
     }
     """
@@ -90,7 +90,7 @@ Feature: Manage substainability_offer
           "id": 1,
           "name": "string",
           "duration": 0,
-          "profile": "/profiles/1",
+          "userProfile": "/user_profiles/1",
           "channel": "/channels/1"
         }
       ],
@@ -119,7 +119,7 @@ Feature: Manage substainability_offer
       "id": 1,
       "name": "stringUpdated",
       "duration": 0,
-      "profile": "/profiles/1",
+      "userProfile": "/user_profiles/1",
       "channel": "/channels/1"
     }
     """

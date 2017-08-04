@@ -3,8 +3,6 @@
 namespace AppBundle\Security;
 
 use AppBundle\Entity\UserAccount;
-use AppBundle\Entity\UserProfile;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -18,7 +16,7 @@ class AccountVoter extends Voter
             return false;
         }
 
-        if ($subject === null) {
+        if ($subject === null || !isset($subject[2])) {
             return false;
         }
 
@@ -33,11 +31,8 @@ class AccountVoter extends Voter
             return false;
         }
 
-        $profileId = explode('/', $subject)[2];
-
-
         if ($attribute === self::ACCESS) {
-            return $this->canAccess($profileId, $user);
+            return $this->canAccess($subject[2], $user);
         }
 
         throw new \LogicException('This code should not be reached!');
@@ -45,6 +40,6 @@ class AccountVoter extends Voter
 
     private function canAccess(string $profileId, UserAccount $account)
     {
-        return $account->getId() === intval($profileId);
+        return $account->getId() === (int) $profileId;
     }
 }

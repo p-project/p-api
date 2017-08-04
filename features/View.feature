@@ -16,7 +16,7 @@ Feature: Manage view
     And I send a "POST" request to "/views" with body:
     """
     {
-      "profile": "/profiles/2",
+      "userProfile": "/user_profiles/2",
       "video": "/videos/1"
     }
     """
@@ -30,7 +30,7 @@ Feature: Manage view
       "@id": "/views/1",
       "@type": "View",
       "id": 1,
-      "profile": "/profiles/2",
+      "userProfile": "/user_profiles/2",
       "video": "/videos/1"
     }
     """
@@ -52,7 +52,7 @@ Feature: Manage view
           "@id": "/views/1",
           "@type": "View",
           "id": 1,
-          "profile": "/profiles/2",
+          "userProfile": "/user_profiles/2",
           "video": "/videos/1"
         }
       ],
