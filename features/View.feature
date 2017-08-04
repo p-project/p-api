@@ -5,7 +5,7 @@ Feature: Manage view
   I need to be able to retrieve, create, update and delete them trough the API.
 
   Background:
-    Given I am connected as "denis" with password "password"
+    Given I am connected as "denis@denis.fr" with password "password"
     And There are "video" "/videos/1"
 
   @refreshSchema
@@ -16,7 +16,7 @@ Feature: Manage view
     And I send a "POST" request to "/views" with body:
     """
     {
-      "account": "/accounts/2",
+      "userProfile": "/user_profiles/2",
       "video": "/videos/1"
     }
     """
@@ -30,7 +30,7 @@ Feature: Manage view
       "@id": "/views/1",
       "@type": "View",
       "id": 1,
-      "account": "/accounts/2",
+      "userProfile": "/user_profiles/2",
       "video": "/videos/1"
     }
     """
@@ -52,7 +52,7 @@ Feature: Manage view
           "@id": "/views/1",
           "@type": "View",
           "id": 1,
-          "account": "/accounts/2",
+          "userProfile": "/user_profiles/2",
           "video": "/videos/1"
         }
       ],

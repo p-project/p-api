@@ -41,11 +41,11 @@ class Seeder
     private $ip;
 
     /**
-     * @var Account
+     * @var UserProfile
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account", inversedBy="seeders", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserProfile", inversedBy="seeders", cascade={"persist"})
      */
-    private $account;
+    private $userProfile;
 
     /**
      * @var Video
@@ -78,14 +78,14 @@ class Seeder
         return $this;
     }
 
-    public function getAccount(): Account
+    public function getUserProfile(): UserProfile
     {
-        return $this->account;
+        return $this->userProfile;
     }
 
-    public function setAccount(Account $account): Seeder
+    public function setUserProfile(UserProfile $userProfile): Seeder
     {
-        $this->account = $account;
+        $this->userProfile = $userProfile;
 
         return $this;
     }

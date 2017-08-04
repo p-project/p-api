@@ -42,9 +42,9 @@ class Forum
     private $video;
 
     /**
-     * @var Account
+     * @var UserProfile
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Account", inversedBy="forums", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserProfile", inversedBy="forums", cascade={"persist"})
      */
     private $createdBy;
 
@@ -77,7 +77,7 @@ class Forum
         return $this->video;
     }
 
-    public function setVideo($video)
+    public function setVideo(Video $video): Forum
     {
         $this->video = $video;
 
@@ -89,7 +89,7 @@ class Forum
         return $this->createdBy;
     }
 
-    public function setCreatedBy($createdBy): Forum
+    public function setCreatedBy(UserProfile $createdBy): Forum
     {
         $this->createdBy = $createdBy;
 

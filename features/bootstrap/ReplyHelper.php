@@ -6,36 +6,36 @@ use Doctrine\ORM\EntityManager;
 class ReplyHelper extends ResourceHelper
 {
     /**
-     * @var AccountHelper
+     * @var UserProfileHelper
      */
-    private $accountHelper;
+    private $profileHelper;
 
     /**
      * @var ReviewHelper
      */
     private $reviewHelper;
 
-    public function __construct(EntityManager $em, AccountHelper $accountHelper, ReviewHelper $reviewHelper)
+    public function __construct(EntityManager $em, UserProfileHelper $profileHelper, ReviewHelper $reviewHelper)
     {
         parent::__construct($em);
-        $this->accountHelper = $accountHelper;
+        $this->profileHelper = $profileHelper;
         $this->reviewHelper = $reviewHelper;
     }
 
     public function createResource()
     {
-        $account = $this->accountHelper->persistResource();
+        $profile = $this->profileHelper->persistResource();
         $review = $this->reviewHelper->persistResource();
 
         $reply = new Reply();
-        $reply->setReview($review)->setAuthor($account)->setContent('string')->setDateReply(new \DateTime());
+        $reply->setReview($review)->setAuthor($profile)->setContent('string')->setDateReply(new \DateTime());
 
         return $reply;
     }
 
     public function createRelationWith($resource, string $nameResource2, $resource2)
     {
-        if ($nameResource2 == 'Account') {
+        if ($nameResource2 == 'UserProfile') {
             return parent::createRelationWith($resource, 'Author', $resource2);
         }
 
@@ -44,7 +44,7 @@ class ReplyHelper extends ResourceHelper
 
     public function relationExists($resource, string $nameResource2, $resource2)
     {
-        if ($nameResource2 == 'Account') {
+        if ($nameResource2 == 'UserProfile') {
             return parent::relationExists($resource, 'Author', $resource2);
         }
 

@@ -67,21 +67,22 @@ class FeatureContext extends RestContext implements Context, SnippetAcceptingCon
         $this->schemaTool = new SchemaTool($this->manager);
         $this->classes = $this->manager->getMetadataFactory()->getAllMetadata();
 
-        $this->helpers['Account'] = new AccountHelper($this->manager);
-        $this->helpers['Channel'] = new ChannelHelper($this->manager, $this->helpers['Account']);
-        $this->helpers['Playlist'] = new PlaylistHelper($this->manager, $this->helpers['Account']);
+        $this->helpers['UserAccount'] = new UserAccountHelper($this->manager);
+        $this->helpers['UserProfile'] = new UserProfileHelper($this->manager, $this->helpers['UserAccount']);
+        $this->helpers['Channel'] = new ChannelHelper($this->manager, $this->helpers['UserProfile']);
+        $this->helpers['Playlist'] = new PlaylistHelper($this->manager, $this->helpers['UserProfile']);
         $this->helpers['Video'] = new VideoHelper($this->manager, $this->helpers['Channel']);
         $this->helpers['SustainabilityOffer'] = new SustainabilityOfferHelper($this->manager, $this->helpers['Channel']);
         $this->helpers['Category'] = new CategoryHelper($this->manager);
         $this->helpers['Network'] = new NetworkHelper($this->manager);
-        $this->helpers['View'] = new ViewHelper($this->manager, $this->helpers['Account'], $this->helpers['Video']);
-        $this->helpers['Forum'] = new ForumHelper($this->manager, $this->helpers['Account'], $this->helpers['Video']);
-        $this->helpers['Review'] = new ReviewHelper($this->manager, $this->helpers['Account'], $this->helpers['Video']);
-        $this->helpers['Reply'] = new ReplyHelper($this->manager, $this->helpers['Account'], $this->helpers['Review']);
-        $this->helpers['Seeder'] = new SeederHelper($this->manager, $this->helpers['Account'], $this->helpers['Video']);
+        $this->helpers['View'] = new ViewHelper($this->manager, $this->helpers['UserProfile'], $this->helpers['Video']);
+        $this->helpers['Forum'] = new ForumHelper($this->manager, $this->helpers['UserProfile'], $this->helpers['Video']);
+        $this->helpers['Review'] = new ReviewHelper($this->manager, $this->helpers['UserProfile'], $this->helpers['Video']);
+        $this->helpers['Reply'] = new ReplyHelper($this->manager, $this->helpers['UserProfile'], $this->helpers['Review']);
+        $this->helpers['Seeder'] = new SeederHelper($this->manager, $this->helpers['UserProfile'], $this->helpers['Video']);
         $this->helpers['Subtitles'] = new SubtitlesHelper($this->manager, $this->helpers['Video']);
         $this->helpers['Annotation'] = new AnnotationHelper($this->manager, $this->helpers['Video']);
-        $this->helpers['Comment'] = new CommentHelper($this->manager, $this->helpers['Account'], $this->helpers['Video']);
+        $this->helpers['Comment'] = new CommentHelper($this->manager, $this->helpers['UserProfile'], $this->helpers['Video']);
     }
 
     /**

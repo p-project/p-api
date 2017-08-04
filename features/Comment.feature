@@ -5,7 +5,7 @@ Feature: Manage comment
   I need to be able to retrieve, create, update and delete them trough the API.
 
   Background:
-    Given I am connected as "denis" with password "password"
+    Given I am connected as "denis@denis.fr" with password "password"
     And There are "video" "/videos/1"
 
   @refreshSchema
@@ -19,7 +19,7 @@ Feature: Manage comment
       "content": "string",
       "dateComment": "2017-02-03T08:56:37.848Z",
       "video": "/videos/1",
-      "author": "/accounts/1"
+      "author": "/user_profiles/1"
     }
     """
     Then the response status code should be 201
@@ -35,7 +35,7 @@ Feature: Manage comment
       "content": "string",
       "dateComment": "2017-02-03T08:56:37+00:00",
       "video": "/videos/1",
-      "author": "/accounts/1"
+      "author": "/user_profiles/1"
     }
     """
 
@@ -91,7 +91,7 @@ Feature: Manage comment
           "content": "string",
           "dateComment": "2017-02-03T08:56:37+01:00",
           "video": "/videos/1",
-          "author": "/accounts/1"
+          "author": "/user_profiles/1"
         }
       ],
       "hydra:totalItems": 1
@@ -120,7 +120,7 @@ Feature: Manage comment
       "content": "stringUpdated",
       "dateComment": "2017-02-03T08:56:37+01:00",
       "video": "/videos/1",
-      "author": "/accounts/1"
+      "author": "/user_profiles/1"
     }
     """
 

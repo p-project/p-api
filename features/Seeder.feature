@@ -5,7 +5,7 @@ Feature: Manage seeder
   I need to be able to retrieve, create, update and delete them trough the API.
 
   Background:
-    Given I am connected as "denis" with password "password"
+    Given I am connected as "denis@denis.fr" with password "password"
     And There are "video" "/videos/1"
 
   @refreshSchema
@@ -17,7 +17,7 @@ Feature: Manage seeder
     """
     {
       "platform": "string",
-      "account": "/accounts/1",
+      "userProfile": "/user_profiles/1",
       "video": "/videos/1",
       "ip": "127.0.0.1"
     }
@@ -33,7 +33,7 @@ Feature: Manage seeder
       "@type": "Seeder",
       "id": 1,
       "platform": "string",
-      "account": "/accounts/1",
+      "userProfile": "/user_profiles/1",
       "ip": "127.0.0.1",
       "video": "/videos/1"
     }
@@ -89,7 +89,7 @@ Feature: Manage seeder
           "@type": "Seeder",
           "id": 1,
           "platform": "string",
-          "account": "/accounts/1",
+          "userProfile": "/user_profiles/1",
           "ip": "127.0.0.1",
           "video": "/videos/1"
         }
@@ -118,7 +118,7 @@ Feature: Manage seeder
       "@type": "Seeder",
       "id": 1,
       "platform": "stringUpdated",
-      "account": "/accounts/1",
+      "userProfile": "/user_profiles/1",
       "ip": "127.0.0.1",
       "video": "/videos/1"
     }

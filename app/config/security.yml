@@ -1,6 +1,6 @@
 security:
     encoders:
-        AppBundle\Entity\Account:
+        AppBundle\Entity\UserAccount:
             algorithm: sha512
             encode_as_base64: true
             iterations: 5000
@@ -8,7 +8,7 @@ security:
     providers:
         account_provider:
             entity:
-                class: AppBundle\Entity\Account
+                class: AppBundle\Entity\UserAccount
 
     firewalls:
         dev:

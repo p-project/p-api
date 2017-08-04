@@ -5,7 +5,7 @@ Feature: Manage network
   I need to be able to retrieve, create, update and delete them trough the API.
 
   Background:
-    Given I am connected as "denis" with password "password"
+    Given I am connected as "denis@denis.fr" with password "password"
     And There are "channel" "/channels/1"
 
   @refreshSchema
@@ -38,15 +38,15 @@ Feature: Manage network
     """
 
   Scenario: Put a user
-    Given There are "account" "/accounts/1,/accounts/2"
+    Given There are "user profile" "/user_profiles/1,/user_profiles/2"
     When I add "Content-Type" header equal to "application/ld+json"
     And I add "Accept" header equal to "application/ld+json"
     And I send a "PUT" request to "/networks/1" with body:
     """
     {
         "peoples": [
-          "/accounts/1",
-          "/accounts/2"
+          "/user_profiles/1",
+          "/user_profiles/2"
         ]
     }
     """
@@ -63,8 +63,8 @@ Feature: Manage network
       "channels": [ "/channels/1" ],
       "name": "string",
       "peoples": [
-        "/accounts/1",
-        "/accounts/2"
+        "/user_profiles/1",
+        "/user_profiles/2"
       ],
       "playlists": []
     }
@@ -90,8 +90,8 @@ Feature: Manage network
           "channels": [ "/channels/1" ],
           "name": "string",
           "peoples": [
-              "/accounts/1",
-              "/accounts/2"
+              "/user_profiles/1",
+              "/user_profiles/2"
           ],
           "playlists": []
         }
@@ -117,8 +117,8 @@ Feature: Manage network
       "channels": [ "/channels/1" ],
       "name": "string",
       "peoples": [
-        "/accounts/1",
-        "/accounts/2"
+        "/user_profiles/1",
+        "/user_profiles/2"
       ],
       "playlists": [
         "/playlists/1",

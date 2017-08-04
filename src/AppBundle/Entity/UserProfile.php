@@ -5,17 +5,16 @@ namespace AppBundle\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User's account.
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\AccountRepository")
+ * @ORM\Entity
  * @ApiResource(attributes={"filters" = {"account.search"}, "normalization_context" = {"groups" = {"account"}}})
  */
-class Account implements UserInterface
+class UserProfile
 {
     /**
      * @var int The Id of the user
@@ -40,15 +39,77 @@ class Account implements UserInterface
     private $username;
 
     /**
-     * @var string The email of the user
+     * @var ArrayCollection The list of the channels
      *
-     * @ORM\Column(type="string", unique=true)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Channel", mappedBy="userProfile", cascade={"persist"})
+     * @Groups({"account"})
+     */
+    private $channels;
+
+    /**
+     * @var ArrayCollection The list of views
      *
      * @Groups({"account"})
-     * @Assert\NotBlank
-     * @Assert\Email
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\View", mappedBy="userProfile", cascade={"persist"})
      */
-    private $email;
+    private $views;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Forum", mappedBy="createdBy", cascade={"persist"})
+     * @Groups({"account"})
+     */
+    private $forums;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Network", mappedBy="peoples", cascade={"persist"})
+     * @Groups({"account"})
+     * @ORM\JoinTable(name="accounts_networks")
+     */
+    private $networks;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="userProfile", cascade={"persist"})
+     * @Groups({"account"})
+     */
+    private $playlists;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Reply", mappedBy="author", cascade={"persist"})
+     * @Groups({"account"})
+     */
+    private $replies;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Review", mappedBy="author", cascade={"persist"})
+     * @Groups({"account"})
+     */
+    private $reviews;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SustainabilityOffer", mappedBy="userProfile", cascade={"persist"})
+     * @Groups({"account"})
+     */
+    private $sustainabilityOffers;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Seeder", mappedBy="userProfile", cascade={"persist"})
+     * @Groups({"account"})
+     */
+    private $seeders;
 
     /**
      * @var string The first name of user
@@ -73,97 +134,12 @@ class Account implements UserInterface
     private $lastName;
 
     /**
-     * @var ArrayCollection The list of the channels
+     * @var UserAccount
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Channel", mappedBy="account", cascade={"persist"})
-     * @Groups({"account"})
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\UserAccount", inversedBy="userProfile", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $channels;
-
-    /**
-     * @var ArrayCollection The list of views
-     *
-     * @Groups({"account"})
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\View", mappedBy="account", cascade={"persist"})
-     */
-    private $views;
-
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Forum", mappedBy="createdBy", cascade={"persist"})
-     * @Groups({"account"})
-     */
-    private $forums;
-
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Network", mappedBy="peoples", cascade={"persist"})
-     * @Groups({"account"})
-     * @ORM\JoinTable(name="accounts_networks")
-     */
-    private $networks;
-
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Playlist", mappedBy="account", cascade={"persist"})
-     * @Groups({"account"})
-     */
-    private $playlists;
-
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Reply", mappedBy="author", cascade={"persist"})
-     * @Groups({"account"})
-     */
-    private $replies;
-
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Review", mappedBy="author", cascade={"persist"})
-     * @Groups({"account"})
-     */
-    private $reviews;
-
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SustainabilityOffer", mappedBy="account", cascade={"persist"})
-     * @Groups({"account"})
-     */
-    private $sustainabilityOffers;
-
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Seeder", mappedBy="account", cascade={"persist"})
-     * @Groups({"account"})
-     */
-    private $seeders;
-
-    /**
-     * @var string The salt of  the user
-     *
-     * @ORM\Column(type="string")
-     *
-     * @Assert\NotBlank
-     * @Assert\Type("string")
-     */
-    private $salt;
-
-    /**
-     * @var string password of  the user
-     *
-     * @ORM\Column(type="string")
-     *
-     * @Assert\NotBlank
-     * @Assert\Type("string")
-     */
-    private $password;
+    private $userAccount;
 
     public function __construct()
     {
@@ -183,7 +159,7 @@ class Account implements UserInterface
         return $this->views;
     }
 
-    public function setViews($views)
+    public function setViews($views): UserProfile
     {
         $this->views = $views;
 
@@ -195,7 +171,7 @@ class Account implements UserInterface
         return $this->channels;
     }
 
-    public function setChannels($channels)
+    public function setChannels($channels): UserProfile
     {
         $this->channels = $channels;
 
@@ -207,7 +183,7 @@ class Account implements UserInterface
         return $this->id;
     }
 
-    public function setId($id)
+    public function setId($id): UserProfile
     {
         $this->id = $id;
 
@@ -219,21 +195,9 @@ class Account implements UserInterface
         return $this->username;
     }
 
-    public function setUsername($username)
+    public function setUsername(string $username): UserProfile
     {
         $this->username = $username;
-
-        return $this;
-    }
-
-    public function getEmail(): string
-    {
-        return $this->email;
-    }
-
-    public function setEmail($email)
-    {
-        $this->email = $email;
 
         return $this;
     }
@@ -243,7 +207,7 @@ class Account implements UserInterface
         return $this->firstName;
     }
 
-    public function setFirstName($firstName)
+    public function setFirstName(string $firstName): UserProfile
     {
         $this->firstName = $firstName;
 
@@ -255,7 +219,7 @@ class Account implements UserInterface
         return $this->lastName;
     }
 
-    public function setLastName($lastName)
+    public function setLastName(string $lastName): UserProfile
     {
         $this->lastName = $lastName;
 
@@ -267,7 +231,7 @@ class Account implements UserInterface
         return $this->forums;
     }
 
-    public function setForums($forums): Account
+    public function setForums($forums): UserProfile
     {
         $this->forums = $forums;
 
@@ -279,7 +243,7 @@ class Account implements UserInterface
         return $this->networks;
     }
 
-    public function setNetworks($networks): Account
+    public function setNetworks($networks): UserProfile
     {
         $this->networks = $networks;
 
@@ -291,7 +255,7 @@ class Account implements UserInterface
         return $this->playlists;
     }
 
-    public function setPlaylist($playlists): Account
+    public function setPlaylist($playlists): UserProfile
     {
         $this->playlists = $playlists;
 
@@ -303,7 +267,7 @@ class Account implements UserInterface
         return $this->replies;
     }
 
-    public function setReplies($replies): Account
+    public function setReplies($replies): UserProfile
     {
         $this->replies = $replies;
 
@@ -315,7 +279,7 @@ class Account implements UserInterface
         return $this->reviews;
     }
 
-    public function setReviews($reviews): Account
+    public function setReviews($reviews): UserProfile
     {
         $this->reviews = $reviews;
 
@@ -327,7 +291,7 @@ class Account implements UserInterface
         return $this->sustainabilityOffers;
     }
 
-    public function setSustainabilityOffers($sustainabilityOffers): Account
+    public function setSustainabilityOffers($sustainabilityOffers): UserProfile
     {
         $this->sustainabilityOffers = $sustainabilityOffers;
 
@@ -339,42 +303,21 @@ class Account implements UserInterface
         return $this->seeders;
     }
 
-    public function setSeeders($seeders): Account
+    public function setSeeders($seeders): UserProfile
     {
         $this->seeders = $seeders;
 
         return $this;
     }
 
-    public function getSalt(): string
+    public function getUserAccount(): UserAccount
     {
-        return $this->salt;
+        return $this->userAccount;
     }
 
-    public function setSalt(string $salt): Account
+    public function setUserAccount(UserAccount $userAccount): UserProfile
     {
-        $this->salt = $salt;
-
-        return $this;
-    }
-
-    public function getRoles(): array
-    {
-        return ['ROLE_USER'];
-    }
-
-    public function eraseCredentials()
-    {
-    }
-
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): Account
-    {
-        $this->password = $password;
+        $this->userAccount = $userAccount;
 
         return $this;
     }

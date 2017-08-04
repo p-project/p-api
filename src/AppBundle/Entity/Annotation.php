@@ -111,7 +111,7 @@ class Annotation
         return $this->video;
     }
 
-    public function setVideo($video): Annotation
+    public function setVideo(Video $video): Annotation
     {
         $this->video = $video;
 

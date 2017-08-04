@@ -1,23 +1,30 @@
-AppBundle\Entity\Account:
+
+AppBundle\Entity\UserAccount:
   account_{1..10}:
-    username: <userName()>
     email: <email()>
-    firstName: <firstName()>
-    lastName: <lastName()>
     password: /ZPeKADSrd8e3wUM7f6DpK/0ukgbztjkSkasUz0Znugln//yx4zXtZTCUckmi/MsRkCCGaZQsTcSX2MTuXfwmw==
     salt: 12xiixme87nk4cs4sgws400ko
   account_michel:
-    username: michel
     email: michel@yopmail.fr
-    firstName: Michel
-    lastName: Michel
     password: /ZPeKADSrd8e3wUM7f6DpK/0ukgbztjkSkasUz0Znugln//yx4zXtZTCUckmi/MsRkCCGaZQsTcSX2MTuXfwmw==
     salt: 12xiixme87nk4cs4sgws400ko
+
+AppBundle\Entity\UserProfile:
+  profile_{1..10}:
+    username: <Username()>
+    firstName: <firstName()>
+    lastName: <lastName()>
+    userAccount: '@account_<current()>'
+  profile_michel:
+    username: michel
+    firstName: Michel
+    lastName: Michel
+    userAccount: '@account_michel'
 
 AppBundle\Entity\Channel:
   channel_michel:
     name: <word()>
-    account: '@account_michel'
+    userProfile: '@profile_michel'
 
 AppBundle\Entity\Category:
   category_michel:
@@ -75,18 +82,18 @@ AppBundle\Entity\Comment:
     content: <realText(150)>
     dateComment: <date()>
     video: '@video_michel'
-    author: '@account_michel'
+    author: '@profile_michel'
 
 AppBundle\Entity\Forum:
   forum_{1..5}:
     name: <word()>
     video: '@video_michel'
-    createdBy: '@account_michel'
+    createdBy: '@profile_michel'
 
 AppBundle\Entity\Network:
   network_1:
     name: <word()>
-    peoples: [ '@account_michel' ]
+    peoples: [ '@profile_michel' ]
     channels: [ '@channel_michel' ]
 
 AppBundle\Entity\Review:
@@ -94,20 +101,20 @@ AppBundle\Entity\Review:
     content: <realText(150)>
     dateReview: <date()>
     video: '@video_michel'
-    author: '@account_michel'
+    author: '@profile_michel'
 
 AppBundle\Entity\Reply:
   reply_{1..5}:
     content: <realText(150)>
     dateReply: <date()>
-    author: '@account_michel'
+    author: '@profile_michel'
     review: '@review_1'
 
 AppBundle\Entity\Seeder:
   seeder_{1..5}:
     platform: <realText(150)>
     ip: <realText(150)>
-    account: '@account_michel'
+    userProfile: '@profile_michel'
     video: '@video_michel'
 
 AppBundle\Entity\Subtitles:
@@ -121,15 +128,15 @@ AppBundle\Entity\SustainabilityOffer:
   sustainability_offer_{1..5}:
     name: <word()>
     duration: 0
-    account: '@account_michel'
+    userProfile: '@profile_michel'
     channel: '@channel_michel'
 
 AppBundle\Entity\View:
   view_{1..5}:
-    account: '@account_michel'
+    userProfile: '@profile_michel'
     video: '@video_michel'
 
 AppBundle\Entity\Playlist:
   playlist_{1..5}:
     name: <word()>
-    account: '@account_michel'
+    userProfile: '@profile_michel'

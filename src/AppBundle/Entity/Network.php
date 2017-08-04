@@ -37,7 +37,7 @@ class Network
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Account", inversedBy="networks", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\UserProfile", inversedBy="networks", cascade={"persist"})
      */
     private $peoples;
 
@@ -78,7 +78,7 @@ class Network
         return $this->channels;
     }
 
-    public function setChannels($channels)
+    public function setChannels($channels): Network
     {
         $this->channels = $channels;
 

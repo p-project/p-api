@@ -47,7 +47,7 @@ class RateLimiterTest extends KernelTestCase
         $rateLimiter = new RateLimiter($this->em);
         $ipRequest = $rateLimiter->getIpRequest('127.0.0.1');
 
-        $header = $rateLimiter->getResponseHeaders();
+        $header = $rateLimiter->getResponseHeaders('127.0.0.1');
 
         $this->assertEquals($header['X-RateLimit-Limit'], RateLimiter::MAX_ATTEMPTS);
         $this->assertEquals($header['X-RateLimit-Remaining'], RateLimiter::MAX_ATTEMPTS - $ipRequest->countAccesses());
