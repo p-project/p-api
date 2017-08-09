@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Metadata.
  *
  * @ORM\Entity
- * @ApiResource
+ * @ApiResource(attributes={"filters" = {"metadata.search"}})
  */
 class Metadata
 {
@@ -57,7 +57,7 @@ class Metadata
     private $format;
 
     /**
-     * @var string
+     * @var string The upload country of the video
      *
      * @ORM\Column(name="location", type="string")
      * @Assert\NotBlank
@@ -65,16 +65,6 @@ class Metadata
      * @Assert\Type("string")
      */
     private $location;
-
-    public function getLocation(): string
-    {
-        return $this->location;
-    }
-
-    public function setLocation(string $location)
-    {
-        $this->location = $location;
-    }
 
     public function getId(): int
     {
@@ -123,4 +113,17 @@ class Metadata
 
         return $this;
     }
+
+    public function getLocation(): string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(string $location): Metadata
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
 }
