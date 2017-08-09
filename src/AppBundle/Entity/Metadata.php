@@ -56,6 +56,26 @@ class Metadata
      */
     private $format;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="location", type="string")
+     * @Assert\NotBlank
+     * @Groups({"video"})
+     * @Assert\Type("string")
+     */
+    private $location;
+
+    public function getLocation(): string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(string $location)
+    {
+        $this->location = $location;
+    }
+
     public function getId(): int
     {
         return $this->id;
