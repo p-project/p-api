@@ -57,12 +57,10 @@ class Metadata
     private $format;
 
     /**
-     * @var string The upload country of the video
+     * @var location
      *
-     * @ORM\Column(name="location", type="string")
-     * @Assert\NotBlank
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Location", cascade={"persist"})
      * @Groups({"video"})
-     * @Assert\Type("string")
      */
     private $location;
 
@@ -114,7 +112,7 @@ class Metadata
         return $this;
     }
 
-    public function getLocation(): string
+    public function getLocation()
     {
         return $this->location;
     }
