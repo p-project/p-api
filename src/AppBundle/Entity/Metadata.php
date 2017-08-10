@@ -59,7 +59,7 @@ class Metadata
     /**
      * @var location
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Location", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Location", inversedBy="matadata")
      * @Groups({"video"})
      */
     private $location;

@@ -31,6 +31,31 @@ class Location
      */
     protected $longitude;
 
+
+    /**
+     * @var Metadata
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Metadata",  mappedBy="location", cascade={"persist"})
+     * @Groups({"video"})
+     */
+    private $metadata;
+
+    /**
+     * @return Metadata
+     */
+    public function getMetadata(): Metadata
+    {
+        return $this->metadata;
+    }
+
+    /**
+     * @param Metadata $metadata
+     */
+    public function setMetadata(Metadata $metadata)
+    {
+        $this->metadata = $metadata;
+    }
+
     /**
      * @return mixed
      */
