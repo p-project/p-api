@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Metadata.
  *
  * @ORM\Entity
- * @ApiResource
+ * @ApiResource(attributes={"filters" = {"metadata.search"}})
  */
 class Metadata
 {
@@ -55,6 +55,14 @@ class Metadata
      * @Assert\Type("string")
      */
     private $format;
+
+    /**
+     * @var location
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Location", inversedBy="matadata")
+     * @Groups({"video"})
+     */
+    private $location;
 
     public function getId(): int
     {
@@ -103,4 +111,17 @@ class Metadata
 
         return $this;
     }
+
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    public function setLocation(string $location): Metadata
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
 }
